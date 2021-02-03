@@ -11,19 +11,19 @@
 
 
     <FrameLayout
-        android:id="@+id/fragment_container"
+        android:id="@+id/fragment_container_main_activity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigation_button"
+        android:id="@+id/navigation_view_main_activity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/white"
-        android:layoutDirection="rtl"
         android:fontFamily="@font/iran_yekan"
+        android:layoutDirection="rtl"
         app:menu="@menu/navigation_menu"
         tools:layout_editor_absoluteX="44dp"
         tools:layout_editor_absoluteY="153dp">

@@ -14,9 +14,8 @@
         android:background="@color/white"
         app:lottie_autoPlay="true"
         app:lottie_fileName="animation_shopping_loader.json"
-        app:lottie_loop="true">
+        app:lottie_loop="true"/>
 
-    </com.airbnb.lottie.LottieAnimationView>
 
     <LinearLayout
         android:layout_width="match_parent"
