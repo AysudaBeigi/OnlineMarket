@@ -1,10 +1,12 @@
-package com.example.onlinemarket;
+package com.example.onlinemarket.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.onlinemarket.R;
 
 public class MainActivity extends AppCompatActivity {
 

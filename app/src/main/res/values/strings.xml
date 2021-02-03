@@ -2,5 +2,44 @@
     <string name="app_name">OnlineMarket</string>
     <string name="internet_is_disconnected">خطا در اتصال به اینترنت…</string>
     <string name="try_again">تلاش دوباره</string>
+    <string name="home">خانه</string>
+    <string name="shopping_bag">سبد خرید</string>
+    <string name="profile">نمایه من</string>
+    <string name="query_hint">جستجو</string>
+    <string name="home_page">خانه</string>
+    <string name="category">دسته بندی ها</string>
+
+    <string name="recent_products">جدیدترین</string>
+    <string name="most_visited_products">پربازدیدترین</string>
+    <string name="top_rated_products">بیشترین امتیاز</string>
+
+    <string name="product_price">قیمت:</string>
+    <string name="add_bag">افزودن به سبد خرید</string>
+    <string name="product_name">نام کالا</string>
+    <string name="product_description">مشخصات</string>
+    <string name="category_name">دسته کالا</string>
+    <string name="progress_bar">در حال لود شدن...</string>
+    <string name="search_query">دسته یا محصول </string>
+
+    <string name="delete_card_item">حذف </string>
+    <string name="count">تعداد </string>
+    <string name="final_price">قیمت نهایی </string>
+    <string name="toman">  تومان</string>
+    <string name="final_sale">جمع کل خرید</string>
+    <string name="item_sale">جمع خرید محصول</string>
+    <string name="final_shop">خرید خود را نهایی کنید</string>
+    <string name="offer_product">پیشنهادات شگفت انگیز</string>
+
+
+    <string name="whole_item">مشاهده همه</string>
+    <string name="sorting">مرتب سازی</string>
+    <string name="popularity">پر بازدیدترین</string>
+    <string name="high_to_low">قیمت از زیاد به کم</string>
+    <string name="low_to_high">قیمت از کم به زیاد</string>
+
+    <string name="newest">جدیدترین</string>
+
+    <string name="filtering">فیلتر کردن</string>
+
 
 </resources>

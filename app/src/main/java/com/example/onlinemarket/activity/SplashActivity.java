@@ -1,4 +1,4 @@
-package com.example.onlinemarket;
+package com.example.onlinemarket.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
+import com.example.onlinemarket.R;
 import com.google.android.material.snackbar.Snackbar;
 
 public class SplashActivity extends AppCompatActivity {
