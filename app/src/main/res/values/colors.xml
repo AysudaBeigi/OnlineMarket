@@ -6,12 +6,22 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white_ff">#FFFFFFFF</color>
+    <color name="red_22">#d32f2f</color>
+    <color name="yellow_35">#FDD835</color>
+    <color name="blue_01">#00ACC1</color>
+    <color name="purple_19">#6A1B9A</color>
+    <color name="purple_47">#AB47BC</color>
+    <color name="pink_52">#ff5252</color>
+    <color name="orange_40">#FF6E40</color>
+    <color name="gray_bd">#BDBDBD</color>
+    <color name="gray_75">#757575</color>
+    <color name="gray_21">#212121</color>
 
     <color name="primaryColor">#b71c1c</color>
     <color name="primaryLightColor">#f05545</color>
     <color name="primaryDarkColor">#7f0000</color>
-    <color name="secondaryColor">#64dd17</color>
+    <color name="secondaryColor">#689F38</color>
     <color name="secondaryLightColor">#9cff57</color>
     <color name="secondaryDarkColor">#1faa00</color>
     <color name="primaryTextColor">#ffffff</color>
