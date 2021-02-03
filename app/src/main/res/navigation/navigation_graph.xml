@@ -24,7 +24,7 @@
         android:label="CategoryFragment">
         <action
             android:id="@+id/action_categoryListFragment_to_productListFragment"
-            app:destination="@id/productListFragment">
+            app:destination="@id/product_detail_fragment">
             <argument
                 android:name="categoryName"
                 app:argType="string" />
@@ -36,7 +36,7 @@
         android:label="ShoppingBagFragment">
         <action
             android:id="@+id/action_categoryListFragment_to_productListFragment"
-            app:destination="@id/productListFragment">
+            app:destination="@id/product_detail_fragment">
             <argument
                 android:name="categoryName"
                 app:argType="string" />
@@ -48,7 +48,7 @@
         android:label="UserProfileFragment">
         <action
             android:id="@+id/action_categoryListFragment_to_productListFragment"
-            app:destination="@id/productListFragment">
+            app:destination="@id/product_detail_fragment">
             <argument
                 android:name="categoryName"
                 app:argType="string" />

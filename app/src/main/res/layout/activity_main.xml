@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/white"
+        android:background="@color/white_ff"
         android:fontFamily="@font/iran_yekan"
         android:layoutDirection="rtl"
         app:menu="@menu/navigation_menu"

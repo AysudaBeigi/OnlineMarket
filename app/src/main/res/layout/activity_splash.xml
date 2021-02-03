@@ -11,7 +11,7 @@
         android:id="@+id/animation_splash_activity"
         android:layout_width="match_parent"
         android:layout_height="600dp"
-        android:background="@color/white"
+        android:background="@color/white_ff"
         app:lottie_autoPlay="true"
         app:lottie_fileName="animation_shopping_loader.json"
         app:lottie_loop="true"/>

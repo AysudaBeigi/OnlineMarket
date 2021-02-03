@@ -81,12 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Fragment fragment = getSupportFragmentManager().
+        Fragment currentFragment = getSupportFragmentManager().
                 findFragmentById(R.id.fragment_container_main_activity);
-        if (!(fragment instanceof IOnBackPress) ||
-                !((IOnBackPress) fragment).onBackPressed()) {
+        if (!(currentFragment instanceof IOnBackPress) ||
+                !((IOnBackPress) currentFragment).onBackPressed()) {
             super.onBackPressed();
         }else {
+
             getSupportFragmentManager().
                     beginTransaction().
                     replace(R.id.fragment_container_main_activity,
