@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.adapter.CategoryAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
+import com.example.onlinemarket.adapter.ProductsAdapter;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Image;
 import com.example.onlinemarket.model.Product;
@@ -28,6 +30,12 @@ public class HomeFragment extends Fragment {
 
     private SliderView mSliderView;
     private ImageSliderAdapter mImageSliderAdapter;
+    private ProductsAdapter mLastProductsAdapter;
+    private ProductsAdapter mMostVisitedProductsAdapter;
+    private ProductsAdapter mPopularProductsAdapter;
+    private ProductsAdapter mAmazingOfferAdapter;
+    private CategoryAdapter mCategoryAdapter;
+
     private EditText mEditTextSearch;
     private RecyclerView mRecyclerViewLastProducts;
     private RecyclerView mRecyclerViewMostVisitedProducts;
@@ -74,19 +82,22 @@ public class HomeFragment extends Fragment {
 
     }
     private void initViews() {
-        mMarketRepository.fetchSingleProduct(608, new MarketRepository.SingleCallbacks() {
+        mMarketRepository.fetchProduct(608,
+                new MarketRepository.SingleCallbacks() {
             @Override
             public void onItemResponse(Product item) {
-
-                setupSliderAdapter(item.getImages());
+                setupImageSliderAdapter(item.getImages());
             }
         });
 
-        mMarketRepository.fetchRecentProducts(1, new MarketRepository.Callbacks() {
+        mMarketRepository.fetchLastProducts(1,
+                new MarketRepository.Callbacks() {
             @Override
             public void onItemResponse(List<Product> items) {
-                initRecyclerAdapter(mRecyclerViewLastProducts,
-                        mRecentProductAdapter, items);
+                initRecyclerView(mRecyclerViewLastProducts);
+
+                initProductAdapter(mRecyclerViewLastProducts,
+                        mLastProductsAdapter,items);
             }
         });
 
@@ -94,85 +105,75 @@ public class HomeFragment extends Fragment {
                 new MarketRepository.Callbacks() {
             @Override
             public void onItemResponse(List<Product> items) {
-                initRecyclerAdapter(mRecyclerViewMostVisitedProducts,
-                        mMostVisitedProductAdapter, items);
+                initRecyclerView(mRecyclerViewMostVisitedProducts);
+                initProductAdapter(mRecyclerViewMostVisitedProducts,
+                        mMostVisitedProductsAdapter, items);
             }
         });
 
-        mMarketRepository.fetchRatedProducts(1,
+        mMarketRepository.fetchPopularProducts(1,
                 new MarketRepository.Callbacks() {
             @Override
             public void onItemResponse(List<Product> items) {
-                initRecyclerAdapter(mRecyclerViewPopularProducts,
-                        mRatedProductAdapter, items);
+                initRecyclerView(mRecyclerViewPopularProducts);
+                initProductAdapter(mRecyclerViewPopularProducts,
+                        mPopularProductsAdapter, items);
             }
         });
-        mMarketRepository.fetchRatedProducts(2,
+        mMarketRepository.fetchPopularProducts(2,
                 new MarketRepository.Callbacks() {
             @Override
             public void onItemResponse(List<Product> items) {
-                initRecyclerAdapter(mRecyclerViewAmazingOffers,
-                        mAmazingAdapter, items);
+                initRecyclerView(mRecyclerViewAmazingOffers);
+                initProductAdapter(mRecyclerViewAmazingOffers,
+                        mAmazingOfferAdapter, items);
             }
         });
         mMarketRepository.fetchCategory(1,
                 new MarketRepository.CategoryCallbacks() {
             @Override
             public void onItemResponse(List<Category> items) {
-                initCategoryRecyclerAdapter(mRecyclerCategories,
-                        mCategoryAdapter, items);
+               initRecyclerView(mRecyclerCategories);
+                initCategoryAdapter(items);
             }
         });
     }
-    private void initCategoryRecyclerAdapter(RecyclerView recyclerView,
-                                             CategoryAdapter categoryAdapter,
-                                             List<Category> categoriesItems) {
+    private void initCategoryAdapter(List<Category> categoriesItems) {
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
 
-        updateRecyclerCategoryAdapter(recyclerView, categoryAdapter, categoriesItems);
-    }
-
-    private void updateRecyclerCategoryAdapter(RecyclerView recyclerView,
-                                               CategoryAdapter categoryAdapter,
-                                               List<Category> categoriesItems) {
-
-        if (categoryAdapter == null) {
-            categoryAdapter = new CategoryAdapter(getContext(), categoriesItems);
-            recyclerView.setAdapter(categoryAdapter);
+        if (mCategoryAdapter == null) {
+            mCategoryAdapter = new CategoryAdapter(getContext(), categoriesItems);
+            mRecyclerCategories.setAdapter(mCategoryAdapter);
         } else {
-            categoryAdapter.setCategoriesItem(categoriesItems);
-            categoryAdapter.notifyDataSetChanged();
-        }
-    }
-    private void initRecyclerAdapter(RecyclerView recyclerView,
-                                     ProductAdapter productAdapter,
-                                     List<Product> productsItems) {
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
-
-        updateRecyclerAdapter(recyclerView, productAdapter, productsItems);
-    }
-
-    private void updateRecyclerAdapter(RecyclerView recyclerView,
-                                       ProductAdapter productAdapter,
-                                       List<ProductsItem> productsItems) {
-
-        if (productAdapter == null) {
-            productAdapter = new ProductAdapter(getContext(), productsItems);
-            recyclerView.setAdapter(productAdapter);
-        } else {
-            productAdapter.setProductsItem(productsItems);
-            productAdapter.notifyDataSetChanged();
+            mCategoryAdapter.setCategoriesItem(categoriesItems);
+            mCategoryAdapter.notifyDataSetChanged();
         }
     }
 
 
-    private void setupSliderAdapter(List<Image> imagesItems) {
-        mSliderAdapter = new SliderAdapter(getContext(), imagesItems);
-        mSliderView.setSliderAdapter(mSliderAdapter);
+    private void initProductAdapter(RecyclerView recyclerView,
+                                    ProductsAdapter productsAdapter,
+                                    List<Product> productsItems) {
+
+        if (productsAdapter == null) {
+            productsAdapter = new ProductsAdapter(getContext(), productsItems);
+            recyclerView.setAdapter(productsAdapter);
+        } else {
+            productsAdapter.setProductsItem(productsItems);
+            productsAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void initRecyclerView(RecyclerView recyclerView) {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+    }
+
+
+    private void setupImageSliderAdapter(List<Image> imagesItems) {
+        ImageSliderAdapter imageSliderAdapter = new
+                ImageSliderAdapter(getContext(), imagesItems);
+        mSliderView.setSliderAdapter(imageSliderAdapter);
         mSliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         mSliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
     }

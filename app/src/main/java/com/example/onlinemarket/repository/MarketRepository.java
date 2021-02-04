@@ -65,7 +65,7 @@ public class MarketRepository {
         });
     }
 
-    public void fetchRecentProducts(int page, Callbacks callBacks) {
+    public void fetchLastProducts(int page, Callbacks callBacks) {
         HashMap<String, String> insideMap = new HashMap<>();
 
         insideMap.putAll(BASE_KEYS);
@@ -114,7 +114,7 @@ public class MarketRepository {
                 });
     }
 
-    public void fetchRatedProducts(int page, Callbacks callBacks) {
+    public void fetchPopularProducts(int page, Callbacks callBacks) {
         HashMap<String, String> insideMap = new HashMap<>();
 
         insideMap.putAll(BASE_KEYS);
@@ -215,12 +215,12 @@ public class MarketRepository {
     }
 
 
-    public void fetchSingleProduct(int id, SingleCallbacks callBacks) {
+    public void fetchProduct(int id, SingleCallbacks callBacks) {
         HashMap<String, String> insideMap = new HashMap<>();
 
         insideMap.putAll(BASE_KEYS);
 
-        mRequestService.getSingleProduct(id, insideMap).
+        mRequestService.getProduct(id, insideMap).
                 enqueue(new Callback<Product>() {
                     @Override
                     public void onResponse(Call<Product> call,

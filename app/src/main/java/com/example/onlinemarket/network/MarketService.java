@@ -24,7 +24,7 @@ public interface MarketService {
     Call<List<Product>> getProducts(@QueryMap Map<String, String> map);
 
     @GET("products/{id}/")
-    Call<Product> getSingleProduct(@Path("id") int productId, @QueryMap Map<String, String> map);
+    Call<Product> getProduct(@Path("id") int productId, @QueryMap Map<String, String> map);
 
     @GET("products/categories/")
     Call<List<Category>> getCategories(@QueryMap Map<String, String> map);
