@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.model.Product;
 
 
 public class ProductDetailFragment extends Fragment {
@@ -19,7 +20,7 @@ public class ProductDetailFragment extends Fragment {
     }
 
 
-    public static ProductDetailFragment newInstance() {
+    public static ProductDetailFragment newInstance(Product product) {
         ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle args = new Bundle();
          fragment.setArguments(args);

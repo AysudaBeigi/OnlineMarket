@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,14 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.fragment.ProductDetailFragment;
+import com.example.onlinemarket.model.Image;
 import com.example.onlinemarket.model.Product;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class ProductsAdapter extends RecyclerView.
-        Adapter<ProductsAdapter.ProductViewHolder> {
+        Adapter<ProductsAdapter.ProductViewHolder>
+        implements Filterable {
 
     private Context mContext;
     private List<Product> mProductsItem;
@@ -47,11 +51,11 @@ public class ProductsAdapter extends RecyclerView.
 
     @NonNull
     @Override
-    public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.product_view_holder, parent, false);
+                .inflate(R.layout.product_item_view, parent, false);
 
-        return new Holder(view);
+        return new ProductViewHolder(view);
     }
 
 
@@ -63,8 +67,10 @@ public class ProductsAdapter extends RecyclerView.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container,
+                ((AppCompatActivity) mContext).
+                        getSupportFragmentManager().
+                        beginTransaction()
+                        .replace(R.id.fragment_container_main_activity,
                                 ProductDetailFragment.newInstance(productItem))
                         .commit();
 
@@ -101,11 +107,13 @@ public class ProductsAdapter extends RecyclerView.
             }
 
             @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            protected void publishResults(CharSequence charSequence,
+                                          FilterResults filterResults) {
                 if (mProductsItem != null)
                     mProductsItem.clear();
                 if (filterResults.values != null)
-                    mProductsItem.addAll((Collection<? extends Product>) filterResults.values);
+                    mProductsItem.
+                            addAll((Collection<? extends Product>) filterResults.values);
                 notifyDataSetChanged();
             }
         };
@@ -116,7 +124,6 @@ public class ProductsAdapter extends RecyclerView.
 
         private TextView mName, mPrice;
         private ImageView mImage;
-        private View mItemView;
 
 
         public ProductViewHolder(@NonNull View itemView) {
@@ -132,33 +139,25 @@ public class ProductsAdapter extends RecyclerView.
             mPrice = itemView.findViewById(R.id.product_view_holder_price);
             mImage = itemView.findViewById(R.id.product_view_holder_image_cover);
 
-            mItemView = itemView;
-
         }
 
         private void bindProduct(Product productItem) {
             mName.setText(productItem.getName() + "");
             mPrice.setText(productItem.getPrice() + "");
-            List<ImagesItem> imagesItems = productItem.getImages();
-            List<String> imagesItemList = new ArrayList<>();
-            for (int i = 0; i < imagesItems.size(); i++) {
-                imagesItemList.add(imagesItems.get(i).getSrc());
+            List<Image> imagesList = productItem.getImages();
+            List<String> imagesUrlList = new ArrayList<>();
+            for (int i = 0; i < imagesList.size(); i++) {
+                imagesUrlList.add(imagesList.get(i).getSrc());
             }
 
-            for (int i = 0; i < imagesItemList.size(); i++) {
-                if (imagesItemList.get(i) == null)
-                    Glide.with(mItemView)
-                            .load(R.drawable.ic_placeholder_recycler)
+            for (int i = 0; i < imagesUrlList.size(); i++) {
+                if (imagesUrlList.get(i) != null) {
+                    Picasso.get()
+                            .load(imagesUrlList.get(i))
                             .placeholder(R.drawable.ic_placeholder_recycler)
-                            .fitCenter()
                             .into(mImage);
 
-                else
-                    Glide.with(mItemView)
-                            .load(imagesItemList.get(i))
-                            .placeholder(R.drawable.ic_placeholder_recycler)
-                            .fitCenter()
-                            .into(mImage);
+                }
             }
 
 
