@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.fragment.ProductDetailFragment;
 import com.example.onlinemarket.model.Image;
@@ -122,8 +121,9 @@ public class ProductsAdapter extends RecyclerView.
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mName, mPrice;
-        private ImageView mImage;
+        private TextView mProductName;
+        private TextView mProductPrice;
+        private ImageView mProductImage;
 
 
         public ProductViewHolder(@NonNull View itemView) {
@@ -135,15 +135,15 @@ public class ProductsAdapter extends RecyclerView.
 
 
         private void findHolderViews(@NonNull View itemView) {
-            mName = itemView.findViewById(R.id.product_view_holder_title);
-            mPrice = itemView.findViewById(R.id.product_view_holder_price);
-            mImage = itemView.findViewById(R.id.product_view_holder_image_cover);
+            mProductName = itemView.findViewById(R.id.product_view_holder_title);
+            mProductPrice = itemView.findViewById(R.id.product_view_holder_price);
+            mProductImage = itemView.findViewById(R.id.product_view_holder_image_cover);
 
         }
 
         private void bindProduct(Product productItem) {
-            mName.setText(productItem.getName() + "");
-            mPrice.setText(productItem.getPrice() + "");
+            mProductName.setText(productItem.getName() + "");
+            mProductPrice.setText(productItem.getPrice() + "");
             List<Image> imagesList = productItem.getImages();
             List<String> imagesUrlList = new ArrayList<>();
             for (int i = 0; i < imagesList.size(); i++) {
@@ -155,7 +155,7 @@ public class ProductsAdapter extends RecyclerView.
                     Picasso.get()
                             .load(imagesUrlList.get(i))
                             .placeholder(R.drawable.ic_placeholder_recycler)
-                            .into(mImage);
+                            .into(mProductImage);
 
                 }
             }
