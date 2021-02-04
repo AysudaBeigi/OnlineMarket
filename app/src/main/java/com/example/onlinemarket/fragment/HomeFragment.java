@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CategoryAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
@@ -26,7 +27,7 @@ import com.smarteist.autoimageslider.SliderView;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment  implements IOnBackPress {
 
     private SliderView mSliderView;
     private ImageSliderAdapter mImageSliderAdapter;
@@ -179,6 +180,10 @@ public class HomeFragment extends Fragment {
     }
 
 
+    @Override
+    public boolean onBackPressed() {
+        return true;
+    }
 
 
 }
