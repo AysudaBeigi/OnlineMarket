@@ -19,7 +19,7 @@ import com.example.onlinemarket.model.Image;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryAdapter extends   RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder> {
     private static final String TAG = "CategoryAdapter";
     private Context mContext;
     private List<Category> mCategoriesItems;
@@ -34,7 +34,7 @@ public class CategoryAdapter extends   RecyclerView.Adapter<CategoryAdapter.Cate
         notifyDataSetChanged();
     }
 
-    public CategoryAdapter(Context context, List<Category> categoriesItems) {
+    public CategoriesAdapter(Context context, List<Category> categoriesItems) {
         mContext = context;
         mCategoriesItems = categoriesItems;
     }
@@ -43,7 +43,7 @@ public class CategoryAdapter extends   RecyclerView.Adapter<CategoryAdapter.Cate
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.category_view_holder, parent, false);
+                .inflate(R.layout.category_item_view, parent, false);
 
         return new CategoryViewHolder(view);
     }
@@ -56,7 +56,7 @@ public class CategoryAdapter extends   RecyclerView.Adapter<CategoryAdapter.Cate
             @Override
             public void onClick(View v) {
                 ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container,
+                        .replace(R.id.fragment_container_main_activity,
                                 CategoryListFragment.newInstance(categoriesItem.getId()))
                         .commit();
 

@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Image;
 import com.smarteist.autoimageslider.SliderViewAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ImageSliderAdapter extends
 
     @Override
     public ImageSliderViewHolder onCreateViewHolder(ViewGroup parent) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.slider, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.image_slide, null);
         return new ImageSliderViewHolder(view);
     }
 
@@ -70,9 +71,8 @@ public class ImageSliderAdapter extends
         private void bindImageItem(ImageSliderViewHolder holder, Image image) {
             mImageItem = image;
             if (image.getSrc().length() != 0)
-                Glide.with(mItemView)
+                Picasso.get()
                         .load(image.getSrc())
-                        .fitCenter()
                         .into(imageViewBackground);
 
         }

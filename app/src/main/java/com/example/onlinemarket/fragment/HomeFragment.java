@@ -13,7 +13,7 @@ import android.widget.EditText;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.CategoryAdapter;
+import com.example.onlinemarket.adapter.CategoriesAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
 import com.example.onlinemarket.adapter.ProductsAdapter;
 import com.example.onlinemarket.model.Category;
@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
     private ProductsAdapter mMostVisitedProductsAdapter;
     private ProductsAdapter mPopularProductsAdapter;
     private ProductsAdapter mAmazingOfferAdapter;
-    private CategoryAdapter mCategoryAdapter;
+    private CategoriesAdapter mCategoriesAdapter;
 
     private EditText mEditTextSearch;
     private RecyclerView mRecyclerViewLastProducts;
@@ -142,12 +142,12 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
     private void initCategoryAdapter(List<Category> categoriesItems) {
 
 
-        if (mCategoryAdapter == null) {
-            mCategoryAdapter = new CategoryAdapter(getContext(), categoriesItems);
-            mRecyclerCategories.setAdapter(mCategoryAdapter);
+        if (mCategoriesAdapter == null) {
+            mCategoriesAdapter = new CategoriesAdapter(getContext(), categoriesItems);
+            mRecyclerCategories.setAdapter(mCategoriesAdapter);
         } else {
-            mCategoryAdapter.setCategoriesItem(categoriesItems);
-            mCategoryAdapter.notifyDataSetChanged();
+            mCategoriesAdapter.setCategoriesItem(categoriesItems);
+            mCategoriesAdapter.notifyDataSetChanged();
         }
     }
 
