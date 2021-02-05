@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.fragment.SubCategoriesFragment;
+import com.example.onlinemarket.fragment.SubCategoryProductsFragment;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Image;
 
@@ -58,7 +58,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             public void onClick(View v) {
                 ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_main_activity,
-                                SubCategoriesFragment.newInstance(categoriesItem.getId()))
+                                SubCategoryProductsFragment.newInstance(categoriesItem.getId()))
                         .commit();
 
             }

@@ -73,7 +73,8 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
 
         findViews(view);
         initViews();
-        setListeners();
+       // setListeners();
+        getQueryEditText();
         return view;
     }
     private void findViews(View view) {
@@ -196,7 +197,7 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
 
 
             public void afterTextChanged(Editable s) {
-                getQueryEditText(s.toString());
+                getQueryEditText();
             }
         });
 
@@ -204,8 +205,9 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
     }
 
 
-    private void getQueryEditText(String query) {
+    private void getQueryEditText() {
 
+        String query=mEditTextSearch.getText().toString();
         if (query.length() > 2)
             ((AppCompatActivity) getContext()).
                     getSupportFragmentManager().beginTransaction()
