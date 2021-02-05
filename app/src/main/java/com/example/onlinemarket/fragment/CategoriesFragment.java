@@ -1,4 +1,4 @@
-package com.example.onlinemarket.fragment;
+ package com.example.onlinemarket.fragment;
 
 import android.os.Bundle;
 
@@ -17,7 +17,6 @@ public class CategoriesFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     public static CategoriesFragment newInstance() {
         CategoriesFragment fragment = new CategoriesFragment();
         Bundle args = new Bundle();
@@ -34,7 +33,8 @@ public class CategoriesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_categories, container, false);
+        View view= inflater.
+                inflate(R.layout.fragment_categories, container, false);
+        return view;
     }
 }

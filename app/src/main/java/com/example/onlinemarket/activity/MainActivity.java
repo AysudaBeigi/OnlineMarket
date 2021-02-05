@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.fragment.CategoriesFragment;
 import com.example.onlinemarket.fragment.CategoryFragment;
 import com.example.onlinemarket.fragment.HomeFragment;
 import com.example.onlinemarket.fragment.ShoppingBagFragment;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                         replaceFragment(ShoppingBagFragment.newInstance());
                         return true;
                     case R.id.navigation_category:
-                        replaceFragment(CategoryFragment.newInstance());
+                        replaceFragment(CategoriesFragment.newInstance());
                         return true;
                     case R.id.navigation_home:
                        replaceFragment(HomeFragment.newInstance());

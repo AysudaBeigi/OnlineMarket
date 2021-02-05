@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,12 +18,11 @@ import com.example.onlinemarket.model.Product;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-public class ProductsAdapter extends RecyclerView.
-        Adapter<ProductsAdapter.ProductViewHolder>
-        implements Filterable {
+public class ProductsHorizontalAdapter extends RecyclerView.
+        Adapter<ProductsHorizontalAdapter.ProductHorizantalViewHolder>
+        /*implements Filterable */{
 
     private Context mContext;
     private List<Product> mProductsItem;
@@ -42,7 +39,7 @@ public class ProductsAdapter extends RecyclerView.
         notifyDataSetChanged();
     }
 
-    public ProductsAdapter(Context context, List<Product> productsItem) {
+    public ProductsHorizontalAdapter(Context context, List<Product> productsItem) {
         mContext = context;
         mProductsItem = productsItem;
         mSearchProductsItem = new ArrayList<>(productsItem);
@@ -50,16 +47,16 @@ public class ProductsAdapter extends RecyclerView.
 
     @NonNull
     @Override
-    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProductHorizantalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.product_item_view, parent, false);
+                .inflate(R.layout.product_horizantal__item_view, parent, false);
 
-        return new ProductViewHolder(view);
+        return new ProductHorizantalViewHolder(view);
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductHorizantalViewHolder holder, int position) {
         Product productItem = mProductsItem.get(position);
         holder.bindProduct(productItem);
 
@@ -83,7 +80,7 @@ public class ProductsAdapter extends RecyclerView.
     }
 
 
-    @Override
+   /* @Override
     public Filter getFilter() {
         return new Filter() {
             @Override
@@ -117,16 +114,16 @@ public class ProductsAdapter extends RecyclerView.
             }
         };
     }
+*/
 
-
-    public class ProductViewHolder extends RecyclerView.ViewHolder {
+    public class ProductHorizantalViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mProductName;
         private TextView mProductPrice;
         private ImageView mProductImage;
 
 
-        public ProductViewHolder(@NonNull View itemView) {
+        public ProductHorizantalViewHolder(@NonNull View itemView) {
             super(itemView);
 
             findHolderViews(itemView);

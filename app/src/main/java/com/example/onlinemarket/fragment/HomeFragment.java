@@ -2,10 +2,13 @@ package com.example.onlinemarket.fragment;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +18,7 @@ import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CategoriesAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
-import com.example.onlinemarket.adapter.ProductsAdapter;
+import com.example.onlinemarket.adapter.ProductsHorizontalAdapter;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Image;
 import com.example.onlinemarket.model.Product;
@@ -31,10 +34,10 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
 
     private SliderView mSliderView;
     private ImageSliderAdapter mImageSliderAdapter;
-    private ProductsAdapter mLastProductsAdapter;
-    private ProductsAdapter mMostVisitedProductsAdapter;
-    private ProductsAdapter mPopularProductsAdapter;
-    private ProductsAdapter mAmazingOfferAdapter;
+    private ProductsHorizontalAdapter mLastProductsHorizontalAdapter;
+    private ProductsHorizontalAdapter mMostVisitedProductsHorizontalAdapter;
+    private ProductsHorizontalAdapter mPopularProductsHorizontalAdapter;
+    private ProductsHorizontalAdapter mAmazingOfferAdapter;
     private CategoriesAdapter mCategoriesAdapter;
 
     private EditText mEditTextSearch;
@@ -70,6 +73,7 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
 
         findViews(view);
         initViews();
+        setListeners();
         return view;
     }
     private void findViews(View view) {
@@ -87,6 +91,7 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
                 new MarketRepository.SingleCallbacks() {
             @Override
             public void onItemResponse(Product item) {
+
                 setupImageSliderAdapter(item.getImages());
             }
         });
@@ -98,7 +103,7 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
                 initRecyclerView(mRecyclerViewLastProducts);
 
                 initProductAdapter(mRecyclerViewLastProducts,
-                        mLastProductsAdapter,items);
+                        mLastProductsHorizontalAdapter,items);
             }
         });
 
@@ -108,7 +113,7 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
             public void onItemResponse(List<Product> items) {
                 initRecyclerView(mRecyclerViewMostVisitedProducts);
                 initProductAdapter(mRecyclerViewMostVisitedProducts,
-                        mMostVisitedProductsAdapter, items);
+                        mMostVisitedProductsHorizontalAdapter, items);
             }
         });
 
@@ -118,7 +123,7 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
             public void onItemResponse(List<Product> items) {
                 initRecyclerView(mRecyclerViewPopularProducts);
                 initProductAdapter(mRecyclerViewPopularProducts,
-                        mPopularProductsAdapter, items);
+                        mPopularProductsHorizontalAdapter, items);
             }
         });
         mMarketRepository.fetchPopularProducts(2,
@@ -153,15 +158,15 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
 
 
     private void initProductAdapter(RecyclerView recyclerView,
-                                    ProductsAdapter productsAdapter,
+                                    ProductsHorizontalAdapter productsHorizontalAdapter,
                                     List<Product> productsItems) {
 
-        if (productsAdapter == null) {
-            productsAdapter = new ProductsAdapter(getContext(), productsItems);
-            recyclerView.setAdapter(productsAdapter);
+        if (productsHorizontalAdapter == null) {
+            productsHorizontalAdapter = new ProductsHorizontalAdapter(getContext(), productsItems);
+            recyclerView.setAdapter(productsHorizontalAdapter);
         } else {
-            productsAdapter.setProductsItem(productsItems);
-            productsAdapter.notifyDataSetChanged();
+            productsHorizontalAdapter.setProductsItem(productsItems);
+            productsHorizontalAdapter.notifyDataSetChanged();
         }
     }
 
@@ -177,6 +182,36 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
         mSliderView.setSliderAdapter(imageSliderAdapter);
         mSliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         mSliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+    }
+
+    private void setListeners() {
+        mEditTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+
+            public void afterTextChanged(Editable s) {
+                getQueryEditText(s.toString());
+            }
+        });
+
+
+    }
+
+
+    private void getQueryEditText(String query) {
+
+        if (query.length() > 2)
+            ((AppCompatActivity) getContext()).
+                    getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container_main_activity,
+                            SearchFragment.newInstance(query))
+                    .commit();
     }
 
 

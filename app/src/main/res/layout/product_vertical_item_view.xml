@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="2dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginRight="2dp"
+    android:layout_marginBottom="4dp"
+    android:background="@color/white_ff"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_weight="0.7"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/product_category_holder_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/far_trafc_bd"
+            android:gravity="right"
+            android:lines="3"
+            android:text="@string/product_name"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="2dp"
+            android:background="?android:attr/listDivider"
+            android:outlineAmbientShadowColor="#DDDDDD"
+            android:outlineSpotShadowColor="#DDDDDD" />
+
+        <TextView
+            android:id="@+id/product_category_holder_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/far_trafc_bd"
+            android:gravity="left"
+            android:text="@string/product_price"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/product_category_holder_image"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_weight="0.3"
+        android:elevation="4dp"
+        android:scaleType="fitCenter"
+        tools:src="@drawable/ic_placeholder_recycler"
+        android:src="@drawable/ic_placeholder_recycler"/>
+</LinearLayout>
