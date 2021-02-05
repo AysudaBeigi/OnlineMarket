@@ -309,19 +309,19 @@ public class MarketRepository {
 
 
     public interface productsCallback {
-        void onItemResponse(List<Product> items);
+        void onItemResponse(List<Product> products);
     }
 
     public interface CategoriesCallback {
-        void onItemResponse(List<Category> items);
+        void onItemResponse(List<Category> categories);
     }
 
     public interface subCategoriesCallback {
-        void onItemResponse(List<Category> items);
+        void onItemResponse(List<Category> subCategories);
     }
 
     public interface productCallback {
-        void onItemResponse(Product item);
+        void onItemResponse(Product product);
     }
 
    /* public interface CustomerCallbacks {

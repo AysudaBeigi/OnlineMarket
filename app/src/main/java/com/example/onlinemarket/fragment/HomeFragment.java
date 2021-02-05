@@ -90,9 +90,9 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
         mMarketRepository.fetchProduct(608,
                 new MarketRepository.productCallback() {
             @Override
-            public void onItemResponse(Product item) {
+            public void onItemResponse(Product product) {
 
-                setupImageSliderAdapter(item.getImages());
+                setupImageSliderAdapter(product.getImages());
             }
         });
 
@@ -138,9 +138,9 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
         mMarketRepository.fetchCategories(1,
                 new MarketRepository.CategoriesCallback() {
             @Override
-            public void onItemResponse(List<Category> items) {
+            public void onItemResponse(List<Category> categories) {
                initRecyclerView(mRecyclerCategories);
-                initCategoryAdapter(items);
+                initCategoryAdapter(categories);
             }
         });
     }
