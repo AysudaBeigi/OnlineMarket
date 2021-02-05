@@ -46,7 +46,7 @@ public class MarketRepository {
         mContext = context;
     }
 
-    public void fetchAllProductItemsAsync(Callbacks callBacks) {
+    public void fetchAllProductItemsAsync(productsCallback callBacks) {
 
         mRequestService.getProducts(BASE_KEYS).enqueue(new Callback<List<Product>>() {
             @Override
@@ -65,7 +65,7 @@ public class MarketRepository {
         });
     }
 
-    public void fetchLastProducts(int page, Callbacks callBacks) {
+    public void fetchLastProducts(int page, productsCallback callBacks) {
         HashMap<String, String> insideMap = new HashMap<>();
 
         insideMap.putAll(BASE_KEYS);
@@ -89,7 +89,7 @@ public class MarketRepository {
     }
 
 
-    public void fetchMostVisitedProducts(int page, Callbacks callBacks) {
+    public void fetchMostVisitedProducts(int page, productsCallback callBacks) {
         HashMap<String, String> insideMap = new HashMap<>();
 
         insideMap.putAll(BASE_KEYS);
@@ -114,7 +114,7 @@ public class MarketRepository {
                 });
     }
 
-    public void fetchPopularProducts(int page, Callbacks callBacks) {
+    public void fetchPopularProducts(int page, productsCallback callBacks) {
         HashMap<String, String> insideMap = new HashMap<>();
 
         insideMap.putAll(BASE_KEYS);
@@ -138,32 +138,33 @@ public class MarketRepository {
         });
     }
 
-    public void fetchCategory(int page, CategoryCallbacks callBacks) {
+    public void fetchCategories(int page, CategoriesCallback callBacks) {
         HashMap<String, String> insideMap = new HashMap<>();
 
         insideMap.putAll(BASE_KEYS);
         insideMap.put("page", String.valueOf(page));
         insideMap.put("per_page", String.valueOf(10));
+        insideMap.put("parent", String.valueOf(0));
 
         mRequestService.getCategories(insideMap).
                 enqueue(new Callback<List<Category>>() {
-            @Override
-            public void onResponse(Call<List<Category>> call,
-                                   Response<List<Category>> response) {
-                List<Category> categoriesItems = response.body();
-                //update adapter of recyclerview
-                callBacks.onItemResponse(categoriesItems);
-            }
+                    @Override
+                    public void onResponse(Call<List<Category>> call,
+                                           Response<List<Category>> response) {
+                        List<Category> categoriesItems = response.body();
+                        //update adapter of recyclerview
+                        callBacks.onItemResponse(categoriesItems);
+                    }
 
-            @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
-                Log.e(TAG, t.getMessage(), t);
+                    @Override
+                    public void onFailure(Call<List<Category>> call, Throwable t) {
+                        Log.e(TAG, t.getMessage(), t);
 
-            }
-        });
+                    }
+                });
     }
 
-    public void fetchCategoryProduct(int page, int id, Callbacks callBacks) {
+    public void fetchCategoryProduct(int page, int id, productsCallback callBacks) {
         HashMap<String, String> localMap = new HashMap<>();
 
         localMap.putAll(BASE_KEYS);
@@ -172,24 +173,24 @@ public class MarketRepository {
 
         mRequestService.getProducts(localMap).
                 enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call,
-                                   Response<List<Product>> response) {
+                    @Override
+                    public void onResponse(Call<List<Product>> call,
+                                           Response<List<Product>> response) {
 
-                List<Product> categoryItems = response.body();
-                //update adapter of recyclerview
-                callBacks.onItemResponse(categoryItems);
-            }
+                        List<Product> categoryItems = response.body();
+                        //update adapter of recyclerview
+                        callBacks.onItemResponse(categoryItems);
+                    }
 
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-                Log.e(TAG, t.getMessage(), t);
-            }
-        });
+                    @Override
+                    public void onFailure(Call<List<Product>> call, Throwable t) {
+                        Log.e(TAG, t.getMessage(), t);
+                    }
+                });
     }
 
     public void fetchCategoryProductByOrder(int page, int id,
-                                            String orderBy, Callbacks callBacks) {
+                                            String orderBy, productsCallback callBacks) {
         HashMap<String, String> localMap = new HashMap<>();
 
         localMap.putAll(BASE_KEYS);
@@ -199,23 +200,48 @@ public class MarketRepository {
 
         mRequestService.getProducts(localMap).
                 enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call,
-                                   Response<List<Product>> response) {
-                List<Product> categoryItems = response.body();
-                //update adapter of recyclerview
-                callBacks.onItemResponse(categoryItems);
-            }
+                    @Override
+                    public void onResponse(Call<List<Product>> call,
+                                           Response<List<Product>> response) {
+                        List<Product> categoryItems = response.body();
+                        //update adapter of recyclerview
+                        callBacks.onItemResponse(categoryItems);
+                    }
 
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-                Log.e(TAG, t.getMessage(), t);
-            }
-        });
+                    @Override
+                    public void onFailure(Call<List<Product>> call, Throwable t) {
+                        Log.e(TAG, t.getMessage(), t);
+                    }
+                });
+    }
+
+    public void fetchSubCategories(int parentId, subCategoriesCallback callback) {
+        HashMap<String, String> localMap = new HashMap<>();
+
+        localMap.putAll(BASE_KEYS);
+        localMap.put("parent", String.valueOf(parentId));
+
+        mRequestService.getCategories(localMap).
+                enqueue(new Callback<List<Category>>() {
+                    @Override
+                    public void onResponse(Call<List<Category>> call,
+                                           Response<List<Category>> response) {
+                        List<Category> categoryItems = response.body();
+                        //update adapter of recyclerview
+                        callback.onItemResponse(categoryItems);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Category>> call, Throwable t) {
+                        Log.e(TAG, t.getMessage(), t);
+                    }
+                });
+
+
     }
 
 
-    public void fetchProduct(int id, SingleCallbacks callBacks) {
+    public void fetchProduct(int id, productCallback callBacks) {
         HashMap<String, String> insideMap = new HashMap<>();
 
         insideMap.putAll(BASE_KEYS);
@@ -257,7 +283,7 @@ public class MarketRepository {
     }
 */
 
-    public void fetchSearchProducts(String query, Callbacks callBacks) {
+    public void fetchSearchProducts(String query, productsCallback callBacks) {
 
         HashMap<String, String> insideMap = new HashMap<>();
 
@@ -282,15 +308,19 @@ public class MarketRepository {
     }
 
 
-    public interface Callbacks {
+    public interface productsCallback {
         void onItemResponse(List<Product> items);
     }
 
-    public interface CategoryCallbacks {
+    public interface CategoriesCallback {
         void onItemResponse(List<Category> items);
     }
 
-    public interface SingleCallbacks {
+    public interface subCategoriesCallback {
+        void onItemResponse(List<Category> items);
+    }
+
+    public interface productCallback {
         void onItemResponse(Product item);
     }
 

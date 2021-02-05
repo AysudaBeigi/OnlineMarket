@@ -47,7 +47,7 @@ public class SearchFragment extends Fragment implements IOnBackPress {
         mMarketRepository = new MarketRepository(getContext());
         mQuery = (String) getArguments().get(ARGS_QUERY);
 
-        mMarketRepository.fetchSearchProducts(mQuery, new MarketRepository.Callbacks() {
+        mMarketRepository.fetchSearchProducts(mQuery, new MarketRepository.productsCallback() {
             @Override
             public void onItemResponse(List<Product> items) {
                 if (mAdapter == null) {

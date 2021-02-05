@@ -78,17 +78,17 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
     }
     private void findViews(View view) {
         mSliderView = view.findViewById(R.id.fragment_home_slider);
-        mRecyclerViewLastProducts = view.findViewById(R.id.fragment_home_recyclerview_recent_item);
-        mRecyclerViewMostVisitedProducts = view.findViewById(R.id.fragment_home_recyclerview_most_visited);
-        mRecyclerViewPopularProducts = view.findViewById(R.id.fragment_home_recyclerview_top_rated);
-        mRecyclerCategories = view.findViewById(R.id.fragment_home_recyclerview_category);
-        mRecyclerViewAmazingOffers = view.findViewById(R.id.fragment_home_recyclerview_offered_item);
+        mRecyclerViewLastProducts = view.findViewById(R.id.fragment_home_recycler_view_most_viewed);
+        mRecyclerViewMostVisitedProducts = view.findViewById(R.id.fragment_home_recycler_view_last_products);
+        mRecyclerViewPopularProducts = view.findViewById(R.id.fragment_home_recycler_view_popularest_products);
+        mRecyclerCategories = view.findViewById(R.id.fragment_home_recyclerview_categories);
+        mRecyclerViewAmazingOffers = view.findViewById(R.id.fragment_home_recycler_view_wonderful_offer);
         mEditTextSearch = view.findViewById(R.id.searching_query);
 
     }
     private void initViews() {
         mMarketRepository.fetchProduct(608,
-                new MarketRepository.SingleCallbacks() {
+                new MarketRepository.productCallback() {
             @Override
             public void onItemResponse(Product item) {
 
@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
         });
 
         mMarketRepository.fetchLastProducts(1,
-                new MarketRepository.Callbacks() {
+                new MarketRepository.productsCallback() {
             @Override
             public void onItemResponse(List<Product> items) {
                 initRecyclerView(mRecyclerViewLastProducts);
@@ -108,7 +108,7 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
         });
 
         mMarketRepository.fetchMostVisitedProducts(1,
-                new MarketRepository.Callbacks() {
+                new MarketRepository.productsCallback() {
             @Override
             public void onItemResponse(List<Product> items) {
                 initRecyclerView(mRecyclerViewMostVisitedProducts);
@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
         });
 
         mMarketRepository.fetchPopularProducts(1,
-                new MarketRepository.Callbacks() {
+                new MarketRepository.productsCallback() {
             @Override
             public void onItemResponse(List<Product> items) {
                 initRecyclerView(mRecyclerViewPopularProducts);
@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
             }
         });
         mMarketRepository.fetchPopularProducts(2,
-                new MarketRepository.Callbacks() {
+                new MarketRepository.productsCallback() {
             @Override
             public void onItemResponse(List<Product> items) {
                 initRecyclerView(mRecyclerViewAmazingOffers);
@@ -135,8 +135,8 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
                         mAmazingOfferAdapter, items);
             }
         });
-        mMarketRepository.fetchCategory(1,
-                new MarketRepository.CategoryCallbacks() {
+        mMarketRepository.fetchCategories(1,
+                new MarketRepository.CategoriesCallback() {
             @Override
             public void onItemResponse(List<Category> items) {
                initRecyclerView(mRecyclerCategories);

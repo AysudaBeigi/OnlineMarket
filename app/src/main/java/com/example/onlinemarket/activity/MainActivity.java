@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.fragment.CategoriesFragment;
-import com.example.onlinemarket.fragment.CategoryFragment;
 import com.example.onlinemarket.fragment.HomeFragment;
 import com.example.onlinemarket.fragment.ShoppingBagFragment;
 import com.example.onlinemarket.fragment.UserProfileFragment;

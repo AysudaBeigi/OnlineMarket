@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/category_fragment"
-        android:name="com.example.onlinemarket.fragment.CategoryFragment"
+        android:name="com.example.onlinemarket.fragment.SubCategoriesFragment"
         android:label="CategoryFragment">
         <action
             android:id="@+id/action_categoryListFragment_to_productListFragment"

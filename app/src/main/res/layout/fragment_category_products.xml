@@ -14,23 +14,6 @@
         android:orientation="vertical"
         tools:context=".view.HomePageFragment">
 
-        <include layout="@layout/search_view" />
-
-        <include layout="@layout/slider_view_holder" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragment_home_recyclerview_categories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layoutDirection="rtl"
-            android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:textDirection="rtl"
-
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -60,7 +43,7 @@
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fragment_home_recycler_view_wonderful_offer"
+                android:id="@+id/fragment_category_products_recycler_view_wonderful_offer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -115,7 +98,7 @@
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fragment_home_recycler_view_most_viewed"
+                android:id="@+id/fragment_category_products_recycler_view_most_viewed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -170,7 +153,7 @@
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fragment_home_recycler_view_last_products"
+                android:id="@+id/fragment_category_products_recycler_view_last_products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -229,7 +212,7 @@
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fragment_home_recycler_view_popularest_products"
+                android:id="@+id/fragment_category_products_recycler_view_popularest_products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

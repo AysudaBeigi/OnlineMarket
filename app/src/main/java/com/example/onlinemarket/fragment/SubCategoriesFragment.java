@@ -11,17 +11,17 @@ import android.view.ViewGroup;
 import com.example.onlinemarket.R;
 
 
-public class CategoryFragment extends Fragment {
+public class SubCategoriesFragment extends Fragment {
 
 
-    public CategoryFragment() {
+    public SubCategoriesFragment() {
         // Required empty public constructor
     }
 
 
     // TODO: Rename and change types and number of parameters
-    public static CategoryFragment newInstance(int id ) {
-        CategoryFragment fragment = new CategoryFragment();
+    public static SubCategoriesFragment newInstance(int id ) {
+        SubCategoriesFragment fragment = new SubCategoriesFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -37,6 +37,6 @@ public class CategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category, container, false);
+        return inflater.inflate(R.layout.fragment_sub_categories, container, false);
     }
 }
