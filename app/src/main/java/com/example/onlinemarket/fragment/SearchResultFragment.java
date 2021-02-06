@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
@@ -17,7 +18,7 @@ import com.example.onlinemarket.repository.MarketRepository;
 
 import java.util.List;
 
-public class SearchFragment extends Fragment implements IOnBackPress {
+public class SearchResultFragment extends Fragment implements IOnBackPress {
 
     public static final String ARGS_QUERY = "ARGS_QUERY";
 
@@ -26,14 +27,15 @@ public class SearchFragment extends Fragment implements IOnBackPress {
     private RecyclerView mRecyclerView;
     private ProductsVerticalAdapter mAdapter;
     private MarketRepository mMarketRepository;
+    private ImageView mSort, mFilter;
 
 
-    public SearchFragment() {
+    public SearchResultFragment() {
         // Required empty public constructor
     }
 
-    public static SearchFragment newInstance(String query) {
-        SearchFragment fragment = new SearchFragment();
+    public static SearchResultFragment newInstance(String query) {
+        SearchResultFragment fragment = new SearchResultFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARGS_QUERY, query);
         fragment.setArguments(args);
@@ -66,14 +68,35 @@ public class SearchFragment extends Fragment implements IOnBackPress {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_search_result, container, false);
         findViews(view);
-
+        setListeners();
         return view;
     }
 
     private void findViews(View view) {
-        mRecyclerView = view.findViewById(R.id.search_recycler_view);
+        mRecyclerView = view.findViewById(R.id.recycler_view_search_result);
+        mSort = view.findViewById(R.id.sort_order);
+        mFilter = view.findViewById(R.id.filter_product);
+
+    }
+
+    private void setListeners() {
+        mSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OrderingFragment orderDialogFragment = OrderingFragment.newInstance();
+
+            }
+        });
+        mFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+
     }
 
 

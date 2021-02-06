@@ -6,7 +6,7 @@
     android:layout_marginTop="2dp"
     android:layout_marginRight="2dp"
     android:layout_marginBottom="4dp"
-    android:background="@color/white_ff"
+    android:background="@color/gray_bd"
     android:orientation="horizontal">
 
     <LinearLayout

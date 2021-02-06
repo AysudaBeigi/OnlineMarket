@@ -12,11 +12,11 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.SearchView;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.CategoriesAdapter;
+import com.example.onlinemarket.adapter.HomeFragmentCategoriesAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
 import com.example.onlinemarket.adapter.ProductsHorizontalAdapter;
 import com.example.onlinemarket.model.Category;
@@ -38,14 +38,14 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
     private ProductsHorizontalAdapter mMostVisitedProductsHorizontalAdapter;
     private ProductsHorizontalAdapter mPopularProductsHorizontalAdapter;
     private ProductsHorizontalAdapter mAmazingOfferAdapter;
-    private CategoriesAdapter mCategoriesAdapter;
+    private HomeFragmentCategoriesAdapter mHomeFragmentCategoriesAdapter;
 
-    private EditText mEditTextSearch;
+    private SearchView mSearchViewHomeFragment;
     private RecyclerView mRecyclerViewLastProducts;
     private RecyclerView mRecyclerViewMostVisitedProducts;
     private RecyclerView mRecyclerViewPopularProducts;
     private RecyclerView mRecyclerCategories;
-    private RecyclerView mRecyclerViewAmazingOffers;
+    private RecyclerView mRecyclerViewWonderfulOffer;
     private MarketRepository mMarketRepository;
 
     public HomeFragment() {
@@ -78,13 +78,20 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
         return view;
     }
     private void findViews(View view) {
-        mSliderView = view.findViewById(R.id.fragment_home_slider);
-        mRecyclerViewLastProducts = view.findViewById(R.id.fragment_home_recycler_view_most_viewed);
-        mRecyclerViewMostVisitedProducts = view.findViewById(R.id.fragment_home_recycler_view_last_products);
-        mRecyclerViewPopularProducts = view.findViewById(R.id.fragment_home_recycler_view_popularest_products);
-        mRecyclerCategories = view.findViewById(R.id.fragment_home_recyclerview_categories);
-        mRecyclerViewAmazingOffers = view.findViewById(R.id.fragment_home_recycler_view_wonderful_offer);
-        mEditTextSearch = view.findViewById(R.id.searching_query);
+        mSliderView = view.
+                findViewById(R.id.fragment_home_slider);
+        mRecyclerViewLastProducts = view.
+                findViewById(R.id.fragment_home_recycler_view_last_products);
+        mRecyclerViewMostVisitedProducts = view.
+                findViewById(R.id.fragment_home_recycler_view_most_viewed);
+        mRecyclerViewPopularProducts = view.
+                findViewById(R.id.fragment_home_recycler_view_popularest_products);
+        mRecyclerCategories = view.
+                findViewById(R.id.fragment_home_recyclerview_categories);
+        mRecyclerViewWonderfulOffer = view.
+                findViewById(R.id.fragment_home_recycler_view_wonderful_offer);
+        mSearchViewHomeFragment = view.
+                findViewById(R.id.home_fragment_search_view);
 
     }
     private void initViews() {
@@ -131,8 +138,8 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
                 new MarketRepository.productsCallback() {
             @Override
             public void onItemResponse(List<Product> items) {
-                initRecyclerView(mRecyclerViewAmazingOffers);
-                initProductAdapter(mRecyclerViewAmazingOffers,
+                initRecyclerView(mRecyclerViewWonderfulOffer);
+                initProductAdapter(mRecyclerViewWonderfulOffer,
                         mAmazingOfferAdapter, items);
             }
         });
@@ -148,12 +155,12 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
     private void initCategoryAdapter(List<Category> categoriesItems) {
 
 
-        if (mCategoriesAdapter == null) {
-            mCategoriesAdapter = new CategoriesAdapter(getContext(), categoriesItems);
-            mRecyclerCategories.setAdapter(mCategoriesAdapter);
+        if (mHomeFragmentCategoriesAdapter == null) {
+            mHomeFragmentCategoriesAdapter = new HomeFragmentCategoriesAdapter(getContext(), categoriesItems);
+            mRecyclerCategories.setAdapter(mHomeFragmentCategoriesAdapter);
         } else {
-            mCategoriesAdapter.setCategoriesItem(categoriesItems);
-            mCategoriesAdapter.notifyDataSetChanged();
+            mHomeFragmentCategoriesAdapter.setCategoriesItem(categoriesItems);
+            mHomeFragmentCategoriesAdapter.notifyDataSetChanged();
         }
     }
 
@@ -184,9 +191,9 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
         mSliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         mSliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
     }
-
+/*
     private void setListeners() {
-        mEditTextSearch.addTextChangedListener(new TextWatcher() {
+        mSearchViewHomeFragment.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -202,17 +209,17 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
         });
 
 
-    }
+    }*/
 
 
     private void getQueryEditText() {
 
-        String query=mEditTextSearch.getText().toString();
+        String query= mSearchViewHomeFragment.getQuery().toString().trim();
         if (query.length() > 2)
             ((AppCompatActivity) getContext()).
                     getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container_main_activity,
-                            SearchFragment.newInstance(query))
+                            SearchResultFragment.newInstance(query))
                     .commit();
     }
 

@@ -1,5 +1,6 @@
 package com.example.onlinemarket.network;
 
+import com.example.onlinemarket.model.Attribute;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
 
@@ -28,6 +29,9 @@ public interface MarketService {
 
     @GET("products/categories/")
     Call<List<Category>> getCategories(@QueryMap Map<String, String> map);
+
+    @GET("products/categories/attributes")
+    Call<List<Attribute>> getAttributes(@QueryMap Map<String, String> map);
 
 /*
 

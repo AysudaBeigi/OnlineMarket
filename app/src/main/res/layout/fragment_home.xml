@@ -14,7 +14,8 @@
         android:orientation="vertical"
         tools:context=".view.HomePageFragment">
 
-        <include layout="@layout/search_view" />
+        <include layout="@layout/search_view"
+            android:id="@+id/home_fragment_search_view"/>
 
         <include layout="@layout/slider_view_holder" />
 
@@ -79,20 +80,6 @@
             android:layout_marginRight="16dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/fragment_home_recent_whole_see"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="left"
-                android:padding="4dp"
-                android:text="@string/visit_all"
-                android:textColor="@color/white_ff"
-                android:textSize="12sp"
-                app:fontFamily="@font/far_roya_bd" />
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -117,7 +104,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fragment_home_recycler_view_most_viewed"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="right"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
@@ -133,20 +120,6 @@
             android:layout_marginTop="24dp"
             android:layout_marginRight="16dp"
             android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/fragment_home_most_visited_whole_see"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="left"
-                android:padding="4dp"
-                android:text="@string/visit_all"
-                android:textColor="@color/white_ff"
-                android:textSize="12sp"
-                app:fontFamily="@font/far_roya_bd" />
 
 
             <TextView
@@ -191,20 +164,6 @@
             android:layout_marginRight="16dp"
             android:orientation="horizontal">
 
-
-            <TextView
-                android:id="@+id/fragment_home_rated_whole_see"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="left"
-                android:padding="4dp"
-                android:text="@string/visit_all"
-                android:textColor="@color/white_ff"
-                android:textSize="12sp"
-                app:fontFamily="@font/far_roya_bd" />
 
 
             <TextView

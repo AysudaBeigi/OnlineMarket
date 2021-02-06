@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/gray_bd"
+            app:cardBackgroundColor="@color/white_ff"
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/gray_bd"
+            app:cardBackgroundColor="@color/white_ff"
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -167,7 +167,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/gray_bd"
+            app:cardBackgroundColor="@color/white_ff"
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -223,7 +223,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/gray_bd"
+            app:cardBackgroundColor="@color/white_ff"
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -279,7 +279,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/gray_bd"
+            app:cardBackgroundColor="@color/white_ff"
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -335,7 +335,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/gray_bd"
+            app:cardBackgroundColor="@color/white_ff"
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView

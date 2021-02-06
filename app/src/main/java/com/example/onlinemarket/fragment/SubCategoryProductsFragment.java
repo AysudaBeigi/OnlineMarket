@@ -12,14 +12,10 @@ import android.view.ViewGroup;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.CategoriesAdapter;
-import com.example.onlinemarket.adapter.ProductsHorizontalAdapter;
 import com.example.onlinemarket.adapter.ProductsVerticalAdapter;
-import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.repository.MarketRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

@@ -12,9 +12,10 @@ import android.widget.TextView;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.CategoriesAdapter;
-import com.example.onlinemarket.adapter.ProductsVerticalAdapter;
+import com.example.onlinemarket.adapter.HomeFragmentCategoriesAdapter;
+import com.example.onlinemarket.adapter.ProductsHorizontalAdapter;
 import com.example.onlinemarket.model.Category;
+import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.repository.MarketRepository;
 
 import java.util.ArrayList;
@@ -28,10 +29,17 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
             mRecyclerViewCategoryFive,
             mRecyclerViewCategorySix;
 
-    private CategoriesAdapter mAdapterOne, mAdapterTwo, mAdapterThree,
+    private HomeFragmentCategoriesAdapter mAdapterOne, mAdapterTwo, mAdapterThree,
             mAdapterFour, mAdapterFive,
             mAdapterSix;
+    private ProductsHorizontalAdapter mPAdapterOne, mPAdapterTwo, mPAdapterThree,
+            mPAdapterFour, mPAdapterFive,
+            mPAdapterSix;
 
+
+    private ArrayList<HomeFragmentCategoriesAdapter> mHomeFragmentCategoriesAdapters = new ArrayList<>();
+    private ArrayList<RecyclerView> mRecyclerViews = new ArrayList<>();
+    private ArrayList<ProductsHorizontalAdapter> mProductsHorizontalAdapters = new ArrayList<>();
     private TextView mTextOne, mTextTwo, mTextThree, mTextFour, mTextFive, mTextSix;
 
     private MarketRepository mMarketRepository;
@@ -62,8 +70,37 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                         setTextName(categories);
                     }
                 });
+        initCategoriesAdapters();
+        initRecyclerViews();
+        initProductHorizontalAdapters();
 
+    }
 
+    private void initProductHorizontalAdapters() {
+        mProductsHorizontalAdapters.add(mPAdapterOne);
+        mProductsHorizontalAdapters.add(mPAdapterTwo);
+        mProductsHorizontalAdapters.add(mPAdapterThree);
+        mProductsHorizontalAdapters.add(mPAdapterFour);
+        mProductsHorizontalAdapters.add(mPAdapterFive);
+        mProductsHorizontalAdapters.add(mPAdapterSix);
+    }
+
+    private void initRecyclerViews() {
+        mRecyclerViews.add(mRecyclerViewCategoryOne);
+        mRecyclerViews.add(mRecyclerViewCategoryTwo);
+        mRecyclerViews.add(mRecyclerViewCategoryThree);
+        mRecyclerViews.add(mRecyclerViewCategoryFour);
+        mRecyclerViews.add(mRecyclerViewCategoryFive);
+        mRecyclerViews.add(mRecyclerViewCategorySix);
+    }
+
+    private void initCategoriesAdapters() {
+        mHomeFragmentCategoriesAdapters.add(mAdapterOne);
+        mHomeFragmentCategoriesAdapters.add(mAdapterTwo);
+        mHomeFragmentCategoriesAdapters.add(mAdapterThree);
+        mHomeFragmentCategoriesAdapters.add(mAdapterFour);
+        mHomeFragmentCategoriesAdapters.add(mAdapterFive);
+        mHomeFragmentCategoriesAdapters.add(mAdapterSix);
     }
 
     @Override
@@ -96,93 +133,69 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
     }
 
     private void updateCategoriesRecyclerAdapter() {
-        mMarketRepository.fetchSubCategories(mCategories.get(0).getId(),
-                new MarketRepository.subCategoriesCallback() {
-                    @Override
-                    public void onItemResponse(List<Category> subCategories) {
-                        if (mAdapterOne == null) {
-                            mAdapterOne = new CategoriesAdapter(getContext(), subCategories);
-                            mRecyclerViewCategoryOne.setAdapter(mAdapterOne);
-                        } else {
-                            mAdapterOne.setCategoriesItem(subCategories);
-                            mAdapterOne.notifyDataSetChanged();
-                        }
-                    }
-                });
+        for (int i = 0; i < mHomeFragmentCategoriesAdapters.size(); i++) {
+            HomeFragmentCategoriesAdapter categoryAdapter = mHomeFragmentCategoriesAdapters.get(i);
+            ProductsHorizontalAdapter productsHorizontalAdapter = mProductsHorizontalAdapters.get(i);
+            RecyclerView recyclerView = mRecyclerViews.get(i);
+            int categoryId = mCategories.get(i).getId();
+            mMarketRepository.fetchSubCategories(mCategories.get(i).getId(),
+                    new MarketRepository.subCategoriesCallback() {
+                        @Override
+                        public void onItemResponse(List<Category> subCategories) {
+                            if (subCategories.size() > 0) {
+                                initCategoriesAdapter(subCategories, categoryAdapter, recyclerView);
 
-        mMarketRepository.fetchSubCategories(mCategories.get(1).getId(),
-                new MarketRepository.subCategoriesCallback() {
-                    @Override
-                    public void onItemResponse(List<Category> subCategories) {
-                        if (mAdapterTwo == null) {
-                            mAdapterTwo = new CategoriesAdapter(getContext(),
-                                    subCategories);
-                            mRecyclerViewCategoryTwo.setAdapter(mAdapterTwo);
-                        } else {
-                            mAdapterTwo.setCategoriesItem(subCategories);
-                            mAdapterTwo.notifyDataSetChanged();
+                            } else {
+                                fetchProductsAndInitProductHorizontalAdapter(categoryId, productsHorizontalAdapter, recyclerView);
+                            }
                         }
-                    }
-                });
 
-        mMarketRepository.fetchSubCategories(mCategories.get(2).getId(),
-                new MarketRepository.subCategoriesCallback() {
-                    @Override
-                    public void onItemResponse(List<Category> subCategories) {
-                        if (mAdapterThree == null) {
-                            mAdapterThree = new CategoriesAdapter(getContext(),
-                                    subCategories);
-                            mRecyclerViewCategoryThree.setAdapter(mAdapterThree);
-                        } else {
-                            mAdapterThree.setCategoriesItem(subCategories);
-                            mAdapterThree.notifyDataSetChanged();
-                        }
-                    }
-                });
+                    });
 
-        mMarketRepository.fetchSubCategories(mCategories.get(3).getId(),
-                new MarketRepository.subCategoriesCallback() {
+        }
+
+    }
+
+    private void initCategoriesAdapter(List<Category> subCategories,
+                                       HomeFragmentCategoriesAdapter adapter, RecyclerView recyclerView) {
+
+        if (adapter == null) {
+            adapter = new HomeFragmentCategoriesAdapter(getContext(),
+                    subCategories);
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter.setCategoriesItem(subCategories);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void fetchProductsAndInitProductHorizontalAdapter(int categoryId,
+                                                              ProductsHorizontalAdapter adapter,
+                                                              RecyclerView recyclerView) {
+
+        mMarketRepository.fetchCategoryProduct(1,
+                categoryId,
+                new MarketRepository.productsCallback() {
                     @Override
-                    public void onItemResponse(List<Category> subCategories) {
-                        if (mAdapterFour == null) {
-                            mAdapterFour = new CategoriesAdapter(getContext(),
-                                    subCategories);
-                            mRecyclerViewCategoryFour.setAdapter(mAdapterFour);
-                        } else {
-                            mAdapterFour.setCategoriesItem(subCategories);
-                            mAdapterFour.notifyDataSetChanged();
-                        }
-                    }
-                });
-        mMarketRepository.fetchSubCategories(mCategories.get(4).getId(),
-                new MarketRepository.subCategoriesCallback() {
-                    @Override
-                    public void onItemResponse(List<Category> subCategories) {
-                        if (mAdapterFive == null) {
-                            mAdapterFive = new CategoriesAdapter(getContext(),
-                                    subCategories);
-                            mRecyclerViewCategoryFive.setAdapter(mAdapterFive);
-                        } else {
-                            mAdapterFive.setCategoriesItem(subCategories);
-                            mAdapterFive.notifyDataSetChanged();
-                        }
-                    }
-                });
-        mMarketRepository.fetchSubCategories(mCategories.get(5).getId(),
-                new MarketRepository.subCategoriesCallback() {
-                    @Override
-                    public void onItemResponse(List<Category> subCategories) {
-                        if (mAdapterSix == null) {
-                            mAdapterSix = new CategoriesAdapter(getContext(),
-                                    subCategories);
-                            mRecyclerViewCategorySix.setAdapter(mAdapterSix);
-                        } else {
-                            mAdapterSix.setCategoriesItem(subCategories);
-                            mAdapterSix.notifyDataSetChanged();
-                        }
+                    public void onItemResponse(List<Product> products) {
+
+                        initProductHorizontalAdapter(adapter, recyclerView,products);
                     }
                 });
     }
+
+    private void initProductHorizontalAdapter(ProductsHorizontalAdapter adapter,
+                                              RecyclerView recyclerView, List<Product> products) {
+        if (adapter == null) {
+            adapter = new ProductsHorizontalAdapter(getContext(),
+                    products);
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter.setProductsItem(products);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
 
     private void setTextName(List<Category> items) {
         List<String> names = new ArrayList<>();

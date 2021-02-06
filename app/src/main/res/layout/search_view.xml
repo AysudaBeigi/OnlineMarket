@@ -13,8 +13,8 @@
         android:backgroundTint="@color/gray_bd"
         android:background="@color/gray_bd">
 
-        <EditText
-            android:id="@+id/searching_query"
+        <SearchView
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="3dp"
@@ -26,7 +26,10 @@
             android:textColor="@color/black"
             android:textSize="15sp"
             android:drawableLeft="@drawable/ic_baseline_search_24"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
+
+
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.onlinemarket.database;
 
 
+import androidx.room.Dao;
 import androidx.room.TypeConverter;
 
 import com.example.onlinemarket.model.Category;
@@ -11,7 +12,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
-
 
 public class Converter {
     @TypeConverter

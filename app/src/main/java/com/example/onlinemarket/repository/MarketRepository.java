@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 
+import com.example.onlinemarket.model.Attribute;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.network.MarketService;
@@ -264,6 +265,37 @@ public class MarketRepository {
                 });
     }
 
+    public void fetchAttributes(AttributesCallback callback) {
+        HashMap<String, String> insideMap = new HashMap<>();
+
+        insideMap.putAll(BASE_KEYS);
+
+        mRequestService.getAttributes(insideMap)
+                .enqueue(new Callback<List<Attribute>>() {
+                    @Override
+                    public void onResponse(Call<List<Attribute>> call,
+                                           Response<List<Attribute>> response) {
+                        List<Attribute> attributes = response.body();
+                        //update adapter of recyclerview
+                        callback.onItemResponse(attributes);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Attribute>> call, Throwable t) {
+                        Log.e(TAG, t.getMessage(), t);
+
+                    }
+
+
+                });
+
+
+    }
+
+
+
+
+
    /* public void sendCustomer(String email, CustomerCallbacks customerCallbacks) {
 
         mRequestService.createCustomer(email).enqueue(new Callback<Customer>() {
@@ -307,6 +339,32 @@ public class MarketRepository {
         });
     }
 
+    public void fetchSearchFilteredProducts(String query, productsCallback callBacks) {
+
+        HashMap<String, String> insideMap = new HashMap<>();
+
+        insideMap.putAll(BASE_KEYS);
+        insideMap.put("search", query);
+        insideMap.put("attribute", "pa_color");
+        insideMap.put("attribute_term", colorId);
+
+        mRequestService.getProducts(insideMap).enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call,
+                                   Response<List<Product>> response) {
+                List<Product> searchItems = response.body();
+
+                //update adapter of recyclerview
+                callBacks.onItemResponse(searchItems);
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Log.e(TAG, t.getMessage(), t);
+            }
+        });
+    }
+
 
     public interface productsCallback {
         void onItemResponse(List<Product> products);
@@ -322,6 +380,10 @@ public class MarketRepository {
 
     public interface productCallback {
         void onItemResponse(Product product);
+    }
+
+    public interface AttributesCallback {
+        void onItemResponse(List<Attribute> attributes);
     }
 
    /* public interface CustomerCallbacks {

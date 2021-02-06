@@ -31,6 +31,7 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
 
     private static final String ARGS_PRODUCT ="argsProduct" ;
     //private ShoppingRepository mShoppingRepository;
+
     private MarketRepository mMarketRepository;
     private Product mProduct;
 

@@ -65,7 +65,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardBackgroundColor="@color/gray_bd"
+            app:cardBackgroundColor="@color/white_ff"
             app:cardCornerRadius="4dp">
 
             <androidx.recyclerview.widget.RecyclerView

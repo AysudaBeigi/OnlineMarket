@@ -16,11 +16,12 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.fragment.SubCategoryProductsFragment;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Image;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder> {
+public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFragmentCategoriesAdapter.CategoryViewHolder> {
     private static final String TAG = "CategoryAdapter";
     private Context mContext;
     private List<Category> mCategoriesItems;
@@ -35,7 +36,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         notifyDataSetChanged();
     }
 
-    public CategoriesAdapter(Context context, List<Category> categoriesItems) {
+    public HomeFragmentCategoriesAdapter(Context context, List<Category> categoriesItems) {
         mContext = context;
         mCategoriesItems = categoriesItems;
     }
@@ -44,7 +45,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.category_item_view, parent, false);
+                .inflate(R.layout.home_frgament_category_item_view, parent, false);
 
         return new CategoryViewHolder(view);
     }
@@ -102,19 +103,11 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             }
 
             for (int i = 0; i < imagesItemList.size(); i++) {
-                if (imagesItemList.get(i) == null)
-                    Glide.with(mItemView)
+                   Picasso.get()
                             .load(R.drawable.ic_placeholder_recycler)
                             .placeholder(R.drawable.ic_placeholder_recycler)
-                            .fitCenter()
                             .into(mCategoryImage);
 
-                else
-                    Glide.with(mItemView)
-                            .load(imageItem.getSrc())
-                            .placeholder(R.drawable.ic_placeholder_recycler)
-                            .fitCenter()
-                            .into(mCategoryImage);
             }
 
         }
