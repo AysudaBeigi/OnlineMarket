@@ -49,10 +49,10 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
     }
 
 
-    public static ProductDetailFragment newInstance(Product productsItem) {
+    public static ProductDetailFragment newInstance(Product product) {
         ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARGS_PRODUCT, productsItem);
+        args.putSerializable(ARGS_PRODUCT, product);
         fragment.setArguments(args);
         return fragment;
     }

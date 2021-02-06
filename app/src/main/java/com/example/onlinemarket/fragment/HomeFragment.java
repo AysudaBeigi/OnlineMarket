@@ -19,6 +19,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.HomeFragmentCategoriesAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
 import com.example.onlinemarket.adapter.ProductsHorizontalAdapter;
+import com.example.onlinemarket.adapter.ProductsVerticalAdapter;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Image;
 import com.example.onlinemarket.model.Product;
@@ -30,7 +31,7 @@ import com.smarteist.autoimageslider.SliderView;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment  implements IOnBackPress {
+public class HomeFragment extends Fragment implements IOnBackPress {
 
     private SliderView mSliderView;
     private ImageSliderAdapter mImageSliderAdapter;
@@ -55,28 +56,29 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
-         fragment.setArguments(args);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMarketRepository= new MarketRepository(getActivity());
+        mMarketRepository = new MarketRepository(getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_home,
+        View view = inflater.inflate(R.layout.fragment_home,
                 container, false);
 
         findViews(view);
         initViews();
-       // setListeners();
+        // setListeners();
         getQueryEditText();
         return view;
     }
+
     private void findViews(View view) {
         mSliderView = view.
                 findViewById(R.id.fragment_home_slider);
@@ -94,64 +96,66 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
                 findViewById(R.id.home_fragment_search_view);
 
     }
+
     private void initViews() {
         mMarketRepository.fetchProduct(608,
                 new MarketRepository.productCallback() {
-            @Override
-            public void onItemResponse(Product product) {
+                    @Override
+                    public void onItemResponse(Product product) {
 
-                setupImageSliderAdapter(product.getImages());
-            }
-        });
+                        setupImageSliderAdapter(product.getImages());
+                    }
+                });
 
         mMarketRepository.fetchLastProducts(1,
                 new MarketRepository.productsCallback() {
-            @Override
-            public void onItemResponse(List<Product> items) {
-                initRecyclerView(mRecyclerViewLastProducts);
+                    @Override
+                    public void onItemResponse(List<Product> items) {
+                        initRecyclerView(mRecyclerViewLastProducts);
 
-                initProductAdapter(mRecyclerViewLastProducts,
-                        mLastProductsHorizontalAdapter,items);
-            }
-        });
+                        initProductAdapter(mRecyclerViewLastProducts,
+                                mLastProductsHorizontalAdapter, items);
+                    }
+                });
 
         mMarketRepository.fetchMostVisitedProducts(1,
                 new MarketRepository.productsCallback() {
-            @Override
-            public void onItemResponse(List<Product> items) {
-                initRecyclerView(mRecyclerViewMostVisitedProducts);
-                initProductAdapter(mRecyclerViewMostVisitedProducts,
-                        mMostVisitedProductsHorizontalAdapter, items);
-            }
-        });
+                    @Override
+                    public void onItemResponse(List<Product> items) {
+                        initRecyclerView(mRecyclerViewMostVisitedProducts);
+                        initProductAdapter(mRecyclerViewMostVisitedProducts,
+                                mMostVisitedProductsHorizontalAdapter, items);
+                    }
+                });
 
         mMarketRepository.fetchPopularProducts(1,
                 new MarketRepository.productsCallback() {
-            @Override
-            public void onItemResponse(List<Product> items) {
-                initRecyclerView(mRecyclerViewPopularProducts);
-                initProductAdapter(mRecyclerViewPopularProducts,
-                        mPopularProductsHorizontalAdapter, items);
-            }
-        });
+                    @Override
+                    public void onItemResponse(List<Product> items) {
+                        initRecyclerView(mRecyclerViewPopularProducts);
+                        initProductAdapter(mRecyclerViewPopularProducts,
+                                mPopularProductsHorizontalAdapter, items);
+                    }
+                });
         mMarketRepository.fetchPopularProducts(2,
                 new MarketRepository.productsCallback() {
-            @Override
-            public void onItemResponse(List<Product> items) {
-                initRecyclerView(mRecyclerViewWonderfulOffer);
-                initProductAdapter(mRecyclerViewWonderfulOffer,
-                        mAmazingOfferAdapter, items);
-            }
-        });
+                    @Override
+                    public void onItemResponse(List<Product> items) {
+                        initRecyclerView(mRecyclerViewWonderfulOffer);
+                        initProductAdapter(mRecyclerViewWonderfulOffer,
+                                mAmazingOfferAdapter, items);
+                    }
+                });
         mMarketRepository.fetchCategories(1,
                 new MarketRepository.CategoriesCallback() {
-            @Override
-            public void onItemResponse(List<Category> categories) {
-               initRecyclerView(mRecyclerCategories);
-                initCategoryAdapter(categories);
-            }
-        });
+                    @Override
+                    public void onItemResponse(List<Category> categories) {
+                        initRecyclerView(mRecyclerCategories);
+                        initCategoryAdapter(categories);
+                    }
+                });
     }
+
     private void initCategoryAdapter(List<Category> categoriesItems) {
 
 
@@ -214,13 +218,18 @@ public class HomeFragment extends Fragment  implements IOnBackPress {
 
     private void getQueryEditText() {
 
-        String query= mSearchViewHomeFragment.getQuery().toString().trim();
-        if (query.length() > 2)
-            ((AppCompatActivity) getContext()).
-                    getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container_main_activity,
-                            SearchResultFragment.newInstance(query))
-                    .commit();
+        String query = mSearchViewHomeFragment.getQuery().toString().trim();
+        if (query.length() > 2) {
+            replaceSearchResultFragment(query);
+        }
+    }
+
+    private void replaceSearchResultFragment(String query) {
+        ((AppCompatActivity) getContext()).
+                getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_main_activity,
+                        SearchResultFragment.newInstance(query, -1))
+                .commit();
     }
 
 

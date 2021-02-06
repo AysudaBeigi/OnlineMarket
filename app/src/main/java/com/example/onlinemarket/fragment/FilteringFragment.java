@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import com.example.onlinemarket.R;
 
 public class FilteringFragment extends Fragment {
+    public static final String ARGS_CATEGORY_ID = "argsCategoryId";
+    private int mCategoryId;
+
 
 
     public FilteringFragment() {
@@ -18,16 +21,19 @@ public class FilteringFragment extends Fragment {
     }
 
 
-    public static FilteringFragment newInstance(String param1, String param2) {
+    public static FilteringFragment newInstance(int categoryId) {
         FilteringFragment fragment = new FilteringFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
+        args.putInt(ARGS_CATEGORY_ID,categoryId);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mCategoryId=getArguments().getInt(ARGS_CATEGORY_ID);
 
     }
 

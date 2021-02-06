@@ -24,6 +24,8 @@ public class OrderingFragment extends Fragment {
     private RadioButton mHighToLow;
     private MarketRepository mMarketRepository;
     private String mOrderBy = "";
+    public static final String ARGS_CATEGORY_ID = "argsCategoryId";
+    private int mCategoryId;
 
 
     public OrderingFragment() {
@@ -31,10 +33,12 @@ public class OrderingFragment extends Fragment {
     }
 
 
-    public static OrderingFragment newInstance() {
+    public static OrderingFragment newInstance(int categoryId) {
         OrderingFragment fragment = new OrderingFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
+        args.putInt(ARGS_CATEGORY_ID,categoryId);
+
         return fragment;
     }
 
@@ -43,6 +47,8 @@ public class OrderingFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mMarketRepository= new MarketRepository(getActivity());
+        mCategoryId=getArguments().getInt(ARGS_CATEGORY_ID);
+
     }
 
     @Override
@@ -89,15 +95,22 @@ public class OrderingFragment extends Fragment {
                 mOrderBy = "price-desc";
             }
         });
+        if(mCategoryId==-1){
+            mMarketRepository.fetchProductsByOrder(1, mOrderBy, new MarketRepository.productsCallback() {
+                @Override
+                public void onItemResponse(List<Product> products) {
 
-        mMarketRepository.fetchCategoryProductByOrder(1, mCategoryId, order,
-                new MarketRepository.productsCallback() {
-            @Override
-            public void onItemResponse(List<Product> items) {
-                if (items != null)
-                    initRecyclerAdapter(items);
-            }
-        });
+                }
+            });
+        }else {
+            mMarketRepository.fetchCategoryProductByOrder(1, mCategoryId, mOrderBy,
+                    new MarketRepository.productsCallback() {
+                        @Override
+                        public void onItemResponse(List<Product> items) {
+
+                        }
+                    });
+        }
     }
 
 }

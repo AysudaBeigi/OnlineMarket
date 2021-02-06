@@ -204,9 +204,30 @@ public class MarketRepository {
                     @Override
                     public void onResponse(Call<List<Product>> call,
                                            Response<List<Product>> response) {
-                        List<Product> categoryItems = response.body();
-                        //update adapter of recyclerview
-                        callBacks.onItemResponse(categoryItems);
+                        List<Product> products = response.body();
+                        callBacks.onItemResponse(products);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Product>> call, Throwable t) {
+                        Log.e(TAG, t.getMessage(), t);
+                    }
+                });
+    }
+    public void fetchProductsByOrder(int page,String orderBy, productsCallback callBacks) {
+        HashMap<String, String> localMap = new HashMap<>();
+
+        localMap.putAll(BASE_KEYS);
+        localMap.put("page", String.valueOf(page));
+        localMap.put("orderby", orderBy);
+
+        mRequestService.getProducts(localMap).
+                enqueue(new Callback<List<Product>>() {
+                    @Override
+                    public void onResponse(Call<List<Product>> call,
+                                           Response<List<Product>> response) {
+                        List<Product> products = response.body();
+                        callBacks.onItemResponse(products);
                     }
 
                     @Override

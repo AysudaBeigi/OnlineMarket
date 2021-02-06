@@ -2,6 +2,7 @@ package com.example.onlinemarket.fragment;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import java.util.List;
 public class SearchResultFragment extends Fragment implements IOnBackPress {
 
     public static final String ARGS_QUERY = "ARGS_QUERY";
+    public static final String ARGS_CATEGORY_ID = "argsCategoryId";
 
     private String mQuery = "";
 
@@ -28,16 +30,18 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
     private ProductsVerticalAdapter mAdapter;
     private MarketRepository mMarketRepository;
     private ImageView mSort, mFilter;
-
+    private int mCategoryId;
+    private boolean mIsFilterOrSort=false;
 
     public SearchResultFragment() {
         // Required empty public constructor
     }
 
-    public static SearchResultFragment newInstance(String query) {
+    public static SearchResultFragment newInstance(String query, int categoryId) {
         SearchResultFragment fragment = new SearchResultFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARGS_QUERY, query);
+        args.putInt(ARGS_CATEGORY_ID,categoryId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,19 +52,22 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
 
         mMarketRepository = new MarketRepository(getContext());
         mQuery = (String) getArguments().get(ARGS_QUERY);
-
-        mMarketRepository.fetchSearchProducts(mQuery, new MarketRepository.productsCallback() {
-            @Override
-            public void onItemResponse(List<Product> items) {
-                if (mAdapter == null) {
-                    mAdapter = new ProductsVerticalAdapter(getContext(), items);
-                    mRecyclerView.setAdapter(mAdapter);
-                } else {
-                    mAdapter.setProductsItem(items);
-                    mAdapter.notifyDataSetChanged();
+        mCategoryId=getArguments().getInt(ARGS_CATEGORY_ID);
+        if(!mIsFilterOrSort){
+            mMarketRepository.fetchSearchProducts(mQuery, new MarketRepository.productsCallback() {
+                @Override
+                public void onItemResponse(List<Product> items) {
+                    if (mAdapter == null) {
+                        mAdapter = new ProductsVerticalAdapter(getContext(), items);
+                        mRecyclerView.setAdapter(mAdapter);
+                    } else {
+                        mAdapter.setProductsItem(items);
+                        mAdapter.notifyDataSetChanged();
+                    }
                 }
-            }
-        });
+            });
+
+        }
 
     }
 
@@ -83,16 +90,30 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
 
     private void setListeners() {
         mSort.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                OrderingFragment orderDialogFragment = OrderingFragment.newInstance();
-
+                mIsFilterOrSort=true;
+                getActivity().
+                        getSupportFragmentManager().
+                        beginTransaction()
+                        .replace(R.id.fragment_container_main_activity,
+                                OrderingFragment.
+                                        newInstance(mCategoryId))
+                        .commit();
             }
         });
         mFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mIsFilterOrSort=true;
+                getActivity().
+                        getSupportFragmentManager().
+                        beginTransaction()
+                        .replace(R.id.fragment_container_main_activity,
+                                FilteringFragment.
+                                        newInstance(mCategoryId))
+                        .commit();
 
             }
         });
