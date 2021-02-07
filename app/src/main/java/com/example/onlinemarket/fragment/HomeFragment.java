@@ -1,6 +1,7 @@
 package com.example.onlinemarket.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
     private RecyclerView mRecyclerViewWonderfulOffer;
     private MarketRepository mMarketRepository;
 
+    public static String TAG="OnlineMarket";
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -121,6 +123,8 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
+                    Log.d(TAG,"fetchLastProducts++onItemResponse"
+                            +items.get(0).getName());
                         initRecyclerView(mRecyclerViewLastProducts,
                                 mLastProductsHorizontalAdapter, items);
 
@@ -131,6 +135,9 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
+                        Log.d(TAG,"fetchMostVisitedProducts++onItemResponse"+
+                                items.get(0).getName());
+
                         initRecyclerView(mRecyclerViewMostVisitedProducts
                                 , mMostVisitedProductsHorizontalAdapter, items);
 
@@ -150,6 +157,9 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
+                        Log.d(TAG,"fetchAmazing++onItemResponse"+
+                                items.get(0).getName());
+
                         initRecyclerView(mRecyclerViewWonderfulOffer
                         ,mAmazingOfferAdapter,items);
 
@@ -167,17 +177,20 @@ public class HomeFragment extends Fragment implements IOnBackPress {
     }
 
 
-    private void initRecyclerView(RecyclerView recyclerView, ProductsHorizontalAdapter adapter,
+    private void initRecyclerView(RecyclerView recyclerView,
+                                  ProductsHorizontalAdapter adapter,
                                   List<Product> products) {
+        Log.d(TAG,"HomeF : initRecyclerView");
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
-        initProductAdapter(recyclerView,
-                adapter, products);
+        initProductAdapter(recyclerView, adapter, products);
     }
 
     private void initProductAdapter(RecyclerView recyclerView,
                                     ProductsHorizontalAdapter productsHorizontalAdapter,
                                     List<Product> productsItems) {
+        Log.d(TAG,"HomeF : initProductAdapter");
+
 
         if (productsHorizontalAdapter == null) {
             productsHorizontalAdapter = new ProductsHorizontalAdapter(getContext(),
@@ -191,10 +204,12 @@ public class HomeFragment extends Fragment implements IOnBackPress {
     }
 
     private void initCategoryAdapter(List<Category> categoriesItems) {
+        Log.d(TAG,"HomeF : initCategoryAdapter");
 
 
         if (mHomeFragmentCategoriesAdapter == null) {
-            mHomeFragmentCategoriesAdapter = new HomeFragmentCategoriesAdapter(getContext(),
+            mHomeFragmentCategoriesAdapter =
+                    new HomeFragmentCategoriesAdapter(getContext(),
                     categoriesItems);
             mRecyclerCategories.setAdapter(mHomeFragmentCategoriesAdapter);
         } else {

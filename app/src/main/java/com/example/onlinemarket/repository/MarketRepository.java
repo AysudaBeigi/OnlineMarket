@@ -25,7 +25,7 @@ import static com.example.onlinemarket.network.NetworkParams.CONSUMER_SECRET;
 public class MarketRepository {
 
     private Context mContext;
-    private static String TAG="MarketRepository";
+    private static String TAG="OnlineMarket";
     private MarketService mRequestService;
 
     public static final Map<String, String> BASE_KEYS = new HashMap<String, String>() {{
@@ -40,6 +40,8 @@ public class MarketRepository {
     }
 
     public void fetchLastProducts(productsCallback callBacks) {
+        Log.d(TAG,"MarketRepository : fetchLastProducts");
+
         mRequestService.getProducts(NetworkParams.getLastProducts()).
                 enqueue(new Callback<List<Product>>() {
             @Override
@@ -57,6 +59,7 @@ public class MarketRepository {
 
 
     public void fetchMostVisitedProducts(productsCallback callBacks) {
+        Log.d(TAG,"MarketRepository : fetchMostVisitedProducts");
 
         mRequestService.getProducts(NetworkParams.getMostVisitedProducts()).
                 enqueue(new Callback<List<Product>>() {
@@ -75,6 +78,7 @@ public class MarketRepository {
 
     public void fetchPopularProducts( int page ,productsCallback callBacks) {
 
+        Log.d(TAG,"MarketRepository : fetchPopularProducts");
         mRequestService.getProducts(NetworkParams.getPopularProducts(page)).
                 enqueue(new Callback<List<Product>>() {
             @Override

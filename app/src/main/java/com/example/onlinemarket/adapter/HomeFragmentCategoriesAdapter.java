@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.fragment.SubCategoryProductsFragment;
 import com.example.onlinemarket.model.Category;
@@ -103,10 +102,15 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
             }
 
             for (int i = 0; i < imagesItemList.size(); i++) {
-                   Picasso.get()
-                            .load(R.drawable.ic_placeholder_recycler)
+                if(imagesItemList.get(i)!=null){
+
+                    Picasso.get()
+                            .load(imagesItemList.get(i))
                             .placeholder(R.drawable.ic_placeholder_recycler)
                             .into(mCategoryImage);
+                    break;
+                }
+
 
             }
 

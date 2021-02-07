@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.HomeFragmentCategoriesAdapter;
+import com.example.onlinemarket.adapter.CategoriesFragmentAdapter;
 import com.example.onlinemarket.adapter.ProductsHorizontalAdapter;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Product;
@@ -28,7 +28,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
             mRecyclerViewCategoryFive,
             mRecyclerViewCategorySix;
 
-    private HomeFragmentCategoriesAdapter mAdapterOne, mAdapterTwo, mAdapterThree,
+    private CategoriesFragmentAdapter mAdapterOne, mAdapterTwo, mAdapterThree,
             mAdapterFour, mAdapterFive,
             mAdapterSix;
     private ProductsHorizontalAdapter mPAdapterOne, mPAdapterTwo, mPAdapterThree,
@@ -141,7 +141,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                         if (subCategories.size() > 0) {
 
                             if (mAdapterOne == null) {
-                                mAdapterOne = new HomeFragmentCategoriesAdapter(getContext(),
+                                mAdapterOne = new CategoriesFragmentAdapter(getContext(),
                                         subCategories);
                                 mRecyclerViewCategoryOne.setAdapter(mAdapterOne);
                             } else {
@@ -175,7 +175,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                         if (subCategories.size() > 0) {
 
                             if (mAdapterTwo == null) {
-                                mAdapterTwo = new HomeFragmentCategoriesAdapter(getContext(),
+                                mAdapterTwo = new CategoriesFragmentAdapter(getContext(),
                                         subCategories);
                                 mRecyclerViewCategoryTwo.setAdapter(mAdapterTwo);
                             } else {
@@ -210,7 +210,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                         if (subCategories.size() > 0) {
 
                             if (mAdapterThree == null) {
-                                mAdapterThree = new HomeFragmentCategoriesAdapter(getContext(),
+                                mAdapterThree = new CategoriesFragmentAdapter(getContext(),
                                         subCategories);
                                 mRecyclerViewCategoryThree.setAdapter(mAdapterThree);
                             } else {
@@ -244,7 +244,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                         if (subCategories.size() > 0) {
 
                             if (mAdapterFour == null) {
-                                mAdapterFour = new HomeFragmentCategoriesAdapter(getContext(),
+                                mAdapterFour = new CategoriesFragmentAdapter(getContext(),
                                         subCategories);
                                 mRecyclerViewCategoryFour.setAdapter(mAdapterFour);
                             } else {
@@ -278,7 +278,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                         if (subCategories.size() > 0) {
 
                             if (mAdapterFive == null) {
-                                mAdapterFive = new HomeFragmentCategoriesAdapter(getContext(),
+                                mAdapterFive = new CategoriesFragmentAdapter(getContext(),
                                         subCategories);
                                 mRecyclerViewCategoryFive.setAdapter(mAdapterFive);
                             } else {
@@ -312,7 +312,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                         if (subCategories.size() > 0) {
 
                             if (mAdapterSix == null) {
-                                mAdapterSix = new HomeFragmentCategoriesAdapter(getContext(),
+                                mAdapterSix = new CategoriesFragmentAdapter(getContext(),
                                         subCategories);
                                 mRecyclerViewCategorySix.setAdapter(mAdapterSix);
                             } else {

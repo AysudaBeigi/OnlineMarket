@@ -153,8 +153,10 @@ public class ProductsHorizontalAdapter extends RecyclerView.
                             .load(imagesUrlList.get(i))
                             .placeholder(R.drawable.ic_placeholder_recycler)
                             .into(mProductImage);
+                    break;
 
                 }
+
             }
 
 

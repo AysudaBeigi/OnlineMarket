@@ -1,5 +1,7 @@
 package com.example.onlinemarket.network;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +15,7 @@ public class NetworkParams {
     public static final String ORDER = "order";
     public static final String CATEGORY = "category";
     public static final String SEARCH = "search";
-    public static final String ORDERBY = "order_by";
+    public static final String ORDERBY = "orderby";
     public static final String PAGE = "page";
     public static final String PRODUCT = "product";
     public static final String FORCE = "force";
@@ -22,8 +24,8 @@ public class NetworkParams {
     public static final String RATING = "rating";
     public static final String POPULARITY = "popularity";
     public static final String PER_PAGE = "per_page";
-    public static final String PARENT = "parent";
 
+    public static String  TAG="OnlineMarket";
 
     public static final Map<String, String> BASE_OPTIONS = new HashMap<String, String>() {{
         put("consumer_key", CONSUMER_KEY);
@@ -31,18 +33,20 @@ public class NetworkParams {
     }};
 
     public static Map<String, String> getMostVisitedProducts() {
+        Log.d(TAG,"MarketRepository : getMostVisitedProducts");
+
         Map<String, String> queryMap = new HashMap<>();
         queryMap.putAll(BASE_OPTIONS);
         queryMap.put(PAGE, String.valueOf(1));
         queryMap.put(ORDERBY, RATING);
-        queryMap.put(ORDER, DESC);
         return queryMap;
     }
 
     public static Map<String, String> getPopularProducts(int page) {
+        Log.d(TAG,"MarketRepository : getPopularProducts");
+
         Map<String, String> queryMap = new HashMap<>();
         queryMap.putAll(BASE_OPTIONS);
-        queryMap.put(ORDER, DESC);
         queryMap.put(PAGE, String.valueOf(page));
         queryMap.put(ORDERBY, POPULARITY);
 
@@ -50,6 +54,8 @@ public class NetworkParams {
     }
 
     public static Map<String, String> getLastProducts() {
+        Log.d(TAG,"MarketRepository : getLastProducts");
+
         Map<String, String> queryMap = new HashMap<>();
         queryMap.putAll(BASE_OPTIONS);
         queryMap.put(PAGE, String.valueOf(1));
@@ -157,7 +163,6 @@ public class NetworkParams {
         products.putAll(BASE_OPTIONS);
         products.put(SEARCH, query);
         products.put("orderby", "price");
-        products.put("order", "asc");
 
         return products;
     }
@@ -167,7 +172,6 @@ public class NetworkParams {
         products.putAll(BASE_OPTIONS);
         products.put(SEARCH, query);
         products.put("orderby", "price");
-        products.put("order", "desc");
 
         return products;
     }
@@ -177,7 +181,6 @@ public class NetworkParams {
         products.putAll(BASE_OPTIONS);
         products.put(SEARCH, query);
         products.put("orderby", "slug");
-        products.put("order", "desc");
 
         return products;
     }
