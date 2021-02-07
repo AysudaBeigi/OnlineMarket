@@ -1,25 +1,21 @@
 package com.example.onlinemarket.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.SearchView;
-
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.HomeFragmentCategoriesAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
 import com.example.onlinemarket.adapter.ProductsHorizontalAdapter;
-import com.example.onlinemarket.adapter.ProductsVerticalAdapter;
 import com.example.onlinemarket.model.Category;
 import com.example.onlinemarket.model.Image;
 import com.example.onlinemarket.model.Product;
@@ -107,7 +103,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                     }
                 });
 
-        mMarketRepository.fetchLastProducts(1,
+        mMarketRepository.fetchLastProducts(
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
@@ -118,7 +114,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                     }
                 });
 
-        mMarketRepository.fetchMostVisitedProducts(1,
+        mMarketRepository.fetchMostVisitedProducts(
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
@@ -146,7 +142,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                                 mAmazingOfferAdapter, items);
                     }
                 });
-        mMarketRepository.fetchCategories(1,
+        mMarketRepository.fetchCategories(
                 new MarketRepository.CategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> categories) {
@@ -225,10 +221,12 @@ public class HomeFragment extends Fragment implements IOnBackPress {
     }
 
     private void replaceSearchResultFragment(String query) {
+
         ((AppCompatActivity) getContext()).
                 getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_main_activity,
-                        SearchResultFragment.newInstance(query, -1))
+                        SearchResultFragment.
+                                newInstance(query,-1))
                 .commit();
     }
 

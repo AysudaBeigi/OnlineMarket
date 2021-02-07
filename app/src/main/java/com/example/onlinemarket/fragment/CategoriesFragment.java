@@ -1,14 +1,13 @@
 package com.example.onlinemarket.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
@@ -61,7 +60,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
         super.onCreate(savedInstanceState);
         mMarketRepository = new MarketRepository(getContext());
 
-        mMarketRepository.fetchCategories(1,
+        mMarketRepository.fetchCategories(
                 new MarketRepository.CategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> categories) {
@@ -173,8 +172,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                                                               ProductsHorizontalAdapter adapter,
                                                               RecyclerView recyclerView) {
 
-        mMarketRepository.fetchCategoryProduct(1,
-                categoryId,
+        mMarketRepository.fetchCategoryProduct(categoryId,
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> products) {

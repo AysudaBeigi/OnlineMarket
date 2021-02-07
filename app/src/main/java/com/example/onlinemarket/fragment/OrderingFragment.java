@@ -1,75 +1,87 @@
 package com.example.onlinemarket.fragment;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RadioButton;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+
+import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.model.Product;
 import com.example.onlinemarket.repository.MarketRepository;
 
-import java.util.List;
 
-
-public class OrderingFragment extends Fragment {
+public class OrderingFragment  extends DialogFragment implements IOnBackPress {
 
     private RadioButton mPopular;
     private RadioButton mNewest;
     private RadioButton mLowToHigh;
     private RadioButton mHighToLow;
+    public static final int RESULT_CODE_ORDER_DIALOG_FRAGMENT = 20;
+    public static final String EXTRA_ORDER_DIALOG_FRAGMENT = "com.example.onlinemarket.EXTRA_ORDERING_FRAGMENT";
+    public static final String TAG = "OrderDialogFragment";
     private MarketRepository mMarketRepository;
     private String mOrderBy = "";
-    public static final String ARGS_CATEGORY_ID = "argsCategoryId";
-    private int mCategoryId;
 
 
     public OrderingFragment() {
         // Required empty public constructor
     }
 
-
-    public static OrderingFragment newInstance(int categoryId) {
+    public static OrderingFragment newInstance() {
         OrderingFragment fragment = new OrderingFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
-        args.putInt(ARGS_CATEGORY_ID,categoryId);
-
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mMarketRepository= new MarketRepository(getActivity());
-        mCategoryId=getArguments().getInt(ARGS_CATEGORY_ID);
-
     }
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_ordering, container,
-                false);
-        findViews(view);
-        setListeners();
-        return view;
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View view = inflater.inflate(R.layout.fragment_ordering, null);
+
+        findDialogViews(view);
+        setListener();
+
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                .setPositiveButton("اعمال مرتب سازی",
+                        new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        sendResult(mOrderBy);
+                    }
+                })
+                .setNegativeButton("خیر", null)
+                .setView(view)
+                .create();
+
+        return alertDialog;
     }
 
 
-    private void findViews(View view) {
+
+    private void findDialogViews(View view) {
         mPopular = view.findViewById(R.id.popularity);
         mNewest = view.findViewById(R.id.latest);
         mHighToLow = view.findViewById(R.id.high_to_low);
         mLowToHigh = view.findViewById(R.id.low_to_high);
     }
 
-    private void setListeners() {
+    private void setListener() {
         mPopular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,22 +107,20 @@ public class OrderingFragment extends Fragment {
                 mOrderBy = "price-desc";
             }
         });
-        if(mCategoryId==-1){
-            mMarketRepository.fetchProductsByOrder(1, mOrderBy, new MarketRepository.productsCallback() {
-                @Override
-                public void onItemResponse(List<Product> products) {
+    }
 
-                }
-            });
-        }else {
-            mMarketRepository.fetchCategoryProductByOrder(1, mCategoryId, mOrderBy,
-                    new MarketRepository.productsCallback() {
-                        @Override
-                        public void onItemResponse(List<Product> items) {
+    private void sendResult(String string) {
+        Fragment fragment = getTargetFragment();
+        int requestCode = getTargetRequestCode();
+        int resultCode = RESULT_CODE_ORDER_DIALOG_FRAGMENT;
+        Intent intent = new Intent();
+        intent.putExtra(EXTRA_ORDER_DIALOG_FRAGMENT, string);
+        fragment.onActivityResult(requestCode, resultCode, intent);
+    }
 
-                        }
-                    });
-        }
+    @Override
+    public boolean onBackPressed() {
+        return true;
     }
 
 }
