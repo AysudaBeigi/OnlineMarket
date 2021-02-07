@@ -70,9 +70,23 @@ public class HomeFragment extends Fragment implements IOnBackPress {
 
         findViews(view);
         initViews();
-        // setListeners();
-        getQueryEditText();
+        setListeners();
         return view;
+    }
+
+    private void setListeners() {
+        mSearchViewHomeFragment.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                replaceSearchResultFragment(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     private void findViews(View view) {
@@ -89,7 +103,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
         mRecyclerViewWonderfulOffer = view.
                 findViewById(R.id.fragment_home_recycler_view_wonderful_offer);
         mSearchViewHomeFragment = view.
-                findViewById(R.id.home_fragment_search_view);
+                findViewById(R.id.search_view);
 
     }
 
@@ -107,10 +121,9 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
-                        initRecyclerView(mRecyclerViewLastProducts);
-
-                        initProductAdapter(mRecyclerViewLastProducts,
+                        initRecyclerView(mRecyclerViewLastProducts,
                                 mLastProductsHorizontalAdapter, items);
+
                     }
                 });
 
@@ -118,9 +131,9 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
-                        initRecyclerView(mRecyclerViewMostVisitedProducts);
-                        initProductAdapter(mRecyclerViewMostVisitedProducts,
-                                mMostVisitedProductsHorizontalAdapter, items);
+                        initRecyclerView(mRecyclerViewMostVisitedProducts
+                                , mMostVisitedProductsHorizontalAdapter, items);
+
                     }
                 });
 
@@ -128,35 +141,61 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
-                        initRecyclerView(mRecyclerViewPopularProducts);
-                        initProductAdapter(mRecyclerViewPopularProducts,
-                                mPopularProductsHorizontalAdapter, items);
+                        initRecyclerView(mRecyclerViewPopularProducts,
+                                mPopularProductsHorizontalAdapter,items );
+
                     }
                 });
         mMarketRepository.fetchPopularProducts(2,
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
-                        initRecyclerView(mRecyclerViewWonderfulOffer);
-                        initProductAdapter(mRecyclerViewWonderfulOffer,
-                                mAmazingOfferAdapter, items);
+                        initRecyclerView(mRecyclerViewWonderfulOffer
+                        ,mAmazingOfferAdapter,items);
+
                     }
                 });
         mMarketRepository.fetchCategories(
                 new MarketRepository.CategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> categories) {
-                        initRecyclerView(mRecyclerCategories);
+                        mRecyclerCategories.setLayoutManager(new LinearLayoutManager(getContext(),
+                                LinearLayoutManager.HORIZONTAL, false));
                         initCategoryAdapter(categories);
                     }
                 });
+    }
+
+
+    private void initRecyclerView(RecyclerView recyclerView, ProductsHorizontalAdapter adapter,
+                                  List<Product> products) {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+        initProductAdapter(recyclerView,
+                adapter, products);
+    }
+
+    private void initProductAdapter(RecyclerView recyclerView,
+                                    ProductsHorizontalAdapter productsHorizontalAdapter,
+                                    List<Product> productsItems) {
+
+        if (productsHorizontalAdapter == null) {
+            productsHorizontalAdapter = new ProductsHorizontalAdapter(getContext(),
+                    productsItems);
+            recyclerView.setAdapter(productsHorizontalAdapter);
+        } else {
+            productsHorizontalAdapter.setProductsItem(productsItems);
+            productsHorizontalAdapter.notifyDataSetChanged();
+
+        }
     }
 
     private void initCategoryAdapter(List<Category> categoriesItems) {
 
 
         if (mHomeFragmentCategoriesAdapter == null) {
-            mHomeFragmentCategoriesAdapter = new HomeFragmentCategoriesAdapter(getContext(), categoriesItems);
+            mHomeFragmentCategoriesAdapter = new HomeFragmentCategoriesAdapter(getContext(),
+                    categoriesItems);
             mRecyclerCategories.setAdapter(mHomeFragmentCategoriesAdapter);
         } else {
             mHomeFragmentCategoriesAdapter.setCategoriesItem(categoriesItems);
@@ -165,59 +204,12 @@ public class HomeFragment extends Fragment implements IOnBackPress {
     }
 
 
-    private void initProductAdapter(RecyclerView recyclerView,
-                                    ProductsHorizontalAdapter productsHorizontalAdapter,
-                                    List<Product> productsItems) {
-
-        if (productsHorizontalAdapter == null) {
-            productsHorizontalAdapter = new ProductsHorizontalAdapter(getContext(), productsItems);
-            recyclerView.setAdapter(productsHorizontalAdapter);
-        } else {
-            productsHorizontalAdapter.setProductsItem(productsItems);
-            productsHorizontalAdapter.notifyDataSetChanged();
-        }
-    }
-
-    private void initRecyclerView(RecyclerView recyclerView) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
-    }
-
-
     private void setupImageSliderAdapter(List<Image> imagesItems) {
-        ImageSliderAdapter imageSliderAdapter = new
+       mImageSliderAdapter = new
                 ImageSliderAdapter(getContext(), imagesItems);
-        mSliderView.setSliderAdapter(imageSliderAdapter);
+        mSliderView.setSliderAdapter(mImageSliderAdapter);
         mSliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         mSliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-    }
-/*
-    private void setListeners() {
-        mSearchViewHomeFragment.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-
-            public void afterTextChanged(Editable s) {
-                getQueryEditText();
-            }
-        });
-
-
-    }*/
-
-
-    private void getQueryEditText() {
-
-        String query = mSearchViewHomeFragment.getQuery().toString().trim();
-        if (query.length() > 2) {
-            replaceSearchResultFragment(query);
-        }
     }
 
     private void replaceSearchResultFragment(String query) {
@@ -226,7 +218,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                 getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_main_activity,
                         SearchResultFragment.
-                                newInstance(query,-1))
+                                newInstance(query, -1))
                 .commit();
     }
 

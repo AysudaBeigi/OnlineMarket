@@ -23,6 +23,7 @@
         android:fontFamily="@font/far_trafc_bd"
         android:text="@string/popularity"
         android:textColor="@color/black"
+        android:outlineSpotShadowColor="@color/red_22"
         android:textSize="18sp"
         android:textStyle="bold" />
 

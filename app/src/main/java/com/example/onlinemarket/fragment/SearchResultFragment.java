@@ -112,14 +112,14 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
         mFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().
+                /*getActivity().
                         getSupportFragmentManager().
                         beginTransaction()
                         .replace(R.id.fragment_container_main_activity,
                                 FilteringFragment.
                                         newInstance())
                         .commit();
-
+*/
             }
         });
 
@@ -135,9 +135,11 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
                     (String) data.getSerializableExtra(OrderingFragment.
                             EXTRA_ORDER_DIALOG_FRAGMENT);
             if(mCategoryId==-1){
-                mSearchQueryMap=NetworkParams.getOrderedSearchAllProducts(mQuery,order);
+                mSearchQueryMap=NetworkParams.
+                        getOrderedSearchAllProducts(mQuery,order);
             }else {
-                mSearchQueryMap=NetworkParams.getOrderedSearchCategoryProducts(mQuery,mCategoryId,order);
+                mSearchQueryMap=NetworkParams.
+                        getOrderedSearchCategoryProducts(mQuery,mCategoryId,order);
             }
             searchAndInitViews();
 

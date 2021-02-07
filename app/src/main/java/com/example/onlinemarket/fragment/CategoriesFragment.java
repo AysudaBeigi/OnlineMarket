@@ -36,9 +36,11 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
             mPAdapterSix;
 
 
-    private ArrayList<HomeFragmentCategoriesAdapter> mHomeFragmentCategoriesAdapters = new ArrayList<>();
-    private ArrayList<RecyclerView> mRecyclerViews = new ArrayList<>();
-    private ArrayList<ProductsHorizontalAdapter> mProductsHorizontalAdapters = new ArrayList<>();
+    /* private ArrayList<HomeFragmentCategoriesAdapter> mHomeFragmentCategoriesAdapters
+             = new ArrayList<>();
+     private ArrayList<RecyclerView> mRecyclerViews = new ArrayList<>();
+     private ArrayList<ProductsHorizontalAdapter> mProductsHorizontalAdapters
+             = new ArrayList<>();*/
     private TextView mTextOne, mTextTwo, mTextThree, mTextFour, mTextFive, mTextSix;
 
     private MarketRepository mMarketRepository;
@@ -59,7 +61,10 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mMarketRepository = new MarketRepository(getContext());
-
+       /* initCategoriesAdapters();
+        initRecyclerViews();
+        initProductHorizontalAdapters();
+*/
         mMarketRepository.fetchCategories(
                 new MarketRepository.CategoriesCallback() {
                     @Override
@@ -69,39 +74,36 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                         setTextName(categories);
                     }
                 });
-        initCategoriesAdapters();
-        initRecyclerViews();
-        initProductHorizontalAdapters();
 
     }
 
-    private void initProductHorizontalAdapters() {
-        mProductsHorizontalAdapters.add(mPAdapterOne);
-        mProductsHorizontalAdapters.add(mPAdapterTwo);
-        mProductsHorizontalAdapters.add(mPAdapterThree);
-        mProductsHorizontalAdapters.add(mPAdapterFour);
-        mProductsHorizontalAdapters.add(mPAdapterFive);
-        mProductsHorizontalAdapters.add(mPAdapterSix);
-    }
+    /* private void initProductHorizontalAdapters() {
+         mProductsHorizontalAdapters.add(mPAdapterOne);
+         mProductsHorizontalAdapters.add(mPAdapterTwo);
+         mProductsHorizontalAdapters.add(mPAdapterThree);
+         mProductsHorizontalAdapters.add(mPAdapterFour);
+         mProductsHorizontalAdapters.add(mPAdapterFive);
+         mProductsHorizontalAdapters.add(mPAdapterSix);
+     }
 
-    private void initRecyclerViews() {
-        mRecyclerViews.add(mRecyclerViewCategoryOne);
-        mRecyclerViews.add(mRecyclerViewCategoryTwo);
-        mRecyclerViews.add(mRecyclerViewCategoryThree);
-        mRecyclerViews.add(mRecyclerViewCategoryFour);
-        mRecyclerViews.add(mRecyclerViewCategoryFive);
-        mRecyclerViews.add(mRecyclerViewCategorySix);
-    }
+     private void initRecyclerViews() {
+         mRecyclerViews.add(mRecyclerViewCategoryOne);
+         mRecyclerViews.add(mRecyclerViewCategoryTwo);
+         mRecyclerViews.add(mRecyclerViewCategoryThree);
+         mRecyclerViews.add(mRecyclerViewCategoryFour);
+         mRecyclerViews.add(mRecyclerViewCategoryFive);
+         mRecyclerViews.add(mRecyclerViewCategorySix);
+     }
 
-    private void initCategoriesAdapters() {
-        mHomeFragmentCategoriesAdapters.add(mAdapterOne);
-        mHomeFragmentCategoriesAdapters.add(mAdapterTwo);
-        mHomeFragmentCategoriesAdapters.add(mAdapterThree);
-        mHomeFragmentCategoriesAdapters.add(mAdapterFour);
-        mHomeFragmentCategoriesAdapters.add(mAdapterFive);
-        mHomeFragmentCategoriesAdapters.add(mAdapterSix);
-    }
-
+     private void initCategoriesAdapters() {
+         mHomeFragmentCategoriesAdapters.add(mAdapterOne);
+         mHomeFragmentCategoriesAdapters.add(mAdapterTwo);
+         mHomeFragmentCategoriesAdapters.add(mAdapterThree);
+         mHomeFragmentCategoriesAdapters.add(mAdapterFour);
+         mHomeFragmentCategoriesAdapters.add(mAdapterFive);
+         mHomeFragmentCategoriesAdapters.add(mAdapterSix);
+     }
+ */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -132,28 +134,214 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
     }
 
     private void updateCategoriesRecyclerAdapter() {
-        for (int i = 0; i < mHomeFragmentCategoriesAdapters.size(); i++) {
-            HomeFragmentCategoriesAdapter categoryAdapter = mHomeFragmentCategoriesAdapters.get(i);
-            ProductsHorizontalAdapter productsHorizontalAdapter = mProductsHorizontalAdapters.get(i);
-            RecyclerView recyclerView = mRecyclerViews.get(i);
-            int categoryId = mCategories.get(i).getId();
-            mMarketRepository.fetchSubCategories(mCategories.get(i).getId(),
-                    new MarketRepository.subCategoriesCallback() {
-                        @Override
-                        public void onItemResponse(List<Category> subCategories) {
-                            if (subCategories.size() > 0) {
-                                initCategoriesAdapter(subCategories, categoryAdapter, recyclerView);
+        mMarketRepository.fetchSubCategories(mCategories.get(0).getId(),
+                new MarketRepository.subCategoriesCallback() {
+                    @Override
+                    public void onItemResponse(List<Category> subCategories) {
+                        if (subCategories.size() > 0) {
 
+                            if (mAdapterOne == null) {
+                                mAdapterOne = new HomeFragmentCategoriesAdapter(getContext(),
+                                        subCategories);
+                                mRecyclerViewCategoryOne.setAdapter(mAdapterOne);
                             } else {
-                                fetchProductsAndInitProductHorizontalAdapter(categoryId, productsHorizontalAdapter, recyclerView);
+                                mAdapterOne.setCategoriesItem(subCategories);
+                                mAdapterOne.notifyDataSetChanged();
                             }
+
+                        } else {
+                            mMarketRepository.fetchCategoryProduct(mCategories.get(0).getId(),
+                                    new MarketRepository.productsCallback() {
+                                        @Override
+                                        public void onItemResponse(List<Product> products) {
+                                            if (mPAdapterOne == null) {
+                                                mPAdapterOne = new ProductsHorizontalAdapter(getContext(),
+                                                        products);
+                                                mRecyclerViewCategoryOne.setAdapter(mPAdapterOne);
+                                            } else {
+                                                mPAdapterOne.setProductsItem(products);
+                                                mPAdapterOne.notifyDataSetChanged();
+                                            }
+                                        }
+                                    });
                         }
+                    }
 
-                    });
+                });
+        mMarketRepository.fetchSubCategories(mCategories.get(1).getId(),
+                new MarketRepository.subCategoriesCallback() {
+                    @Override
+                    public void onItemResponse(List<Category> subCategories) {
+                        if (subCategories.size() > 0) {
 
-        }
+                            if (mAdapterTwo == null) {
+                                mAdapterTwo = new HomeFragmentCategoriesAdapter(getContext(),
+                                        subCategories);
+                                mRecyclerViewCategoryTwo.setAdapter(mAdapterTwo);
+                            } else {
+                                mAdapterTwo.setCategoriesItem(subCategories);
+                                mAdapterTwo.notifyDataSetChanged();
+                            }
+
+                        } else {
+                            mMarketRepository.fetchCategoryProduct(mCategories.get(1).getId(),
+                                    new MarketRepository.productsCallback() {
+                                        @Override
+                                        public void onItemResponse(List<Product> products) {
+                                            if (mPAdapterTwo == null) {
+                                                mPAdapterTwo = new ProductsHorizontalAdapter(
+                                                        getContext(),
+                                                        products);
+                                                mRecyclerViewCategoryTwo.setAdapter(mPAdapterTwo);
+                                            } else {
+                                                mPAdapterTwo.setProductsItem(products);
+                                                mPAdapterTwo.notifyDataSetChanged();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+
+                });
+        mMarketRepository.fetchSubCategories(mCategories.get(2).getId(),
+                new MarketRepository.subCategoriesCallback() {
+                    @Override
+                    public void onItemResponse(List<Category> subCategories) {
+                        if (subCategories.size() > 0) {
+
+                            if (mAdapterThree == null) {
+                                mAdapterThree = new HomeFragmentCategoriesAdapter(getContext(),
+                                        subCategories);
+                                mRecyclerViewCategoryThree.setAdapter(mAdapterThree);
+                            } else {
+                                mAdapterThree.setCategoriesItem(subCategories);
+                                mAdapterThree.notifyDataSetChanged();
+                            }
+
+                        } else {
+                            mMarketRepository.fetchCategoryProduct(mCategories.get(2).getId(),
+                                    new MarketRepository.productsCallback() {
+                                        @Override
+                                        public void onItemResponse(List<Product> products) {
+                                            if (mPAdapterThree == null) {
+                                                mPAdapterThree = new ProductsHorizontalAdapter(getContext(),
+                                                        products);
+                                                mRecyclerViewCategoryThree.setAdapter(mPAdapterThree);
+                                            } else {
+                                                mPAdapterThree.setProductsItem(products);
+                                                mPAdapterThree.notifyDataSetChanged();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+
+                });
+        mMarketRepository.fetchSubCategories(mCategories.get(3).getId(),
+                new MarketRepository.subCategoriesCallback() {
+                    @Override
+                    public void onItemResponse(List<Category> subCategories) {
+                        if (subCategories.size() > 0) {
+
+                            if (mAdapterFour == null) {
+                                mAdapterFour = new HomeFragmentCategoriesAdapter(getContext(),
+                                        subCategories);
+                                mRecyclerViewCategoryFour.setAdapter(mAdapterFour);
+                            } else {
+                                mAdapterFour.setCategoriesItem(subCategories);
+                                mAdapterFour.notifyDataSetChanged();
+                            }
+
+                        } else {
+                            mMarketRepository.fetchCategoryProduct(mCategories.get(3).getId(),
+                                    new MarketRepository.productsCallback() {
+                                        @Override
+                                        public void onItemResponse(List<Product> products) {
+                                            if (mPAdapterFour == null) {
+                                                mPAdapterFour = new ProductsHorizontalAdapter(getContext(),
+                                                        products);
+                                                mRecyclerViewCategoryFour.setAdapter(mPAdapterFour);
+                                            } else {
+                                                mPAdapterFour.setProductsItem(products);
+                                                mPAdapterFour.notifyDataSetChanged();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+
+                });
+        mMarketRepository.fetchSubCategories(mCategories.get(4).getId(),
+                new MarketRepository.subCategoriesCallback() {
+                    @Override
+                    public void onItemResponse(List<Category> subCategories) {
+                        if (subCategories.size() > 0) {
+
+                            if (mAdapterFive == null) {
+                                mAdapterFive = new HomeFragmentCategoriesAdapter(getContext(),
+                                        subCategories);
+                                mRecyclerViewCategoryFive.setAdapter(mAdapterFive);
+                            } else {
+                                mAdapterFive.setCategoriesItem(subCategories);
+                                mAdapterFive.notifyDataSetChanged();
+                            }
+
+                        } else {
+                            mMarketRepository.fetchCategoryProduct(mCategories.get(4).getId(),
+                                    new MarketRepository.productsCallback() {
+                                        @Override
+                                        public void onItemResponse(List<Product> products) {
+                                            if (mPAdapterFive == null) {
+                                                mPAdapterFive = new ProductsHorizontalAdapter(getContext(),
+                                                        products);
+                                                mRecyclerViewCategoryFive.setAdapter(mPAdapterFive);
+                                            } else {
+                                                mPAdapterFive.setProductsItem(products);
+                                                mPAdapterFive.notifyDataSetChanged();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+
+                });
+        mMarketRepository.fetchSubCategories(mCategories.get(5).getId(),
+                new MarketRepository.subCategoriesCallback() {
+                    @Override
+                    public void onItemResponse(List<Category> subCategories) {
+                        if (subCategories.size() > 0) {
+
+                            if (mAdapterSix == null) {
+                                mAdapterSix = new HomeFragmentCategoriesAdapter(getContext(),
+                                        subCategories);
+                                mRecyclerViewCategorySix.setAdapter(mAdapterSix);
+                            } else {
+                                mAdapterSix.setCategoriesItem(subCategories);
+                                mAdapterSix.notifyDataSetChanged();
+                            }
+
+                        } else {
+                            mMarketRepository.fetchCategoryProduct(mCategories.get(5).getId(),
+                                    new MarketRepository.productsCallback() {
+                                        @Override
+                                        public void onItemResponse(List<Product> products) {
+                                            if (mPAdapterSix == null) {
+                                                mPAdapterSix = new ProductsHorizontalAdapter(getContext(),
+                                                        products);
+                                                mRecyclerViewCategorySix.setAdapter(mPAdapterSix);
+                                            } else {
+                                                mPAdapterSix.setProductsItem(products);
+                                                mPAdapterSix.notifyDataSetChanged();
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
 
     }
+
+/*
 
     private void initCategoriesAdapter(List<Category> subCategories,
                                        HomeFragmentCategoriesAdapter adapter, RecyclerView recyclerView) {
@@ -177,7 +365,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                     @Override
                     public void onItemResponse(List<Product> products) {
 
-                        initProductHorizontalAdapter(adapter, recyclerView,products);
+                        initProductHorizontalAdapter(adapter, recyclerView, products);
                     }
                 });
     }
@@ -194,6 +382,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
         }
     }
 
+*/
 
     private void setTextName(List<Category> items) {
         List<String> names = new ArrayList<>();

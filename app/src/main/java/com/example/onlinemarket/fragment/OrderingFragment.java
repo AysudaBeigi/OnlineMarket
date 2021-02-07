@@ -72,8 +72,6 @@ public class OrderingFragment  extends DialogFragment implements IOnBackPress {
         return alertDialog;
     }
 
-
-
     private void findDialogViews(View view) {
         mPopular = view.findViewById(R.id.popularity);
         mNewest = view.findViewById(R.id.latest);
@@ -109,12 +107,12 @@ public class OrderingFragment  extends DialogFragment implements IOnBackPress {
         });
     }
 
-    private void sendResult(String string) {
+    private void sendResult(String orderby) {
         Fragment fragment = getTargetFragment();
         int requestCode = getTargetRequestCode();
         int resultCode = RESULT_CODE_ORDER_DIALOG_FRAGMENT;
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_ORDER_DIALOG_FRAGMENT, string);
+        intent.putExtra(EXTRA_ORDER_DIALOG_FRAGMENT, orderby);
         fragment.onActivityResult(requestCode, resultCode, intent);
     }
 
