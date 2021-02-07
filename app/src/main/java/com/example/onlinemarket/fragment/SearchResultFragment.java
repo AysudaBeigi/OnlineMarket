@@ -117,7 +117,7 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
                         beginTransaction()
                         .replace(R.id.fragment_container_main_activity,
                                 FilteringFragment.
-                                        newInstance(mCategoryId))
+                                        newInstance())
                         .commit();
 
             }

@@ -1,47 +1,78 @@
 package com.example.onlinemarket.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.model.Attribute;
+import com.example.onlinemarket.repository.MarketRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FilteringFragment extends Fragment {
     public static final String ARGS_CATEGORY_ID = "argsCategoryId";
     private int mCategoryId;
-
-
+    private MarketRepository mMarketRepository;
+    private TextView mTextView1, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6;
+    List<Attribute> mAttributes;
 
     public FilteringFragment() {
         // Required empty public constructor
     }
 
 
-    public static FilteringFragment newInstance(int categoryId) {
+    public static FilteringFragment newInstance() {
         FilteringFragment fragment = new FilteringFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
-        args.putInt(ARGS_CATEGORY_ID,categoryId);
-
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCategoryId=getArguments().getInt(ARGS_CATEGORY_ID);
-
+        mMarketRepository = new MarketRepository(getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_filtering, container,
+        View view = inflater.inflate(R.layout.fragment_filttering, container,
                 false);
-        return  view;
+        findViews(view);
+
+        mMarketRepository.fetchAttributes(
+                new MarketRepository.AttributesCallback() {
+                    @Override
+                    public void onItemResponse(List<Attribute> attributes) {
+                        mAttributes = attributes;
+                    }
+                });
+        ArrayList<TextView> textViews = new ArrayList<>();
+        textViews.add(mTextView1);
+        textViews.add(mTextView2);
+        textViews.add(mTextView3);
+        textViews.add(mTextView4);
+        textViews.add(mTextView5);
+        textViews.add(mTextView6);
+        for (int i = 0; i < mAttributes.size(); i++) {
+            textViews.get(i).setText(mAttributes.get(i).getName());
+        }
+        return view;
+    }
+
+    private void findViews(View view) {
+        mTextView1 = view.findViewById(R.id.text_view_one);
+        mTextView2 = view.findViewById(R.id.text_view_two);
+        mTextView3 = view.findViewById(R.id.text_view_three);
+        mTextView4 = view.findViewById(R.id.text_view_four);
+        mTextView5 = view.findViewById(R.id.text_view_five);
+        mTextView6 = view.findViewById(R.id.text_view_six);
     }
 }

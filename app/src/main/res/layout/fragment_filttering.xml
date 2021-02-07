@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    app:cardBackgroundColor="@color/white_ff"
+    app:cardCornerRadius="4dp"
+    tools:context=".fragment.SearchResultFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_view_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ویژگی یک "
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/text_view_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/far_trafc_bd"
+            android:text="ویژگی دو "
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_view_three"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ویژگی سه "
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+
+        <TextView
+            android:id="@+id/text_view_four"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ویژگی چهار "
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/text_view_five"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ویژگی پنج "
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/text_view_six"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ویژگی شش "
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
