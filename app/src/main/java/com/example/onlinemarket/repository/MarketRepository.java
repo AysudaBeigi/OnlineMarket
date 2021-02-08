@@ -311,9 +311,8 @@ public class MarketRepository {
         void onItemResponse(List<Attribute> attributes);
     }
 
-   /* public interface CustomerCallbacks {
+    public interface CustomerCallback {
         void onItemResponse(Customer createCustomer);
     }
-*/
 
 }

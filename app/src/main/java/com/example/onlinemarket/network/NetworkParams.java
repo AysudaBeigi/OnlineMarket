@@ -15,7 +15,7 @@ public class NetworkParams {
     public static final String ORDER = "order";
     public static final String CATEGORY = "category";
     public static final String SEARCH = "search";
-    public static final String ORDERBY = "orderby";
+    public static final String ORDERBY = "order_by";
     public static final String PAGE = "page";
     public static final String PRODUCT = "product";
     public static final String FORCE = "force";
@@ -134,6 +134,8 @@ public class NetworkParams {
         queryMap.putAll(BASE_OPTIONS);
         queryMap.put(SEARCH, query);
         queryMap.put(ORDERBY, orderby);
+        if(orderby.equals("price_asc"))
+            queryMap.put(ORDER,"asc");
         return queryMap;
     }
 
@@ -144,6 +146,8 @@ public class NetworkParams {
         queryMap.put(SEARCH, query);
         queryMap.put(CATEGORY, String.valueOf(categoryId));
         queryMap.put(ORDERBY, orderby);
+        if(orderby.equals("price_asc"))
+            queryMap.put(ORDER,"asc");
         return queryMap;
     }
 

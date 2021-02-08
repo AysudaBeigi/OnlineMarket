@@ -96,23 +96,23 @@ public class OrderingFragment  extends DialogFragment implements IOnBackPress {
         mLowToHigh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOrderBy = "price";
+                mOrderBy = "price_asc";
             }
         });
         mHighToLow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOrderBy = "price-desc";
+                mOrderBy = "price";
             }
         });
     }
 
-    private void sendResult(String orderby) {
+    private void sendResult(String order_by) {
         Fragment fragment = getTargetFragment();
         int requestCode = getTargetRequestCode();
         int resultCode = RESULT_CODE_ORDER_DIALOG_FRAGMENT;
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_ORDER_DIALOG_FRAGMENT, orderby);
+        intent.putExtra(EXTRA_ORDER_DIALOG_FRAGMENT, order_by);
         fragment.onActivityResult(requestCode, resultCode, intent);
     }
 
