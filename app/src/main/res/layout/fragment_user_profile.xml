@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.UserProfileFragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/online_market_logo"
+                android:layout_width="500dp"
+                android:layout_height="250dp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="50dp"
+                app:srcCompat="@drawable/online_market_logo" />
+
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_login_sign_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/online_market_logo"
+                android:text=" ورود / ثبت نام "
+                android:textColor="@color/black"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_enter_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_view_login_sign_up"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:fontFamily="@font/iran_yekan"
+                android:text=" پست الکترونیک خود را وارد نمایید"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+
+                />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text_input_edit_text_user_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/text_view_enter_email"
+                android:layout_gravity="center"
+                android:fontFamily="@font/iran_yekan"
+                android:hint="پست الکترونیک"
+                android:inputType="textEmailAddress"
+                android:outlineAmbientShadowColor="@color/red_22"
+                android:textColor="@color/black"
+                app:boxBackgroundColor="@color/gray_bd"
+                app:boxCornerRadiusBottomEnd="4dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_enter_online_market"
+                android:layout_below="@id/text_input_edit_text_user_email"
+                android:layout_alignParentRight="true"
+                android:text="ورود به فروشگاه انلاین" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>
