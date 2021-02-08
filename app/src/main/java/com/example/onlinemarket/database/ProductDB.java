@@ -5,7 +5,7 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.model.product.Product;
 
 @Database(entities = Product.class, version = 1)
 @TypeConverters({Converter.class})

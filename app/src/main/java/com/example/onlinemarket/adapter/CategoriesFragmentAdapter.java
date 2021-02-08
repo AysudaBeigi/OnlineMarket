@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.fragment.SubCategoryProductsFragment;
-import com.example.onlinemarket.model.Category;
-import com.example.onlinemarket.model.Image;
+import com.example.onlinemarket.model.product.Category;
+import com.example.onlinemarket.model.product.Image;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

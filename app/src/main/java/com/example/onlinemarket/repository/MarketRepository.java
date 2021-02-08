@@ -5,8 +5,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.onlinemarket.model.Attribute;
-import com.example.onlinemarket.model.Category;
-import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.model.customer.Customer;
+import com.example.onlinemarket.model.product.Category;
+import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.network.MarketService;
 import com.example.onlinemarket.network.NetworkParams;
 import com.example.onlinemarket.retrofit.RetrofitInstance;
@@ -312,7 +313,7 @@ public class MarketRepository {
     }
 
     public interface CustomerCallback {
-        void onItemResponse(Customer createCustomer);
+        void onItemResponse(Customer customer);
     }
 
 }

@@ -1,9 +1,10 @@
 package com.example.onlinemarket.network;
 
 import com.example.onlinemarket.model.Attribute;
-import com.example.onlinemarket.model.Category;
-import com.example.onlinemarket.model.Customer;
-import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.model.customer.Customer;
+import com.example.onlinemarket.model.order.Order;
+import com.example.onlinemarket.model.product.Category;
+import com.example.onlinemarket.model.product.Product;
 
 import java.util.List;
 import java.util.Map;
@@ -44,11 +45,9 @@ public interface MarketService {
     @POST("customers")
     Call<Customer> postCustomers(@QueryMap Map<String, String> options,
                                  @Body Customer customer );
-    @GET("coupons")
+    /*@GET("coupons")
     Call<List<Coupon>> getCoupons(@QueryMap Map<String, String> options);
-
-    @GET("products/reviews")
-    Call<List<Review>> getReviews(@QueryMap Map<String, String> options);
+*/
 
 
 }

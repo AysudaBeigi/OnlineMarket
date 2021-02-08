@@ -5,7 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.model.product.Product;
 
 import java.util.List;
 @Dao

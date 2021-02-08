@@ -11,11 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.fragment.ProductDetailFragment;
-import com.example.onlinemarket.model.Image;
-import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.model.product.Image;
+import com.example.onlinemarket.model.product.Product;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

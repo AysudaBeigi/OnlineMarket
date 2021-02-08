@@ -1,11 +1,10 @@
 package com.example.onlinemarket.database;
 
 
-import androidx.room.Dao;
 import androidx.room.TypeConverter;
 
-import com.example.onlinemarket.model.Category;
-import com.example.onlinemarket.model.Image;
+import com.example.onlinemarket.model.product.Category;
+import com.example.onlinemarket.model.product.Image;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

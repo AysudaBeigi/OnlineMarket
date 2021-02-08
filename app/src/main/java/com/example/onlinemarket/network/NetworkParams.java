@@ -162,7 +162,12 @@ public class NetworkParams {
         return products;
     }
 
-    public static Map<String, String> getSortedLowToHighSearchProducts(String query) {
+    public static Map<String, String> getCustomer(String email) {
+        Map<String, String> queryOptions = new HashMap<>();
+        queryOptions.put("email", email);
+        return queryOptions;
+    }
+    /*public static Map<String, String> getSortedLowToHighSearchProducts(String query) {
         Map<String, String> products = new HashMap<>();
         products.putAll(BASE_OPTIONS);
         products.put(SEARCH, query);
@@ -188,7 +193,7 @@ public class NetworkParams {
 
         return products;
     }
-
+*/
     public static Map<String, String> getCommentOfProduct(String productId) {
         Map<String, String> products = new HashMap<>();
         products.putAll(BASE_OPTIONS);

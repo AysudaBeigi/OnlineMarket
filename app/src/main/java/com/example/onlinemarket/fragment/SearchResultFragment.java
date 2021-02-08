@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductsVerticalAdapter;
-import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.network.NetworkParams;
 import com.example.onlinemarket.repository.MarketRepository;
 

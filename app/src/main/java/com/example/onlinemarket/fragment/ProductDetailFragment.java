@@ -2,21 +2,19 @@ package com.example.onlinemarket.fragment;
 
 import android.graphics.Paint;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
-import com.example.onlinemarket.model.Image;
-import com.example.onlinemarket.model.Product;
+import com.example.onlinemarket.model.product.Image;
+import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.MarketRepository;
 import com.smarteist.autoimageslider.SliderView;
 

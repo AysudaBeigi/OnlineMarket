@@ -1,4 +1,4 @@
-package com.example.onlinemarket.model;
+package com.example.onlinemarket.model.product;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

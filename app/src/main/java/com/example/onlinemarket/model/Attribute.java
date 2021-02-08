@@ -4,55 +4,29 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Attribute {
+public class Attribute {@SerializedName("visible")
+private boolean visible;
+
     @SerializedName("name")
     private String name;
+
+    @SerializedName("options")
+    private List<String> options;
 
     @SerializedName("id")
     private int id;
 
-    @SerializedName("slug")
-    private String slug;
-
-    @SerializedName("type")
-    private String type;
-
-    @SerializedName("order_by")
-    private String orderBy;
-
     @SerializedName("position")
     private int position;
-    @SerializedName("options")
-    private List<String> options;
 
-    public int getPosition() {
-
-        return position;
-    }
-
-    public List<String> getOptions() {
-        return options;
-    }
+    @SerializedName("variation")
+    private boolean variation;
 
     public String getName() {
         return name;
     }
 
-    public int getId() {
-        return id;
+    public List<String> getOptions() {
+        return options;
     }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getOrderBy() {
-        return orderBy;
-    }
-
-
 }
