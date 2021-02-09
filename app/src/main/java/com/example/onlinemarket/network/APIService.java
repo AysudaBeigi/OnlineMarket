@@ -16,7 +16,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
-public interface MarketService {
+public interface APIService {
 
     @GET("products/")
     Call<List<Product>> getProducts(@QueryMap Map<String, String> map);

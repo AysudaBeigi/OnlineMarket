@@ -15,7 +15,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
-import com.example.onlinemarket.repository.ShoppingBagRepository;
+import com.example.onlinemarket.repository.ShoppingBagProductsRepository;
 import com.smarteist.autoimageslider.SliderView;
 
 import org.jsoup.Jsoup;
@@ -28,7 +28,7 @@ import java.util.List;
 public class ProductDetailFragment extends Fragment implements IOnBackPress {
 
     private static final String ARGS_PRODUCT ="argsProduct" ;
-    private ShoppingBagRepository mShoppingBagRepository;
+    private ShoppingBagProductsRepository mShoppingBagProductsRepository;
     private Product mProduct;
     private ImageSliderAdapter mImageSliderAdapter;
     private SliderView mSliderView;
@@ -56,7 +56,7 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
         super.onCreate(savedInstanceState);
 
         mProduct = (Product) getArguments().get(ARGS_PRODUCT);
-        mShoppingBagRepository = ShoppingBagRepository.getInstance(getContext());
+        mShoppingBagProductsRepository = ShoppingBagProductsRepository.getInstance(getContext());
     }
 
     @Override
@@ -108,7 +108,7 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
         mButtonAddToShoppingBag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShoppingBagRepository.insertProduct(mProduct);
+                mShoppingBagProductsRepository.insertProduct(mProduct);
             }
         });
     }

@@ -8,7 +8,7 @@ import com.example.onlinemarket.model.Attribute;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Product;
-import com.example.onlinemarket.network.MarketService;
+import com.example.onlinemarket.network.APIService;
 import com.example.onlinemarket.network.NetworkParams;
 import com.example.onlinemarket.retrofit.RetrofitInstance;
 
@@ -25,9 +25,8 @@ import static com.example.onlinemarket.network.NetworkParams.CONSUMER_SECRET;
 
 public class MarketRepository {
 
-    private Context mContext;
     private static String TAG="OnlineMarket";
-    private MarketService mRequestService;
+    private APIService mAPIService;
 
     public static final Map<String, String> BASE_KEYS = new HashMap<String, String>() {{
         put("consumer_key", CONSUMER_KEY);
@@ -35,15 +34,14 @@ public class MarketRepository {
 
     }};
     public MarketRepository(Context context) {
-        mRequestService = RetrofitInstance.getInstance(context).
-                create(MarketService.class);
-        mContext = context;
+        mAPIService = RetrofitInstance.getInstance(context).getRetrofit().
+                create(APIService.class);
     }
 
     public void fetchLastProducts(productsCallback callBacks) {
         Log.d(TAG,"MarketRepository : fetchLastProducts");
 
-        mRequestService.getProducts(NetworkParams.getLastProducts()).
+        mAPIService.getProducts(NetworkParams.getLastProducts()).
                 enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
@@ -62,7 +60,7 @@ public class MarketRepository {
     public void fetchMostVisitedProducts(productsCallback callBacks) {
         Log.d(TAG,"MarketRepository : fetchMostVisitedProducts");
 
-        mRequestService.getProducts(NetworkParams.getMostVisitedProducts()).
+        mAPIService.getProducts(NetworkParams.getMostVisitedProducts()).
                 enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(Call<List<Product>> call,
@@ -80,7 +78,7 @@ public class MarketRepository {
     public void fetchPopularProducts( int page ,productsCallback callBacks) {
 
         Log.d(TAG,"MarketRepository : fetchPopularProducts");
-        mRequestService.getProducts(NetworkParams.getPopularProducts(page)).
+        mAPIService.getProducts(NetworkParams.getPopularProducts(page)).
                 enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call,
@@ -96,7 +94,7 @@ public class MarketRepository {
     }
 
     public void fetchCategories(CategoriesCallback callBacks) {
-        mRequestService.getCategories(NetworkParams.getCategories()).
+        mAPIService.getCategories(NetworkParams.getCategories()).
                 enqueue(new Callback<List<Category>>() {
                     @Override
                     public void onResponse(Call<List<Category>> call,
@@ -113,7 +111,7 @@ public class MarketRepository {
     }
 
     public void fetchCategoryProduct(int categoryId, productsCallback callBacks) {
-        mRequestService.getProducts(NetworkParams.getCategoryProducts(categoryId)).
+        mAPIService.getProducts(NetworkParams.getCategoryProducts(categoryId)).
                 enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(Call<List<Product>> call,
@@ -178,7 +176,7 @@ public class MarketRepository {
     }
 */
     public void fetchSubCategories(int parentId, subCategoriesCallback callback) {
-        mRequestService.getCategories(NetworkParams.getSubCategories(parentId)).
+        mAPIService.getCategories(NetworkParams.getSubCategories(parentId)).
                 enqueue(new Callback<List<Category>>() {
                     @Override
                     public void onResponse(Call<List<Category>> call,
@@ -195,7 +193,7 @@ public class MarketRepository {
 
 
     public void fetchProduct(int productId, productCallback callBacks) {
-        mRequestService.getProduct(productId, NetworkParams.getBaseQuery()).
+        mAPIService.getProduct(productId, NetworkParams.getBaseQuery()).
                 enqueue(new Callback<Product>() {
                     @Override
                     public void onResponse(Call<Product> call,
@@ -212,7 +210,7 @@ public class MarketRepository {
     }
 
     public void fetchAttributes(AttributesCallback callback) {
-        mRequestService.getAttributes(NetworkParams.getBaseQuery())
+        mAPIService.getAttributes(NetworkParams.getBaseQuery())
                 .enqueue(new Callback<List<Attribute>>() {
                     @Override
                     public void onResponse(Call<List<Attribute>> call,
@@ -233,7 +231,7 @@ public class MarketRepository {
 
     public void postCustomer(Customer customer, CustomerCallback customerCallbacks) {
 
-        mRequestService.postCustomers(new HashMap<>(),customer).
+        mAPIService.postCustomers(new HashMap<>(),customer).
                 enqueue(new Callback<Customer>() {
             @Override
             public void onResponse(Call<Customer> call, Response<Customer> response) {
@@ -248,7 +246,7 @@ public class MarketRepository {
     }
 
     public void fetchSearchProducts( Map<String, String> query, productsCallback callBacks) {
-        mRequestService.getProducts(query).enqueue(new Callback<List<Product>>() {
+        mAPIService.getProducts(query).enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call,
                                    Response<List<Product>> response) {

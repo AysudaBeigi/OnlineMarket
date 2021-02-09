@@ -17,7 +17,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.controller.fragment.ShoppingBagFragment;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
-import com.example.onlinemarket.repository.ShoppingBagRepository;
+import com.example.onlinemarket.repository.ShoppingBagProductsRepository;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -164,8 +164,8 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Recycl
             mMaterialButtonDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ShoppingBagRepository shoppingBagRepository = ShoppingBagRepository.getInstance(mContext);
-                    shoppingBagRepository.deleteProduct(mProductsItem.get(position));
+                    ShoppingBagProductsRepository shoppingBagProductsRepository = ShoppingBagProductsRepository.getInstance(mContext);
+                    shoppingBagProductsRepository.deleteProduct(mProductsItem.get(position));
                     ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_container_main_activity,
                                     ShoppingBagFragment.newInstance())

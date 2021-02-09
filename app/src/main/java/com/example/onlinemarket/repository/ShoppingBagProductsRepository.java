@@ -11,15 +11,15 @@ import com.example.onlinemarket.model.product.Product;
 import java.util.List;
 
 
-public class ShoppingBagRepository {
+public class ShoppingBagProductsRepository {
 
-    private static ShoppingBagRepository sInstance;
+    private static ShoppingBagProductsRepository sInstance;
 
     private IShoppingBagProductsDAO mIShoppingBagProductsDAO;
     private Context mContext;
 
 
-    private ShoppingBagRepository(Context context) {
+    private ShoppingBagProductsRepository(Context context) {
 
         mContext = context.getApplicationContext();
         ShoppingBagProductsDB productDataBase = Room.databaseBuilder(mContext,
@@ -31,9 +31,9 @@ public class ShoppingBagRepository {
     }
 
 
-    public static ShoppingBagRepository getInstance(Context context) {
+    public static ShoppingBagProductsRepository getInstance(Context context) {
         if (sInstance == null)
-            sInstance = new ShoppingBagRepository(context);
+            sInstance = new ShoppingBagProductsRepository(context);
         return sInstance;
     }
 

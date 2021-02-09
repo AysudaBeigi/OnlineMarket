@@ -17,7 +17,7 @@ import com.example.onlinemarket.adapter.ShoppingAdapter;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.MarketRepository;
-import com.example.onlinemarket.repository.ShoppingBagRepository;
+import com.example.onlinemarket.repository.ShoppingBagProductsRepository;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
 
     public static final String TAG = "ShoppingFragment";
     private MarketRepository mMarketRepository;
-    private ShoppingBagRepository mShoppingBagRepository;
+    private ShoppingBagProductsRepository mShoppingBagProductsRepository;
 
     private RecyclerView mShoppingRecyclerView;
     private Button mButtonFinalizeShopping;
@@ -48,7 +48,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         super.onCreate(savedInstanceState);
 
         mMarketRepository = new MarketRepository(getContext());
-        mShoppingBagRepository = ShoppingBagRepository.getInstance(getContext());
+        mShoppingBagProductsRepository = ShoppingBagProductsRepository.getInstance(getContext());
     }
 
     @Override
@@ -85,9 +85,9 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
                 LinearLayoutManager.VERTICAL, false));
 
         updateList(mShoppingRecyclerView,
-                mShoppingBagRepository.getProducts());
+                mShoppingBagProductsRepository.getProducts());
 
-        Log.d(TAG, "setRecycler: " + mShoppingBagRepository.getProducts().size());
+        Log.d(TAG, "setRecycler: " + mShoppingBagProductsRepository.getProducts().size());
     }
 
 
