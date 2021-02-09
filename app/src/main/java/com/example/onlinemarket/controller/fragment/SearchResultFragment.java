@@ -1,4 +1,4 @@
-package com.example.onlinemarket.fragment;
+package com.example.onlinemarket.controller.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="4dp"
-            android:fontFamily="@font/far_trafc_bd"
+            android:fontFamily="@font/iran_yekan"
             android:gravity="right"
             android:lines="3"
             android:text="@string/product_name"

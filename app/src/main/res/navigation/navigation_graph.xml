@@ -5,7 +5,7 @@
     app:startDestination="@id/home_fragment">
     <fragment
         android:id="@+id/home_fragment"
-        android:name="com.example.onlinemarket.fragment.HomeFragment"
+        android:name="com.example.onlinemarket.controller.fragment.HomeFragment"
         android:label="HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_categoryFragment"
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/category_fragment"
-        android:name="com.example.onlinemarket.fragment.SubCategoryProductsFragment"
+        android:name="com.example.onlinemarket.controller.fragment.SubCategoryProductsFragment"
         android:label="CategoryFragment">
         <action
             android:id="@+id/action_categoryListFragment_to_productListFragment"
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/shopping_bag_fragment"
-        android:name="com.example.onlinemarket.fragment.ShoppingBagFragment"
+        android:name="com.example.onlinemarket.controller.fragment.ShoppingBagFragment"
         android:label="ShoppingBagFragment">
         <action
             android:id="@+id/action_categoryListFragment_to_productListFragment"
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/user_profile_fragment"
-        android:name="com.example.onlinemarket.fragment.UserProfileFragment"
+        android:name="com.example.onlinemarket.controller.fragment.UserProfileFragment"
         android:label="UserProfileFragment">
         <action
             android:id="@+id/action_categoryListFragment_to_productListFragment"
@@ -74,7 +74,7 @@
     </fragment>-->
     <fragment
         android:id="@+id/product_detail_fragment"
-        android:name="com.example.onlinemarket.fragment.ProductDetailFragment"
+        android:name="com.example.onlinemarket.controller.fragment.ProductDetailFragment"
         android:label="ProductDetailFragment">
         <argument
             android:name="productPage"

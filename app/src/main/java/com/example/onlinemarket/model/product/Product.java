@@ -16,37 +16,6 @@ public class Product implements Serializable {
     @ColumnInfo(name = "primaryId")
     private int primaryId;
 
-    @SerializedName("upsell_ids")
-    @ColumnInfo(name = "upsellIds")
-    private List<Object> upsellIds;
-
-    @SerializedName("featured")
-    @ColumnInfo(name = "featured")
-    private boolean featured;
-
-    public int getPrimaryId() {
-        return primaryId;
-    }
-
-    public void setPrimaryId(int primaryId) {
-        this.primaryId = primaryId;
-    }
-
-    @SerializedName("purchasable")
-    @ColumnInfo(name = "purchasable")
-    private boolean purchasable;
-
-    @SerializedName("grouped_products")
-    @ColumnInfo(name = "groupedProducts")
-    private List<Object> groupedProducts;
-
-    @SerializedName("tax_status")
-    @ColumnInfo(name = "taxStatus")
-    private String taxStatus;
-
-    @SerializedName("catalog_visibility")
-    @ColumnInfo(name = "catalogVisibility")
-    private String catalogVisibility;
 
     @SerializedName("type")
     @ColumnInfo(name = "type")
@@ -92,34 +61,17 @@ public class Product implements Serializable {
     @ColumnInfo(name = "images")
     private List<Image> images;
 
-    @SerializedName("stock_status")
-    @ColumnInfo(name = "stockStatus")
-    private String stockStatus;
 
     @SerializedName("price_html")
     @ColumnInfo(name = "priceHtml")
     private String priceHtml;
 
-    @SerializedName("download_expiry")
-    @ColumnInfo(name = "downloadExpiry")
-    private int downloadExpiry;
-
-    @SerializedName("backordered")
-    @ColumnInfo(name = "backordered")
-    private boolean backordered;
-
-    @SerializedName("weight")
-    @ColumnInfo(name = "weight")
-    private String weight;
 
     @SerializedName("rating_count")
     @ColumnInfo(name = "ratingCount")
     private int ratingCount;
 
-    /*@SerializedName("tags")
-    @ColumnInfo(name = "tags")
-    private List<TagsItem> tags;
-*/
+
     @SerializedName("date_on_sale_to")
     @ColumnInfo(name = "dateOnSaleTo")
     private Object dateOnSaleTo;
@@ -128,21 +80,11 @@ public class Product implements Serializable {
     @ColumnInfo(name = "soldIndividually")
     private boolean soldIndividually;
 
-    @SerializedName("backorders")
-    @ColumnInfo(name = "backorders")
-    private String backorders;
-
-    @SerializedName("shipping_taxable")
-    @ColumnInfo(name = "shippingTaxable")
-    private boolean shippingTaxable;
 
     @SerializedName("parent_id")
     @ColumnInfo(name = "parentId")
     private int parentId;
 
-    @SerializedName("download_limit")
-    @ColumnInfo(name = "downloadLimit")
-    private int downloadLimit;
 
     @SerializedName("name")
     @ColumnInfo(name = "name")
@@ -152,33 +94,10 @@ public class Product implements Serializable {
     @ColumnInfo(name = "shippingClass")
     private String shippingClass;
 
-    @SerializedName("button_text")
-    @ColumnInfo(name = "buttonText")
-    private String buttonText;
-
-    @SerializedName("permalink")
-    @ColumnInfo(name = "permalink")
-    private String permalink;
-
-    @SerializedName("status")
-    @ColumnInfo(name = "status")
-    private String status;
-
-    @SerializedName("cross_sell_ids")
-    @ColumnInfo(name = "crossSellIds")
-    private List<Object> crossSellIds;
-
     @SerializedName("short_description")
     @ColumnInfo(name = "shortDescription")
     private String shortDescription;
 
-    @SerializedName("virtual")
-    @ColumnInfo(name = "virtual")
-    private boolean virtual;
-
-    @SerializedName("downloadable")
-    @ColumnInfo(name = "downloadable")
-    private boolean downloadable;
 
     @SerializedName("menu_order")
     private int menuOrder;
@@ -199,13 +118,6 @@ public class Product implements Serializable {
     @ColumnInfo(name = "regularPrice")
     private String regularPrice;
 
-    @SerializedName("backorders_allowed")
-    @ColumnInfo(name = "backordersAllowed")
-    private boolean backordersAllowed;
-
-    @SerializedName("downloads")
-    @ColumnInfo(name = "downloads")
-    private List<Object> downloads;
 
     @SerializedName("reviews_allowed")
     @ColumnInfo(name = "reviewsAllowed")
@@ -227,9 +139,6 @@ public class Product implements Serializable {
     @ColumnInfo(name = "onSale")
     private boolean onSale;
 
-    @SerializedName("manage_stock")
-    @ColumnInfo(name = "manageStock")
-    private boolean manageStock;
 
     @SerializedName("default_attributes")
     @ColumnInfo(name = "defaultAttributes")
@@ -271,9 +180,6 @@ public class Product implements Serializable {
     @ColumnInfo(name = "dateModified")
     private String dateModified;
 
-    @SerializedName("related_ids")
-    @ColumnInfo(name = "relatedIds")
-    private List<Integer> relatedIds;
 
     @SerializedName("attributes")
     @ColumnInfo(name = "attributes")
@@ -290,29 +196,6 @@ public class Product implements Serializable {
         this.allPrice = allPrice;
     }
 
-    public List<Object> getUpsellIds() {
-        return upsellIds;
-    }
-
-    public boolean isFeatured() {
-        return featured;
-    }
-
-    public boolean isPurchasable() {
-        return purchasable;
-    }
-
-    public List<Object> getGroupedProducts() {
-        return groupedProducts;
-    }
-
-    public String getTaxStatus() {
-        return taxStatus;
-    }
-
-    public String getCatalogVisibility() {
-        return catalogVisibility;
-    }
 
     public String getType() {
         return type;
@@ -358,25 +241,11 @@ public class Product implements Serializable {
         return images;
     }
 
-    public String getStockStatus() {
-        return stockStatus;
-    }
 
     public String getPriceHtml() {
         return priceHtml;
     }
 
-    public int getDownloadExpiry() {
-        return downloadExpiry;
-    }
-
-    public boolean isBackordered() {
-        return backordered;
-    }
-
-    public String getWeight() {
-        return weight;
-    }
 
     public int getRatingCount() {
         return ratingCount;
@@ -394,21 +263,11 @@ public class Product implements Serializable {
         return soldIndividually;
     }
 
-    public String getBackorders() {
-        return backorders;
-    }
-
-    public boolean isShippingTaxable() {
-        return shippingTaxable;
-    }
 
     public int getParentId() {
         return parentId;
     }
 
-    public int getDownloadLimit() {
-        return downloadLimit;
-    }
 
     public String getName() {
         return name;
@@ -418,32 +277,9 @@ public class Product implements Serializable {
         return shippingClass;
     }
 
-    public String getButtonText() {
-        return buttonText;
-    }
-
-    public String getPermalink() {
-        return permalink;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public List<Object> getCrossSellIds() {
-        return crossSellIds;
-    }
 
     public String getShortDescription() {
         return shortDescription;
-    }
-
-    public boolean isVirtual() {
-        return virtual;
-    }
-
-    public boolean isDownloadable() {
-        return downloadable;
     }
 
     public int getMenuOrder() {
@@ -466,14 +302,6 @@ public class Product implements Serializable {
         return regularPrice;
     }
 
-    public boolean isBackordersAllowed() {
-        return backordersAllowed;
-    }
-
-    public List<Object> getDownloads() {
-        return downloads;
-    }
-
     public boolean isReviewsAllowed() {
         return reviewsAllowed;
     }
@@ -494,32 +322,13 @@ public class Product implements Serializable {
         return onSale;
     }
 
-    public boolean isManageStock() {
-        return manageStock;
+
+    public int getPrimaryId() {
+        return primaryId;
     }
 
-    public void setUpsellIds(List<Object> upsellIds) {
-        this.upsellIds = upsellIds;
-    }
-
-    public void setFeatured(boolean featured) {
-        this.featured = featured;
-    }
-
-    public void setPurchasable(boolean purchasable) {
-        this.purchasable = purchasable;
-    }
-
-    public void setGroupedProducts(List<Object> groupedProducts) {
-        this.groupedProducts = groupedProducts;
-    }
-
-    public void setTaxStatus(String taxStatus) {
-        this.taxStatus = taxStatus;
-    }
-
-    public void setCatalogVisibility(String catalogVisibility) {
-        this.catalogVisibility = catalogVisibility;
+    public void setPrimaryId(int primaryId) {
+        this.primaryId = primaryId;
     }
 
     public void setType(String type) {
@@ -566,25 +375,11 @@ public class Product implements Serializable {
         this.images = images;
     }
 
-    public void setStockStatus(String stockStatus) {
-        this.stockStatus = stockStatus;
-    }
 
     public void setPriceHtml(String priceHtml) {
         this.priceHtml = priceHtml;
     }
 
-    public void setDownloadExpiry(int downloadExpiry) {
-        this.downloadExpiry = downloadExpiry;
-    }
-
-    public void setBackordered(boolean backordered) {
-        this.backordered = backordered;
-    }
-
-    public void setWeight(String weight) {
-        this.weight = weight;
-    }
 
     public void setRatingCount(int ratingCount) {
         this.ratingCount = ratingCount;
@@ -602,21 +397,11 @@ public class Product implements Serializable {
         this.soldIndividually = soldIndividually;
     }
 
-    public void setBackorders(String backorders) {
-        this.backorders = backorders;
-    }
-
-    public void setShippingTaxable(boolean shippingTaxable) {
-        this.shippingTaxable = shippingTaxable;
-    }
 
     public void setParentId(int parentId) {
         this.parentId = parentId;
     }
 
-    public void setDownloadLimit(int downloadLimit) {
-        this.downloadLimit = downloadLimit;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -626,32 +411,9 @@ public class Product implements Serializable {
         this.shippingClass = shippingClass;
     }
 
-    public void setButtonText(String buttonText) {
-        this.buttonText = buttonText;
-    }
-
-    public void setPermalink(String permalink) {
-        this.permalink = permalink;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setCrossSellIds(List<Object> crossSellIds) {
-        this.crossSellIds = crossSellIds;
-    }
 
     public void setShortDescription(String shortDescription) {
         this.shortDescription = shortDescription;
-    }
-
-    public void setVirtual(boolean virtual) {
-        this.virtual = virtual;
-    }
-
-    public void setDownloadable(boolean downloadable) {
-        this.downloadable = downloadable;
     }
 
     public void setMenuOrder(int menuOrder) {
@@ -674,14 +436,6 @@ public class Product implements Serializable {
         this.regularPrice = regularPrice;
     }
 
-    public void setBackordersAllowed(boolean backordersAllowed) {
-        this.backordersAllowed = backordersAllowed;
-    }
-
-    public void setDownloads(List<Object> downloads) {
-        this.downloads = downloads;
-    }
-
     public void setReviewsAllowed(boolean reviewsAllowed) {
         this.reviewsAllowed = reviewsAllowed;
     }
@@ -700,10 +454,6 @@ public class Product implements Serializable {
 
     public void setOnSale(boolean onSale) {
         this.onSale = onSale;
-    }
-
-    public void setManageStock(boolean manageStock) {
-        this.manageStock = manageStock;
     }
 
     public void setDefaultAttributes(List<Object> defaultAttributes) {
@@ -744,10 +494,6 @@ public class Product implements Serializable {
 
     public void setDateModified(String dateModified) {
         this.dateModified = dateModified;
-    }
-
-    public void setRelatedIds(List<Integer> relatedIds) {
-        this.relatedIds = relatedIds;
     }
 
     public void setAttributes(List<Object> attributes) {
@@ -794,14 +540,9 @@ public class Product implements Serializable {
         return dateModified;
     }
 
-    public List<Integer> getRelatedIds() {
-        return relatedIds;
-    }
-
     public List<Object> getAttributes() {
         return attributes;
     }
-
 
 
 }

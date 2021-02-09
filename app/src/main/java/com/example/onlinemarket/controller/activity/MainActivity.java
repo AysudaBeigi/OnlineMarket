@@ -1,20 +1,20 @@
-package com.example.onlinemarket.activity;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+package com.example.onlinemarket.controller.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.fragment.CategoriesFragment;
-import com.example.onlinemarket.fragment.HomeFragment;
-import com.example.onlinemarket.fragment.ShoppingBagFragment;
-import com.example.onlinemarket.fragment.UserProfileFragment;
+import com.example.onlinemarket.controller.fragment.CategoriesFragment;
+import com.example.onlinemarket.controller.fragment.HomeFragment;
+import com.example.onlinemarket.controller.fragment.ShoppingBagFragment;
+import com.example.onlinemarket.controller.fragment.UserProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

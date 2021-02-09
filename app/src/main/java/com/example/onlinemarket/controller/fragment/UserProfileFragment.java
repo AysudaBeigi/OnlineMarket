@@ -1,27 +1,26 @@
-package com.example.onlinemarket.fragment;
+package com.example.onlinemarket.controller.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.onlinemarket.R;
 
+public class UserProfileFragment extends Fragment {
 
-public class ShoppingBagFragment extends Fragment {
 
-    public ShoppingBagFragment() {
+    public UserProfileFragment() {
         // Required empty public constructor
     }
 
 
-    public static ShoppingBagFragment newInstance() {
-        ShoppingBagFragment fragment = new ShoppingBagFragment();
+    public static UserProfileFragment newInstance() {
+        UserProfileFragment fragment = new UserProfileFragment();
         Bundle args = new Bundle();
-       fragment.setArguments(args);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -35,6 +34,6 @@ public class ShoppingBagFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_shopping_bag, container, false);
+        return inflater.inflate(R.layout.fragment_user_profile, container, false);
     }
 }

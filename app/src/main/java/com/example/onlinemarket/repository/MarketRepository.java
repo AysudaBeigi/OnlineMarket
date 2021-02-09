@@ -231,24 +231,21 @@ public class MarketRepository {
     }
 
 
-   /* public void sendCustomer(String email, CustomerCallbacks customerCallbacks) {
+    public void postCustomer(Customer customer, CustomerCallback customerCallbacks) {
 
-        mRequestService.createCustomer(email).enqueue(new Callback<Customer>() {
+        mRequestService.postCustomers(new HashMap<>(),customer).
+                enqueue(new Callback<Customer>() {
             @Override
             public void onResponse(Call<Customer> call, Response<Customer> response) {
                 Log.d(TAG, "onResponse: " + response.body());
-                Log.d(TAG, "onResponse: " + response.code());
-
             }
 
             @Override
             public void onFailure(Call<Customer> call, Throwable t) {
-
             }
         });
 
     }
-*/
 
     public void fetchSearchProducts( Map<String, String> query, productsCallback callBacks) {
         mRequestService.getProducts(query).enqueue(new Callback<List<Product>>() {

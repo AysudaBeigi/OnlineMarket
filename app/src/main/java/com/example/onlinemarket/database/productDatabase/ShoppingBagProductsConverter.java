@@ -1,4 +1,4 @@
-package com.example.onlinemarket.database;
+package com.example.onlinemarket.database.productDatabase;
 
 
 import androidx.room.TypeConverter;
@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 
-public class Converter {
+public class ShoppingBagProductsConverter {
     @TypeConverter
     public static List<String> stringToList(String data) {
         Gson gson = new Gson();

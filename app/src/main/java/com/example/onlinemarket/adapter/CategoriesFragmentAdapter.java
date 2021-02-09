@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.fragment.SubCategoryProductsFragment;
+import com.example.onlinemarket.controller.fragment.SubCategoryProductsFragment;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Image;
 import com.squareup.picasso.Picasso;

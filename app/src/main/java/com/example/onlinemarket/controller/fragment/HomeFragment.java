@@ -1,4 +1,4 @@
-package com.example.onlinemarket.fragment;
+package com.example.onlinemarket.controller.fragment;
 
 import android.os.Bundle;
 import android.util.Log;
