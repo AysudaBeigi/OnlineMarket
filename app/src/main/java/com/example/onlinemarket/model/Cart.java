@@ -4,10 +4,12 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.onlinemarket.model.product.Product;
+
 @Entity(tableName = "cart")
 public class Cart {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "cart_id")
+    @ColumnInfo(name = "cart_primary_id")
     private long primaryId;
 
     @ColumnInfo(name = "user_id")
@@ -18,6 +20,19 @@ public class Cart {
 
     @ColumnInfo(name = "product_count")
     private int product_count;
+
+
+    @ColumnInfo(name = "product")
+    private Product product;
+
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
 
     public long getPrimaryId() {
         return primaryId;
@@ -35,19 +50,19 @@ public class Cart {
         this.userId = userId;
     }
 
-    public int getProduct_id() {
+    public int getProductId() {
         return product_id;
     }
 
-    public void setProduct_id(int product_id) {
+    public void setProductId(int product_id) {
         this.product_id = product_id;
     }
 
-    public int getProduct_count() {
+    public int getProductCount() {
         return product_count;
     }
 
-    public void setProduct_count(int product_count) {
+    public void setProductCount(int product_count) {
         this.product_count = product_count;
     }
 
@@ -55,5 +70,7 @@ public class Cart {
         this.product_id = product_id;
         this.product_count = product_count;
     }
+
+
 }
 

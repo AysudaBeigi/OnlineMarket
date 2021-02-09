@@ -13,8 +13,10 @@ import androidx.fragment.app.Fragment;
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
+import com.example.onlinemarket.model.Cart;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
+import com.example.onlinemarket.repository.CartDBRepository;
 import com.smarteist.autoimageslider.SliderView;
 
 import org.jsoup.Jsoup;
@@ -26,7 +28,7 @@ import java.util.List;
 
 public class ProductDetailFragment extends Fragment implements IOnBackPress {
 
-    private static final String ARGS_PRODUCT ="argsProduct" ;
+    private static final String ARGS_PRODUCT = "argsProduct";
     private Product mProduct;
     private ImageSliderAdapter mImageSliderAdapter;
     private SliderView mSliderView;
@@ -35,6 +37,7 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
     private TextView mDescription;
     private TextView mName;
     private Button mButtonAddToShoppingBag;
+    private CartDBRepository mCartDBRepository;
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -52,8 +55,9 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mProduct = (Product) getArguments().get(ARGS_PRODUCT);
+        mCartDBRepository=CartDBRepository.getInstance(getActivity());
+
     }
 
     @Override
@@ -107,12 +111,13 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
             public void onClick(View view) {
 
                 if (!isProductInCart()) {
-                   addTooCart();
+                    addTooCart();
 
+                }else {
+                    //todo: show snack bar : this is is added
                 }
+            }
         });
-
-
                /* mBinding.commentsButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -124,25 +129,36 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
                 });*/
 
     }
+
+
+    public boolean isProductInCart() {
+        Cart cart = new Cart(mProduct.getId(), 1);
+        return mCartDBRepository.getCarts().contains(cart);
+    }
+
+    public void addTooCart() {
+        Cart cart = new Cart(mProduct.getId(), 1);
+        mCartDBRepository.insertCart(cart);
+
+
     }
     private void setupImageSliderAdapter(List<Image> imagesItems) {
         mImageSliderAdapter = new ImageSliderAdapter(getContext(), imagesItems);
         mSliderView.setSliderAdapter(mImageSliderAdapter);
     }
 
-        public boolean isProductInCart() {
-            Cart cart = new Cart(mSelectedProduct.getId(), 1);
-            return mCartsSubject.contains(cart);
+   /* public String getFormattedDescription() {
+        if (mProduct.getName() == null)
+            return null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(mProduct.getDescription(),
+                    Html.FROM_HTML_MODE_COMPACT).toString();
+        } else {
+            return Html.fromHtml(mProduct.getDescription()).toString();
         }
-        public void addTooCart() {
-            Cart cart = new Cart(mSelectedProduct.getId(), 1);
-            mCartRepository.insertCart(cart);
-//        Log.d(CartRepository.TAG, "addTooCart: number of carts: " + mCartRepository.getCartLiveData().getValue().size());
-//        Log.d(CartRepository.TAG, "addTooCart: number of carts: " + mCartRepository.getCartLiveData(mSelectedProduct.getValue().getId()).getValue().toString());
+    }*/
 
-        }
-
-        @Override
+    @Override
     public boolean onBackPressed() {
         return true;
     }

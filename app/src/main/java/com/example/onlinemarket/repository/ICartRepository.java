@@ -9,7 +9,7 @@ public interface ICartRepository {
     void updateCart(Cart cart);
 
 
-    void insertCarts(Cart... carts);
+    void insertCart(Cart cart);
 
     void deleteCart(Cart cart);
 

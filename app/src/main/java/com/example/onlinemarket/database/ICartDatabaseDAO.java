@@ -18,7 +18,7 @@ public interface ICartDatabaseDAO {
     void updateCart(Cart cart);
 
     @Insert
-    void insertCarts(Cart... carts);
+    void insertCart(Cart cart);
 
     @Delete
     void deleteCart(Cart cart);
@@ -31,6 +31,7 @@ public interface ICartDatabaseDAO {
 
     @Query("SELECT * FROM cart WHERE product_id=:productId")
     Cart getCart(int productId);
+
 
 /*
 

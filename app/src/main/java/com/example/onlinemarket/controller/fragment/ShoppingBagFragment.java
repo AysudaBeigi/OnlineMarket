@@ -1,12 +1,10 @@
 package com.example.onlinemarket.controller.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,12 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.ShoppingAdapter;
+import com.example.onlinemarket.adapter.CartAdapter;
 import com.example.onlinemarket.model.Cart;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.CartDBRepository;
 import com.example.onlinemarket.repository.CustomerDBRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,7 +29,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     private CartDBRepository mCartDBRepository;
     private RecyclerView mShoppingRecyclerView;
     private Button mButtonFinalizeShopping;
-    private ShoppingAdapter mShoppingAdapter;
+    private CartAdapter mCartAdapter;
 
 
     public ShoppingBagFragment() {
@@ -63,15 +62,14 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         mButtonFinalizeShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCustomerDBRepository.getCustomer() != null) {
-                    Cart cart = mCartDBRepository.getCart(productId);
-                    if (cart == null) {
-                        mCartDBRepository.insertCarts(new Cart(productId,1));
-                    }else {
+                if (mCustomerDBRepository.getCustomer() == null) {
+                    //todo : snack bar please sign up first
+
+                    /*else {
                         int count = cart.getProduct_count() + 1;
                         cart.setProduct_count(count);
                         mCartDBRepository.updateCart(cart);
-                    }
+                    }*/
                 }
 
             }
@@ -79,7 +77,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         return view;
     }
 
-    private void setTotalPrice() {
+   /* private void setTotalPrice() {
         int totalPrice = 0;
         for (int i = 0; i < mProductList.size(); i++) {
             int price = Integer.parseInt(mProductList.get(i).getPrice());
@@ -87,18 +85,27 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
             totalPrice += (price * count);
         }
         mBuyBinding.totalPrice.setText(String.valueOf(totalPrice));
-    }
+    }*/
     private void initViews() {
         mShoppingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false));
 
-        updateList(mShoppingRecyclerView,
-                mShoppingBagProductsRepository.getProducts());
+        List<Product> orderList = getOrderList();
 
-        Log.d(TAG, "setRecycler: " + mShoppingBagProductsRepository.getProducts().size());
+        updateUI(mShoppingRecyclerView,orderList);
+
     }
 
-    public void onClickToBuy(int productId) {
+    private List<Product> getOrderList() {
+        List<Cart>  cartList= mCartDBRepository.getCarts();
+        List<Product> orderList=new ArrayList<>();
+        for (int i = 0; i <cartList.size() ; i++) {
+            orderList.add(cartList.get(i).getProduct());
+        }
+        return orderList;
+    }
+
+   /* public void onClickToBuy(int productId) {
         Cart cart = mCartDBRepository.getCart(productId);
         if (cart == null) {
             insertToCart(new Cart(productId,1));
@@ -109,7 +116,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         }
         Toast.makeText(mContext, "add to cart", Toast.LENGTH_SHORT).show();
 
-    }
+    }*/
 /*
     public void onClickToBuyAgain(int productId) {
         onClickToBuy(productId);
@@ -145,16 +152,16 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     }*/
 
 
-    private void updateList(RecyclerView recyclerView,
+    private void updateUI(RecyclerView recyclerView,
 
-                            List<Product> productItems) {
+                          List<Product> productItems) {
 
-        if (mShoppingAdapter == null) {
-            mShoppingAdapter = new ShoppingAdapter(getContext(), productItems);
-            recyclerView.setAdapter(mShoppingAdapter);
+        if (mCartAdapter == null) {
+            mCartAdapter = new CartAdapter(getContext(), productItems);
+            recyclerView.setAdapter(mCartAdapter);
         } else {
-            mShoppingAdapter.setProductsItem(productItems);
-            mShoppingAdapter.notifyDataSetChanged();
+            mCartAdapter.setCartProducts(productItems);
+            mCartAdapter.notifyDataSetChanged();
         }
 
     }

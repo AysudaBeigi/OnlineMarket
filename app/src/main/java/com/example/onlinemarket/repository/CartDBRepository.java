@@ -43,8 +43,8 @@ public class CartDBRepository implements ICartRepository {
 
 
     @Override
-    public void insertCarts(Cart... carts) {
-        mCartDAO.insertCarts(carts);
+    public void insertCart(Cart cart) {
+        mCartDAO.insertCart(cart);
     }
 
     @Override
@@ -66,4 +66,6 @@ public class CartDBRepository implements ICartRepository {
     public Cart getCart(int productId) {
         return mCartDAO.getCart(productId);
     }
+
+
 }

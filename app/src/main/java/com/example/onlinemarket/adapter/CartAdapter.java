@@ -2,7 +2,6 @@ package com.example.onlinemarket.adapter;
 
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,79 +14,75 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.controller.fragment.ShoppingBagFragment;
+import com.example.onlinemarket.model.Cart;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
+import com.example.onlinemarket.repository.CartDBRepository;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textview.MaterialTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.RecyclerHolder> {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder> {
 
     public static final String TAG = "CardAdapter";
     private Context mContext;
-    private List<Product> mProductsItem;
-
+    private List<Product> mCartProducts;
     private int mFinalPriceValue = 0;
+    CartDBRepository mCartDBRepository;
 
-    public int getFinalPriceValue() {
-        return mFinalPriceValue;
+
+
+    public List<Product> getCartProducts() {
+        return mCartProducts;
     }
 
-    public void setFinalPriceValue(int finalPriceValue) {
-        mFinalPriceValue = finalPriceValue;
-    }
-
-    public List<Product> getProductsItem() {
-        return mProductsItem;
-    }
-
-    public void setProductsItem(List<Product> productsItem) {
-        mProductsItem = productsItem;
+    public void setCartProducts(List<Product> cartProducts) {
+        mCartProducts = cartProducts;
         notifyDataSetChanged();
     }
 
-    public ShoppingAdapter(Context context, List<Product> productsItem) {
+    public CartAdapter(Context context, List<Product> cartProducts) {
         mContext = context;
-        mProductsItem = productsItem;
+        mCartProducts = cartProducts;
+        mCartDBRepository = CartDBRepository.getInstance(mContext);
     }
 
     @NonNull
     @Override
-    public RecyclerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.shopping_item_view, parent, false);
+                .inflate(R.layout.cart_item_view, parent, false);
 
-        return new RecyclerHolder(view);
+        return new CardViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerHolder holder, int position) {
-        Product productItem = mProductsItem.get(position);
+    public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
+        Product productItem = mCartProducts.get(position);
         holder.bindProduct(productItem);
         holder.setListener(position);
     }
 
     @Override
     public int getItemCount() {
-        return mProductsItem.size();
+        return mCartProducts.size();
     }
 
-    public class RecyclerHolder extends RecyclerView.ViewHolder {
+    public class CardViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mName, mSalePrice;
-        private com.google.android.material.button.MaterialButton mMaterialButtonPlus,
+        private MaterialButton mMaterialButtonPlus,
                 mMaterialButtonMinus, mMaterialButtonDelete;
-        private androidx.appcompat.widget.AppCompatTextView mCount, mFinalPrice;
+        private MaterialTextView mCount, mFinalPrice;
         private ImageView mImageView;
-
+        private Cart mCart;
+        private int mProductCount;
         private int basePrice = 0;
 
-        private View mItemView;
 
-        private int mProductCount = 1;
-
-
-        public RecyclerHolder(@NonNull View itemView) {
+        public CardViewHolder(@NonNull View itemView) {
             super(itemView);
             findHolderViews(itemView);
         }
@@ -102,22 +97,23 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Recycl
             mFinalPrice = itemView.findViewById(R.id.card_final_price);
             mImageView = itemView.findViewById(R.id.card_image_view);
             mSalePrice = itemView.findViewById(R.id.card_sale_price);
-            mItemView = itemView;
 
         }
 
-        private void bindProduct(Product productItem) {
-            mName.setText(productItem.getName() + "");
-            mFinalPrice.setText(productItem.getPrice() +
+        private void bindProduct(Product product) {
+            mCart=mCartDBRepository.getCart(product.getId());
+            mProductCount=mCart.getProductCount();
+            mName.setText(product.getName() + "");
+            mFinalPrice.setText(product.getPrice() +
                     " " + mContext.getResources().getString(R.string.toman));
             mCount.setText(mProductCount + "");
-            basePrice = Integer.parseInt(productItem.getPrice());
-            mSalePrice.setText(mProductCount * Integer.parseInt(productItem.getPrice())
+            basePrice = Integer.parseInt(product.getPrice());
+            mSalePrice.setText(mProductCount * Integer.parseInt(product.getPrice())
                     + " " + mContext.getResources().getString(R.string.toman));
 
-            setFinalPriceValue(mFinalPriceValue + mProductCount * basePrice);
+            mFinalPriceValue = mFinalPriceValue + mProductCount * basePrice;
 
-            List<Image> imagesItems = productItem.getImages();
+            List<Image> imagesItems = product.getImages();
             if (imagesItems.get(0).getSrc().length() != 0)
                 Picasso.get()
                         .load(imagesItems.get(0).getSrc())
@@ -129,17 +125,17 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Recycl
             mMaterialButtonPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mCart.setProductCount(++mProductCount);
+                    mCartDBRepository.updateCart(mCart);
                     if (mProductCount <= 0)
                         mProductCount = 0;
-
                     mProductCount++;
 
                     if (mProductCount >= 0) {
                         mCount.setText(mProductCount + "");
                         mSalePrice.setText(mProductCount * basePrice +
                                 " " + mContext.getResources().getString(R.string.toman));
-                        setFinalPriceValue(mFinalPriceValue + mProductCount * basePrice);
-                        Log.d(TAG, "mFinalPriceValue: " + mFinalPriceValue);
+                        mFinalPriceValue = mFinalPriceValue + mProductCount * basePrice;
 
                     }
 
@@ -154,8 +150,7 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Recycl
                         mCount.setText(mProductCount + "");
                         mSalePrice.setText(mProductCount * basePrice +
                                 " " + mContext.getResources().getString(R.string.toman));
-                        setFinalPriceValue(mFinalPriceValue - mProductCount * basePrice);
-                        Log.d(TAG, "mFinalPriceValue: " + mFinalPriceValue);
+                        mFinalPriceValue = mFinalPriceValue - mProductCount * basePrice;
                     }
                 }
             });
@@ -163,14 +158,14 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Recycl
             mMaterialButtonDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ShoppingBagProductsRepository shoppingBagProductsRepository = ShoppingBagProductsRepository.getInstance(mContext);
-                    shoppingBagProductsRepository.deleteProduct(mProductsItem.get(position));
+                    Cart cart = mCartDBRepository.getCart(mCartProducts.get(position).getId());
+                    mCartDBRepository.deleteCart(cart);
                     ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_container_main_activity,
                                     ShoppingBagFragment.newInstance())
                             .commit();
-//                notifyItemRemoved(position);
-//                notifyItemRangeChanged(position, mProductsItem.size());
+
+
                 }
             });
 
