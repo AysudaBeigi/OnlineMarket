@@ -1,4 +1,4 @@
-package com.example.onlinemarket.database.productDatabase;
+package com.example.onlinemarket.database;
 
 
 import androidx.room.TypeConverter;
@@ -12,7 +12,7 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 
-public class ShoppingBagProductsConverter {
+public class Converter {
     @TypeConverter
     public static List<String> stringToList(String data) {
         Gson gson = new Gson();
@@ -103,31 +103,6 @@ public class ShoppingBagProductsConverter {
         return productCategoriesList;
     }
 
-  /*  @TypeConverter
-    public String fromTagItemList(List<TagsItem> optionValues) {
-        if (optionValues == null) {
-            return (null);
-        }
-        Gson gson = new Gson();
-        Type type = new TypeToken<List<TagsItem>>() {
-        }.getType();
-        String json = gson.toJson(optionValues, type);
-        return json;
-    }
-
-    @TypeConverter
-    public List<TagsItem> toTagItemList(String optionValuesString) {
-        if (optionValuesString == null) {
-            return (null);
-        }
-        Gson gson = new Gson();
-        Type type = new TypeToken<List<TagsItem>>() {
-        }.getType();
-        List<TagsItem> productCategoriesList = gson.fromJson(optionValuesString, type);
-        return productCategoriesList;
-    }
-
-*/
     @TypeConverter
     public String fromCategoryItemList(List<Category> optionValues) {
         if (optionValues == null) {

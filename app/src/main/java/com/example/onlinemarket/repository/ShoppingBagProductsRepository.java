@@ -4,8 +4,7 @@ import android.content.Context;
 
 import androidx.room.Room;
 
-import com.example.onlinemarket.database.productDatabase.IShoppingBagProductsDAO;
-import com.example.onlinemarket.database.productDatabase.ShoppingBagProductsDB;
+import com.example.onlinemarket.database.productDatabase.IShoppingBagProductsDatabaseDAO;
 import com.example.onlinemarket.model.product.Product;
 
 import java.util.List;
@@ -15,7 +14,7 @@ public class ShoppingBagProductsRepository {
 
     private static ShoppingBagProductsRepository sInstance;
 
-    private IShoppingBagProductsDAO mIShoppingBagProductsDAO;
+    private IShoppingBagProductsDatabaseDAO mIShoppingBagProductsDatabaseDAO;
     private Context mContext;
 
 
@@ -24,10 +23,10 @@ public class ShoppingBagProductsRepository {
         mContext = context.getApplicationContext();
         ShoppingBagProductsDB productDataBase = Room.databaseBuilder(mContext,
                 ShoppingBagProductsDB.class,
-                "word.db")
+                "onlineMarket.db")
                 .allowMainThreadQueries()
                 .build();
-        mIShoppingBagProductsDAO = productDataBase.getProductDataBaseDAO();
+        mIShoppingBagProductsDatabaseDAO = productDataBase.getProductDataBaseDAO();
     }
 
 
@@ -38,18 +37,18 @@ public class ShoppingBagProductsRepository {
     }
 
     public void insertProduct(Product productsItem) {
-        mIShoppingBagProductsDAO.insertProduct(productsItem);
+        mIShoppingBagProductsDatabaseDAO.insertProduct(productsItem);
     }
 
     public void deleteProduct(Product productsItem) {
-        mIShoppingBagProductsDAO.deleteProduct(productsItem);
+        mIShoppingBagProductsDatabaseDAO.deleteProduct(productsItem);
     }
 
     public Product getProduct(int productId) {
-        return mIShoppingBagProductsDAO.getProductItem(productId);
+        return mIShoppingBagProductsDatabaseDAO.getProductItem(productId);
     }
 
     public List<Product> getProducts() {
-        return mIShoppingBagProductsDAO.getProducts();
+        return mIShoppingBagProductsDatabaseDAO.getProducts();
     }
 }

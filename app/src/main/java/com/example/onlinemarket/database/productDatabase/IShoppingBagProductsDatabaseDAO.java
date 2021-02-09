@@ -9,7 +9,7 @@ import com.example.onlinemarket.model.product.Product;
 
 import java.util.List;
 @Dao
-public interface IShoppingBagProductsDAO {
+public interface IShoppingBagProductsDatabaseDAO {
 
     @Insert
     void insertProduct(Product product);

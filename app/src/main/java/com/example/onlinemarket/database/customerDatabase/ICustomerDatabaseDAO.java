@@ -10,7 +10,7 @@ import com.example.onlinemarket.model.customer.Customer;
 
 
 @Dao
-public interface ICustomerDAO {
+public interface ICustomerDatabaseDAO {
 
     @Insert
     void insertCustomer(Customer  customer);
