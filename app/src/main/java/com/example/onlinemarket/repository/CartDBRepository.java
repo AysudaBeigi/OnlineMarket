@@ -41,13 +41,9 @@ public class CartDBRepository implements ICartRepository {
         mCartDAO.updateCart(cart);
     }
 
-    @Override
-    public void insertCart(Cart cart) {
-        mCartDAO.insertCart(cart);
-    }
 
     @Override
-    public void insertCarts(List<Cart> carts) {
+    public void insertCarts(Cart... carts) {
         mCartDAO.insertCarts(carts);
     }
 

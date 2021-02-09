@@ -8,9 +8,8 @@ public interface ICartRepository {
 
     void updateCart(Cart cart);
 
-    void insertCart(Cart cart);
 
-    void insertCarts(List<Cart> carts);
+    void insertCarts(Cart... carts);
 
     void deleteCart(Cart cart);
 

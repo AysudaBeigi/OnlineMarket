@@ -18,10 +18,7 @@ public interface ICartDatabaseDAO {
     void updateCart(Cart cart);
 
     @Insert
-    void insertCart(Cart cart);
-
-    @Insert
-    void insertCarts(List<Cart> carts);
+    void insertCarts(Cart... carts);
 
     @Delete
     void deleteCart(Cart cart);

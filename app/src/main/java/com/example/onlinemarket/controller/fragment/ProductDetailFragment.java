@@ -27,7 +27,6 @@ import java.util.List;
 public class ProductDetailFragment extends Fragment implements IOnBackPress {
 
     private static final String ARGS_PRODUCT ="argsProduct" ;
-    private ShoppingBagProductsRepository mShoppingBagProductsRepository;
     private Product mProduct;
     private ImageSliderAdapter mImageSliderAdapter;
     private SliderView mSliderView;
@@ -55,7 +54,6 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
         super.onCreate(savedInstanceState);
 
         mProduct = (Product) getArguments().get(ARGS_PRODUCT);
-        mShoppingBagProductsRepository = ShoppingBagProductsRepository.getInstance(getContext());
     }
 
     @Override
@@ -107,17 +105,44 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
         mButtonAddToShoppingBag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mShoppingBagProductsRepository.insertProduct(mProduct);
-            }
-        });
-    }
 
+                if (!isProductInCart()) {
+                   addTooCart();
+
+                }
+        });
+
+
+               /* mBinding.commentsButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(ReviewsFragment.ARG_PRODUCT_ID,
+                                getArguments().getInt(ARG_PRODUCT_ID));
+                        mNavController.navigate(R.id.action_productDetailsFragment_to_reviewsFragment, bundle);
+                    }
+                });*/
+
+    }
+    }
     private void setupImageSliderAdapter(List<Image> imagesItems) {
         mImageSliderAdapter = new ImageSliderAdapter(getContext(), imagesItems);
         mSliderView.setSliderAdapter(mImageSliderAdapter);
     }
 
-    @Override
+        public boolean isProductInCart() {
+            Cart cart = new Cart(mSelectedProduct.getId(), 1);
+            return mCartsSubject.contains(cart);
+        }
+        public void addTooCart() {
+            Cart cart = new Cart(mSelectedProduct.getId(), 1);
+            mCartRepository.insertCart(cart);
+//        Log.d(CartRepository.TAG, "addTooCart: number of carts: " + mCartRepository.getCartLiveData().getValue().size());
+//        Log.d(CartRepository.TAG, "addTooCart: number of carts: " + mCartRepository.getCartLiveData(mSelectedProduct.getValue().getId()).getValue().toString());
+
+        }
+
+        @Override
     public boolean onBackPressed() {
         return true;
     }
