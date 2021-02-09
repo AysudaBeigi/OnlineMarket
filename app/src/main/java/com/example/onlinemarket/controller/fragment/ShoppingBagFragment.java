@@ -16,6 +16,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ShoppingAdapter;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.product.Product;
+import com.example.onlinemarket.repository.CustomerRepository;
 import com.example.onlinemarket.repository.MarketRepository;
 import com.example.onlinemarket.repository.ShoppingBagProductsRepository;
 
@@ -27,10 +28,12 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     public static final String TAG = "ShoppingFragment";
     private MarketRepository mMarketRepository;
     private ShoppingBagProductsRepository mShoppingBagProductsRepository;
+    private CustomerRepository mCustomerRepository;
 
     private RecyclerView mShoppingRecyclerView;
     private Button mButtonFinalizeShopping;
     private ShoppingAdapter mShoppingAdapter;
+
 
     public ShoppingBagFragment() {
         // Required empty public constructor
@@ -48,7 +51,9 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         super.onCreate(savedInstanceState);
 
         mMarketRepository = new MarketRepository(getContext());
-        mShoppingBagProductsRepository = ShoppingBagProductsRepository.getInstance(getContext());
+        mShoppingBagProductsRepository = ShoppingBagProductsRepository.
+                getInstance(getContext());
+        mCustomerRepository=CustomerRepository.getInstance(getActivity());
     }
 
     @Override
@@ -63,10 +68,11 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         mButtonFinalizeShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(mCustomerRepository.getCustomer()!=null){
 
-                Customer customer = new Customer();
-                customer.setEmail("digikala.test@digikala.com");
-                mMarketRepository.postCustomer(customer,
+                }
+
+                mMarketRepository.post(customer,
                         new MarketRepository.CustomerCallback() {
                             @Override
                             public void onItemResponse(Customer createCustomer) {

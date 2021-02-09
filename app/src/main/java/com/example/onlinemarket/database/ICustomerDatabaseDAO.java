@@ -1,4 +1,4 @@
-package com.example.onlinemarket.database.customerDatabase;
+package com.example.onlinemarket.database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

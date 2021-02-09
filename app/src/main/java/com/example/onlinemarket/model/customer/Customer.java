@@ -54,8 +54,11 @@ public class Customer {
     @ColumnInfo(name = "username")
     private String username;
 
-    public Customer(String  customerEmail){
+    public Customer(String  customerEmail,String  firstName ,String lastName,String  username){
         setEmail(customerEmail);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setUsername(username);
     }
     public int getPrimaryId() {
         return primaryId;

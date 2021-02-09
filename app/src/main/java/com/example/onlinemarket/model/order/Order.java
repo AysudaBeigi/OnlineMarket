@@ -14,9 +14,6 @@ public class Order {
     @SerializedName("prices_include_tax")
     private boolean pricesIncludeTax;
 
-   /* @SerializedName("_links")
-    private Links links;
-*/
     @SerializedName("customer_note")
     private String customerNote;
 

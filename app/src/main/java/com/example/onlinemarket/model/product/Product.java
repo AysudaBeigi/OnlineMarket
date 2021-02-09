@@ -1,101 +1,73 @@
 package com.example.onlinemarket.model.product;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.List;
 
-@Entity(tableName = "productTable")
 public class Product implements Serializable {
-
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "primaryId")
-    private int primaryId;
 
 
     @SerializedName("type")
-    @ColumnInfo(name = "type")
     private String type;
 
     @SerializedName("external_url")
-    @ColumnInfo(name = "externalUrl")
     private String externalUrl;
 
     @SerializedName("price")
-    @ColumnInfo(name = "price")
     private String price;
 
     @SerializedName("meta_data")
-    @ColumnInfo(name = "metaData")
     private List<Object> metaData;
 
     @SerializedName("id")
-    @ColumnInfo(name = "id")
     private int id;
 
     @SerializedName("sku")
-    @ColumnInfo(name = "sku")
     private String sku;
 
     @SerializedName("slug")
-    @ColumnInfo(name = "slug")
     private String slug;
 
     @SerializedName("date_on_sale_from")
-    @ColumnInfo(name = "dateOnSaleFrom")
     private Object dateOnSaleFrom;
 
     @SerializedName("shipping_required")
-    @ColumnInfo(name = "shippingRequired")
     private boolean shippingRequired;
 
     @SerializedName("date_modified_gmt")
-    @ColumnInfo(name = "dateModifiedGmt")
     private String dateModifiedGmt;
 
     @SerializedName("images")
-    @ColumnInfo(name = "images")
     private List<Image> images;
 
 
     @SerializedName("price_html")
-    @ColumnInfo(name = "priceHtml")
     private String priceHtml;
 
 
     @SerializedName("rating_count")
-    @ColumnInfo(name = "ratingCount")
     private int ratingCount;
 
 
     @SerializedName("date_on_sale_to")
-    @ColumnInfo(name = "dateOnSaleTo")
     private Object dateOnSaleTo;
 
     @SerializedName("sold_individually")
-    @ColumnInfo(name = "soldIndividually")
     private boolean soldIndividually;
 
 
     @SerializedName("parent_id")
-    @ColumnInfo(name = "parentId")
     private int parentId;
 
 
     @SerializedName("name")
-    @ColumnInfo(name = "name")
     private String name;
 
     @SerializedName("shipping_class")
-    @ColumnInfo(name = "shippingClass")
     private String shippingClass;
 
     @SerializedName("short_description")
-    @ColumnInfo(name = "shortDescription")
     private String shortDescription;
 
 
@@ -103,89 +75,69 @@ public class Product implements Serializable {
     private int menuOrder;
 
     @SerializedName("description")
-    @ColumnInfo(name = "description")
     private String description;
 
     @SerializedName("date_on_sale_to_gmt")
-    @ColumnInfo(name = "dateOnSaleToGmt")
     private Object dateOnSaleToGmt;
 
     @SerializedName("date_on_sale_from_gmt")
-    @ColumnInfo(name = "dateOnSaleFromGmt")
     private Object dateOnSaleFromGmt;
 
     @SerializedName("regular_price")
-    @ColumnInfo(name = "regularPrice")
     private String regularPrice;
 
 
     @SerializedName("reviews_allowed")
-    @ColumnInfo(name = "reviewsAllowed")
     private boolean reviewsAllowed;
 
     @SerializedName("variations")
-    @ColumnInfo(name = "variations")
     private List<Object> variations;
 
     @SerializedName("categories")
-    @ColumnInfo(name = "categories")
     private List<Category> categories;
 
     @SerializedName("total_sales")
-    @ColumnInfo(name = "totalSales")
     private int totalSales;
 
     @SerializedName("on_sale")
-    @ColumnInfo(name = "onSale")
     private boolean onSale;
 
 
     @SerializedName("default_attributes")
-    @ColumnInfo(name = "defaultAttributes")
     private List<Object> defaultAttributes;
 
     @SerializedName("purchase_note")
-    @ColumnInfo(name = "purchaseNote")
     private String purchaseNote;
 
     @SerializedName("date_created")
-    @ColumnInfo(name = "dateCreated")
     private String dateCreated;
 
     @SerializedName("tax_class")
-    @ColumnInfo(name = "taxClass")
     private String taxClass;
 
     @SerializedName("date_created_gmt")
-    @ColumnInfo(name = "dateCreatedGmt")
     private String dateCreatedGmt;
 
     @SerializedName("average_rating")
-    @ColumnInfo(name = "averageRating")
     private String averageRating;
 
     @SerializedName("stock_quantity")
-    @ColumnInfo(name = "stockQuantity")
     private Object stockQuantity;
 
     @SerializedName("sale_price")
-    @ColumnInfo(name = "salePrice")
     private String salePrice;
 
     @SerializedName("shipping_class_id")
-    @ColumnInfo(name = "shippingClassId")
     private int shippingClassId;
 
     @SerializedName("date_modified")
-    @ColumnInfo(name = "dateModified")
     private String dateModified;
 
 
     @SerializedName("attributes")
-    @ColumnInfo(name = "attributes")
     private List<Object> attributes;
 
-    @ColumnInfo(name = "allPrice")
+    @SerializedName("allPrice")
     private Double allPrice;
 
     public Double getAllPrice() {
@@ -251,9 +203,6 @@ public class Product implements Serializable {
         return ratingCount;
     }
 
-    /*public List<TagsItem> getTags() {
-        return tags;
-    }*/
 
     public Object getDateOnSaleTo() {
         return dateOnSaleTo;
@@ -323,14 +272,6 @@ public class Product implements Serializable {
     }
 
 
-    public int getPrimaryId() {
-        return primaryId;
-    }
-
-    public void setPrimaryId(int primaryId) {
-        this.primaryId = primaryId;
-    }
-
     public void setType(String type) {
         this.type = type;
     }
@@ -385,9 +326,6 @@ public class Product implements Serializable {
         this.ratingCount = ratingCount;
     }
 
-   /* public void setTags(List<TagsItem> tags) {
-        this.tags = tags;
-    }*/
 
     public void setDateOnSaleTo(Object dateOnSaleTo) {
         this.dateOnSaleTo = dateOnSaleTo;

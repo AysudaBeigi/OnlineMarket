@@ -5,14 +5,12 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.onlinemarket.model.Attribute;
-import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.network.APIService;
 import com.example.onlinemarket.network.NetworkParams;
 import com.example.onlinemarket.retrofit.RetrofitInstance;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,19 +18,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.onlinemarket.network.NetworkParams.CONSUMER_KEY;
-import static com.example.onlinemarket.network.NetworkParams.CONSUMER_SECRET;
-
 public class MarketRepository {
 
     private static String TAG="OnlineMarket";
     private APIService mAPIService;
 
-    public static final Map<String, String> BASE_KEYS = new HashMap<String, String>() {{
-        put("consumer_key", CONSUMER_KEY);
-        put("consumer_secret", CONSUMER_SECRET);
-
-    }};
     public MarketRepository(Context context) {
         mAPIService = RetrofitInstance.getInstance(context).getRetrofit().
                 create(APIService.class);
@@ -229,21 +219,6 @@ public class MarketRepository {
     }
 
 
-    public void postCustomer(Customer customer, CustomerCallback customerCallbacks) {
-
-        mAPIService.postCustomers(new HashMap<>(),customer).
-                enqueue(new Callback<Customer>() {
-            @Override
-            public void onResponse(Call<Customer> call, Response<Customer> response) {
-                Log.d(TAG, "onResponse: " + response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Customer> call, Throwable t) {
-            }
-        });
-
-    }
 
     public void fetchSearchProducts( Map<String, String> query, productsCallback callBacks) {
         mAPIService.getProducts(query).enqueue(new Callback<List<Product>>() {
@@ -307,8 +282,6 @@ public class MarketRepository {
         void onItemResponse(List<Attribute> attributes);
     }
 
-    public interface CustomerCallback {
-        void onItemResponse(Customer customer);
-    }
+
 
 }
