@@ -17,7 +17,6 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.controller.fragment.ShoppingBagFragment;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
-import com.example.onlinemarket.repository.ShoppingBagProductsRepository;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

@@ -18,7 +18,6 @@ import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.CustomerRepository;
 import com.example.onlinemarket.repository.MarketRepository;
-import com.example.onlinemarket.repository.ShoppingBagProductsRepository;
 
 import java.util.List;
 
@@ -26,7 +25,6 @@ import java.util.List;
 public class ShoppingBagFragment extends Fragment implements IOnBackPress {
 
     public static final String TAG = "ShoppingFragment";
-    private MarketRepository mMarketRepository;
     private ShoppingBagProductsRepository mShoppingBagProductsRepository;
     private CustomerRepository mCustomerRepository;
 

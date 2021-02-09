@@ -15,7 +15,6 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
-import com.example.onlinemarket.repository.ShoppingBagProductsRepository;
 import com.smarteist.autoimageslider.SliderView;
 
 import org.jsoup.Jsoup;
