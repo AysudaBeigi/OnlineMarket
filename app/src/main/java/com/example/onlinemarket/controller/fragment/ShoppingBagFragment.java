@@ -14,10 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ShoppingAdapter;
-import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.product.Product;
-import com.example.onlinemarket.repository.CustomerRepository;
-import com.example.onlinemarket.repository.MarketRepository;
+import com.example.onlinemarket.repository.CustomerDBRepository;
 
 import java.util.List;
 
@@ -25,8 +23,7 @@ import java.util.List;
 public class ShoppingBagFragment extends Fragment implements IOnBackPress {
 
     public static final String TAG = "ShoppingFragment";
-    private ShoppingBagProductsRepository mShoppingBagProductsRepository;
-    private CustomerRepository mCustomerRepository;
+    private CustomerDBRepository mCustomerDBRepository;
 
     private RecyclerView mShoppingRecyclerView;
     private Button mButtonFinalizeShopping;
@@ -48,10 +45,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mMarketRepository = new MarketRepository(getContext());
-        mShoppingBagProductsRepository = ShoppingBagProductsRepository.
-                getInstance(getContext());
-        mCustomerRepository=CustomerRepository.getInstance(getActivity());
+        mCustomerDBRepository = CustomerDBRepository.getInstance(getActivity());
     }
 
     @Override
@@ -66,18 +60,10 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         mButtonFinalizeShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mCustomerRepository.getCustomer()!=null){
+                if (mCustomerDBRepository.getCustomer() != null) {
 
                 }
 
-                mMarketRepository.post(customer,
-                        new MarketRepository.CustomerCallback() {
-                            @Override
-                            public void onItemResponse(Customer createCustomer) {
-                                //TODO
-                                //successfully create a customer
-                            }
-                        });
             }
         });
         return view;

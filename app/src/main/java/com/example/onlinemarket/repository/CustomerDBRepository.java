@@ -15,22 +15,23 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CustomerRepository {
+public class CustomerDBRepository implements ICustomerRepository {
 
-    private static CustomerRepository sInstance;
+    private static CustomerDBRepository sInstance;
 
     private ICustomerDatabaseDAO mICustomerDatabaseDAO;
     private Context mContext;
 
-    public static CustomerRepository getInstance(Context context) {
+    public static CustomerDBRepository getInstance(Context context) {
         if (sInstance == null)
-            sInstance = new CustomerRepository(context);
+            sInstance = new CustomerDBRepository(context);
         return sInstance;
     }
+
     private APIService mAPIService;
 
 
-    private CustomerRepository(Context context) {
+    private CustomerDBRepository(Context context) {
         mAPIService = RetrofitInstance.getInstance(context).getRetrofit().
                 create(APIService.class);
 
@@ -45,9 +46,8 @@ public class CustomerRepository {
     }
 
 
-
-    public void postCustomer (Customer customer, CustomerRepository.CustomerCallback
-            customerCallbacks){
+    public void postCustomer(Customer customer, CustomerDBRepository.CustomerCallback
+            customerCallbacks) {
 
         mAPIService.postCustomer(customer.getEmail(),
                 customer.getFirstName(),
@@ -66,22 +66,27 @@ public class CustomerRepository {
                 });
 
     }
+
     private void insertCustomer(Customer customer) {
         mICustomerDatabaseDAO.insertCustomer(customer);
 
     }
 
+    @Override
     public void updateCustomer(Customer customer) {
         mICustomerDatabaseDAO.updateCustomer(customer);
     }
 
+    @Override
     public void deleteCustomer(Customer customer) {
         mICustomerDatabaseDAO.deleteCustomer(customer);
     }
 
+    @Override
     public Customer getCustomer() {
         return mICustomerDatabaseDAO.getCustomer();
     }
+
 
     public interface CustomerCallback {
         void onItemResponse(Customer customer);
