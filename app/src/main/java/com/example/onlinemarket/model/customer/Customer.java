@@ -8,6 +8,7 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "customerTable")
 public class Customer {
 
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "primaryId")
     private int primaryId;
@@ -16,13 +17,6 @@ public class Customer {
     @ColumnInfo(name = "dateModifiedGmt")
     private String dateModifiedGmt;
 
-    @SerializedName("role")
-    @ColumnInfo(name = "role")
-    private String role;
-
-    /* @SerializedName("_links")
-     private Links links;
- */
     @SerializedName("date_created")
     @ColumnInfo(name = "date_created")
     private String dateCreated;
@@ -35,23 +29,11 @@ public class Customer {
     @ColumnInfo(name = "date_created_gmt")
     private String dateCreatedGmt;
 
-    /*@SerializedName("billing")
-    private Billing billing;
-*/
+
     @SerializedName("date_modified")
     @ColumnInfo(name = "date_modified")
     private String dateModified;
 
-    /* @SerializedName("shipping")
-     private Shipping shipping;
- */
-    @SerializedName("avatar_url")
-    @ColumnInfo(name = "avatar_url")
-    private String avatarUrl;
-
-    /* @SerializedName("meta_data")
-     private List<MetaDataItem> metaData;
- */
     @SerializedName("id")
     @ColumnInfo(name = "id")
     private int id;
@@ -72,17 +54,15 @@ public class Customer {
     @ColumnInfo(name = "username")
     private String username;
 
-
+    public Customer(String  customerEmail){
+        setEmail(customerEmail);
+    }
     public int getPrimaryId() {
         return primaryId;
     }
 
     public String getDateModifiedGmt() {
         return dateModifiedGmt;
-    }
-
-    public String getRole() {
-        return role;
     }
 
     public String getDateCreated() {
@@ -99,10 +79,6 @@ public class Customer {
 
     public String getDateModified() {
         return dateModified;
-    }
-
-    public String getAvatarUrl() {
-        return avatarUrl;
     }
 
     public int getId() {
@@ -133,10 +109,6 @@ public class Customer {
         this.dateModifiedGmt = dateModifiedGmt;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
     }
@@ -151,10 +123,6 @@ public class Customer {
 
     public void setDateModified(String dateModified) {
         this.dateModified = dateModified;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
     }
 
     public void setId(int id) {

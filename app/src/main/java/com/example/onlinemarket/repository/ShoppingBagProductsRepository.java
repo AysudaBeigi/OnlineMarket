@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.room.Room;
 
+import com.example.onlinemarket.database.OnlineMarketDatabase;
 import com.example.onlinemarket.database.productDatabase.IShoppingBagProductsDatabaseDAO;
 import com.example.onlinemarket.model.product.Product;
 
@@ -17,38 +18,39 @@ public class ShoppingBagProductsRepository {
     private IShoppingBagProductsDatabaseDAO mIShoppingBagProductsDatabaseDAO;
     private Context mContext;
 
-
-    private ShoppingBagProductsRepository(Context context) {
-
-        mContext = context.getApplicationContext();
-        ShoppingBagProductsDB productDataBase = Room.databaseBuilder(mContext,
-                ShoppingBagProductsDB.class,
-                "onlineMarket.db")
-                .allowMainThreadQueries()
-                .build();
-        mIShoppingBagProductsDatabaseDAO = productDataBase.getProductDataBaseDAO();
-    }
-
-
     public static ShoppingBagProductsRepository getInstance(Context context) {
         if (sInstance == null)
             sInstance = new ShoppingBagProductsRepository(context);
         return sInstance;
     }
+    private ShoppingBagProductsRepository(Context context) {
 
-    public void insertProduct(Product productsItem) {
-        mIShoppingBagProductsDatabaseDAO.insertProduct(productsItem);
+        mContext = context.getApplicationContext();
+        OnlineMarketDatabase onlineMarketDatabase = Room.databaseBuilder(mContext,
+                OnlineMarketDatabase.class,
+                "onlineMarket.db")
+                .allowMainThreadQueries()
+                .build();
+        mIShoppingBagProductsDatabaseDAO = onlineMarketDatabase.
+                getShoppingBagProductsDatabaseDAO();
     }
 
-    public void deleteProduct(Product productsItem) {
-        mIShoppingBagProductsDatabaseDAO.deleteProduct(productsItem);
+
+
+    public void insertProduct(Product product) {
+        mIShoppingBagProductsDatabaseDAO.insertProduct(product);
+    }
+
+    public void deleteProduct(Product product) {
+        mIShoppingBagProductsDatabaseDAO.deleteProduct(product);
     }
 
     public Product getProduct(int productId) {
         return mIShoppingBagProductsDatabaseDAO.getProductItem(productId);
     }
 
-    public List<Product> getProducts() {
+    public List<Product> getProducts()
+    {
         return mIShoppingBagProductsDatabaseDAO.getProducts();
     }
 }
