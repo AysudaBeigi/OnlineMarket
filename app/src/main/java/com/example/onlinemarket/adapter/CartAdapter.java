@@ -94,9 +94,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
             mMaterialButtonMinus = itemView.findViewById(R.id.card_minus_button);
             mMaterialButtonDelete = itemView.findViewById(R.id.card_delete);
             mCount = itemView.findViewById(R.id.card_count);
-            mFinalPrice = itemView.findViewById(R.id.card_final_price);
             mImageView = itemView.findViewById(R.id.card_image_view);
-            mSalePrice = itemView.findViewById(R.id.card_sale_price);
+            mFinalPrice = itemView.findViewById(R.id.card_final_price);
 
         }
 
