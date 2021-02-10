@@ -72,7 +72,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
 
     public class CardViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mName, mSalePrice;
+        private TextView mName;
         private MaterialButton mMaterialButtonPlus,
                 mMaterialButtonMinus, mMaterialButtonDelete;
         private MaterialTextView mCount, mFinalPrice;
@@ -95,7 +95,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
             mMaterialButtonDelete = itemView.findViewById(R.id.card_delete);
             mCount = itemView.findViewById(R.id.card_count);
             mImageView = itemView.findViewById(R.id.card_image_view);
-            mFinalPrice = itemView.findViewById(R.id.card_final_price);
+            mFinalPrice = itemView.findViewById(R.id.text_view_product_price);
 
         }
 

@@ -5,174 +5,98 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/main_card_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:orientation="vertical">
+        android:layout_margin="10dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="2dp"
-            android:background="?android:attr/listDivider"
-            android:outlineAmbientShadowColor="#DDDDDD"
-            android:outlineSpotShadowColor="#DDDDDD" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/layout_card_list_item__card_view"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_view_card_item"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_alignParentRight="true"
+            android:elevation="4dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_placeholder_recycler"
+            tools:src="@drawable/ic_placeholder_recycler" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/card_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="vertical"
+            android:layout_height="150dp"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/image_view_card_item"
+            android:gravity="right"
+            android:lines="3"
+            android:text="@string/product_description"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_view_product_price"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_below="@id/card_name"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toLeftOf="@+id/image_view_card_item"
+            android:fontFamily="@font/far_roya_bd"
+            android:gravity="left"
             android:padding="2dp"
-            app:cardCornerRadius="8dp">
+            android:text="@string/toman"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="32dp"
+            android:layout_below="@id/image_view_card_item"
+            android:layout_alignParentRight="true">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/card_count"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/far_roya_bd"
+                android:text="@string/count"
+                android:textColor="@color/red_22"
+                android:textSize="14sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/card_minus_button"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:fontFamily="@font/far_roya_bd"
+                android:gravity="center"
+                android:text="-"
+                android:textColor="@color/red_22"
+                android:textSize="24sp" />
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="0.7"
-                        android:orientation="vertical">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/card_plus_button"
+                android:layout_width="32dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/far_roya_bd"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="@color/red_22"
+                android:textSize="24sp" />
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_view_trash"
+                android:layout_width="32dp"
+                android:visibility="gone"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                app:srcCompat="@drawable/trash" />
+        </RelativeLayout>
 
-                        <TextView
-                            android:id="@+id/card_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="4dp"
-                            android:gravity="right"
-                            android:lines="3"
-                            android:text="@string/product_description"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:gravity="center|right">
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/card_minus_button"
-                                android:layout_width="44dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginRight="12dp"
-                                android:backgroundTint="@color/red_22"
-                                android:fontFamily="@font/far_roya_bd"
-                                app:icon="@drawable/ic_minus"
-                                app:iconSize="12dp" />
-
-                            <com.google.android.material.textview.MaterialTextView
-                                android:id="@+id/card_count"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="12dp"
-                                android:fontFamily="@font/far_roya_bd"
-                                android:text="@string/count"
-                                android:textColor="@color/black"
-                                android:textSize="10sp" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/card_plus_button"
-                                android:layout_width="44dp"
-                                android:layout_height="31dp"
-                                android:layout_marginRight="12dp"
-                                android:backgroundTint="#00C853"
-                                android:fontFamily="@font/far_roya_bd"
-                                app:icon="@drawable/ic_plus"
-                                app:iconSize="12dp" />
-
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/card_image_view"
-                        android:layout_width="0dp"
-                        android:layout_height="80dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_weight="0.3"
-                        android:elevation="4dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/ic_placeholder_recycler"
-                        tools:src="@drawable/ic_placeholder_recycler" />
-
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:background="@color/gray_bd">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/card_final_price"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="12dp"
-                        android:layout_weight="0.5"
-                        android:fontFamily="@font/far_roya_bd"
-                        android:gravity="left"
-                        android:padding="2dp"
-                        android:text="@string/toman"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="12dp"
-                        android:layout_weight="0.5"
-                        android:fontFamily="@font/far_roya_bd"
-                        android:gravity="right"
-                        android:padding="2dp"
-                        android:text="@string/final_price"
-                        android:textColor="@color/red_22"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/card_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:backgroundTint="@color/red_22"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:fontFamily="@font/far_roya_bd"
-                    android:gravity="center"
-                    android:text="@string/delete_card_item"
-                    android:textColor="@color/white_ff"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+    </RelativeLayout>
 
 </ScrollView>
