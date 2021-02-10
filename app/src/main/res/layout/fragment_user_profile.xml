@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_bd">
+    android:background="@color/gray_bd"
+    android:scrollbars="horizontal">
 
     <LinearLayout
         android:id="@+id/layout_favorite_comment_address_info"
@@ -37,6 +38,7 @@
                 app:srcCompat="@drawable/heart" />
 
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/layout_comment"
             android:layout_width="match_parent"
@@ -60,6 +62,7 @@
                 app:srcCompat="@drawable/comment" />
 
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/layout_addresses"
             android:layout_width="match_parent"
@@ -83,7 +86,6 @@
                 app:srcCompat="@drawable/address" />
 
         </RelativeLayout>
-
 
 
         <RelativeLayout
@@ -202,7 +204,8 @@
             android:id="@+id/scroll_view_user_orders"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:scrollbars="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -213,22 +216,10 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/image_view_waiting_for_pay"
+                    android:id="@+id/image_view_referred_shopping"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/cart_pay" />
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/image_view_is_processing"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    app:srcCompat="@drawable/process" />
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/image_view_done_shopping"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    app:srcCompat="@drawable/done" />
+                    app:srcCompat="@drawable/reffer" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/image_view_canceled_shopping"
@@ -237,10 +228,23 @@
                     app:srcCompat="@drawable/cancel" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/image_view_referred_shopping"
+                    android:id="@+id/image_view_done_shopping"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/reffer" />
+                    app:srcCompat="@drawable/done" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_is_processing"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/process" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_waiting_for_pay"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/cart_pay" />
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

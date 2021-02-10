@@ -28,7 +28,7 @@ public class MarketRepository {
                 create(WooCommerceAPIService.class);
     }
 
-    public void fetchLastProducts(productsCallback callBacks) {
+    public void fetchLastProducts(productsCallback productsCallback) {
         Log.d(TAG,"MarketRepository : fetchLastProducts");
 
         mWooCommerceAPIService.getProducts(NetworkParams.getLastProducts()).
@@ -36,7 +36,7 @@ public class MarketRepository {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 List<Product> lastProducts = response.body();
-                callBacks.onItemResponse(lastProducts);
+                productsCallback.onItemResponse(lastProducts);
             }
 
             @Override
@@ -47,7 +47,7 @@ public class MarketRepository {
     }
 
 
-    public void fetchMostVisitedProducts(productsCallback callBacks) {
+    public void fetchMostVisitedProducts(productsCallback productsCallback) {
         Log.d(TAG,"MarketRepository : fetchMostVisitedProducts");
 
         mWooCommerceAPIService.getProducts(NetworkParams.getMostVisitedProducts()).
@@ -56,7 +56,7 @@ public class MarketRepository {
                     public void onResponse(Call<List<Product>> call,
                                            Response<List<Product>> response) {
                         List<Product> mostVisitedProducts = response.body();
-                        callBacks.onItemResponse(mostVisitedProducts);
+                        productsCallback.onItemResponse(mostVisitedProducts);
                     }
                     @Override
                     public void onFailure(Call<List<Product>> call, Throwable t) {
@@ -65,7 +65,7 @@ public class MarketRepository {
                 });
     }
 
-    public void fetchPopularProducts( int page ,productsCallback callBacks) {
+    public void fetchPopularProducts( int page ,productsCallback productsCallback) {
 
         Log.d(TAG,"MarketRepository : fetchPopularProducts");
         mWooCommerceAPIService.getProducts(NetworkParams.getPopularProducts(page)).
@@ -74,7 +74,7 @@ public class MarketRepository {
             public void onResponse(Call<List<Product>> call,
                                    Response<List<Product>> response) {
                 List<Product> popularProducts = response.body();
-                callBacks.onItemResponse(popularProducts);
+                productsCallback.onItemResponse(popularProducts);
             }
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
@@ -83,14 +83,14 @@ public class MarketRepository {
         });
     }
 
-    public void fetchCategories(CategoriesCallback callBacks) {
+    public void fetchCategories(CategoriesCallback categoriesCallback) {
         mWooCommerceAPIService.getCategories(NetworkParams.getCategories()).
                 enqueue(new Callback<List<Category>>() {
                     @Override
                     public void onResponse(Call<List<Category>> call,
                                            Response<List<Category>> response) {
                         List<Category> categories = response.body();
-                        callBacks.onItemResponse(categories);
+                        categoriesCallback.onItemResponse(categories);
                     }
                     @Override
                     public void onFailure(Call<List<Category>> call, Throwable t) {
@@ -100,14 +100,14 @@ public class MarketRepository {
                 });
     }
 
-    public void fetchCategoryProduct(int categoryId, productsCallback callBacks) {
+    public void fetchCategoryProduct(int categoryId, productsCallback productsCallback) {
         mWooCommerceAPIService.getProducts(NetworkParams.getCategoryProducts(categoryId)).
                 enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(Call<List<Product>> call,
                                            Response<List<Product>> response) {
                         List<Product> categoryProducts = response.body();
-                        callBacks.onItemResponse(categoryProducts);
+                        productsCallback.onItemResponse(categoryProducts);
                     }
 
                     @Override
@@ -117,62 +117,14 @@ public class MarketRepository {
                 });
     }
 
-   /* public void fetchCategoryProductByOrder(int page, int id,
-                                            String orderBy, productsCallback callBacks) {
-        HashMap<String, String> localMap = new HashMap<>();
-
-        localMap.putAll(BASE_KEYS);
-        localMap.put(PAGE, String.valueOf(page));
-        localMap.put(CATEGORY, String.valueOf(id));
-        localMap.put(ORDERBY, orderBy);
-
-        mRequestService.getProducts(localMap).
-                enqueue(new Callback<List<Product>>() {
-                    @Override
-                    public void onResponse(Call<List<Product>> call,
-                                           Response<List<Product>> response) {
-                        List<Product> products = response.body();
-                        callBacks.onItemResponse(products);
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Product>> call, Throwable t) {
-                        Log.e(TAG, t.getMessage(), t);
-                    }
-                });
-    }
-*/
-   /* public void fetchProductsByOrder(int page, String orderBy, productsCallback callBacks) {
-        HashMap<String, String> localMap = new HashMap<>();
-
-        localMap.putAll(BASE_KEYS);
-        localMap.put(PAGE, String.valueOf(page));
-        localMap.put(ORDERBY, orderBy);
-
-        mRequestService.getProducts(localMap).
-                enqueue(new Callback<List<Product>>() {
-                    @Override
-                    public void onResponse(Call<List<Product>> call,
-                                           Response<List<Product>> response) {
-                        List<Product> products = response.body();
-                        callBacks.onItemResponse(products);
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Product>> call, Throwable t) {
-                        Log.e(TAG, t.getMessage(), t);
-                    }
-                });
-    }
-*/
-    public void fetchSubCategories(int parentId, subCategoriesCallback callback) {
+     public void fetchSubCategories(int parentId, subCategoriesCallback subCategoriesCallback) {
         mWooCommerceAPIService.getCategories(NetworkParams.getSubCategories(parentId)).
                 enqueue(new Callback<List<Category>>() {
                     @Override
                     public void onResponse(Call<List<Category>> call,
                                            Response<List<Category>> response) {
                         List<Category> subCategories = response.body();
-                        callback.onItemResponse(subCategories);
+                        subCategoriesCallback.onItemResponse(subCategories);
                     }
                     @Override
                     public void onFailure(Call<List<Category>> call, Throwable t) {
@@ -182,14 +134,14 @@ public class MarketRepository {
     }
 
 
-    public void fetchProduct(int productId, productCallback callBacks) {
+    public void fetchProduct(int productId, productCallback productCallback) {
         mWooCommerceAPIService.getProduct(productId, NetworkParams.getBaseQuery()).
                 enqueue(new Callback<Product>() {
                     @Override
                     public void onResponse(Call<Product> call,
                                            Response<Product> response) {
                         Product product = response.body();
-                        callBacks.onItemResponse(product);
+                        productCallback.onItemResponse(product);
                     }
 
                     @Override

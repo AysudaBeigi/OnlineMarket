@@ -35,7 +35,8 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
     private MarketRepository mMarketRepository;
     private ImageView mSort, mFilter;
     private int mCategoryId;
-    Map<String ,String> mSearchQueryMap;
+    Map<String, String> mSearchQueryMap;
+
     public SearchResultFragment() {
         // Required empty public constructor
     }
@@ -44,7 +45,7 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
         SearchResultFragment fragment = new SearchResultFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARGS_QUERY, query);
-        args.putInt(ARGS_CATEGORY_ID,categoryId);
+        args.putInt(ARGS_CATEGORY_ID, categoryId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,11 +56,11 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
 
         mMarketRepository = new MarketRepository(getContext());
         mQuery = (String) getArguments().get(ARGS_QUERY);
-        mCategoryId=getArguments().getInt(ARGS_CATEGORY_ID);
-        if(mCategoryId == -1){
-           mSearchQueryMap =NetworkParams.getSearchAllProducts(mQuery);
-        }else {
-            mSearchQueryMap=NetworkParams.getSearchCategoryProducts(mQuery,mCategoryId);
+        mCategoryId = getArguments().getInt(ARGS_CATEGORY_ID);
+        if (mCategoryId == -1) {
+            mSearchQueryMap = NetworkParams.getSearchAllProducts(mQuery);
+        } else {
+            mSearchQueryMap = NetworkParams.getSearchCategoryProducts(mQuery, mCategoryId);
         }
 
         searchAndInitViews();
@@ -68,18 +69,19 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
     }
 
     private void searchAndInitViews() {
-        mMarketRepository.fetchSearchProducts(mSearchQueryMap, new MarketRepository.productsCallback() {
-            @Override
-            public void onItemResponse(List<Product> items) {
-                if (mAdapter == null) {
-                    mAdapter = new ProductsVerticalAdapter(getContext(), items);
-                    mRecyclerView.setAdapter(mAdapter);
-                } else {
-                    mAdapter.setProductsItem(items);
-                    mAdapter.notifyDataSetChanged();
-                }
-            }
-        });
+        mMarketRepository.fetchSearchProducts(mSearchQueryMap,
+                new MarketRepository.productsCallback() {
+                    @Override
+                    public void onItemResponse(List<Product> items) {
+                        if (mAdapter == null) {
+                            mAdapter = new ProductsVerticalAdapter(getContext(), items);
+                            mRecyclerView.setAdapter(mAdapter);
+                        } else {
+                            mAdapter.setProductsItem(items);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -124,9 +126,10 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
         });
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(data==null)
+        if (data == null)
             return;
         if (requestCode == REQUEST_CODE_ORDER
                 && resultCode == SortingFragment.RESULT_CODE_ORDER_DIALOG_FRAGMENT) {
@@ -134,12 +137,12 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
             String order =
                     (String) data.getSerializableExtra(SortingFragment.
                             EXTRA_ORDER_DIALOG_FRAGMENT);
-            if(mCategoryId==-1){
-                mSearchQueryMap=NetworkParams.
-                        getOrderedSearchAllProducts(mQuery,order);
-            }else {
-                mSearchQueryMap=NetworkParams.
-                        getOrderedSearchCategoryProducts(mQuery,mCategoryId,order);
+            if (mCategoryId == -1) {
+                mSearchQueryMap = NetworkParams.
+                        getOrderedSearchAllProducts(mQuery, order);
+            } else {
+                mSearchQueryMap = NetworkParams.
+                        getOrderedSearchCategoryProducts(mQuery, mCategoryId, order);
             }
             searchAndInitViews();
 

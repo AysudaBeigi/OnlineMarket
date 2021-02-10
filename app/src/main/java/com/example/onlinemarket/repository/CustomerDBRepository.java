@@ -20,6 +20,7 @@ public class CustomerDBRepository implements ICustomerRepository {
     private static CustomerDBRepository sInstance;
 
     private ICustomerDatabaseDAO mICustomerDatabaseDAO;
+    private WooCommerceAPIService mWooCommerceAPIService;
     private Context mContext;
 
     public static CustomerDBRepository getInstance(Context context) {
@@ -28,7 +29,6 @@ public class CustomerDBRepository implements ICustomerRepository {
         return sInstance;
     }
 
-    private WooCommerceAPIService mWooCommerceAPIService;
 
 
     private CustomerDBRepository(Context context) {

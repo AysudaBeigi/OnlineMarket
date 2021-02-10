@@ -120,22 +120,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
             mTextViewPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mCart.setProductCount(++mProductCount);
-                    mCartDBRepository.updateCart(mCart);
-                    mTextViewCount.setText(mProductCount + "");
-                    updateSumPriceCarts();
-
+                   updateCountAndPrice(++mProductCount);
                 }
             });
 
             mTextViewMinus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mProductCount--;
                     if (mProductCount > 0) {
-                        mTextViewCount.setText(mProductCount + "");
-                        updateSumPriceCarts();
-                    }else {
+                        updateCountAndPrice(--mProductCount);
+                    } else {
                         mTextViewMinus.setVisibility(View.GONE);
                         mImageViewTrash.setVisibility(View.VISIBLE);
                     }
@@ -145,9 +139,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
             mImageViewTrash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Cart cart = mCartDBRepository.
-                            getCart(mCartProducts.get(position).getId());
-                    mCartDBRepository.deleteCart(cart);
+                    mCartDBRepository.deleteCart(mCart);
                     ((AppCompatActivity) mContext).getSupportFragmentManager().
                             beginTransaction()
                             .replace(R.id.fragment_container_main_activity,
@@ -158,6 +150,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
                 }
             });
 
+        }
+
+        private void updateCountAndPrice(int productCount) {
+            mCart.setProductCount(productCount);
+            mCartDBRepository.updateCart(mCart);
+            mTextViewCount.setText(productCount + "");
+            updateSumPriceCarts();
         }
 
         private void updateSumPriceCarts() {

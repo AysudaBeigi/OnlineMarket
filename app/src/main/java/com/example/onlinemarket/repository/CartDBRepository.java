@@ -16,7 +16,6 @@ public class CartDBRepository implements ICartRepository {
 
     private ICartDatabaseDAO mCartDAO;
     private Context mContext;
-    private List<Cart> mCarts;
 
     public static CartDBRepository getInstance(Context context) {
         if (sInstance == null)

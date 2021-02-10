@@ -14,9 +14,13 @@ import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CartAdapter;
 import com.example.onlinemarket.model.Cart;
+import com.example.onlinemarket.model.customer.Customer;
+import com.example.onlinemarket.model.order.LineItemsItem;
+import com.example.onlinemarket.model.order.Order;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.CartDBRepository;
 import com.example.onlinemarket.repository.CustomerDBRepository;
+import com.example.onlinemarket.repository.OrderRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +34,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     private RecyclerView mShoppingRecyclerView;
     private Button mButtonFinalizeShopping;
     private CartAdapter mCartAdapter;
+    private Customer mCustomer;
 
 
     public ShoppingBagFragment() {
@@ -47,7 +52,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCustomerDBRepository = CustomerDBRepository.getInstance(getActivity());
-        mCartDBRepository=CartDBRepository.getInstance(getActivity());
+        mCartDBRepository = CartDBRepository.getInstance(getActivity());
     }
 
     @Override
@@ -62,15 +67,42 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         mButtonFinalizeShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mCustomerDBRepository.getCustomer() == null) {
+                mCustomer = mCustomerDBRepository.getCustomer();
+                if (mCustomer == null) {
                     replaceSignUpFragment();
-                }else {
-                    // TODO: going to the pay the orders
+                } else {
+                    Order order = getOrder();
+                    OrderRepository.getInstance(getActivity()).postOrder(order, new OrderRepository.OrderCallback() {
+                        @Override
+                        public void onItemResponse(Order order) {
+                            // TODO: going to the pay the orders
+                        }
+                    });
                 }
 
             }
         });
         return view;
+    }
+
+    private Order getOrder() {
+        List<LineItemsItem> lineItemsItemList = getLineItemsItemList();
+        Order order = new Order();
+        order.setCustomerId(mCustomer.getId());
+        order.setLineItems(lineItemsItemList);
+        return order;
+    }
+
+    private List<LineItemsItem> getLineItemsItemList() {
+        List<LineItemsItem> lineItemsItemList = new ArrayList<>();
+        List<Cart> cartList = mCartDBRepository.getCarts();
+        for (int i = 0; i < cartList.size(); i++) {
+            LineItemsItem lineItemsItem = new LineItemsItem();
+            lineItemsItem.setProductId(cartList.get(i).getProductId());
+            lineItemsItem.setQuantity(cartList.get(i).getProductCount());
+            lineItemsItemList.add(lineItemsItem);
+        }
+        return lineItemsItemList;
     }
 
     private void replaceSignUpFragment() {
@@ -85,16 +117,16 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         mShoppingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false));
 
-        List<Product> orderList = getCartProductList();
+        List<Product> orderList = getOrders();
 
-        updateUI(mShoppingRecyclerView,orderList);
+        updateUI(mShoppingRecyclerView, orderList);
 
     }
 
-    private List<Product> getCartProductList() {
-        List<Cart>  cartList= mCartDBRepository.getCarts();
-        List<Product> orderList=new ArrayList<>();
-        for (int i = 0; i <cartList.size() ; i++) {
+    private List<Product> getOrders() {
+        List<Cart> cartList = mCartDBRepository.getCarts();
+        List<Product> orderList = new ArrayList<>();
+        for (int i = 0; i < cartList.size(); i++) {
             orderList.add(cartList.get(i).getProduct());
         }
         return orderList;
