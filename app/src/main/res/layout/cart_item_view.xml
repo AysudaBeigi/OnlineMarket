@@ -28,9 +28,9 @@
             android:layout_height="150dp"
             android:layout_marginRight="5dp"
             android:layout_toLeftOf="@id/image_view_card_item"
-            android:gravity="right"
             android:lines="3"
             android:text="@string/product_description"
+            android:gravity="right"
             android:textColor="@color/black"
             android:textSize="14sp" />
 

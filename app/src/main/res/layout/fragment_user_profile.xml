@@ -1,75 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/gray_bd">
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/layout_favorite_comment_address_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layput_user_orders"
+        android:layout_marginTop="10dp"
+        android:background="@color/white_ff"
+        android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/layout_favorite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp">
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/image_view_favorite"
+                android:text="@string/text_view_favorite" />
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/online_market_logo"
-                android:layout_width="500dp"
-                android:layout_height="250dp"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="50dp"
-                app:srcCompat="@drawable/online_market_logo" />
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_view_login_sign_up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/online_market_logo"
-                android:text=" ورود / ثبت نام "
-                android:textColor="@color/black"
-                android:textSize="24dp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_view_enter_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_view_login_sign_up"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:fontFamily="@font/iran_yekan"
-                android:text=" پست الکترونیک خود را وارد نمایید"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-
-                />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_input_edit_text_user_email"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/text_view_enter_email"
-                android:layout_gravity="center"
-                android:fontFamily="@font/iran_yekan"
-                android:hint="پست الکترونیک"
-                android:inputType="textEmailAddress"
-                android:outlineAmbientShadowColor="@color/red_22"
-                android:textColor="@color/black"
-                app:boxBackgroundColor="@color/gray_bd"
-                app:boxCornerRadiusBottomEnd="4dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button_enter_online_market"
-                android:layout_below="@id/text_input_edit_text_user_email"
+                android:id="@+id/image_view_favorite"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentRight="true"
-                android:text="ورود به فروشگاه انلاین" />
+                android:layout_marginLeft="16dp"
+                app:srcCompat="@drawable/heart" />
 
         </RelativeLayout>
-    </ScrollView>
+        <RelativeLayout
+            android:id="@+id/layout_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
 
-</LinearLayout>
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/image_view_comment"
+                android:text="@string/text_view_comment" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_view_comment"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="16dp"
+                app:srcCompat="@drawable/comment" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/layout_addresses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/image_view_addresses"
+                android:text="@string/text_view_addresses" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_view_addresses"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="16dp"
+                app:srcCompat="@drawable/address" />
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/layout_user_account_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/image_view_user_account_info"
+                android:text="@string/text_view_user_account_info" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_view_user_account_info"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="16dp"
+                app:srcCompat="@drawable/account" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_notif_setting_info"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:background="@color/white_ff">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_view_notification"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            app:srcCompat="@drawable/notif" />
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_view_setting"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            app:srcCompat="@drawable/setting" />
+
+        <LinearLayout
+            android:id="@+id/layout_user_complete_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="50dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_last_name"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:text="ابوالحسن بیگی" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_first_name"
+                style="@style/TextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_toLeftOf="@+id/text_view_last_name"
+                android:text=" آیسودا " />
+        </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_user_complete_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:inputType="textEmailAddress"
+            android:text="emial" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layput_user_orders"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/layout_notif_setting_info"
+        android:layout_marginTop="10dp"
+        android:background="@color/white_ff"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_view_user_orders"
+            style="@style/TextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/text_view_user_orders"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:id="@+id/scroll_view_user_orders"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/text_view_user_orders"
+                android:layout_marginTop="10dp"
+                android:background="@color/white_ff"
+                android:orientation="horizontal">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_waiting_for_pay"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/cart_pay" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_is_processing"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/process" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_done_shopping"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/done" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_canceled_shopping"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/cancel" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_referred_shopping"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/reffer" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>
