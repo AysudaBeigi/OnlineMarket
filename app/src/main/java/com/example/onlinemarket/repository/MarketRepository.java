@@ -7,8 +7,8 @@ import android.util.Log;
 import com.example.onlinemarket.model.Attribute;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Product;
-import com.example.onlinemarket.network.APIService;
 import com.example.onlinemarket.network.NetworkParams;
+import com.example.onlinemarket.network.WooCommerceAPIService;
 import com.example.onlinemarket.retrofit.RetrofitInstance;
 
 import java.util.List;
@@ -21,17 +21,17 @@ import retrofit2.Response;
 public class MarketRepository {
 
     private static String TAG="OnlineMarket";
-    private APIService mAPIService;
+    private WooCommerceAPIService mWooCommerceAPIService;
 
     public MarketRepository(Context context) {
-        mAPIService = RetrofitInstance.getInstance(context).getRetrofit().
-                create(APIService.class);
+        mWooCommerceAPIService = RetrofitInstance.getInstance(context).getRetrofit().
+                create(WooCommerceAPIService.class);
     }
 
     public void fetchLastProducts(productsCallback callBacks) {
         Log.d(TAG,"MarketRepository : fetchLastProducts");
 
-        mAPIService.getProducts(NetworkParams.getLastProducts()).
+        mWooCommerceAPIService.getProducts(NetworkParams.getLastProducts()).
                 enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
@@ -50,7 +50,7 @@ public class MarketRepository {
     public void fetchMostVisitedProducts(productsCallback callBacks) {
         Log.d(TAG,"MarketRepository : fetchMostVisitedProducts");
 
-        mAPIService.getProducts(NetworkParams.getMostVisitedProducts()).
+        mWooCommerceAPIService.getProducts(NetworkParams.getMostVisitedProducts()).
                 enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(Call<List<Product>> call,
@@ -68,7 +68,7 @@ public class MarketRepository {
     public void fetchPopularProducts( int page ,productsCallback callBacks) {
 
         Log.d(TAG,"MarketRepository : fetchPopularProducts");
-        mAPIService.getProducts(NetworkParams.getPopularProducts(page)).
+        mWooCommerceAPIService.getProducts(NetworkParams.getPopularProducts(page)).
                 enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call,
@@ -84,7 +84,7 @@ public class MarketRepository {
     }
 
     public void fetchCategories(CategoriesCallback callBacks) {
-        mAPIService.getCategories(NetworkParams.getCategories()).
+        mWooCommerceAPIService.getCategories(NetworkParams.getCategories()).
                 enqueue(new Callback<List<Category>>() {
                     @Override
                     public void onResponse(Call<List<Category>> call,
@@ -101,7 +101,7 @@ public class MarketRepository {
     }
 
     public void fetchCategoryProduct(int categoryId, productsCallback callBacks) {
-        mAPIService.getProducts(NetworkParams.getCategoryProducts(categoryId)).
+        mWooCommerceAPIService.getProducts(NetworkParams.getCategoryProducts(categoryId)).
                 enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(Call<List<Product>> call,
@@ -166,7 +166,7 @@ public class MarketRepository {
     }
 */
     public void fetchSubCategories(int parentId, subCategoriesCallback callback) {
-        mAPIService.getCategories(NetworkParams.getSubCategories(parentId)).
+        mWooCommerceAPIService.getCategories(NetworkParams.getSubCategories(parentId)).
                 enqueue(new Callback<List<Category>>() {
                     @Override
                     public void onResponse(Call<List<Category>> call,
@@ -183,7 +183,7 @@ public class MarketRepository {
 
 
     public void fetchProduct(int productId, productCallback callBacks) {
-        mAPIService.getProduct(productId, NetworkParams.getBaseQuery()).
+        mWooCommerceAPIService.getProduct(productId, NetworkParams.getBaseQuery()).
                 enqueue(new Callback<Product>() {
                     @Override
                     public void onResponse(Call<Product> call,
@@ -200,7 +200,7 @@ public class MarketRepository {
     }
 
     public void fetchAttributes(AttributesCallback callback) {
-        mAPIService.getAttributes(NetworkParams.getBaseQuery())
+        mWooCommerceAPIService.getAttributes(NetworkParams.getBaseQuery())
                 .enqueue(new Callback<List<Attribute>>() {
                     @Override
                     public void onResponse(Call<List<Attribute>> call,
@@ -221,7 +221,7 @@ public class MarketRepository {
 
 
     public void fetchSearchProducts( Map<String, String> query, productsCallback callBacks) {
-        mAPIService.getProducts(query).enqueue(new Callback<List<Product>>() {
+        mWooCommerceAPIService.getProducts(query).enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call,
                                    Response<List<Product>> response) {

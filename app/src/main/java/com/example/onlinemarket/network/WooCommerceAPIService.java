@@ -12,13 +12,13 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
-public interface APIService {
+public interface WooCommerceAPIService {
 
     @GET("products/")
     Call<List<Product>> getProducts(@QueryMap Map<String, String> map);
@@ -39,13 +39,24 @@ public interface APIService {
     Call<Order> postOrder(@Body Order order);
 
 
-    @FormUrlEncoded
+   /* @FormUrlEncoded
     @POST("customers")
     Call<Customer> postCustomer(@Field("email") String email,
+                            @QueryMap Map<String, String> options);
+*/
+
+    @PUT("customers/{id}")
+    Call<Customer> updateCustomer(@Path("id") int customerId,
                             @Field("first_name") String first_name,
                             @Field("last_name") String last_name,
                             @Field("username") String username,
                             @QueryMap Map<String, String> options);
+
+    @POST("customers")
+    Call<Customer> postCustomer(@QueryMap Map<String, String> options,
+                                 @Body Customer customer );
+
+
 
    /* @FormUrlEncoded
     @POST("products/reviews")

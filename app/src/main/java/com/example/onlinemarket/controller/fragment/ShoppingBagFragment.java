@@ -63,13 +63,9 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
             @Override
             public void onClick(View v) {
                 if (mCustomerDBRepository.getCustomer() == null) {
-                    //todo : snack bar please sign up first
-
-                    /*else {
-                        int count = cart.getProduct_count() + 1;
-                        cart.setProduct_count(count);
-                        mCartDBRepository.updateCart(cart);
-                    }*/
+                    replaceSignUpFragment();
+                }else {
+                    // TODO: going to the pay the orders
                 }
 
             }
@@ -77,26 +73,25 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         return view;
     }
 
-   /* private void setTotalPrice() {
-        int totalPrice = 0;
-        for (int i = 0; i < mProductList.size(); i++) {
-            int price = Integer.parseInt(mProductList.get(i).getPrice());
-            int count = mCartViewModel.getCart(mProductList.get(i).getId()).getProduct_count();
-            totalPrice += (price * count);
-        }
-        mBuyBinding.totalPrice.setText(String.valueOf(totalPrice));
-    }*/
+    private void replaceSignUpFragment() {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_main_activity,
+                        SignUpFragment.newInstance())
+                .commit();
+    }
+
+
     private void initViews() {
         mShoppingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false));
 
-        List<Product> orderList = getOrderList();
+        List<Product> orderList = getCartProductList();
 
         updateUI(mShoppingRecyclerView,orderList);
 
     }
 
-    private List<Product> getOrderList() {
+    private List<Product> getCartProductList() {
         List<Cart>  cartList= mCartDBRepository.getCarts();
         List<Product> orderList=new ArrayList<>();
         for (int i = 0; i <cartList.size() ; i++) {
@@ -104,52 +99,6 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         }
         return orderList;
     }
-
-   /* public void onClickToBuy(int productId) {
-        Cart cart = mCartDBRepository.getCart(productId);
-        if (cart == null) {
-            insertToCart(new Cart(productId,1));
-        }else {
-            int count = cart.getProduct_count() + 1;
-            cart.setProduct_count(count);
-            mCartDBRepository.updateCart(cart);
-        }
-        Toast.makeText(mContext, "add to cart", Toast.LENGTH_SHORT).show();
-
-    }*/
-/*
-    public void onClickToBuyAgain(int productId) {
-        onClickToBuy(productId);
-        mOrderedProductAdapter.notifyDataSetChanged();
-        mFragmentCartBinding.totalPrice.setText(String.valueOf(getTotalPrice()));
-    }
-
-    public void onClickToDelete(int productId) {
-        if (mCartDBRepository.getCart(productId).getProduct_count() == 1) {
-            mCartDBRepository.deleteCart(mCartDBRepository.getCart(productId));
-            for (int i = 0; i < mProductList.size(); i++) {
-                if (mProductList.get(i).getId() == productId)
-                    mProductList.remove(i);
-            }
-        }
-        else {
-            Cart updateCart = mCartDBRepository.getCart(productId);
-            int count = updateCart.getProduct_count() - 1;
-            updateCart.setProduct_count(count);
-            mCartDBRepository.updateCart(updateCart);
-
-        }
-        if (mProductList.size() == 0){
-            mFragmentCartBinding.recyclerCart.setVisibility(View.GONE);
-            mFragmentCartBinding.layoutEmptyCart.setVisibility(View.VISIBLE);
-        }
-        mFragmentCartBinding.totalPrice.setText(String.valueOf(getTotalPrice()));
-        mOrderedProductAdapter.notifyDataSetChanged();
-    }
-
-    public void setOrderedProductAdapter(OrderedProductAdapter orderedProductAdapter) {
-        mOrderedProductAdapter = orderedProductAdapter;
-    }*/
 
 
     private void updateUI(RecyclerView recyclerView,

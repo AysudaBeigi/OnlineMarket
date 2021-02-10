@@ -7,8 +7,8 @@ import androidx.room.Room;
 import com.example.onlinemarket.database.ICustomerDatabaseDAO;
 import com.example.onlinemarket.database.OnlineMarketDatabase;
 import com.example.onlinemarket.model.customer.Customer;
-import com.example.onlinemarket.network.APIService;
 import com.example.onlinemarket.network.NetworkParams;
+import com.example.onlinemarket.network.WooCommerceAPIService;
 import com.example.onlinemarket.retrofit.RetrofitInstance;
 
 import retrofit2.Call;
@@ -28,12 +28,12 @@ public class CustomerDBRepository implements ICustomerRepository {
         return sInstance;
     }
 
-    private APIService mAPIService;
+    private WooCommerceAPIService mWooCommerceAPIService;
 
 
     private CustomerDBRepository(Context context) {
-        mAPIService = RetrofitInstance.getInstance(context).getRetrofit().
-                create(APIService.class);
+        mWooCommerceAPIService = RetrofitInstance.getInstance(context).getRetrofit().
+                create(WooCommerceAPIService.class);
 
         mContext = context.getApplicationContext();
         OnlineMarketDatabase onlineMarketDatabase = Room.databaseBuilder(mContext,
@@ -49,15 +49,15 @@ public class CustomerDBRepository implements ICustomerRepository {
     public void postCustomer(Customer customer, CustomerDBRepository.CustomerCallback
             customerCallbacks) {
 
-        mAPIService.postCustomer(customer.getEmail(),
-                customer.getFirstName(),
-                customer.getLastName(),
-                customer.getUsername(),
-                NetworkParams.getBaseQuery()).
+        mWooCommerceAPIService.postCustomer(
+                NetworkParams.getBaseQuery(),customer).
                 enqueue(new Callback<Customer>() {
                     @Override
                     public void onResponse(Call<Customer> call, Response<Customer> response) {
-                        insertCustomer(response.body());
+
+                        Customer customer= response.body();
+                        customerCallbacks.onItemResponse(customer);
+
                     }
 
                     @Override
@@ -67,7 +67,7 @@ public class CustomerDBRepository implements ICustomerRepository {
 
     }
 
-    private void insertCustomer(Customer customer) {
+    public void insertCustomer(Customer customer) {
         mICustomerDatabaseDAO.insertCustomer(customer);
 
     }

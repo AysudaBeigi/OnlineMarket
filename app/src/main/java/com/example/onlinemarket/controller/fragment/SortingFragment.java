@@ -19,7 +19,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.repository.MarketRepository;
 
 
-public class OrderingFragment  extends DialogFragment implements IOnBackPress {
+public class SortingFragment extends DialogFragment implements IOnBackPress {
 
     private RadioButton mPopular;
     private RadioButton mNewest;
@@ -32,12 +32,12 @@ public class OrderingFragment  extends DialogFragment implements IOnBackPress {
     private String mOrderBy = "";
 
 
-    public OrderingFragment() {
+    public SortingFragment() {
         // Required empty public constructor
     }
 
-    public static OrderingFragment newInstance() {
-        OrderingFragment fragment = new OrderingFragment();
+    public static SortingFragment newInstance() {
+        SortingFragment fragment = new SortingFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
