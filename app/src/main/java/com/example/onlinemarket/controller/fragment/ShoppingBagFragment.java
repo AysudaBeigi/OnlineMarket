@@ -1,6 +1,7 @@
 package com.example.onlinemarket.controller.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ import java.util.List;
 
 public class ShoppingBagFragment extends Fragment implements IOnBackPress {
 
-    public static final String TAG = "ShoppingFragment";
+    public static String TAG="OnlineMarket";
     private CustomerDBRepository mCustomerDBRepository;
     private CartDBRepository mCartDBRepository;
     private RecyclerView mShoppingRecyclerView;
@@ -75,6 +76,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
                     OrderRepository.getInstance(getActivity()).postOrder(order, new OrderRepository.OrderCallback() {
                         @Override
                         public void onItemResponse(Order order) {
+                            Log.d(TAG,"postOrder+ onItemResponse + order is "+order.toString());
                             // TODO: going to the pay the orders
                         }
                     });
@@ -127,6 +129,8 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         List<Cart> cartList = mCartDBRepository.getCarts();
         List<Product> orderList = new ArrayList<>();
         for (int i = 0; i < cartList.size(); i++) {
+            Log.d(TAG,"getOrders + product name is :"+cartList.get(i).getProduct().
+                    getName());
             orderList.add(cartList.get(i).getProduct());
         }
         return orderList;
@@ -135,13 +139,13 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
 
     private void updateUI(RecyclerView recyclerView,
 
-                          List<Product> productItems) {
+                          List<Product> orderList) {
 
         if (mCartAdapter == null) {
-            mCartAdapter = new CartAdapter(getContext(), productItems);
+            mCartAdapter = new CartAdapter(getContext(), orderList);
             recyclerView.setAdapter(mCartAdapter);
         } else {
-            mCartAdapter.setCartProducts(productItems);
+            mCartAdapter.setOrderList(orderList);
             mCartAdapter.notifyDataSetChanged();
         }
 

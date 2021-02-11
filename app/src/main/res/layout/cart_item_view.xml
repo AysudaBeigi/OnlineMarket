@@ -60,31 +60,35 @@
                 android:id="@+id/card_count"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:fontFamily="@font/far_roya_bd"
-                android:text="@string/count"
+                android:text="5"
+                style="@style/TextStyle"
+                android:gravity="center"
+                android:layout_marginTop="1dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:textColor="@color/red_22"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/card_minus_button"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
-                android:fontFamily="@font/far_roya_bd"
                 android:gravity="center"
                 android:text="-"
+                style="@style/TextStyle"
+                android:textSize="24sp"
                 android:textColor="@color/red_22"
-                android:textSize="24sp" />
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/card_plus_button"
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:fontFamily="@font/far_roya_bd"
                 android:gravity="center"
                 android:text="+"
+                style="@style/TextStyle"
                 android:textColor="@color/red_22"
                 android:textSize="24sp" />
 
@@ -98,5 +102,6 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
 
 </ScrollView>

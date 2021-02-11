@@ -58,7 +58,7 @@
             android:layout_marginLeft="4dp"
             android:gravity="left"
             android:text="@string/product_price"
-            android:textColor="@color/black"
+            android:textColor="@color/red_22"
             android:textStyle="bold"
             android:textSize="10sp" />
 

@@ -2,6 +2,7 @@ package com.example.onlinemarket.adapter;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,25 +25,25 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder> {
 
-    public static final String TAG = "CardAdapter";
+    public static final String TAG = "OnlineMarket";
     private Context mContext;
-    private List<Product> mCartProducts;
+    private List<Product> mOrderList;
     private int mSumPriceCarts = 0;
     CartDBRepository mCartDBRepository;
 
 
-    public List<Product> getCartProducts() {
-        return mCartProducts;
+    public List<Product> getOrderList() {
+        return mOrderList;
     }
 
-    public void setCartProducts(List<Product> cartProducts) {
-        mCartProducts = cartProducts;
+    public void setOrderList(List<Product> orderList) {
+        mOrderList = orderList;
         notifyDataSetChanged();
     }
 
-    public CartAdapter(Context context, List<Product> cartProducts) {
+    public CartAdapter(Context context, List<Product> orderList) {
         mContext = context;
-        mCartProducts = cartProducts;
+        mOrderList = orderList;
         mCartDBRepository = CartDBRepository.getInstance(mContext);
     }
 
@@ -57,14 +58,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        Product productItem = mCartProducts.get(position);
-        holder.bindProduct(productItem);
+        Product order = mOrderList.get(position);
+        holder.bindProduct(order);
         holder.setListener(position);
     }
 
     @Override
     public int getItemCount() {
-        return mCartProducts.size();
+        return mOrderList.size();
     }
 
     public class CardViewHolder extends RecyclerView.ViewHolder {
@@ -97,18 +98,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
 
         }
 
-        private void bindProduct(Product product) {
-            mCart = mCartDBRepository.getCart(product.getId());
+        private void bindProduct(Product order) {
+            Log.d(TAG, "bindProduct: order name is :" + order.getName());
+            mCart = mCartDBRepository.getCart(order.getId());
             mProductCount = mCart.getProductCount();
-            mTextViewName.setText(product.getName());
-            basePriceCart = Integer.parseInt(product.getPrice());
+            mTextViewName.setText(order.getName());
+            basePriceCart = Integer.parseInt(order.getPrice());
             mTextViewBasePriceCart.setText(basePriceCart
                     + mContext.getResources().getString(R.string.toman));
-            mTextViewCount.setText(mProductCount);
+            mTextViewCount.setText(mProductCount+"");
             mSumPriceCart = basePriceCart * mProductCount;
             mSumPriceCarts = mSumPriceCarts + mSumPriceCart;
 
-            List<Image> imagesItems = product.getImages();
+            List<Image> imagesItems = order.getImages();
             if (imagesItems.get(0).getSrc().length() != 0)
                 Picasso.get()
                         .load(imagesItems.get(0).getSrc())
@@ -120,14 +122,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
             mTextViewPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   updateCountAndPrice(++mProductCount);
+                    updateCountAndPrice(++mProductCount);
                 }
             });
 
             mTextViewMinus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mProductCount > 0) {
+                    if (mProductCount > 1) {
                         updateCountAndPrice(--mProductCount);
                     } else {
                         mTextViewMinus.setVisibility(View.GONE);

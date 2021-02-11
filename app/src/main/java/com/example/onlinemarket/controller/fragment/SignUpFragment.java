@@ -2,6 +2,7 @@ package com.example.onlinemarket.controller.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class SignUpFragment extends Fragment {
     private MaterialButton mButtonEnterOnlineMarket;
     private String mCustomerEmail;
     private CustomerDBRepository mCustomerDBRepository;
+    public static String TAG="OnlineMarket";
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -53,10 +55,10 @@ public class SignUpFragment extends Fragment {
         mButtonEnterOnlineMarket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCustomerEmail = mEditTextEmail.getText().toString();
-                if (mCustomerEmail.equals("")) {
-                    showEmailCantEmptySnackBar(view);
+                mCustomerEmail=mEditTextEmail.getText().toString();
 
+                if (mCustomerEmail.isEmpty()) {
+                    showEmailCantEmptySnackBar(view);
                 } else {
                     SignUpCustomer();
                     //todo: going to pay the orders
@@ -66,10 +68,12 @@ public class SignUpFragment extends Fragment {
     }
 
     private void SignUpCustomer() {
-        Customer customer = new Customer(mCustomerEmail);
+        Customer customer = new Customer();
+        customer.setEmail(mCustomerEmail);
         mCustomerDBRepository.postCustomer(customer, new CustomerDBRepository.CustomerCallback() {
             @Override
             public void onItemResponse(Customer customer) {
+                Log.d(TAG,"SignUpCustomer+onItemResponse customer emali is "+customer.getEmail());
                 mCustomerDBRepository.insertCustomer(customer);
             }
         });

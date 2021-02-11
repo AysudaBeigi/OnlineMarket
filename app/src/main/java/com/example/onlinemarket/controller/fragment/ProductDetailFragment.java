@@ -132,12 +132,13 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
 
 
     public boolean isProductInCart() {
-        Cart cart = new Cart(mProduct.getId(), 1);
+        Cart cart = new Cart(mProduct,mProduct.getId(), 1);
         return mCartDBRepository.getCarts().contains(cart);
     }
 
     public void addTooCart() {
-        Cart cart = new Cart(mProduct.getId(), 1);
+        Cart cart = new Cart(mProduct,mProduct.getId(), 1);
+
         mCartDBRepository.insertCart(cart);
 
 

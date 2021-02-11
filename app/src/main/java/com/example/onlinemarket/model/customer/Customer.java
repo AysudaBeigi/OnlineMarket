@@ -9,7 +9,6 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "customerTable")
 public class Customer {
 
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "primaryId")
     private int primaryId;
@@ -55,9 +54,6 @@ public class Customer {
     @ColumnInfo(name = "username")
     private String username;
 
-    public Customer(String customerEmail) {
-        setEmail(customerEmail);
-    }
 
     public int getPrimaryId() {
         return primaryId;

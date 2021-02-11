@@ -50,7 +50,7 @@
             android:fontFamily="@font/far_trafc_bd"
             android:gravity="left"
             android:text="@string/product_price"
-            android:textColor="@color/black"
+            android:textColor="@color/red_22"
             android:textSize="14sp" />
 
 

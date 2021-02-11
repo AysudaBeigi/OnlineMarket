@@ -5,13 +5,20 @@
     android:layout_height="match_parent"
     android:background="@color/gray_bd"
     android:scrollbars="horizontal">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="2dp"
+        android:background="?android:attr/listDivider"
+        android:outlineAmbientShadowColor="#DDDDDD"
+        android:outlineSpotShadowColor="#DDDDDD" />
 
     <LinearLayout
         android:id="@+id/layout_favorite_comment_address_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layput_user_orders"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="4dp"
         android:background="@color/white_ff"
         android:orientation="vertical">
 
@@ -19,7 +26,7 @@
             android:id="@+id/layout_favorite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            >
 
             <com.google.android.material.textview.MaterialTextView
                 style="@style/TextStyle"
@@ -38,6 +45,13 @@
                 app:srcCompat="@drawable/heart" />
 
         </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="2dp"
+            android:background="?android:attr/listDivider"
+            android:outlineAmbientShadowColor="#DDDDDD"
+            android:outlineSpotShadowColor="#DDDDDD" />
 
         <RelativeLayout
             android:id="@+id/layout_comment"
@@ -62,6 +76,13 @@
                 app:srcCompat="@drawable/comment" />
 
         </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="2dp"
+            android:background="?android:attr/listDivider"
+            android:outlineAmbientShadowColor="#DDDDDD"
+            android:outlineSpotShadowColor="#DDDDDD" />
 
         <RelativeLayout
             android:id="@+id/layout_addresses"
@@ -77,6 +98,7 @@
                 android:layout_toLeftOf="@+id/image_view_addresses"
                 android:text="@string/text_view_addresses" />
 
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_view_addresses"
                 android:layout_width="40dp"
@@ -87,6 +109,13 @@
 
         </RelativeLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="2dp"
+            android:background="?android:attr/listDivider"
+            android:outlineAmbientShadowColor="#DDDDDD"
+            android:outlineSpotShadowColor="#DDDDDD" />
 
         <RelativeLayout
             android:id="@+id/layout_user_account_info"
@@ -119,6 +148,7 @@
         android:id="@+id/layout_notif_setting_info"
         android:layout_width="match_parent"
         android:layout_height="240dp"
+        android:layout_marginBottom="4dp"
         android:background="@color/white_ff">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -169,6 +199,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/text_view_user_email"
             android:layout_below="@+id/layout_user_complete_name"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
@@ -176,13 +207,19 @@
             android:text="emial" />
 
     </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="2dp"
+        android:background="?android:attr/listDivider"
+        android:outlineAmbientShadowColor="#DDDDDD"
+        android:outlineSpotShadowColor="#DDDDDD" />
 
     <LinearLayout
         android:id="@+id/layput_user_orders"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_below="@+id/layout_notif_setting_info"
-        android:layout_marginTop="10dp"
         android:background="@color/white_ff"
         android:orientation="vertical">
 
@@ -199,12 +236,20 @@
             android:layout_marginBottom="10dp"
             android:text="@string/text_view_user_orders"
             android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="2dp"
+            android:background="?android:attr/listDivider"
+            android:outlineAmbientShadowColor="#DDDDDD"
+            android:outlineSpotShadowColor="#DDDDDD" />
 
         <ScrollView
             android:id="@+id/scroll_view_user_orders"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginTop="8dp"
+            android:layoutDirection="rtl"
             android:scrollbars="horizontal">
 
             <LinearLayout
@@ -216,22 +261,10 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/image_view_referred_shopping"
+                    android:id="@+id/image_view_waiting_for_pay"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/reffer" />
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/image_view_canceled_shopping"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    app:srcCompat="@drawable/cancel" />
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/image_view_done_shopping"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
-                    app:srcCompat="@drawable/done" />
+                    app:srcCompat="@drawable/cart_pay" />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/image_view_is_processing"
@@ -240,10 +273,22 @@
                     app:srcCompat="@drawable/process" />
 
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/image_view_waiting_for_pay"
+                    android:id="@+id/image_view_done_shopping"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
-                    app:srcCompat="@drawable/cart_pay" />
+                    app:srcCompat="@drawable/done" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_canceled_shopping"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/cancel" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_referred_shopping"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    app:srcCompat="@drawable/reffer" />
 
             </LinearLayout>
         </ScrollView>

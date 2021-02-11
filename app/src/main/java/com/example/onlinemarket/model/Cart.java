@@ -16,10 +16,10 @@ public class Cart {
     private long userId;
 
     @ColumnInfo(name = "product_id")
-    private int product_id;
+    private int productId;
 
     @ColumnInfo(name = "product_count")
-    private int product_count;
+    private int productCount;
 
 
     @ColumnInfo(name = "product")
@@ -51,24 +51,26 @@ public class Cart {
     }
 
     public int getProductId() {
-        return product_id;
+        return productId;
     }
 
-    public void setProductId(int product_id) {
-        this.product_id = product_id;
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public int getProductCount() {
-        return product_count;
+        return productCount;
     }
 
-    public void setProductCount(int product_count) {
-        this.product_count = product_count;
+    public void setProductCount(int productCount) {
+        this.productCount = productCount;
     }
 
-    public Cart(int product_id, int product_count) {
-        this.product_id = product_id;
-        this.product_count = product_count;
+    public Cart(Product product,int productId, int productCount) {
+        this.product=product;
+        this.productId = productId;
+        this.productCount = productCount;
     }
 
 
