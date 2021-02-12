@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:padding="10dp"
+    tools:context=".controller.fragment.AddCommentFragment">
+
+    <LinearLayout
+        android:id="@+id/layout_comment_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_view_comment_text"
+            style="@style/PartialTextStyle"
+            android:layout_gravity="right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="متن دیدگاه" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_comment_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_divider"
+        android:layout_marginTop="72dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_view_comment_rate"
+            style="@style/PartialTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="امتیاز" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:outlineAmbientShadowColor="@color/red_22"
+            android:outlineSpotShadowColor="@color/red_22">
+
+            <RadioButton
+                android:id="@+id/radio_button_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1" />
+
+            <RadioButton
+                android:id="@+id/radio_button_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2" />
+
+            <RadioButton
+                android:id="@+id/radio_button_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3" />
+
+            <RadioButton
+                android:id="@+id/radio_button_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4" />
+
+            <RadioButton
+                android:id="@+id/radio_button_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5" />
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/layout_comment_text"
+        android:layout_marginTop="2dp"
+        android:background="?android:attr/listDivider"
+        android:outlineAmbientShadowColor="#DDDDDD"
+        android:outlineSpotShadowColor="#DDDDDD" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/digikala_blue_gray"
+        android:text="ثبت دیدگاه" />
+
+
+</RelativeLayout>

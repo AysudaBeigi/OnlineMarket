@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.controller.fragment.ShoppingBagFragment;
-import com.example.onlinemarket.model.Cart;
+import com.example.onlinemarket.model.Card;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.CartDBRepository;
@@ -23,7 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder> {
+public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder> {
 
     public static final String TAG = "OnlineMarket";
     private Context mContext;
@@ -41,7 +41,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
         notifyDataSetChanged();
     }
 
-    public CartAdapter(Context context, List<Product> orderList) {
+    public CardAdapter(Context context, List<Product> orderList) {
         mContext = context;
         mOrderList = orderList;
         mCartDBRepository = CartDBRepository.getInstance(mContext);
@@ -75,7 +75,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
                 mTextViewMinus;
         private MaterialTextView mTextViewCount, mTextViewBasePriceCart;
         private ShapeableImageView mImageViewProduct, mImageViewTrash;
-        private Cart mCart;
+        private Card mCard;
         private int mProductCount;
         private int basePriceCart = 0;
         private int mSumPriceCart = 0;
@@ -100,8 +100,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
 
         private void bindProduct(Product order) {
             Log.d(TAG, "bindProduct: order name is :" + order.getName());
-            mCart = mCartDBRepository.getCart(order.getId());
-            mProductCount = mCart.getProductCount();
+            mCard = mCartDBRepository.getCart(order.getId());
+            mProductCount = mCard.getProductCount();
             mTextViewName.setText(order.getName());
             basePriceCart = Integer.parseInt(order.getPrice());
             mTextViewBasePriceCart.setText(basePriceCart
@@ -141,7 +141,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
             mImageViewTrash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mCartDBRepository.deleteCart(mCart);
+                    mCartDBRepository.deleteCart(mCard);
                     ((AppCompatActivity) mContext).getSupportFragmentManager().
                             beginTransaction()
                             .replace(R.id.fragment_container_main_activity,
@@ -155,8 +155,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CardViewHolder
         }
 
         private void updateCountAndPrice(int productCount) {
-            mCart.setProductCount(productCount);
-            mCartDBRepository.updateCart(mCart);
+            mCard.setProductCount(productCount);
+            mCartDBRepository.updateCart(mCard);
             mTextViewCount.setText(productCount + "");
             updateSumPriceCarts();
         }

@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey;
 
 import com.example.onlinemarket.model.product.Product;
 
-@Entity(tableName = "cart")
-public class Cart {
+@Entity(tableName = "card")
+public class Card {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "cart_primary_id")
     private long primaryId;
@@ -67,7 +67,7 @@ public class Cart {
         this.productCount = productCount;
     }
 
-    public Cart(Product product,int productId, int productCount) {
+    public Card(Product product, int productId, int productCount) {
         this.product=product;
         this.productId = productId;
         this.productCount = productCount;

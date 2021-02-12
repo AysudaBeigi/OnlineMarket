@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.onlinemarket.model.Cart;
+import com.example.onlinemarket.model.Card;
 
 import java.util.List;
 
@@ -15,22 +15,22 @@ public interface ICartDatabaseDAO {
 
 
     @Update
-    void updateCart(Cart cart);
+    void updateCart(Card card);
 
     @Insert
-    void insertCart(Cart cart);
+    void insertCart(Card card);
 
     @Delete
-    void deleteCart(Cart cart);
+    void deleteCart(Card card);
 
-    @Query("DELETE FROM cart")
+    @Query("DELETE FROM Card")
     void deleteAllCart();
 
-    @Query("SELECT * FROM cart")
-    List<Cart> getCarts();
+    @Query("SELECT * FROM Card")
+    List<Card> getCarts();
 
-    @Query("SELECT * FROM cart WHERE product_id=:productId")
-    Cart getCart(int productId);
+    @Query("SELECT * FROM Card WHERE product_id=:productId")
+    Card getCart(int productId);
 
 
 /*

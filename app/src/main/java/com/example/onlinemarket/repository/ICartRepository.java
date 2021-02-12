@@ -1,22 +1,22 @@
 package com.example.onlinemarket.repository;
 
-import com.example.onlinemarket.model.Cart;
+import com.example.onlinemarket.model.Card;
 
 import java.util.List;
 
 public interface ICartRepository {
 
-    void updateCart(Cart cart);
+    void updateCart(Card card);
 
 
-    void insertCart(Cart cart);
+    void insertCart(Card card);
 
-    void deleteCart(Cart cart);
+    void deleteCart(Card card);
 
     void deleteAllCart();
 
-    List<Cart> getCarts();
+    List<Card> getCarts();
 
-    Cart getCart(int productId);
+    Card getCart(int productId);
 
 }

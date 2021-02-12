@@ -8,15 +8,15 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.example.onlinemarket.R;
-public class AddcommentFragment extends Fragment {
+public class AddCommentFragment extends Fragment {
 
 
-    public AddcommentFragment() {
+    public AddCommentFragment() {
         // Required empty public constructor
     }
 
-    public static AddcommentFragment newInstance() {
-        AddcommentFragment fragment = new AddcommentFragment();
+    public static AddCommentFragment newInstance() {
+        AddCommentFragment fragment = new AddCommentFragment();
         Bundle args = new Bundle();
            fragment.setArguments(args);
         return fragment;
@@ -31,7 +31,7 @@ public class AddcommentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View  view=inflater.inflate(R.layout.fragment_addcomment, container,
+        View  view=inflater.inflate(R.layout.fragment_add_comment, container,
                 false);
         return view;
     }

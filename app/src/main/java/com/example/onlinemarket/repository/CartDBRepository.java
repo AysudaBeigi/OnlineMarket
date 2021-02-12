@@ -6,7 +6,7 @@ import androidx.room.Room;
 
 import com.example.onlinemarket.database.ICartDatabaseDAO;
 import com.example.onlinemarket.database.OnlineMarketDatabase;
-import com.example.onlinemarket.model.Cart;
+import com.example.onlinemarket.model.Card;
 
 import java.util.List;
 
@@ -36,19 +36,19 @@ public class CartDBRepository implements ICartRepository {
     }
 
     @Override
-    public void updateCart(Cart cart) {
-        mCartDAO.updateCart(cart);
+    public void updateCart(Card card) {
+        mCartDAO.updateCart(card);
     }
 
 
     @Override
-    public void insertCart(Cart cart) {
-        mCartDAO.insertCart(cart);
+    public void insertCart(Card card) {
+        mCartDAO.insertCart(card);
     }
 
     @Override
-    public void deleteCart(Cart cart) {
-        mCartDAO.deleteCart(cart);
+    public void deleteCart(Card card) {
+        mCartDAO.deleteCart(card);
     }
 
     @Override
@@ -57,12 +57,12 @@ public class CartDBRepository implements ICartRepository {
     }
 
     @Override
-    public List<Cart> getCarts() {
+    public List<Card> getCarts() {
         return mCartDAO.getCarts();
     }
 
     @Override
-    public Cart getCart(int productId) {
+    public Card getCart(int productId) {
         return mCartDAO.getCart(productId);
     }
 

@@ -32,6 +32,7 @@ public class OrderRepository {
         mWooCommerceAPIService.postOrder(order).enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> call, Response<Order> response) {
+                Order order=response.body();
                 orderCallback.onItemResponse(order);
             }
 

@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.CartAdapter;
-import com.example.onlinemarket.model.Cart;
+import com.example.onlinemarket.adapter.CardAdapter;
+import com.example.onlinemarket.model.Card;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.order.LineItemsItem;
 import com.example.onlinemarket.model.order.Order;
@@ -34,7 +34,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     private CartDBRepository mCartDBRepository;
     private RecyclerView mShoppingRecyclerView;
     private Button mButtonFinalizeShopping;
-    private CartAdapter mCartAdapter;
+    private CardAdapter mCardAdapter;
     private Customer mCustomer;
 
 
@@ -97,11 +97,11 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
 
     private List<LineItemsItem> getLineItemsItemList() {
         List<LineItemsItem> lineItemsItemList = new ArrayList<>();
-        List<Cart> cartList = mCartDBRepository.getCarts();
-        for (int i = 0; i < cartList.size(); i++) {
+        List<Card> cardList = mCartDBRepository.getCarts();
+        for (int i = 0; i < cardList.size(); i++) {
             LineItemsItem lineItemsItem = new LineItemsItem();
-            lineItemsItem.setProductId(cartList.get(i).getProductId());
-            lineItemsItem.setQuantity(cartList.get(i).getProductCount());
+            lineItemsItem.setProductId(cardList.get(i).getProductId());
+            lineItemsItem.setQuantity(cardList.get(i).getProductCount());
             lineItemsItemList.add(lineItemsItem);
         }
         return lineItemsItemList;
@@ -126,12 +126,12 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     }
 
     private List<Product> getOrders() {
-        List<Cart> cartList = mCartDBRepository.getCarts();
+        List<Card> cardList = mCartDBRepository.getCarts();
         List<Product> orderList = new ArrayList<>();
-        for (int i = 0; i < cartList.size(); i++) {
-            Log.d(TAG,"getOrders + product name is :"+cartList.get(i).getProduct().
+        for (int i = 0; i < cardList.size(); i++) {
+            Log.d(TAG,"getOrders + product name is :"+ cardList.get(i).getProduct().
                     getName());
-            orderList.add(cartList.get(i).getProduct());
+            orderList.add(cardList.get(i).getProduct());
         }
         return orderList;
     }
@@ -141,12 +141,12 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
 
                           List<Product> orderList) {
 
-        if (mCartAdapter == null) {
-            mCartAdapter = new CartAdapter(getContext(), orderList);
-            recyclerView.setAdapter(mCartAdapter);
+        if (mCardAdapter == null) {
+            mCardAdapter = new CardAdapter(getContext(), orderList);
+            recyclerView.setAdapter(mCardAdapter);
         } else {
-            mCartAdapter.setOrderList(orderList);
-            mCartAdapter.notifyDataSetChanged();
+            mCardAdapter.setOrderList(orderList);
+            mCardAdapter.notifyDataSetChanged();
         }
 
     }
