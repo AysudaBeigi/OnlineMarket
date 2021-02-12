@@ -4,47 +4,44 @@
     android:layout_width="match_parent"
     android:layout_height="300dp"
     android:layout_margin="8dp"
-    android:padding="8dp">
+    android:padding="8dp"
+    >
 
     <RadioButton
         android:id="@+id/popularity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/iran_yekan"
         android:text="@string/popularity"
-        android:textColor="@color/black"
+        style="@style/PartialTextStyle"
+        android:textSize="16sp"
         android:outlineSpotShadowColor="@color/red_22"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        />
 
     <RadioButton
         android:id="@+id/latest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/iran_yekan"
         android:text="@string/newest"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        style="@style/PartialTextStyle"
+        android:textSize="16sp"
+        />
 
     <RadioButton
         android:id="@+id/high_to_low"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/iran_yekan"
         android:text="@string/high_to_low"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textSize="16sp"
+        style="@style/PartialTextStyle"
+        />
 
     <RadioButton
         android:id="@+id/low_to_high"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/iran_yekan"
         android:text="@string/low_to_high"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textSize="16sp"
+        style="@style/PartialTextStyle"
+        />
 
 </RadioGroup>

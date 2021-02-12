@@ -103,8 +103,7 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
         }
 
         private void bindCategory(Category categoriesItem, int position) {
-            mCardView.setBackgroundColor(mColors.get(position));
-
+            //mCardView.setBackgroundColor(mColors.get(position));
             mCategoryName.setText(categoriesItem.getName() + "");
             Image imageItem = categoriesItem.getImages();
             List<String> imagesItemList = new ArrayList<>();

@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/primaryColor"
+            app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -98,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/secondaryDarkColor"
+            app:cardBackgroundColor="@color/digikala_green"
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -139,7 +139,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/purple_47"
+            app:cardBackgroundColor="@color/yellow_35"
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -184,7 +184,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
-            app:cardBackgroundColor="@color/pink_52"
+            app:cardBackgroundColor="@color/purple_47"
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -192,7 +192,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:background="@color/pink_52"
                 android:layoutDirection="rtl"
                 android:orientation="horizontal"
                 android:paddingTop="8dp"

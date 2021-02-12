@@ -2,17 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="60dp"
+    android:layout_width="72dp"
     android:layout_height="75dp"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_margin="3dp"
         android:padding="4dp"
         android:id="@+id/card_view_home_categories_item"
-        app:cardBackgroundColor="@color/digikala_red"
+        app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="15dp">
 
         <ImageView

@@ -56,7 +56,7 @@
                 android:fontFamily="@font/iran_yekan"
                 android:hint="پست الکترونیک"
                 android:inputType="textEmailAddress"
-                android:outlineAmbientShadowColor="@color/red_22"
+                android:outlineAmbientShadowColor="@color/colorPrimary"
                 android:textColor="@color/black"
                 app:boxBackgroundColor="@color/gray_bd"
                 app:boxCornerRadiusBottomEnd="4dp" />
@@ -71,7 +71,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="20dp"
                 android:layout_alignParentBottom="true"
