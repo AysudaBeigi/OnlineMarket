@@ -8,6 +8,8 @@ import com.example.onlinemarket.network.NetworkParams;
 import com.example.onlinemarket.network.WooCommerceAPIService;
 import com.example.onlinemarket.retrofit.RetrofitInstance;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,8 +54,31 @@ public class CommentRepository {
         });
     }
 
+    public void fetchComments(CommentsCallback commentsCallback){
+        Call<List<Comment>> call =
+                mWooCommerceAPIService.getComments(NetworkParams.getBaseQuery());
+        call.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                List<Comment> comments=response.body();
+                commentsCallback.onItemResponse(comments);
+            }
+
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
     public interface CommentCallback {
         void onItemResponse(Comment comment);
+
+    }
+
+    public interface CommentsCallback {
+        void onItemResponse(List<Comment> comments);
 
     }
 

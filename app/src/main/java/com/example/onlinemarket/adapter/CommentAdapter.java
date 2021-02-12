@@ -4,14 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioGroup;
+import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Comment;
-import com.example.onlinemarket.model.product.Product;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
@@ -21,11 +20,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     private Context mContext;
     private List<Comment> mComments;
 
-    public List<Comment> getProductsItem() {
+    public List<Comment> getComments() {
         return mComments;
     }
 
-    public void setProductsItem(List<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         mComments = comments;
         notifyDataSetChanged();
     }
@@ -67,8 +66,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     public class CommentViewHolder extends RecyclerView.ViewHolder {
 
         private MaterialTextView mTextViewComment;
-        private RadioGroup mRadioGroupRating;
-
+        private RadioButton mRadioButton1;
+        private RadioButton mRadioButton2;
+        private RadioButton mRadioButton3;
+        private RadioButton mRadioButton4;
+        private RadioButton mRadioButton5;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -80,15 +82,34 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         private void findItemViews(@NonNull View itemView) {
             mTextViewComment = itemView.findViewById(R.id.text_view_comment_item);
-            mRadioGroupRating = itemView.findViewById(R.id.radio_group_rating_comment_item);
-
+            mRadioButton1=itemView.findViewById(R.id.radio_button_1_comment_item);
+            mRadioButton2=itemView.findViewById(R.id.radio_button_2_comment_item);
+            mRadioButton3=itemView.findViewById(R.id.radio_button_3_comment_item);
+            mRadioButton4=itemView.findViewById(R.id.radio_button_4_comment_item);
+            mRadioButton5=itemView.findViewById(R.id.radio_button_5_comment_item);
         }
 
-        private void bindProduct(Product productItem) {
-            mProductName.setText(productItem.getName() + "");
-            mProductPrice.setText(productItem.getPrice() + "");
+        private void bindProduct(Comment  comment) {
+            mTextViewComment.setText(comment.getReview());
+            int rate=comment.getRating();
+            switch (rate){
+                case 1:
+                    mRadioButton1.setChecked(true);
+                    break;
+                  case 2:
+                    mRadioButton2.setChecked(true);
+                    break;
+                  case 3:
+                    mRadioButton3.setChecked(true);
+                    break;
+                  case 4:
+                    mRadioButton4.setChecked(true);
+                    break;
+                  case 5:
+                    mRadioButton5.setChecked(true);
+                    break;
 
-
+            }
         }
 
     }
