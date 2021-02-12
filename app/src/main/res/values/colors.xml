@@ -14,7 +14,7 @@
     <color name="purple_47">#AB47BC</color>
     <color name="pink_52">#ff5252</color>
     <color name="orange_40">#FF6E40</color>
-    <color name="gray_bd">#BDBDBD</color>
+    <color name="gray_bd">#fefefd</color>
     <color name="gray_75">#757575</color>
     <color name="gray_21">#212121</color>
 
@@ -26,5 +26,27 @@
     <color name="secondaryDarkColor">#1faa00</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
+
+    <color name="colorPrimary">#e72f31</color>
+    <color name="colorPrimaryDark">#e72f31</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="digikala_red_dark">#B11315</color>
+    <color name="digikala_red">#e72f31</color>
+    <color name="digikala_red_origin">#ef384e</color>
+    <color name="digikala_red_light">#FF6F70</color>
+    <color name="digikala_green">#66bb68</color>
+    <color name="digikala_blue">#2d91e1</color>
+    <color name="digikala_blue_gray">#a2aac1</color>
+    <color name="digikala_dark_blue_gray">#303341</color>
+    <color name="digikala_gray">#757575</color>
+    <color name="digikala_light_gray">#aaaaaa</color>
+    <color name="digikala_dark_white">#eeeeee</color>
+    <color name="digikala_white">#fafafa</color>
+    <color name="digikala_raw_white">#ffffff</color>
+    <color name="nothing">#00FFFFFF</color>
+
+
+
 
 </resources>

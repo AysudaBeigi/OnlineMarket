@@ -80,42 +80,6 @@ public class ProductsHorizontalAdapter extends RecyclerView.
     }
 
 
-   /* @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                List<Product> filteredList = new ArrayList<>();
-
-                if (charSequence.toString().isEmpty()) {
-                    filteredList.addAll(mSearchProductsItem);
-                } else {
-                    for (Product productsItem : mSearchProductsItem) {
-                        if (productsItem.getName().toLowerCase().trim().contains(charSequence.toString().toLowerCase().trim())) {
-                            filteredList.add(productsItem);
-                        }
-                    }
-                }
-                FilterResults results = new FilterResults();
-                results.values = filteredList;
-
-                return results;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence,
-                                          FilterResults filterResults) {
-                if (mProductsItem != null)
-                    mProductsItem.clear();
-                if (filterResults.values != null)
-                    mProductsItem.
-                            addAll((Collection<? extends Product>) filterResults.values);
-                notifyDataSetChanged();
-            }
-        };
-    }
-*/
-
     public class ProductHorizantalViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mProductName;

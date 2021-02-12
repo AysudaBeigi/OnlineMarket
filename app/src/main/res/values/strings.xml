@@ -9,9 +9,9 @@
     <string name="home_page">خانه</string>
     <string name="category">دسته بندی ها</string>
 
-    <string name="recent_products">جدیدترین محصولات</string>
-    <string name="most_visited_products">پربازدیدترین محصولات</string>
-    <string name="top_rated_products">محبوب ترین محصولات</string>
+    <string name="recent_products">جدیدترین ها</string>
+    <string name="most_visited_products">پربازدیدترین ها</string>
+    <string name="top_rated_products">محبوب ترین ها</string>
 
     <string name="product_price">قیمت:</string>
     <string name="add_bag">افزودن به سبد خرید</string>

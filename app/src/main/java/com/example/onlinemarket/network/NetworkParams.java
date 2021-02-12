@@ -15,7 +15,7 @@ public class NetworkParams {
     public static final String ORDER = "order";
     public static final String CATEGORY = "category";
     public static final String SEARCH = "search";
-    public static final String ORDERBY = "order_by";
+    public static final String ORDERBY = "orderby";
     public static final String PAGE = "page";
     public static final String PRODUCT = "product";
     public static final String FORCE = "force";

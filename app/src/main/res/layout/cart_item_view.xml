@@ -61,7 +61,7 @@
                 android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:text="5"
-                style="@style/TextStyle"
+                style="@style/PartialTextStyle"
                 android:gravity="center"
                 android:layout_marginTop="1dp"
                 android:layout_centerHorizontal="true"
@@ -76,7 +76,7 @@
                 android:layout_alignParentLeft="true"
                 android:gravity="center"
                 android:text="-"
-                style="@style/TextStyle"
+                style="@style/PartialTextStyle"
                 android:textSize="24sp"
                 android:textColor="@color/red_22"
                 />
@@ -88,7 +88,7 @@
                 android:layout_alignParentRight="true"
                 android:gravity="center"
                 android:text="+"
-                style="@style/TextStyle"
+                style="@style/PartialTextStyle"
                 android:textColor="@color/red_22"
                 android:textSize="24sp" />
 

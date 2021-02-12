@@ -181,9 +181,22 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                                   ProductsHorizontalAdapter adapter,
                                   List<Product> products) {
         Log.d(TAG,"HomeF : initRecyclerView");
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
-        initProductAdapter(recyclerView, adapter, products);
+        if (adapter == null) {
+            adapter = new ProductsHorizontalAdapter(getContext(),
+                    products);
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter.setProductsItem(products);
+            adapter.notifyDataSetChanged();
+
+        }
+        Log.d(TAG,"adapter is :"+adapter.toString());
+        Log.d(TAG,"recyclerview is  is :"+recyclerView.toString());
+        Log.d(TAG,"last product name  is :"+products.get(products.size()-1).getName());
+        //initProductAdapter(recyclerView, adapter, products);
     }
 
     private void initProductAdapter(RecyclerView recyclerView,

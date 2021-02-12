@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.repository.MarketRepository;
 
 
 public class SortingFragment extends DialogFragment implements IOnBackPress {
@@ -28,7 +27,6 @@ public class SortingFragment extends DialogFragment implements IOnBackPress {
     public static final int RESULT_CODE_ORDER_DIALOG_FRAGMENT = 20;
     public static final String EXTRA_ORDER_DIALOG_FRAGMENT = "com.example.onlinemarket.EXTRA_ORDERING_FRAGMENT";
     public static final String TAG = "OrderDialogFragment";
-    private MarketRepository mMarketRepository;
     private String mOrderBy = "";
 
 
@@ -65,7 +63,7 @@ public class SortingFragment extends DialogFragment implements IOnBackPress {
                         sendResult(mOrderBy);
                     }
                 })
-                .setNegativeButton("خیر", null)
+                .setNegativeButton("بازگشت", null)
                 .setView(view)
                 .create();
 
@@ -96,13 +94,13 @@ public class SortingFragment extends DialogFragment implements IOnBackPress {
         mLowToHigh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOrderBy = "price_asc";
+                mOrderBy = "price";
             }
         });
         mHighToLow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOrderBy = "price";
+                mOrderBy = "price_asc";
             }
         });
     }
