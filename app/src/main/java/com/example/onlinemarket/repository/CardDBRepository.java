@@ -10,21 +10,21 @@ import com.example.onlinemarket.model.Card;
 
 import java.util.List;
 
-public class CartDBRepository implements ICartRepository {
+public class CardDBRepository implements ICartRepository {
 
-    private static CartDBRepository sInstance;
+    private static CardDBRepository sInstance;
 
     private ICartDatabaseDAO mCartDAO;
     private Context mContext;
 
-    public static CartDBRepository getInstance(Context context) {
+    public static CardDBRepository getInstance(Context context) {
         if (sInstance == null)
-            sInstance = new CartDBRepository(context);
+            sInstance = new CardDBRepository(context);
 
         return sInstance;
     }
 
-    private CartDBRepository(Context context) {
+    private CardDBRepository(Context context) {
         mContext = context.getApplicationContext();
         OnlineMarketDatabase onlineMarketDatabase= Room.databaseBuilder(mContext,
                 OnlineMarketDatabase.class,

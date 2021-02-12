@@ -39,9 +39,18 @@ public class UserProfileFragment extends Fragment {
 
         findViews(view);
 
+
+        initViews();
+
+
+        return view;
+    }
+
+    private void initViews() {
+        if(CustomerDBRepository.getInstance(getActivity()).
+                getCustomer()!=null)
         mTextViewUserEmail.setText(CustomerDBRepository.getInstance(getActivity()).
                 getCustomer().getEmail());
-        return view;
     }
 
     private void findViews(View view) {

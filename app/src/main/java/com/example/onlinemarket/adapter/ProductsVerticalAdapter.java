@@ -61,9 +61,12 @@ public class ProductsVerticalAdapter extends
                     @Override
                     public void onClick(View v) {
 
-                        UIUtils.replaceFragment(
-                                ((AppCompatActivity) mContext).getSupportFragmentManager(),
-                                ProductDetailFragment.newInstance(productItem));
+                        ((AppCompatActivity) mContext).getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container_main_activity,
+                                        ProductDetailFragment.newInstance(productItem)).
+                                commit();
+
                     }
                 });
 
@@ -107,7 +110,7 @@ public class ProductsVerticalAdapter extends
             }
             for (int i = 0; i < productImagesSrcList.size(); i++) {
 
-                UIUtils.setImageUsingPicasso(productImagesSrcList.get(i),mImage);
+                UIUtils.setImageUsingPicasso(productImagesSrcList.get(i), mImage);
                 break;
             }
         }

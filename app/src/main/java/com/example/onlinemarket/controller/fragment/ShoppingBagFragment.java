@@ -19,10 +19,9 @@ import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.order.LineItemsItem;
 import com.example.onlinemarket.model.order.Order;
 import com.example.onlinemarket.model.product.Product;
-import com.example.onlinemarket.repository.CartDBRepository;
+import com.example.onlinemarket.repository.CardDBRepository;
 import com.example.onlinemarket.repository.CustomerDBRepository;
 import com.example.onlinemarket.repository.OrderRepository;
-import com.example.onlinemarket.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
 
     public static String TAG = "OnlineMarket";
     private CustomerDBRepository mCustomerDBRepository;
-    private CartDBRepository mCartDBRepository;
+    private CardDBRepository mCardDBRepository;
     private RecyclerView mShoppingRecyclerView;
     private Button mButtonFinalizeShopping;
     private CardAdapter mCardAdapter;
@@ -54,7 +53,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCustomerDBRepository = CustomerDBRepository.getInstance(getActivity());
-        mCartDBRepository = CartDBRepository.getInstance(getActivity());
+        mCardDBRepository = CardDBRepository.getInstance(getActivity());
     }
 
     @Override
@@ -98,7 +97,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
 
     private List<LineItemsItem> getLineItemsItemList() {
         List<LineItemsItem> lineItemsItemList = new ArrayList<>();
-        List<Card> cardList = mCartDBRepository.getCarts();
+        List<Card> cardList = mCardDBRepository.getCarts();
         for (int i = 0; i < cardList.size(); i++) {
             LineItemsItem lineItemsItem = new LineItemsItem();
             lineItemsItem.setProductId(cardList.get(i).getProductId());
@@ -109,8 +108,9 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     }
 
     private void replaceSignUpFragment() {
-        UIUtils.replaceFragment(getActivity().getSupportFragmentManager(),
-                SignUpFragment.newInstance());
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_main_activity,
+                        SignUpFragment.newInstance()).commit();
     }
 
 
@@ -125,7 +125,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     }
 
     private List<Product> getOrders() {
-        List<Card> cardList = mCartDBRepository.getCarts();
+        List<Card> cardList = mCardDBRepository.getCarts();
         List<Product> orderList = new ArrayList<>();
         for (int i = 0; i < cardList.size(); i++) {
             Log.d(TAG, "getOrders + product name is :" + cardList.get(i).getProduct().

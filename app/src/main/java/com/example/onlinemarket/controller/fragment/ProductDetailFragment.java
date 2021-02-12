@@ -20,9 +20,8 @@ import com.example.onlinemarket.model.Card;
 import com.example.onlinemarket.model.Comment;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
-import com.example.onlinemarket.repository.CartDBRepository;
+import com.example.onlinemarket.repository.CardDBRepository;
 import com.example.onlinemarket.repository.CommentRepository;
-import com.example.onlinemarket.utils.UIUtils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.smarteist.autoimageslider.SliderView;
@@ -45,7 +44,7 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
     private TextView mDescription;
     private TextView mName;
     private Button mButtonAddToShoppingBag;
-    private CartDBRepository mCartDBRepository;
+    private CardDBRepository mCardDBRepository;
     private RecyclerView mRecyclerViewComments;
     private MaterialButton mButtonPostComment;
     private MaterialTextView mTextViewHaveNotComment;
@@ -68,7 +67,7 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mProduct = (Product) getArguments().get(ARGS_PRODUCT);
-        mCartDBRepository = CartDBRepository.getInstance(getActivity());
+        mCardDBRepository = CardDBRepository.getInstance(getActivity());
 
     }
 
@@ -170,8 +169,11 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
             @Override
             public void onClick(View v) {
 
-                UIUtils.replaceFragment(getActivity().getSupportFragmentManager(),
-                        PostCommentFragment.newInstance(mProduct.getId()));
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container_main_activity,
+                                PostCommentFragment.newInstance(mProduct.getId()))
+                        .commit();
             }
         });
 
@@ -180,13 +182,13 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
 
     public boolean isProductInCart() {
         Card card = new Card(mProduct, mProduct.getId(), 1);
-        return mCartDBRepository.getCarts().contains(card);
+        return mCardDBRepository.getCarts().contains(card);
     }
 
     public void addTooCart() {
         Card card = new Card(mProduct, mProduct.getId(), 1);
 
-        mCartDBRepository.insertCart(card);
+        mCardDBRepository.insertCart(card);
 
 
     }
