@@ -30,7 +30,7 @@ public class CommentRepository {
 
     }
 
-    public void postCommentAsync(Comment comment,CommentCallback commentCallback) {
+    public void postComment(Comment comment, CommentCallback commentCallback) {
         Call<Comment> call =
                 mWooCommerceAPIService.postComment(comment.getProductId(),
                         comment.getReview(),

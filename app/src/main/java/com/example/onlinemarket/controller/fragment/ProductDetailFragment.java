@@ -147,7 +147,7 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
                 getActivity().getSupportFragmentManager()
             .beginTransaction().
                         replace(R.id.fragment_container_main_activity,
-                                AddCommentFragment.newInstance())
+                                PostCommentFragment.newInstance())
             .commit();
             }
         });

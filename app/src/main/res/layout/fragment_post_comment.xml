@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp"
     android:padding="10dp"
-    tools:context=".controller.fragment.AddCommentFragment">
+    tools:context=".controller.fragment.PostCommentFragment">
 
     <LinearLayout
         android:id="@+id/layout_comment_text"
@@ -23,7 +23,7 @@
             android:text="متن دیدگاه" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_review"
+            android:id="@+id/edit_text_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -102,5 +102,14 @@
         android:backgroundTint="@color/digikala_blue_gray"
         android:text="ثبت دیدگاه" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:id="@+id/layout_show_snack_bar_post_comment"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/button_post_comment"
+        />
 
 </RelativeLayout>

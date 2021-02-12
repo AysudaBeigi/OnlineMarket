@@ -147,7 +147,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="10dp"
-                    android:id="@+id/button_add_comment"
+                    android:id="@+id/button_post_comment"
                     android:backgroundTint="@color/digikala_blue_gray"
                     app:icon="@drawable/ic_comment"/>
             </RelativeLayout>

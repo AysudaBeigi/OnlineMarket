@@ -4,8 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Comment;
 import com.example.onlinemarket.model.product.Product;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 
-public class CommentAdapter  extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
 
     private Context mContext;
     private List<Comment> mComments;
@@ -39,7 +39,7 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentAdapter.Comment
     @Override
     public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.product_horizantal__item_view, parent, false);
+                .inflate(R.layout.comment_item_view, parent, false);
 
         return new CommentViewHolder(view);
     }
@@ -48,18 +48,12 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentAdapter.Comment
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Comment comment = mComments.get(position);
-       // holder.bindProduct(review);
+        holder.bindProduct(comment);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*((AppCompatActivity) mContext).
-                        getSupportFragmentManager().
-                        beginTransaction()
-                        .replace(R.id.fragment_container_main_activity,
-                                ProductDetailFragment.newInstance(review))
-                        .commit();
-*/
+
             }
         });
     }
@@ -72,23 +66,21 @@ public class CommentAdapter  extends RecyclerView.Adapter<CommentAdapter.Comment
 
     public class CommentViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mProductName;
-        private TextView mProductPrice;
-        private ImageView mProductImage;
+        private MaterialTextView mTextViewComment;
+        private RadioGroup mRadioGroupRating;
 
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            findHolderViews(itemView);
+            findItemViews(itemView);
 
         }
 
 
-        private void findHolderViews(@NonNull View itemView) {
-            mProductName = itemView.findViewById(R.id.product_view_holder_title);
-            mProductPrice = itemView.findViewById(R.id.product_view_holder_price);
-            mProductImage = itemView.findViewById(R.id.product_view_holder_image_cover);
+        private void findItemViews(@NonNull View itemView) {
+            mTextViewComment = itemView.findViewById(R.id.text_view_comment_item);
+            mRadioGroupRating = itemView.findViewById(R.id.radio_group_rating_comment_item);
 
         }
 
