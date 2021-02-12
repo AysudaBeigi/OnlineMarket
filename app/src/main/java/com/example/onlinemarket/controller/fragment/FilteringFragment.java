@@ -12,7 +12,6 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Attribute;
 import com.example.onlinemarket.repository.MarketRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FilteringFragment extends Fragment {
@@ -47,7 +46,7 @@ public class FilteringFragment extends Fragment {
                 false);
         findViews(view);
 
-        mMarketRepository.fetchAttributes(
+       /* mMarketRepository.fetchAttributes(
                 new MarketRepository.AttributesCallback() {
                     @Override
                     public void onItemResponse(List<Attribute> attributes) {
@@ -63,7 +62,9 @@ public class FilteringFragment extends Fragment {
         textViews.add(mTextView6);
         for (int i = 0; i < mAttributes.size(); i++) {
             textViews.get(i).setText(mAttributes.get(i).getName());
-        }
+        }*/
+
+
         return view;
     }
 

@@ -17,9 +17,9 @@ import com.example.onlinemarket.model.Card;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.CartDBRepository;
+import com.example.onlinemarket.utils.UIUtils;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -73,12 +73,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         private MaterialTextView mTextViewName;
         private MaterialTextView mTextViewPlus,
                 mTextViewMinus;
-        private MaterialTextView mTextViewCount, mTextViewBasePriceCart;
+        private MaterialTextView mTextViewCount, mTextViewBasePriceCard;
         private ShapeableImageView mImageViewProduct, mImageViewTrash;
         private Card mCard;
         private int mProductCount;
-        private int basePriceCart = 0;
-        private int mSumPriceCart = 0;
+        private int basePriceCard = 0;
+        private int mSumPriceCard = 0;
 
 
         public CardViewHolder(@NonNull View itemView) {
@@ -94,7 +94,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             mTextViewMinus = itemView.findViewById(R.id.card_minus_button);
             mImageViewTrash = itemView.findViewById(R.id.image_view_trash);
             mImageViewProduct = itemView.findViewById(R.id.image_view_card_item);
-            mTextViewBasePriceCart = itemView.findViewById(R.id.text_view_product_price);
+            mTextViewBasePriceCard = itemView.findViewById(R.id.text_view_product_price);
 
         }
 
@@ -103,18 +103,17 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             mCard = mCartDBRepository.getCart(order.getId());
             mProductCount = mCard.getProductCount();
             mTextViewName.setText(order.getName());
-            basePriceCart = Integer.parseInt(order.getPrice());
-            mTextViewBasePriceCart.setText(basePriceCart
+            basePriceCard = Integer.parseInt(order.getPrice());
+            mTextViewBasePriceCard.setText(basePriceCard
                     + mContext.getResources().getString(R.string.toman));
-            mTextViewCount.setText(mProductCount+"");
-            mSumPriceCart = basePriceCart * mProductCount;
-            mSumPriceCarts = mSumPriceCarts + mSumPriceCart;
+            mTextViewCount.setText(mProductCount + "");
+            mSumPriceCard = basePriceCard * mProductCount;
+            mSumPriceCarts = mSumPriceCarts + mSumPriceCard;
 
             List<Image> imagesItems = order.getImages();
             if (imagesItems.get(0).getSrc().length() != 0)
-                Picasso.get()
-                        .load(imagesItems.get(0).getSrc())
-                        .into(mImageViewProduct);
+                UIUtils.setImageUsingPicasso(imagesItems.get(0).getSrc(),
+                        mImageViewProduct);
 
         }
 
@@ -142,11 +141,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                 @Override
                 public void onClick(View v) {
                     mCartDBRepository.deleteCart(mCard);
-                    ((AppCompatActivity) mContext).getSupportFragmentManager().
-                            beginTransaction()
-                            .replace(R.id.fragment_container_main_activity,
-                                    ShoppingBagFragment.newInstance())
-                            .commit();
+                    UIUtils.replaceFragment((
+                                    (AppCompatActivity) mContext).getSupportFragmentManager(),
+                            ShoppingBagFragment.newInstance());
 
 
                 }
@@ -162,8 +159,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         }
 
         private void updateSumPriceCarts() {
-            mSumPriceCart = mProductCount * basePriceCart;
-            mSumPriceCarts = mSumPriceCarts + mSumPriceCart;
+            mSumPriceCard = mProductCount * basePriceCard;
+            mSumPriceCarts = mSumPriceCarts + mSumPriceCard;
         }
 
     }

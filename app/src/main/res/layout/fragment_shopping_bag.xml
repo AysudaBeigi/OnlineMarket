@@ -93,7 +93,7 @@
             android:text="@string/final_shop"
             android:textColor="@color/white_ff"
             android:textSize="16sp"
-            app:backgroundTint="@color/red_22" />
+            app:backgroundTint="@color/digikala_red" />
     </RelativeLayout>
 
 </RelativeLayout>

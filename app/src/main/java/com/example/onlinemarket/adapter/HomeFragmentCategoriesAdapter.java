@@ -9,13 +9,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.controller.fragment.SubCategoryProductsFragment;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Image;
-import com.squareup.picasso.Picasso;
+import com.example.onlinemarket.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,14 +53,13 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Category categoriesItem = mCategoriesItems.get(position);
-        holder.bindCategory(categoriesItem);
+        holder.bindCategory(categoriesItem, position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((AppCompatActivity) mContext).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container_main_activity,
-                                SubCategoryProductsFragment.newInstance(categoriesItem.getId()))
-                        .commit();
+                UIUtils.replaceFragment(
+                        ((AppCompatActivity) mContext).getSupportFragmentManager(),
+                        SubCategoryProductsFragment.newInstance(categoriesItem.getId()));
 
             }
         });
@@ -75,24 +75,36 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
 
         private TextView mCategoryName;
         private ImageView mCategoryImage;
-        private View mItemView;
-
+        private CardView mCardView;
+        ArrayList<Integer> mColors = new ArrayList<>();
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
-            findHolderViews(itemView);
+            findItemViews(itemView);
+            initColors();
+
+        }
+
+        private void initColors() {
+            mColors.add(mContext.getResources().getColor(R.color.digikala_green));
+            mColors.add(mContext.getResources().getColor(R.color.digikala_red));
+            mColors.add(mContext.getResources().getColor(R.color.digikala_blue));
+            mColors.add(mContext.getResources().getColor(R.color.yellow_35));
+            mColors.add(mContext.getResources().getColor(R.color.purple_47));
+            mColors.add(mContext.getResources().getColor(R.color.orange_40));
         }
 
 
-        private void findHolderViews(@NonNull View itemView) {
+        private void findItemViews(@NonNull View itemView) {
             mCategoryName = itemView.findViewById(R.id.category_name);
             mCategoryImage = itemView.findViewById(R.id.category_image);
-
-            mItemView = itemView;
+            mCardView = itemView.findViewById(R.id.card_view_home_categories_item);
 
         }
 
-        private void bindCategory(Category categoriesItem) {
+        private void bindCategory(Category categoriesItem, int position) {
+            mCardView.setBackgroundColor(mColors.get(position));
+
             mCategoryName.setText(categoriesItem.getName() + "");
             Image imageItem = categoriesItem.getImages();
             List<String> imagesItemList = new ArrayList<>();
@@ -102,12 +114,9 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
             }
 
             for (int i = 0; i < imagesItemList.size(); i++) {
-                if(imagesItemList.get(i)!=null){
-
-                    Picasso.get()
-                            .load(imagesItemList.get(i))
-                            .placeholder(R.drawable.ic_placeholder_recycler)
-                            .into(mCategoryImage);
+                if (imagesItemList.get(i) != null) {
+                    UIUtils.setImageUsingPicasso(imagesItemList.get(i),
+                            mCategoryImage);
                     break;
                 }
 

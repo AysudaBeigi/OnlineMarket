@@ -22,6 +22,7 @@ import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.CartDBRepository;
 import com.example.onlinemarket.repository.CustomerDBRepository;
 import com.example.onlinemarket.repository.OrderRepository;
+import com.example.onlinemarket.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ import java.util.List;
 
 public class ShoppingBagFragment extends Fragment implements IOnBackPress {
 
-    public static String TAG="OnlineMarket";
+    public static String TAG = "OnlineMarket";
     private CustomerDBRepository mCustomerDBRepository;
     private CartDBRepository mCartDBRepository;
     private RecyclerView mShoppingRecyclerView;
@@ -76,7 +77,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
                     OrderRepository.getInstance(getActivity()).postOrder(order, new OrderRepository.OrderCallback() {
                         @Override
                         public void onItemResponse(Order order) {
-                            Log.d(TAG,"postOrder+ onItemResponse + order is "+order.toString());
+                            Log.d(TAG, "postOrder+ onItemResponse + order is " + order.toString());
                             // TODO: going to the pay the orders
                         }
                     });
@@ -108,10 +109,8 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     }
 
     private void replaceSignUpFragment() {
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container_main_activity,
-                        SignUpFragment.newInstance())
-                .commit();
+        UIUtils.replaceFragment(getActivity().getSupportFragmentManager(),
+                SignUpFragment.newInstance());
     }
 
 
@@ -129,7 +128,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         List<Card> cardList = mCartDBRepository.getCarts();
         List<Product> orderList = new ArrayList<>();
         for (int i = 0; i < cardList.size(); i++) {
-            Log.d(TAG,"getOrders + product name is :"+ cardList.get(i).getProduct().
+            Log.d(TAG, "getOrders + product name is :" + cardList.get(i).getProduct().
                     getName());
             orderList.add(cardList.get(i).getProduct());
         }

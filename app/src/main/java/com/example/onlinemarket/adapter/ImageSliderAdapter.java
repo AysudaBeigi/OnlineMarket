@@ -8,14 +8,14 @@ import android.widget.ImageView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.product.Image;
+import com.example.onlinemarket.utils.UIUtils;
 import com.smarteist.autoimageslider.SliderViewAdapter;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImageSliderAdapter extends
-        SliderViewAdapter<ImageSliderAdapter.ImageSliderViewHolder>{
+        SliderViewAdapter<ImageSliderAdapter.ImageSliderViewHolder> {
     private Context mContext;
     private List<Image> mImagesItems = new ArrayList<>();
 
@@ -43,7 +43,7 @@ public class ImageSliderAdapter extends
     public void onBindViewHolder(ImageSliderViewHolder viewHolder, final int position) {
 
         Image imageItem = mImagesItems.get(position);
-        viewHolder.bindImageItem(viewHolder, imageItem);
+        viewHolder.bindImageItem(imageItem);
     }
 
     @Override
@@ -54,8 +54,6 @@ public class ImageSliderAdapter extends
     public class ImageSliderViewHolder extends SliderViewAdapter.ViewHolder {
 
         private ImageView imageViewBackground;
-        private Image mImageItem;
-        private View mItemView;
 
         public ImageSliderViewHolder(View itemView) {
             super(itemView);
@@ -64,15 +62,11 @@ public class ImageSliderAdapter extends
 
         private void findHolderViews(View itemView) {
             imageViewBackground = itemView.findViewById(R.id.iv_auto_image_slider);
-            mItemView = itemView;
         }
 
-        private void bindImageItem(ImageSliderViewHolder holder, Image image) {
-            mImageItem = image;
+        private void bindImageItem(Image image) {
             if (image.getSrc().length() != 0)
-                Picasso.get()
-                        .load(image.getSrc())
-                        .into(imageViewBackground);
+                UIUtils.setImageUsingPicasso(image.getSrc(), imageViewBackground);
 
         }
 

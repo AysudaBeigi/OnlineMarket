@@ -15,7 +15,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.controller.fragment.ProductDetailFragment;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
-import com.squareup.picasso.Picasso;
+import com.example.onlinemarket.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,12 +60,10 @@ public class ProductsVerticalAdapter extends
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ((AppCompatActivity) mContext).
-                                getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.fragment_container_main_activity,
-                                        ProductDetailFragment.newInstance(productItem))
-                                .commit();
 
+                        UIUtils.replaceFragment(
+                                ((AppCompatActivity) mContext).getSupportFragmentManager(),
+                                ProductDetailFragment.newInstance(productItem));
                     }
                 });
 
@@ -83,8 +81,6 @@ public class ProductsVerticalAdapter extends
 
         private TextView mName, mPrice;
         private ImageView mImage;
-        private View mItemView;
-
 
         public ProductVerticalHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,8 +94,6 @@ public class ProductsVerticalAdapter extends
             mPrice = itemView.findViewById(R.id.product_category_holder_price);
             mImage = itemView.findViewById(R.id.product_category_holder_image);
 
-            mItemView = itemView;
-
         }
 
         private void bindProduct(Product productItem) {
@@ -107,22 +101,14 @@ public class ProductsVerticalAdapter extends
             mPrice.setText(productItem.getPrice() + " " +
                     mContext.getResources().getString(R.string.toman));
             List<Image> productImagesList = productItem.getImages();
-            List<String> productImageUrlsList = new ArrayList<>();
+            List<String> productImagesSrcList = new ArrayList<>();
             for (int i = 0; i < productImagesList.size(); i++) {
-                productImageUrlsList.add(productImagesList.get(i).getSrc());
+                productImagesSrcList.add(productImagesList.get(i).getSrc());
             }
-            for (int i = 0; i < productImageUrlsList.size(); i++) {
-                if (productImageUrlsList.get(i) == null)
-                    Picasso.get()
-                            .load(R.drawable.ic_placeholder_recycler)
-                            .placeholder(R.drawable.ic_placeholder_recycler)
-                            .into(mImage);
+            for (int i = 0; i < productImagesSrcList.size(); i++) {
 
-                else
-                    Picasso.get()
-                            .load(productImageUrlsList.get(i))
-                            .placeholder(R.drawable.ic_placeholder_recycler)
-                            .into(mImage);
+                UIUtils.setImageUsingPicasso(productImagesSrcList.get(i),mImage);
+                break;
             }
         }
 

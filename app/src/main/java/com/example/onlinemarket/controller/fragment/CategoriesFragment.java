@@ -35,12 +35,6 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
             mPAdapterFour, mPAdapterFive,
             mPAdapterSix;
 
-
-    /* private ArrayList<HomeFragmentCategoriesAdapter> mHomeFragmentCategoriesAdapters
-             = new ArrayList<>();
-     private ArrayList<RecyclerView> mRecyclerViews = new ArrayList<>();
-     private ArrayList<ProductsHorizontalAdapter> mProductsHorizontalAdapters
-             = new ArrayList<>();*/
     private TextView mTextOne, mTextTwo, mTextThree, mTextFour, mTextFive, mTextSix;
 
     private MarketRepository mMarketRepository;
@@ -61,10 +55,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mMarketRepository = new MarketRepository(getContext());
-       /* initCategoriesAdapters();
-        initRecyclerViews();
-        initProductHorizontalAdapters();
-*/
+
         mMarketRepository.fetchCategories(
                 new MarketRepository.CategoriesCallback() {
                     @Override
@@ -77,33 +68,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
 
     }
 
-    /* private void initProductHorizontalAdapters() {
-         mProductsHorizontalAdapters.add(mPAdapterOne);
-         mProductsHorizontalAdapters.add(mPAdapterTwo);
-         mProductsHorizontalAdapters.add(mPAdapterThree);
-         mProductsHorizontalAdapters.add(mPAdapterFour);
-         mProductsHorizontalAdapters.add(mPAdapterFive);
-         mProductsHorizontalAdapters.add(mPAdapterSix);
-     }
 
-     private void initRecyclerViews() {
-         mRecyclerViews.add(mRecyclerViewCategoryOne);
-         mRecyclerViews.add(mRecyclerViewCategoryTwo);
-         mRecyclerViews.add(mRecyclerViewCategoryThree);
-         mRecyclerViews.add(mRecyclerViewCategoryFour);
-         mRecyclerViews.add(mRecyclerViewCategoryFive);
-         mRecyclerViews.add(mRecyclerViewCategorySix);
-     }
-
-     private void initCategoriesAdapters() {
-         mHomeFragmentCategoriesAdapters.add(mAdapterOne);
-         mHomeFragmentCategoriesAdapters.add(mAdapterTwo);
-         mHomeFragmentCategoriesAdapters.add(mAdapterThree);
-         mHomeFragmentCategoriesAdapters.add(mAdapterFour);
-         mHomeFragmentCategoriesAdapters.add(mAdapterFive);
-         mHomeFragmentCategoriesAdapters.add(mAdapterSix);
-     }
- */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -341,48 +306,6 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
 
     }
 
-/*
-
-    private void initCategoriesAdapter(List<Category> subCategories,
-                                       HomeFragmentCategoriesAdapter adapter, RecyclerView recyclerView) {
-
-        if (adapter == null) {
-            adapter = new HomeFragmentCategoriesAdapter(getContext(),
-                    subCategories);
-            recyclerView.setAdapter(adapter);
-        } else {
-            adapter.setCategoriesItem(subCategories);
-            adapter.notifyDataSetChanged();
-        }
-    }
-
-    private void fetchProductsAndInitProductHorizontalAdapter(int categoryId,
-                                                              ProductsHorizontalAdapter adapter,
-                                                              RecyclerView recyclerView) {
-
-        mMarketRepository.fetchCategoryProduct(categoryId,
-                new MarketRepository.productsCallback() {
-                    @Override
-                    public void onItemResponse(List<Product> products) {
-
-                        initProductHorizontalAdapter(adapter, recyclerView, products);
-                    }
-                });
-    }
-
-    private void initProductHorizontalAdapter(ProductsHorizontalAdapter adapter,
-                                              RecyclerView recyclerView, List<Product> products) {
-        if (adapter == null) {
-            adapter = new ProductsHorizontalAdapter(getContext(),
-                    products);
-            recyclerView.setAdapter(adapter);
-        } else {
-            adapter.setProductsItem(products);
-            adapter.notifyDataSetChanged();
-        }
-    }
-
-*/
 
     private void setTextName(List<Category> items) {
         List<String> names = new ArrayList<>();

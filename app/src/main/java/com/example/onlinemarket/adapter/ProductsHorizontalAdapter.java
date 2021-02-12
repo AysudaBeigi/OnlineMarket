@@ -15,18 +15,16 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.controller.fragment.ProductDetailFragment;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
-import com.squareup.picasso.Picasso;
+import com.example.onlinemarket.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductsHorizontalAdapter extends RecyclerView.
-        Adapter<ProductsHorizontalAdapter.ProductHorizantalViewHolder>
-        /*implements Filterable */{
+        Adapter<ProductsHorizontalAdapter.ProductHorizantalViewHolder> {
 
     private Context mContext;
     private List<Product> mProductsItem;
-    private List<Product> mSearchProductsItem;
 
     public List<Product> getProductsItem() {
         return mProductsItem;
@@ -34,15 +32,12 @@ public class ProductsHorizontalAdapter extends RecyclerView.
 
     public void setProductsItem(List<Product> productsItem) {
         mProductsItem = productsItem;
-        if (productsItem != null)
-            this.mSearchProductsItem = new ArrayList<>(productsItem);
         notifyDataSetChanged();
     }
 
     public ProductsHorizontalAdapter(Context context, List<Product> productsItem) {
         mContext = context;
         mProductsItem = productsItem;
-        mSearchProductsItem = new ArrayList<>(productsItem);
     }
 
     @NonNull
@@ -63,12 +58,10 @@ public class ProductsHorizontalAdapter extends RecyclerView.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((AppCompatActivity) mContext).
-                        getSupportFragmentManager().
-                        beginTransaction()
-                        .replace(R.id.fragment_container_main_activity,
-                                ProductDetailFragment.newInstance(productItem))
-                        .commit();
+
+                UIUtils.replaceFragment(((AppCompatActivity) mContext).
+                        getSupportFragmentManager(),ProductDetailFragment.
+                        newInstance(productItem));
 
             }
         });
@@ -106,18 +99,15 @@ public class ProductsHorizontalAdapter extends RecyclerView.
             mProductName.setText(productItem.getName() + "");
             mProductPrice.setText(productItem.getPrice() + "");
             List<Image> imagesList = productItem.getImages();
-            List<String> imagesUrlList = new ArrayList<>();
+            List<String> imagesSrclList = new ArrayList<>();
             for (int i = 0; i < imagesList.size(); i++) {
-                imagesUrlList.add(imagesList.get(i).getSrc());
+                imagesSrclList.add(imagesList.get(i).getSrc());
             }
 
-            for (int i = 0; i < imagesUrlList.size(); i++) {
-                if (imagesUrlList.get(i) != null) {
-                    Picasso.get()
-                            .load(imagesUrlList.get(i))
-                            .placeholder(R.drawable.ic_placeholder_recycler)
-                            .into(mProductImage);
-                    break;
+            for (int i = 0; i < imagesSrclList.size(); i++) {
+                if (imagesSrclList.get(i) != null) {
+                    UIUtils.setImageUsingPicasso(imagesSrclList.get(i),mProductImage);
+                      break;
 
                 }
 

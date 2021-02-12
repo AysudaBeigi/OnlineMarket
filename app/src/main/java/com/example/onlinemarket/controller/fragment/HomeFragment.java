@@ -21,6 +21,7 @@ import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.MarketRepository;
+import com.example.onlinemarket.utils.UIUtils;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -46,7 +47,8 @@ public class HomeFragment extends Fragment implements IOnBackPress {
     private RecyclerView mRecyclerViewWonderfulOffer;
     private MarketRepository mMarketRepository;
 
-    public static String TAG="OnlineMarket";
+    public static String TAG = "OnlineMarket";
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -123,8 +125,8 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
-                    Log.d(TAG,"fetchLastProducts++onItemResponse"
-                            +items.get(0).getName());
+                        Log.d(TAG, "fetchLastProducts++onItemResponse"
+                                + items.get(0).getName());
                         initRecyclerView(mRecyclerViewLastProducts,
                                 mLastProductsHorizontalAdapter, items);
 
@@ -135,7 +137,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
-                        Log.d(TAG,"fetchMostVisitedProducts++onItemResponse"+
+                        Log.d(TAG, "fetchMostVisitedProducts++onItemResponse" +
                                 items.get(0).getName());
 
                         initRecyclerView(mRecyclerViewMostVisitedProducts
@@ -149,7 +151,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                     @Override
                     public void onItemResponse(List<Product> items) {
                         initRecyclerView(mRecyclerViewPopularProducts,
-                                mPopularProductsHorizontalAdapter,items );
+                                mPopularProductsHorizontalAdapter, items);
 
                     }
                 });
@@ -157,11 +159,11 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
-                        Log.d(TAG,"fetchAmazing++onItemResponse"+
+                        Log.d(TAG, "fetchAmazing++onItemResponse" +
                                 items.get(0).getName());
 
                         initRecyclerView(mRecyclerViewWonderfulOffer
-                        ,mAmazingOfferAdapter,items);
+                                , mAmazingOfferAdapter, items);
 
                     }
                 });
@@ -180,7 +182,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
     private void initRecyclerView(RecyclerView recyclerView,
                                   ProductsHorizontalAdapter adapter,
                                   List<Product> products) {
-        Log.d(TAG,"HomeF : initRecyclerView");
+        Log.d(TAG, "HomeF : initRecyclerView");
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
@@ -193,37 +195,21 @@ public class HomeFragment extends Fragment implements IOnBackPress {
             adapter.notifyDataSetChanged();
 
         }
-        Log.d(TAG,"adapter is :"+adapter.toString());
-        Log.d(TAG,"recyclerview is  is :"+recyclerView.toString());
-        Log.d(TAG,"last product name  is :"+products.get(products.size()-1).getName());
-        //initProductAdapter(recyclerView, adapter, products);
+        Log.d(TAG, "adapter is :" + adapter.toString());
+        Log.d(TAG, "recyclerview is  is :" + recyclerView.toString());
+        Log.d(TAG, "last product name  is :" + products.get(products.size() - 1).getName());
     }
 
-    private void initProductAdapter(RecyclerView recyclerView,
-                                    ProductsHorizontalAdapter productsHorizontalAdapter,
-                                    List<Product> productsItems) {
-        Log.d(TAG,"HomeF : initProductAdapter");
 
-
-        if (productsHorizontalAdapter == null) {
-            productsHorizontalAdapter = new ProductsHorizontalAdapter(getContext(),
-                    productsItems);
-            recyclerView.setAdapter(productsHorizontalAdapter);
-        } else {
-            productsHorizontalAdapter.setProductsItem(productsItems);
-            productsHorizontalAdapter.notifyDataSetChanged();
-
-        }
-    }
 
     private void initCategoryAdapter(List<Category> categoriesItems) {
-        Log.d(TAG,"HomeF : initCategoryAdapter");
+        Log.d(TAG, "HomeF : initCategoryAdapter");
 
 
         if (mHomeFragmentCategoriesAdapter == null) {
             mHomeFragmentCategoriesAdapter =
                     new HomeFragmentCategoriesAdapter(getContext(),
-                    categoriesItems);
+                            categoriesItems);
             mRecyclerCategories.setAdapter(mHomeFragmentCategoriesAdapter);
         } else {
             mHomeFragmentCategoriesAdapter.setCategoriesItem(categoriesItems);
@@ -233,7 +219,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
 
 
     private void setupImageSliderAdapter(List<Image> imagesItems) {
-       mImageSliderAdapter = new
+        mImageSliderAdapter = new
                 ImageSliderAdapter(getContext(), imagesItems);
         mSliderView.setSliderAdapter(mImageSliderAdapter);
         mSliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
@@ -242,12 +228,10 @@ public class HomeFragment extends Fragment implements IOnBackPress {
 
     private void replaceSearchResultFragment(String query) {
 
-        ((AppCompatActivity) getContext()).
-                getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container_main_activity,
-                        SearchResultFragment.
-                                newInstance(query, -1))
-                .commit();
+        UIUtils.replaceFragment(
+                ((AppCompatActivity) getContext()).getSupportFragmentManager(),
+                SearchResultFragment.
+                        newInstance(query, -1));
     }
 
 

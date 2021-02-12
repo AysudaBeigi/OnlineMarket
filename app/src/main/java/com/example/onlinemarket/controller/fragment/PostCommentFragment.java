@@ -14,7 +14,7 @@ import com.example.onlinemarket.model.Comment;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.repository.CommentRepository;
 import com.example.onlinemarket.repository.CustomerDBRepository;
-import com.example.onlinemarket.utils.SnackBarUtils;
+import com.example.onlinemarket.utils.UIUtils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -67,11 +67,13 @@ public class PostCommentFragment extends Fragment {
             public void onClick(View v) {
                 String review = mEditTextComment.getText().toString();
                 if (review.isEmpty() || !mIsRated) {
-                    Snackbar snackbar = SnackBarUtils.MakeSnackBar(
+                    Snackbar snackbar = UIUtils.makeSnackBar(
                             view.findViewById(R.id.button_post_comment),
-                            "لطفا نظر خود را کامل تر بیان کنید");
+                            R.string.please_complete_comment);
                     snackbar.show();
                 } else {
+                    mButtonPostComment.setBackgroundColor(
+                            getResources().getColor(R.color.digikala_red));
                     Customer customer = CustomerDBRepository.getInstance(getActivity())
                             .getCustomer();
                     Comment comment = new Comment(mProductId, review,

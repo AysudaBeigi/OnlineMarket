@@ -13,6 +13,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.utils.UIUtils;
 import com.google.android.material.snackbar.Snackbar;
 
 public class SplashActivity extends AppCompatActivity {
@@ -37,10 +38,10 @@ public class SplashActivity extends AppCompatActivity {
     private void showInternetIsDisconnectedSnackBar() {
         Log.d(TAG, "showInternetIsDisconnectedSnackBar");
 
-        Snackbar snackbar = Snackbar
-                .make(findViewById(R.id.layout_connection_snack_bar),
-                        R.string.internet_is_disconnected,
-                        Snackbar.LENGTH_INDEFINITE)
+        Snackbar snackbar= UIUtils.makeSnackBar(
+                findViewById(R.id.layout_connection_snack_bar),
+                        R.string.internet_is_disconnected);
+        snackbar.setDuration(Snackbar.LENGTH_INDEFINITE)
                 .setBackgroundTint(Color.RED)
                 .setAction(R.string.try_again, new View.OnClickListener() {
                     @Override

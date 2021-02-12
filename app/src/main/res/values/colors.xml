@@ -18,9 +18,6 @@
     <color name="gray_75">#757575</color>
     <color name="gray_21">#212121</color>
 
-    <color name="primaryColor">#b71c1c</color>
-    <color name="primaryLightColor">#f05545</color>
-    <color name="primaryDarkColor">#7f0000</color>
     <color name="secondaryColor">#689F38</color>
     <color name="secondaryLightColor">#9cff57</color>
     <color name="secondaryDarkColor">#1faa00</color>

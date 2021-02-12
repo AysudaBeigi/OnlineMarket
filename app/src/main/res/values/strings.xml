@@ -47,6 +47,7 @@
     <string name="text_view_addresses">آدرس ها</string>
     <string name="text_view_user_account_info">اطلاعات حساب کاربری</string>
     <string name="text_view_user_orders">سفارش های من</string>
+    <string name="please_complete_comment">لطفا نظر خود را کامل تر بیان کنید</string>
 
 
 </resources>

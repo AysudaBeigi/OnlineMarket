@@ -205,7 +205,7 @@
             android:text="@string/add_bag"
             android:textColor="@color/white_ff"
             android:textSize="16sp"
-            app:backgroundTint="@color/red_22" />
+            app:backgroundTint="@color/digikala_red" />
     </RelativeLayout>
 
 

@@ -15,7 +15,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.controller.fragment.SubCategoryProductsFragment;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Image;
-import com.squareup.picasso.Picasso;
+import com.example.onlinemarket.utils.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,13 +63,10 @@ public class CategoriesFragmentAdapter extends
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((AppCompatActivity) mContext).
-                        getSupportFragmentManager().
-                        beginTransaction()
-                        .replace(R.id.fragment_container_main_activity,
-                                SubCategoryProductsFragment.
-                                        newInstance(categoriesItem.getId()))
-                        .commit();
+                UIUtils.replaceFragment(((AppCompatActivity) mContext).
+                                getSupportFragmentManager(),
+                        SubCategoryProductsFragment.
+                                newInstance(categoriesItem.getId()));
 
             }
         });
@@ -85,7 +82,6 @@ public class CategoriesFragmentAdapter extends
 
         private TextView mCategoryName;
         private ImageView mCategoryImage;
-        private View mItemView;
 
 
         public CategoriesFragmentViewHolder(@NonNull View itemView) {
@@ -97,8 +93,6 @@ public class CategoriesFragmentAdapter extends
         private void findHolderViews(@NonNull View itemView) {
             mCategoryName = itemView.findViewById(R.id.fragment_categories_name);
             mCategoryImage = itemView.findViewById(R.id.fragment_categories_image_view);
-
-            mItemView = itemView;
 
         }
 
@@ -114,10 +108,7 @@ public class CategoriesFragmentAdapter extends
             for (int i = 0; i < imagesItemList.size(); i++) {
                 if (imagesItemList.get(i) != null) {
 
-                    Picasso.get()
-                            .load(imagesItemList.get(i))
-                            .placeholder(R.drawable.ic_placeholder_recycler)
-                            .into(mCategoryImage);
+                    UIUtils.setImageUsingPicasso(imagesItemList.get(i), mCategoryImage);
                     break;
                 }
 

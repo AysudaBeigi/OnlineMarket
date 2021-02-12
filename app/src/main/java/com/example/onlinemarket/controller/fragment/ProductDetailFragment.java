@@ -22,6 +22,7 @@ import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.CartDBRepository;
 import com.example.onlinemarket.repository.CommentRepository;
+import com.example.onlinemarket.utils.UIUtils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.smarteist.autoimageslider.SliderView;
@@ -168,11 +169,9 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
         mButtonPostComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction().
-                        replace(R.id.fragment_container_main_activity,
-                                PostCommentFragment.newInstance(mProduct.getId()))
-                        .commit();
+
+                UIUtils.replaceFragment(getActivity().getSupportFragmentManager(),
+                        PostCommentFragment.newInstance(mProduct.getId()));
             }
         });
 

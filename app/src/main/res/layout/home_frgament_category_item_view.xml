@@ -11,7 +11,8 @@
         android:layout_height="55dp"
         android:layout_margin="3dp"
         android:padding="4dp"
-        app:cardBackgroundColor="@color/red_22"
+        android:id="@+id/card_view_home_categories_item"
+        app:cardBackgroundColor="@color/digikala_red"
         app:cardCornerRadius="15dp">
 
         <ImageView
