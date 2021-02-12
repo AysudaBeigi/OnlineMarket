@@ -1,12 +1,11 @@
 package com.example.onlinemarket.network;
 
 import com.example.onlinemarket.model.Attribute;
+import com.example.onlinemarket.model.Comment;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.order.Order;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Product;
-
-import org.w3c.dom.Comment;
 
 import java.util.List;
 import java.util.Map;
@@ -38,7 +37,6 @@ public interface WooCommerceAPIService {
     Call<List<Customer>> getCustomers(@QueryMap Map<String, String> options);
 
 
-
     @POST("customers")
     Call<Customer> postCustomer(@QueryMap Map<String, String> options,
                                 @Body Customer customer);
@@ -51,13 +49,14 @@ public interface WooCommerceAPIService {
     Call<List<Comment>> getComments(@QueryMap Map<String, String> options);
 
 
-    @FormUrlEncoded
+
+ @FormUrlEncoded
     @POST("products/reviews")
     Call<Comment> postComment(@Field("product_id") int productId,
                               @Field("review") String review,
+                              @Field("reviewer_email") String reviewerEmail,
                               @Field("rating") int rating,
                               @QueryMap Map<String, String> options);
-
    /* @GET("coupons")
     Call<List<Coupons>> coupons(@QueryMap Map<String, String> options);
 */

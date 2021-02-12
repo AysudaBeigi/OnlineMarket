@@ -53,7 +53,7 @@ public class Comment {
         mReviewer = reviewer;
     }
 
-    public String getReviewer_email() {
+    public String getReviewerEmail() {
         return mReviewerEmail;
     }
 
