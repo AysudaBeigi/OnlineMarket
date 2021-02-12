@@ -105,7 +105,7 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
         mSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SortingFragment orderDialogFragment = SortingFragment.newInstance();
+                SortingDialogFragment orderDialogFragment = SortingDialogFragment.newInstance();
                 orderDialogFragment.setTargetFragment(
                         SearchResultFragment.this, REQUEST_CODE_ORDER);
                 orderDialogFragment.show(getParentFragmentManager(), TAG_CHOOSE_ORDER);
@@ -132,10 +132,10 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
         if (data == null)
             return;
         if (requestCode == REQUEST_CODE_ORDER
-                && resultCode == SortingFragment.RESULT_CODE_ORDER_DIALOG_FRAGMENT) {
+                && resultCode == SortingDialogFragment.RESULT_CODE_ORDER_DIALOG_FRAGMENT) {
 
             String order =
-                    (String) data.getSerializableExtra(SortingFragment.
+                    (String) data.getSerializableExtra(SortingDialogFragment.
                             EXTRA_ORDER_DIALOG_FRAGMENT);
             if (mCategoryId == -1) {
                 mSearchQueryMap = NetworkParams.

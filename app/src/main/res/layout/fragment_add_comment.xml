@@ -17,9 +17,9 @@
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_comment_text"
             style="@style/PartialTextStyle"
-            android:layout_gravity="right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
             android:text="متن دیدگاه" />
 
         <com.google.android.material.textfield.TextInputEditText
@@ -41,48 +41,42 @@
             style="@style/PartialTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:layout_gravity="right"
             android:text="امتیاز" />
 
         <RadioGroup
-            android:id="@+id/radio_group_rating"
+            android:id="@+id/radio_group_rating_add_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:outlineAmbientShadowColor="@color/red_22"
-            android:outlineSpotShadowColor="@color/red_22">
+            android:layout_gravity="center"
+            android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radio_button_1"
+                android:id="@+id/radio_button_1_add_comment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1" />
+                android:layout_height="wrap_content" />
 
             <RadioButton
-                android:id="@+id/radio_button_2"
+                android:id="@+id/radio_button_2_add_comment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2" />
+                android:layout_height="wrap_content" />
 
             <RadioButton
-                android:id="@+id/radio_button_3"
+                android:id="@+id/radio_button_3_add_comment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="3" />
+                android:layout_height="wrap_content" />
 
             <RadioButton
-                android:id="@+id/radio_button_4"
+                android:id="@+id/radio_button_4_add_comment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4" />
+                android:layout_height="wrap_content" />
 
             <RadioButton
-                android:id="@+id/radio_button_5"
+                android:id="@+id/radio_button_5_add_comment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5" />
+                android:layout_height="wrap_content" />
 
         </RadioGroup>
     </LinearLayout>
@@ -101,9 +95,10 @@
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="64dp"
+
         android:backgroundTint="@color/digikala_blue_gray"
         android:text="ثبت دیدگاه" />
 

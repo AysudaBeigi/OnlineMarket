@@ -18,7 +18,7 @@ import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 
 
-public class SortingFragment extends DialogFragment implements IOnBackPress {
+public class SortingDialogFragment extends DialogFragment implements IOnBackPress {
 
     private RadioButton mPopular;
     private RadioButton mNewest;
@@ -30,12 +30,12 @@ public class SortingFragment extends DialogFragment implements IOnBackPress {
     private String mOrderBy = "";
 
 
-    public SortingFragment() {
+    public SortingDialogFragment() {
         // Required empty public constructor
     }
 
-    public static SortingFragment newInstance() {
-        SortingFragment fragment = new SortingFragment();
+    public static SortingDialogFragment newInstance() {
+        SortingDialogFragment fragment = new SortingDialogFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
