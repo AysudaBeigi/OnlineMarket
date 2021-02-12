@@ -57,9 +57,13 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UIUtils.replaceFragment(
-                        ((AppCompatActivity) mContext).getSupportFragmentManager(),
-                        SubCategoryProductsFragment.newInstance(categoriesItem.getId()));
+
+                        ((AppCompatActivity) mContext).getSupportFragmentManager()
+                                .beginTransaction().
+                                replace(R.id.fragment_container_main_activity,
+                        SubCategoryProductsFragment.newInstance(categoriesItem.getId()))
+                .commit();
+
 
             }
         });

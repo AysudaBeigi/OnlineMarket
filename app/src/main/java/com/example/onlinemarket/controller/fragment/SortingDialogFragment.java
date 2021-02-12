@@ -50,7 +50,7 @@ public class SortingDialogFragment extends DialogFragment implements IOnBackPres
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View view = inflater.inflate(R.layout.fragment_ordering, null);
+        View view = inflater.inflate(R.layout.fragment_sorting, null);
 
         findDialogViews(view);
         setListener();

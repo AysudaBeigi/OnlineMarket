@@ -49,8 +49,12 @@ public interface WooCommerceAPIService {
     Call<List<Comment>> getComments(@QueryMap Map<String, String> options);
 
 
+    @GET("products/{id}/reviews")
+    Call<List<Comment>> getProductComments(@Path("id") int productId,
+                                           @QueryMap Map<String, String> options);
 
- @FormUrlEncoded
+
+    @FormUrlEncoded
     @POST("products/reviews")
     Call<Comment> postComment(@Field("product_id") int productId,
                               @Field("review") String review,

@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp">
 
 
     <ScrollView
-        android:id="@+id/scroll_view_product_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".controller.fragment.
-        ProductDetailFragment">
+        android:layout_height="match_parent">
+
 
         <LinearLayout
+            android:id="@+id/layout_product_detail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:elevation="1dp"
             android:orientation="vertical"
             android:padding="1dp">
@@ -29,7 +27,7 @@
                 app:sliderAutoCycleDirection="right"
                 app:sliderAutoCycleEnabled="true"
                 app:sliderIndicatorAnimationDuration="600"
-                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorGravity="left|bottom"
                 app:sliderIndicatorOrientation="horizontal"
                 app:sliderIndicatorSelectedColor="@color/gray_21"
                 app:sliderIndicatorUnselectedColor="@color/gray_bd"
@@ -88,6 +86,7 @@
 
 
             <RelativeLayout
+                android:id="@+id/layout_users_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp">
@@ -108,7 +107,7 @@
                     android:layout_height="match_parent"
                     android:layout_below="@+id/text_view_users_comment"
                     android:layout_margin="4dp"
-                    app:cardBackgroundColor="@color/digikala_dark_white"
+                    app:cardBackgroundColor="@color/white_ff"
                     app:cardCornerRadius="8dp">
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -121,7 +120,9 @@
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
                         android:visibility="gone"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                        />
                 </androidx.cardview.widget.CardView>
 
 
@@ -131,82 +132,78 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/text_view_users_comment"
-                    android:layout_alignParentRight="true"
-                    android:imeActionLabel="@string/text_view_comment"
                     android:layoutDirection="rtl"
+                    android:layout_centerHorizontal="true"
                     android:text="هنوز نظری ثبت نشده است"
-                    android:textColor="@color/digikala_blue_gray" />
+                    android:textColor="@color/digikala_blue_gray"
+                    android:visibility="visible" />
 
-                <com.google.android.material.button.MaterialButton
+            </RelativeLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_post_comment_product_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/digikala_blue_gray"
+                android:layoutDirection="rtl"
+                android:text="ثبت دیدگاه"
+                app:icon="@drawable/ic_comment" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="2dp"
+                android:background="?android:attr/listDivider"
+                android:outlineAmbientShadowColor="#DDDDDD"
+                android:outlineSpotShadowColor="#DDDDDD" />
+
+
+            <RelativeLayout
+                android:id="@+id/layout_continue_shopping"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/white_ff">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/old_price"
+                    style="@style/NonSignificantTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/text_view_have_not_comment"
+                    android:gravity="left"
                     android:layoutDirection="rtl"
-                    android:text="ثبت دیدگاه"
+                    android:text="@string/product_price"
+                    android:textColor="@color/digikala_gray" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/latest_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/old_price"
+                    android:layout_alignParentLeft="true"
+                    android:gravity="left"
+                    style="@style/PartialTextStyle"
+                    android:layoutDirection="rtl"
+                    android:text="@string/product_price"
+                    />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_add_to_card"
+                    style="@style/PartialTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/button_post_comment"
-                    android:backgroundTint="@color/digikala_blue_gray"
-                    app:icon="@drawable/ic_comment"/>
+                    android:background="@drawable/btn_rounded"
+                    android:backgroundTint="@color/white_ff"
+                    android:text="@string/add_bag"
+                    android:textColor="@color/white_ff"
+                    app:backgroundTint="@color/colorPrimary" />
             </RelativeLayout>
 
         </LinearLayout>
-
     </ScrollView>
-
-    <RelativeLayout
-        android:id="@+id/layout_continue_shopping"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/white_ff">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/old_price"
-            style="@style/NonSignificantTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:gravity="left"
-            android:layoutDirection="rtl"
-            android:text="@string/product_price"
-            android:textColor="@color/digikala_blue_gray" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/latest_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/old_price"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/iran_yekan"
-            android:gravity="left"
-            android:layoutDirection="rtl"
-            android:text="@string/product_price"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/final_shop"
-            style="@style/PartialTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="2dp"
-            android:background="@drawable/btn_rounded"
-            android:backgroundTint="@color/white_ff"
-            android:text="@string/add_bag"
-            android:textColor="@color/white_ff"
-            android:textSize="16sp"
-            app:backgroundTint="@color/colorPrimary" />
-    </RelativeLayout>
 
 
 </RelativeLayout>

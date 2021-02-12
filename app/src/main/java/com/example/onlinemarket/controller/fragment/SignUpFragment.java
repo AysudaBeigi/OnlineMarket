@@ -61,10 +61,18 @@ public class SignUpFragment extends Fragment {
                     showEmailCantEmptySnackBar(view);
                 } else {
                     SignUpCustomer();
-                    //todo: going to pay the orders
+                    replaceUserProfileFragment();
+
                 }
             }
         });
+    }
+
+    private void replaceUserProfileFragment() {
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_main_activity,
+                        UserProfileFragment.newInstance())
+                .commit();
     }
 
     private void SignUpCustomer() {
@@ -73,8 +81,8 @@ public class SignUpFragment extends Fragment {
         mCustomerDBRepository.postCustomer(customer, new CustomerDBRepository.CustomerCallback() {
             @Override
             public void onItemResponse(Customer customer) {
-                Log.d(TAG,"SignUpCustomer+onItemResponse customer emali is "+customer.getEmail());
                 mCustomerDBRepository.insertCustomer(customer);
+                Log.d(TAG,"SignUpCustomer+onItemResponse customer emali is "+customer.getEmail());
             }
         });
     }

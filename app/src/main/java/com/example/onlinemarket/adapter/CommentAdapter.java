@@ -13,6 +13,10 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Comment;
 import com.google.android.material.textview.MaterialTextView;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.safety.Whitelist;
+
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
@@ -47,7 +51,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Comment comment = mComments.get(position);
-        holder.bindProduct(comment);
+        holder.bindItem(comment);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,30 +86,46 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         private void findItemViews(@NonNull View itemView) {
             mTextViewComment = itemView.findViewById(R.id.text_view_comment_item);
-            mRadioButton1=itemView.findViewById(R.id.radio_button_1_comment_item);
-            mRadioButton2=itemView.findViewById(R.id.radio_button_2_comment_item);
-            mRadioButton3=itemView.findViewById(R.id.radio_button_3_comment_item);
-            mRadioButton4=itemView.findViewById(R.id.radio_button_4_comment_item);
-            mRadioButton5=itemView.findViewById(R.id.radio_button_5_comment_item);
+            mRadioButton1 = itemView.findViewById(R.id.radio_button_1_comment_item);
+            mRadioButton2 = itemView.findViewById(R.id.radio_button_2_comment_item);
+            mRadioButton3 = itemView.findViewById(R.id.radio_button_3_comment_item);
+            mRadioButton4 = itemView.findViewById(R.id.radio_button_4_comment_item);
+            mRadioButton5 = itemView.findViewById(R.id.radio_button_5_comment_item);
         }
 
-        private void bindProduct(Comment  comment) {
-            mTextViewComment.setText(comment.getReview());
-            int rate=comment.getRating();
-            switch (rate){
+        private String getDescription(Comment comment) {
+            String description = comment.getReview();
+            if (description.equals(null))
+                return description;
+            Document document = Jsoup.parse(description);
+            document.outputSettings(new Document.OutputSettings().prettyPrint(false));
+            document.select("br").append("\\n");
+            document.select("p").prepend("\\n\\n");
+            String s = document.html().replaceAll("\\\\n", "\n");
+            return Jsoup.clean(s, "", Whitelist.none(),
+                    new Document.OutputSettings().prettyPrint(false));
+
+
+        }
+
+        private void bindItem(Comment comment) {
+
+            mTextViewComment.setText(getDescription(comment));
+            int rate = comment.getRating();
+            switch (rate) {
                 case 1:
                     mRadioButton1.setChecked(true);
                     break;
-                  case 2:
+                case 2:
                     mRadioButton2.setChecked(true);
                     break;
-                  case 3:
+                case 3:
                     mRadioButton3.setChecked(true);
                     break;
-                  case 4:
+                case 4:
                     mRadioButton4.setChecked(true);
                     break;
-                  case 5:
+                case 5:
                     mRadioButton5.setChecked(true);
                     break;
 

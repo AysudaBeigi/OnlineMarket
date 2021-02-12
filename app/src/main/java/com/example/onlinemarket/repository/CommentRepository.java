@@ -36,8 +36,8 @@ public class CommentRepository {
         Call<Comment> call =
                 mWooCommerceAPIService.postComment(comment.getProductId(),
                         comment.getReview(),
-                         comment.getReviewerEmail(),
-                         comment.getRating(),
+                        comment.getReviewerEmail(),
+                        comment.getRating(),
                         NetworkParams.getBaseQuery());
 
         call.enqueue(new Callback<Comment>() {
@@ -54,18 +54,38 @@ public class CommentRepository {
         });
     }
 
-    public void fetchComments(CommentsCallback commentsCallback){
+    public void fetchComments(CommentsCallback commentsCallback) {
         Call<List<Comment>> call =
                 mWooCommerceAPIService.getComments(NetworkParams.getBaseQuery());
         call.enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
-                List<Comment> comments=response.body();
+                List<Comment> comments = response.body();
                 commentsCallback.onItemResponse(comments);
             }
 
             @Override
             public void onFailure(Call<List<Comment>> call, Throwable t) {
+                Log.e(TAG, t.getMessage(), t);
+
+            }
+        });
+    }
+
+    public void fetchProductComments(int productId,CommentsCallback commentsCallback) {
+        Call<List<Comment>> call =
+                mWooCommerceAPIService.getProductComments(
+                        productId, NetworkParams.getBaseQuery());
+        call.enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                List<Comment> comments = response.body();
+                commentsCallback.onItemResponse(comments);
+            }
+
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
+                Log.e(TAG, t.getMessage(), t);
 
             }
         });

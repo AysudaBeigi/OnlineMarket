@@ -48,27 +48,37 @@
             <RadioButton
                 android:id="@+id/radio_button_1_comment_item"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/digikala_red"
+                android:text="1"/>
 
             <RadioButton
                 android:id="@+id/radio_button_2_comment_item"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/orange_40"
+                android:text="2"/>
 
             <RadioButton
                 android:id="@+id/radio_button_3_comment_item"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/yellow_35"
+                android:text="3"/>
 
             <RadioButton
                 android:id="@+id/radio_button_4_comment_item"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/digikala_green"
+                android:text="4"/>
 
             <RadioButton
                 android:id="@+id/radio_button_5_comment_item"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/digikala_blue"
+                android:text="5"/>
 
         </RadioGroup>
     </LinearLayout>

@@ -16,7 +16,7 @@ import com.example.onlinemarket.controller.fragment.ShoppingBagFragment;
 import com.example.onlinemarket.model.Card;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
-import com.example.onlinemarket.repository.CartDBRepository;
+import com.example.onlinemarket.repository.CardDBRepository;
 import com.example.onlinemarket.utils.UIUtils;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
@@ -29,7 +29,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     private Context mContext;
     private List<Product> mOrderList;
     private int mSumPriceCarts = 0;
-    CartDBRepository mCartDBRepository;
+    CardDBRepository mCardDBRepository;
 
 
     public List<Product> getOrderList() {
@@ -44,14 +44,14 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     public CardAdapter(Context context, List<Product> orderList) {
         mContext = context;
         mOrderList = orderList;
-        mCartDBRepository = CartDBRepository.getInstance(mContext);
+        mCardDBRepository = CardDBRepository.getInstance(mContext);
     }
 
     @NonNull
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.cart_item_view, parent, false);
+                .inflate(R.layout.card_item_view, parent, false);
 
         return new CardViewHolder(view);
     }
@@ -100,7 +100,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
         private void bindProduct(Product order) {
             Log.d(TAG, "bindProduct: order name is :" + order.getName());
-            mCard = mCartDBRepository.getCart(order.getId());
+            mCard = mCardDBRepository.getCart(order.getId());
             mProductCount = mCard.getProductCount();
             mTextViewName.setText(order.getName());
             basePriceCard = Integer.parseInt(order.getPrice());
@@ -140,10 +140,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             mImageViewTrash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mCartDBRepository.deleteCart(mCard);
-                    UIUtils.replaceFragment((
-                                    (AppCompatActivity) mContext).getSupportFragmentManager(),
-                            ShoppingBagFragment.newInstance());
+                    mCardDBRepository.deleteCart(mCard);
+                    ((AppCompatActivity) mContext).getSupportFragmentManager()
+                            .beginTransaction().
+                            replace(R.id.fragment_container_main_activity,
+                                    ShoppingBagFragment.newInstance())
+                            .commit();
 
 
                 }
@@ -153,7 +155,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
         private void updateCountAndPrice(int productCount) {
             mCard.setProductCount(productCount);
-            mCartDBRepository.updateCart(mCard);
+            mCardDBRepository.updateCart(mCard);
             mTextViewCount.setText(productCount + "");
             updateSumPriceCarts();
         }

@@ -59,10 +59,11 @@ public class ProductsHorizontalAdapter extends RecyclerView.
             @Override
             public void onClick(View v) {
 
-                UIUtils.replaceFragment(((AppCompatActivity) mContext).
-                        getSupportFragmentManager(),ProductDetailFragment.
-                        newInstance(productItem));
-
+                ((AppCompatActivity) mContext).
+                        getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container_main_activity,
+                                ProductDetailFragment.
+                                        newInstance(productItem)).commit();
             }
         });
     }
@@ -106,8 +107,8 @@ public class ProductsHorizontalAdapter extends RecyclerView.
 
             for (int i = 0; i < imagesSrclList.size(); i++) {
                 if (imagesSrclList.get(i) != null) {
-                    UIUtils.setImageUsingPicasso(imagesSrclList.get(i),mProductImage);
-                      break;
+                    UIUtils.setImageUsingPicasso(imagesSrclList.get(i), mProductImage);
+                    break;
 
                 }
 

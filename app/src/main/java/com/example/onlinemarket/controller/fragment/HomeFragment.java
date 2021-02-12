@@ -21,7 +21,6 @@ import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.MarketRepository;
-import com.example.onlinemarket.utils.UIUtils;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -186,6 +185,8 @@ public class HomeFragment extends Fragment implements IOnBackPress {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
+
+
         if (adapter == null) {
             adapter = new ProductsHorizontalAdapter(getContext(),
                     products);
@@ -199,7 +200,6 @@ public class HomeFragment extends Fragment implements IOnBackPress {
         Log.d(TAG, "recyclerview is  is :" + recyclerView.toString());
         Log.d(TAG, "last product name  is :" + products.get(products.size() - 1).getName());
     }
-
 
 
     private void initCategoryAdapter(List<Category> categoriesItems) {
@@ -224,14 +224,17 @@ public class HomeFragment extends Fragment implements IOnBackPress {
         mSliderView.setSliderAdapter(mImageSliderAdapter);
         mSliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
         mSliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+
     }
 
     private void replaceSearchResultFragment(String query) {
 
-        UIUtils.replaceFragment(
-                ((AppCompatActivity) getContext()).getSupportFragmentManager(),
-                SearchResultFragment.
-                        newInstance(query, -1));
+        ((AppCompatActivity) getContext()).getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container_main_activity,
+                        SearchResultFragment.
+                                newInstance(query, -1))
+                .commit();
     }
 
 

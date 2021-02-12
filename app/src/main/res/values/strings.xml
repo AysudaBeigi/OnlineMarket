@@ -48,6 +48,8 @@
     <string name="text_view_user_account_info">اطلاعات حساب کاربری</string>
     <string name="text_view_user_orders">سفارش های من</string>
     <string name="please_complete_comment">لطفا نظر خود را کامل تر بیان کنید</string>
+    <string name="search_view_search_in_online_store">جست و جو در فروشگاه</string>
+    <string name="text_view_sum_price_shopping_bag">مجموع</string>
 
 
 </resources>

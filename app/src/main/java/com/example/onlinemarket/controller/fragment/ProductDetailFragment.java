@@ -2,6 +2,7 @@ package com.example.onlinemarket.controller.fragment;
 
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,8 @@ import com.example.onlinemarket.model.Card;
 import com.example.onlinemarket.model.Comment;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
-import com.example.onlinemarket.repository.CartDBRepository;
+import com.example.onlinemarket.repository.CardDBRepository;
 import com.example.onlinemarket.repository.CommentRepository;
-import com.example.onlinemarket.utils.UIUtils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.smarteist.autoimageslider.SliderView;
@@ -45,11 +45,13 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
     private TextView mDescription;
     private TextView mName;
     private Button mButtonAddToShoppingBag;
-    private CartDBRepository mCartDBRepository;
+    private CardDBRepository mCardDBRepository;
     private RecyclerView mRecyclerViewComments;
     private MaterialButton mButtonPostComment;
     private MaterialTextView mTextViewHaveNotComment;
     private CommentAdapter mCommentAdapter;
+    public static String TAG = "OnlineMarket";
+
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -57,25 +59,33 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
 
 
     public static ProductDetailFragment newInstance(Product product) {
+        Log.d(TAG,"ProductDetailFragment +newInstance ");
         ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARGS_PRODUCT, product);
         fragment.setArguments(args);
         return fragment;
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG,"ProductDetailFragment +onCreate ");
+
         mProduct = (Product) getArguments().get(ARGS_PRODUCT);
-        mCartDBRepository = CartDBRepository.getInstance(getActivity());
+        mCardDBRepository = CardDBRepository.getInstance(getActivity());
+        Log.d(TAG,"ProductDetailFragment +product name is  "+mProduct.getName());
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_product_detail, container, false);
+        Log.d(TAG,"ProductDetailFragment +onCreateView ");
+
+        View view = inflater.inflate(R.layout.fragment_product_detail,
+                container, false);
         findViews(view);
         initViews();
         setListener();
@@ -83,19 +93,23 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
     }
 
     private void findViews(View view) {
+        Log.d(TAG,"ProductDetailFragment +findViews ");
+
         mSliderView = view.findViewById(R.id.fragment_home_slider);
         mRegularPrice = view.findViewById(R.id.old_price);
         mDescription = view.findViewById(R.id.product_detail_description);
         mFinalePrice = view.findViewById(R.id.latest_price);
-        mButtonAddToShoppingBag = view.findViewById(R.id.add_to_shop);
+        mButtonAddToShoppingBag = view.findViewById(R.id.button_add_to_card);
         mName = view.findViewById(R.id.product_detail_name);
         mRecyclerViewComments = view.findViewById(R.id.recycler_view_comments);
-        mButtonPostComment = view.findViewById(R.id.button_post_comment);
+        mButtonPostComment = view.findViewById(R.id.button_post_comment_product_detail);
         mTextViewHaveNotComment = view.findViewById(R.id.text_view_have_not_comment);
 
     }
 
     private void initViews() {
+        Log.d(TAG,"ProductDetailFragment +initViews ");
+
         mFinalePrice.setText(mProduct.getPrice() + " " +
                 getContext().getResources().getString(R.string.toman));
         mRegularPrice.setText(mProduct.getRegularPrice() + " " +
@@ -105,11 +119,14 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
         mDescription.setText(getDescription());
         mName.setText(mProduct.getName());
         setupImageSliderAdapter(mProduct.getImages());
-        initRecyclerView();
         CommentRepository.getInstance(getActivity()).
-                fetchComments(new CommentRepository.CommentsCallback() {
+                fetchProductComments(mProduct.getId(),
+                        new CommentRepository.CommentsCallback() {
                     @Override
                     public void onItemResponse(List<Comment> comments) {
+
+                        Log.d(TAG,"ProductDetailFragment +onItemResponse ");
+                        initRecyclerView();
                         initCommentAdapter(comments);
                     }
                 });
@@ -117,6 +134,8 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
     }
 
     private void initCommentAdapter(List<Comment> comments) {
+        Log.d(TAG,"ProductDetailFragment +initCommentAdapter ");
+
         if (comments != null) {
             if (comments.size() > 0) {
                 mTextViewHaveNotComment.setVisibility(View.GONE);
@@ -135,6 +154,8 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
     }
 
     private void initRecyclerView() {
+        Log.d(TAG,"ProductDetailFragment +initRecyclerView ");
+
         mRecyclerViewComments.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
     }
@@ -150,17 +171,24 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
         String s = document.html().replaceAll("\\\\n", "\n");
         return Jsoup.clean(s, "", Whitelist.none(),
                 new Document.OutputSettings().prettyPrint(false));
+
+
     }
 
     private void setListener() {
+        Log.d(TAG,"ProductDetailFragment +setListener ");
+
         mButtonAddToShoppingBag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"ProductDetailFragment +mButtonAddToShoppingBag + onClick");
 
                 if (!isProductInCart()) {
-                    addTooCart();
+                    addTooCard();
 
                 } else {
+                    Log.d(TAG,"ProductDetailFragment +mButtonAddToShoppingBag + else");
+
                     //todo: show snack bar : this is is added
                 }
             }
@@ -169,9 +197,14 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
         mButtonPostComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG,"ProductDetailFragment +mButtonPostComment + onClick");
 
-                UIUtils.replaceFragment(getActivity().getSupportFragmentManager(),
-                        PostCommentFragment.newInstance(mProduct.getId()));
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container_main_activity,
+                                PostCommentFragment.newInstance(mProduct))
+                        .commit();
             }
         });
 
@@ -179,20 +212,30 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
 
 
     public boolean isProductInCart() {
+        Log.d(TAG,"ProductDetailFragment +isProductInCart ");
+
         Card card = new Card(mProduct, mProduct.getId(), 1);
-        return mCartDBRepository.getCarts().contains(card);
+        return mCardDBRepository.getCarts().contains(card);
     }
 
-    public void addTooCart() {
+    public void addTooCard() {
+        Log.d(TAG,"ProductDetailFragment +addTooCard ");
+
         Card card = new Card(mProduct, mProduct.getId(), 1);
 
-        mCartDBRepository.insertCart(card);
+        mCardDBRepository.insertCart(card);
 
 
     }
 
     private void setupImageSliderAdapter(List<Image> imagesItems) {
+        Log.d(TAG,"ProductDetailFragment +setupImageSliderAdapter ");
+        Log.d(TAG,"ProductDetailFragment +setupImageSliderAdapter+ first image is  "
+        +imagesItems.get(0).getSrc());
+
         mImageSliderAdapter = new ImageSliderAdapter(getContext(), imagesItems);
+        Log.d(TAG,"ProductDetailFragment + after setupImageSliderAdapter ");
+
         mSliderView.setSliderAdapter(mImageSliderAdapter);
     }
 

@@ -1,6 +1,7 @@
 package com.example.onlinemarket.repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.room.Room;
 
@@ -22,6 +23,8 @@ public class CustomerDBRepository implements ICustomerRepository {
     private ICustomerDatabaseDAO mICustomerDatabaseDAO;
     private WooCommerceAPIService mWooCommerceAPIService;
     private Context mContext;
+    public static String TAG = "OnlineMarket";
+
 
     public static CustomerDBRepository getInstance(Context context) {
         if (sInstance == null)
@@ -62,6 +65,8 @@ public class CustomerDBRepository implements ICustomerRepository {
 
                     @Override
                     public void onFailure(Call<Customer> call, Throwable t) {
+                        Log.e(TAG, t.getMessage(), t);
+
                     }
                 });
 

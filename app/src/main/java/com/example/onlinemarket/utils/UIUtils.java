@@ -1,16 +1,15 @@
 package com.example.onlinemarket.utils;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.onlinemarket.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 public class UIUtils {
+    public static String TAG = "OnlineMarket";
     public static Snackbar makeSnackBar(View view, int message) {
         Snackbar snackbar = Snackbar
                 .make(view, message, Snackbar.LENGTH_LONG);
@@ -18,14 +17,16 @@ public class UIUtils {
 
     }
 
-    public static void replaceFragment(FragmentManager fragmentManager,Fragment fragment) {
+   /* public static void replaceFragment(FragmentManager fragmentManager,Fragment fragment) {
 
         fragmentManager
                 .beginTransaction()
                 .replace(R.id.fragment_container_main_activity, fragment)
                 .commit();
-    }
+    }*/
     public static void setImageUsingPicasso(String imageSrc, ImageView imageView){
+        Log.d(TAG,"setImageUsingPicasso");
+
         Picasso.get()
                 .load(imageSrc)
                 .placeholder(R.drawable.ic_placeholder_recycler)
