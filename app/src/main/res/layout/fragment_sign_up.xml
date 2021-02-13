@@ -67,13 +67,15 @@
                 android:id="@+id/button_enter_online_market"
                 android:layout_below="@id/text_input_edit_text_user_email"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="40dp"
+                android:layout_alignParentBottom="true"
                 android:text="ورود به فروشگاه انلاین" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="16dp"
                 android:layout_alignParentBottom="true"
                 android:id="@+id/layout_show_email_cant_empty_snack_bar"
                 android:layout_below="@+id/button_enter_online_market"

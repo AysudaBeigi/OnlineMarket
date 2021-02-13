@@ -1,6 +1,5 @@
 package com.example.onlinemarket.controller.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +28,8 @@ public class SignUpFragment extends Fragment {
 
 
     public static SignUpFragment newInstance() {
+        Log.d(TAG, "SignUpFragment + newInstance ");
+
         SignUpFragment fragment = new SignUpFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -38,6 +39,8 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "SignUpFragment + onCreate ");
+
         mCustomerDBRepository = CustomerDBRepository.getInstance(getActivity());
     }
 
@@ -46,6 +49,8 @@ public class SignUpFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up, container,
                 false);
+        Log.d(TAG, "SignUpFragment + onCreateView ");
+
         findViews(view);
         setListeners(view);
         return view;
@@ -69,6 +74,8 @@ public class SignUpFragment extends Fragment {
     }
 
     private void replaceUserProfileFragment() {
+        Log.d(TAG,"SignUpCustomer +replaceUserProfileFragment");
+
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_main_activity,
                         UserProfileFragment.newInstance())
@@ -82,21 +89,26 @@ public class SignUpFragment extends Fragment {
             @Override
             public void onItemResponse(Customer customer) {
                 mCustomerDBRepository.insertCustomer(customer);
+                Log.d(TAG,"SignUpCustomer +postCustomer+ onItemResponse");
                 Log.d(TAG,"SignUpCustomer+onItemResponse customer emali is "+customer.getEmail());
+
             }
         });
     }
 
     private void showEmailCantEmptySnackBar(View view) {
+        Log.d(TAG, "SignUpFragment + showEmailCantEmptySnackBar ");
+
         Snackbar snackbar = Snackbar
                 .make(view.findViewById(R.id.layout_show_email_cant_empty_snack_bar),
                         "ابتدا ایمیل خود را وارد کنید",
-                        Snackbar.LENGTH_INDEFINITE)
-                .setBackgroundTint(Color.RED);
+                        Snackbar.LENGTH_INDEFINITE);
         snackbar.show();
     }
 
     private void findViews(View view) {
+        Log.d(TAG, "SignUpFragment + findViews ");
+
         mEditTextEmail = view.findViewById(R.id.text_input_edit_text_user_email);
         mButtonEnterOnlineMarket = view.findViewById(R.id.button_enter_online_market);
     }

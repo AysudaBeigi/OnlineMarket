@@ -1,6 +1,7 @@
 package com.example.onlinemarket.controller.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,12 +36,16 @@ public class PostCommentFragment extends Fragment {
     private int mProductId;
     private Product mProduct;
     private Customer mCustomer;
+    public static String TAG = "OnlineMarket";
+
 
     public PostCommentFragment() {
         // Required empty public constructor
     }
 
     public static PostCommentFragment newInstance(Product product) {
+        Log.d(TAG, "PostCommentFragment +newInstance");
+
         PostCommentFragment fragment = new PostCommentFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARGS_PRODUCT, product);
@@ -51,6 +56,8 @@ public class PostCommentFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "PostCommentFragment +onCreate");
+
         mProduct = (Product) getArguments().getSerializable(ARGS_PRODUCT);
         mProductId = mProduct.getId();
         mCustomer = CustomerDBRepository.getInstance(getActivity())
@@ -62,6 +69,7 @@ public class PostCommentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_comment, container,
                 false);
+
         findViews(view);
         setListeners(view);
         return view;
@@ -73,12 +81,15 @@ public class PostCommentFragment extends Fragment {
             public void onClick(View v) {
                 String review = mEditTextComment.getText().toString();
                 if (mCustomer == null) {
+                    Log.d(TAG, "mCustomer == null");
                     replaceSignUpFragment();
                 } else {
                     if (review.isEmpty() || !mIsRated) {
                         showCompleteCommentSnackBar(view);
 
                     } else {
+                        Log.d(TAG,"PostCommentFragment + comment is complete");
+
                         mButtonPostComment.setBackgroundColor(
                                 getResources().getColor(R.color.digikala_red));
 
@@ -88,6 +99,9 @@ public class PostCommentFragment extends Fragment {
                                 .postComment(comment, new CommentRepository.CommentCallback() {
                                     @Override
                                     public void onItemResponse(Comment comment) {
+                                        Log.d(TAG,"PostCommentFragment + postComment+" +
+                                                " onItemResponse");
+
                                         replaceProductDetailFragment();
                                     }
                                 });
@@ -117,6 +131,8 @@ public class PostCommentFragment extends Fragment {
     }
 
     private void replaceProductDetailFragment() {
+        Log.d(TAG,"PostCommentFragment +replaceProductDetailFragment");
+
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container_main_activity
@@ -125,11 +141,15 @@ public class PostCommentFragment extends Fragment {
     }
 
     private Comment getComment(String review) {
+        Log.d(TAG,"PostCommentFragment +getComment");
+
         return new Comment(mProductId, review,
-                                    mCustomer.getEmail(), mRate);
+                mCustomer.getEmail(), mRate);
     }
 
     private void showCompleteCommentSnackBar(View view) {
+        Log.d(TAG,"PostCommentFragment +showCompleteCommentSnackBar");
+
         Snackbar snackbar = UIUtils.makeSnackBar(
                 view.findViewById(R.id.layout_show_snack_bar_post_comment),
                 R.string.please_complete_comment);
@@ -137,6 +157,8 @@ public class PostCommentFragment extends Fragment {
     }
 
     private void replaceSignUpFragment() {
+        Log.d(TAG, "replaceSignUpFragment ");
+
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_main_activity,
                         SignUpFragment.newInstance());
