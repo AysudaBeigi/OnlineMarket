@@ -40,6 +40,14 @@ public class UserProfileFragment extends Fragment {
         mCustomer=CustomerDBRepository.getInstance(getActivity()).
                 getCustomer();
 
+        if(mCustomer==null){
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container_main_activity,
+                            SignUpFragment.newInstance())
+                    .commit();
+        }
+
     }
 
     @Override

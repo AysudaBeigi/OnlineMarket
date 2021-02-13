@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">OnlineMarket</string>
-    <string name="internet_is_disconnected">خطا در اتصال به اینترنت…</string>
+    <string name="internet_is_disconnected">خطا در اتصال به اینترنت …</string>
     <string name="try_again">تلاش دوباره</string>
     <string name="home">خانه</string>
     <string name="shopping_bag">سبد خرید</string>
     <string name="profile">نمایه من</string>
     <string name="query_hint">جستجو</string>
+    <string name="text_view_sum_price_shopping_bag">مجموع</string>
+
     <string name="home_page">خانه</string>
     <string name="category">دسته بندی ها</string>
 
@@ -49,6 +51,8 @@
     <string name="text_view_user_orders">سفارش های من</string>
     <string name="please_complete_comment">لطفا نظر خود را کامل تر بیان کنید</string>
     <string name="search_view_search_in_online_store">جست و جو در فروشگاه</string>
+    <string name="this_product_is_added_to_shopping_bag"> به سبد خرید اضافه شد </string>
+    <string name="please_fist_sign_up">لطفا ابتدا حساب کاربری خود را ایجاد نمایید </string>
 
 
 </resources>

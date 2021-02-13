@@ -1,6 +1,8 @@
 package com.example.onlinemarket.adapter;
 
 import android.content.Context;
+import android.os.Build;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Comment;
 import com.google.android.material.textview.MaterialTextView;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.safety.Whitelist;
 
 import java.util.List;
 
@@ -93,24 +91,21 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             mRadioButton5 = itemView.findViewById(R.id.radio_button_5_comment_item);
         }
 
-        private String getDescription(Comment comment) {
-            String description = comment.getReview();
-            if (description.equals(null))
-                return description;
-            Document document = Jsoup.parse(description);
-            document.outputSettings(new Document.OutputSettings().prettyPrint(false));
-            document.select("br").append("\\n");
-            document.select("p").prepend("\\n\\n");
-            String s = document.html().replaceAll("\\\\n", "\n");
-            return Jsoup.clean(s, "", Whitelist.none(),
-                    new Document.OutputSettings().prettyPrint(false));
-
+        private String getReview(Comment comment) {
+            if (comment.getReview()== null)
+                return null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                return Html.fromHtml(comment.getReview(),
+                        Html.FROM_HTML_MODE_COMPACT).toString();
+            } else {
+                return Html.fromHtml(comment.getReview()).toString();
+            }
 
         }
 
         private void bindItem(Comment comment) {
 
-            mTextViewComment.setText(getDescription(comment));
+            mTextViewComment.setText(getReview(comment));
             int rate = comment.getRating();
             switch (rate) {
                 case 1:

@@ -77,8 +77,10 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
                     OrderRepository.getInstance(getActivity()).postOrder(order, new OrderRepository.OrderCallback() {
                         @Override
                         public void onItemResponse(Order order) {
-                            Log.d(TAG, "postOrder+ onItemResponse + order is " + order.toString());
+                            Log.d(TAG, "postOrder+ onItemResponse + order is " +
+                                    order.toString());
                             // TODO: going to the pay the orders
+                            //Snackbar snackbar= UIUtils.makeSnackBar()
                         }
                     });
                 }

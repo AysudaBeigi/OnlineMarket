@@ -20,7 +20,7 @@ public class SignUpFragment extends Fragment {
     private MaterialButton mButtonEnterOnlineMarket;
     private String mCustomerEmail;
     private CustomerDBRepository mCustomerDBRepository;
-    public static String TAG="OnlineMarket";
+    public static String TAG = "OnlineMarket";
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -60,7 +60,7 @@ public class SignUpFragment extends Fragment {
         mButtonEnterOnlineMarket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCustomerEmail=mEditTextEmail.getText().toString();
+                mCustomerEmail = mEditTextEmail.getText().toString();
 
                 if (mCustomerEmail.isEmpty()) {
                     showEmailCantEmptySnackBar(view);
@@ -74,7 +74,7 @@ public class SignUpFragment extends Fragment {
     }
 
     private void replaceUserProfileFragment() {
-        Log.d(TAG,"SignUpCustomer +replaceUserProfileFragment");
+        Log.d(TAG, "SignUpCustomer +replaceUserProfileFragment");
 
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_main_activity,
@@ -85,12 +85,10 @@ public class SignUpFragment extends Fragment {
     private void SignUpCustomer() {
         Customer customer = new Customer();
         customer.setEmail(mCustomerEmail);
+        mCustomerDBRepository.insertCustomer(customer);
         mCustomerDBRepository.postCustomer(customer, new CustomerDBRepository.CustomerCallback() {
             @Override
             public void onItemResponse(Customer customer) {
-                mCustomerDBRepository.insertCustomer(customer);
-                Log.d(TAG,"SignUpCustomer +postCustomer+ onItemResponse");
-                Log.d(TAG,"SignUpCustomer+onItemResponse customer emali is "+customer.getEmail());
 
             }
         });

@@ -11,15 +11,13 @@ public class NetworkParams {
     public static final String CONSUMER_SECRET = "cs_27b19e572ac9cf1333d4d53f7082a15e9fb6a2b0";
     public static final String DESC = "desc";
     public static final String PARENT_CATEGORY = "0";
-    public static final String PARENT_OF_CATEGORY = "parent";
+    public static final String PARENT = "parent";
     public static final String ORDER = "order";
     public static final String CATEGORY = "category";
     public static final String SEARCH = "search";
     public static final String ORDERBY = "orderby";
     public static final String PAGE = "page";
-    public static final String PRODUCT = "product";
-    public static final String FORCE = "force";
-    public static final String TRUE = "true";
+    public static final String PRODUCT_ID = "product_id";
     public static final String DATE = "date";
     public static final String RATING = "rating";
     public static final String POPULARITY = "popularity";
@@ -80,29 +78,13 @@ public class NetworkParams {
         return queryMap;
     }
 
-    /*public static Map<String, String> getProductsWithParentId(String parentId) {
-        Map<String, String> products = new HashMap<>();
-        products.putAll(BASE_OPTIONS);
-        products.put(CATEGORY,parentId);
 
-        return products;
-    }
-*/
-   /* public static Map<String, String> getSpecialProducts(String parentId,String page) {
-        Map<String, String> products = new HashMap<>();
-        products.putAll(BASE_OPTIONS);
-        products.put(CATEGORY,parentId);
-        products.put(PAGE,page);
-
-        return products;
-    }
-*/
     public static Map<String, String> getCategories() {
         Map<String, String> queryMap = new HashMap<>();
         queryMap.putAll(BASE_OPTIONS);
         queryMap.put(PAGE, String.valueOf(1));
         queryMap.put(PER_PAGE, String.valueOf(10));
-        queryMap.put(PARENT_OF_CATEGORY, PARENT_CATEGORY);
+        queryMap.put(PARENT, PARENT_CATEGORY);
 
         return queryMap;
     }
@@ -110,7 +92,7 @@ public class NetworkParams {
     public static Map<String, String> getSubCategories(int parentId) {
         Map<String, String> queryMap = new HashMap<>();
         queryMap.putAll(BASE_OPTIONS);
-        queryMap.put(PARENT_OF_CATEGORY, String.valueOf(parentId));
+        queryMap.put(PARENT, String.valueOf(parentId));
         return queryMap;
     }
 
@@ -194,11 +176,10 @@ public class NetworkParams {
         return products;
     }
 */
-    public static Map<String, String> getCommentOfProduct(String productId) {
+    public static Map<String, String> getProductComments(int productId) {
         Map<String, String> products = new HashMap<>();
         products.putAll(BASE_OPTIONS);
-        products.put(PRODUCT, productId);
-
+        products.put(PRODUCT_ID, String.valueOf(productId));
         return products;
     }
 
@@ -210,13 +191,7 @@ public class NetworkParams {
         return products;
     }
 
-    public static Map<String, String> deleteCommentOfProduct() {
-        Map<String, String> products = new HashMap<>();
-        products.putAll(BASE_OPTIONS);
-        products.put(FORCE, TRUE);
 
-        return products;
-    }
 
 
 }

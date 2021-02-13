@@ -94,7 +94,7 @@
                 android:id="@+id/image_view_trash"
                 android:layout_width="32dp"
                 android:visibility="gone"
-                android:layout_height="match_parent"
+                android:layout_height="32dp"
                 android:layout_alignParentLeft="true"
                 app:srcCompat="@drawable/trash" />
         </RelativeLayout>

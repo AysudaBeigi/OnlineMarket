@@ -156,6 +156,12 @@
                 android:outlineAmbientShadowColor="#DDDDDD"
                 android:outlineSpotShadowColor="#DDDDDD" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/layout_show_snack_bar_product_detail"
+                />
 
             <RelativeLayout
                 android:id="@+id/layout_continue_shopping"
@@ -202,7 +208,10 @@
                     app:backgroundTint="@color/colorPrimary" />
             </RelativeLayout>
 
+
         </LinearLayout>
+
+
     </ScrollView>
 
 

@@ -80,34 +80,31 @@ public class PostCommentFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String review = mEditTextComment.getText().toString();
-                if (mCustomer == null) {
-                    Log.d(TAG, "mCustomer == null");
-                    replaceSignUpFragment();
+
+                if (review.isEmpty() || !mIsRated) {
+                    showCompleteCommentSnackBar(view);
+
                 } else {
-                    if (review.isEmpty() || !mIsRated) {
-                        showCompleteCommentSnackBar(view);
+                    Log.d(TAG, "PostCommentFragment + comment is complete");
 
-                    } else {
-                        Log.d(TAG,"PostCommentFragment + comment is complete");
+                    mButtonPostComment.setBackgroundColor(
+                            getResources().getColor(R.color.digikala_red));
 
-                        mButtonPostComment.setBackgroundColor(
-                                getResources().getColor(R.color.digikala_red));
+                    Comment comment = getComment(review);
 
-                        Comment comment = getComment(review);
+                    CommentRepository.getInstance(getActivity())
+                            .postComment(comment, new CommentRepository.CommentCallback() {
+                                @Override
+                                public void onItemResponse(Comment comment) {
+                                    Log.d(TAG, "PostCommentFragment + postComment+" +
+                                            " onItemResponse");
+                                    replaceProductDetailFragment();
+                                }
+                            });
 
-                        CommentRepository.getInstance(getActivity())
-                                .postComment(comment, new CommentRepository.CommentCallback() {
-                                    @Override
-                                    public void onItemResponse(Comment comment) {
-                                        Log.d(TAG,"PostCommentFragment + postComment+" +
-                                                " onItemResponse");
-
-                                        replaceProductDetailFragment();
-                                    }
-                                });
-                    }
                 }
             }
+
         });
         mRadioGroupRating.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -131,7 +128,7 @@ public class PostCommentFragment extends Fragment {
     }
 
     private void replaceProductDetailFragment() {
-        Log.d(TAG,"PostCommentFragment +replaceProductDetailFragment");
+        Log.d(TAG, "PostCommentFragment +replaceProductDetailFragment");
 
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
@@ -141,14 +138,14 @@ public class PostCommentFragment extends Fragment {
     }
 
     private Comment getComment(String review) {
-        Log.d(TAG,"PostCommentFragment +getComment");
+        Log.d(TAG, "PostCommentFragment +getComment");
 
         return new Comment(mProductId, review,
                 mCustomer.getEmail(), mRate);
     }
 
     private void showCompleteCommentSnackBar(View view) {
-        Log.d(TAG,"PostCommentFragment +showCompleteCommentSnackBar");
+        Log.d(TAG, "PostCommentFragment +showCompleteCommentSnackBar");
 
         Snackbar snackbar = UIUtils.makeSnackBar(
                 view.findViewById(R.id.layout_show_snack_bar_post_comment),

@@ -74,8 +74,8 @@ public class CommentRepository {
 
     public void fetchProductComments(int productId,CommentsCallback commentsCallback) {
         Call<List<Comment>> call =
-                mWooCommerceAPIService.getProductComments(
-                        productId, NetworkParams.getBaseQuery());
+                mWooCommerceAPIService.getProductComments
+                        (NetworkParams.getProductComments(productId));
         call.enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
