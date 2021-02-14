@@ -88,13 +88,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
 
         private void findHolderViews(@NonNull View itemView) {
-            mTextViewName = itemView.findViewById(R.id.card_name);
+            mTextViewName = itemView.findViewById(R.id.text_View_name_card_item);
             mTextViewPlus = itemView.findViewById(R.id.card_plus_button);
-            mTextViewCount = itemView.findViewById(R.id.card_count);
-            mTextViewMinus = itemView.findViewById(R.id.card_minus_button);
-            mImageViewTrash = itemView.findViewById(R.id.image_view_trash);
+            mTextViewCount = itemView.findViewById(R.id.cout_card_item);
+            mTextViewMinus = itemView.findViewById(R.id.text_view_minus_card_item);
+            mImageViewTrash = itemView.findViewById(R.id.image_view_trash_card_item);
             mImageViewProduct = itemView.findViewById(R.id.image_view_card_item);
-            mTextViewBasePriceCard = itemView.findViewById(R.id.text_view_product_price);
+            mTextViewBasePriceCard = itemView.findViewById(R.id.text_view_price_card_item);
 
         }
 

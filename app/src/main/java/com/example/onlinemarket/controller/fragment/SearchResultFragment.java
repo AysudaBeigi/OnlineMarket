@@ -96,8 +96,8 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
 
     private void findViews(View view) {
         mRecyclerView = view.findViewById(R.id.recycler_view_search_result);
-        mSort = view.findViewById(R.id.sort_order);
-        mFilter = view.findViewById(R.id.filter_product);
+        mSort = view.findViewById(R.id.image_view_sort_search_result);
+        mFilter = view.findViewById(R.id.image_view_filter_search_result);
 
     }
 

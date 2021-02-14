@@ -104,11 +104,11 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
         Log.d(TAG, "ProductDetailFragment +findViews ");
 
         mSliderView = view.findViewById(R.id.fragment_home_slider);
-        mRegularPrice = view.findViewById(R.id.old_price);
-        mDescription = view.findViewById(R.id.product_detail_description);
-        mFinalePrice = view.findViewById(R.id.latest_price);
-        mButtonAddToShoppingBag = view.findViewById(R.id.button_add_to_card);
-        mName = view.findViewById(R.id.product_detail_name);
+        mRegularPrice = view.findViewById(R.id.text_view_old_price_product_detail);
+        mDescription = view.findViewById(R.id.text_view_information_product_detail);
+        mFinalePrice = view.findViewById(R.id.text_view_latest_price_product_detail);
+        mButtonAddToShoppingBag = view.findViewById(R.id.button_add_to_shopping_bag);
+        mName = view.findViewById(R.id.text_view_name_prodcut_detail);
         mRecyclerViewComments = view.findViewById(R.id.recycler_view_comments);
         mButtonPostComment = view.findViewById(R.id.button_post_comment_product_detail);
         mTextViewHaveNotComment = view.findViewById(R.id.text_view_have_not_comment);

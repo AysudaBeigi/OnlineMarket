@@ -6,32 +6,32 @@
 
 
     <TextView
-        android:id="@+id/product_category_holder_name"
+        android:id="@+id/text_view_name_product_vertical_item"
         style="@style/GeneralTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/product_category_holder_image"
+        android:layout_toLeftOf="@+id/image_view_product_vertical_item"
         android:gravity="right"
         android:lines="3"
         android:text="@string/product_name" />
 
 
     <TextView
-        android:id="@+id/product_category_holder_price"
+        android:id="@+id/text_view_price_product_vertical_item"
         style="@style/GeneralTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
-        android:layout_toLeftOf="@+id/product_category_holder_image"
+        android:layout_toLeftOf="@+id/image_view_product_vertical_item"
         android:gravity="left"
         android:text="@string/product_price"
         android:textColor="@color/red_22" />
 
 
     <ImageView
-        android:id="@+id/product_category_holder_image"
+        android:id="@+id/image_view_product_vertical_item"
         android:layout_width="135dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"

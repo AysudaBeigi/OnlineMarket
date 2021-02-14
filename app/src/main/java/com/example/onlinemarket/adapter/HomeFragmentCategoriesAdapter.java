@@ -100,8 +100,8 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
 
 
         private void findItemViews(@NonNull View itemView) {
-            mCategoryName = itemView.findViewById(R.id.category_name);
-            mCategoryImage = itemView.findViewById(R.id.category_image);
+            mCategoryName = itemView.findViewById(R.id.text_view_category_name_home_fragment);
+            mCategoryImage = itemView.findViewById(R.id.image_view_category_home_fragment);
             mCardView = itemView.findViewById(R.id.card_view_home_categories_item);
 
         }

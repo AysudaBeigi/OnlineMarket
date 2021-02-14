@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollView_homePage"
+    android:id="@+id/scroll_view_home_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.fragment.HomeFragment">
@@ -20,7 +20,7 @@
         <include layout="@layout/slider_view_holder" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/fragment_home_recyclerview_categories"
+            android:id="@+id/recycler_view_categories_home_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -61,7 +61,7 @@
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fragment_home_recycler_view_wonderful_offer"
+                android:id="@+id/recycler_view_wonderful_offer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -102,7 +102,7 @@
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fragment_home_recycler_view_most_viewed"
+                android:id="@+id/recycler_view_most_viewed"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
@@ -143,7 +143,7 @@
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fragment_home_recycler_view_last_products"
+                android:id="@+id/recycler_view_latest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -188,7 +188,7 @@
             app:cardCornerRadius="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/fragment_home_recycler_view_popularest_products"
+                android:id="@+id/recycler_view_popularest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

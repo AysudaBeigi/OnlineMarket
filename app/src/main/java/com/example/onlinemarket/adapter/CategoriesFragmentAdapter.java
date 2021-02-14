@@ -94,8 +94,8 @@ public class CategoriesFragmentAdapter extends
 
 
         private void findHolderViews(@NonNull View itemView) {
-            mCategoryName = itemView.findViewById(R.id.fragment_categories_name);
-            mCategoryImage = itemView.findViewById(R.id.fragment_categories_image_view);
+            mCategoryName = itemView.findViewById(R.id.text_view_name_categories_item);
+            mCategoryImage = itemView.findViewById(R.id.image_view_categories_item);
 
         }
 

@@ -17,11 +17,13 @@
         android:layout_weight="9" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigation_view_main_activity"
+        android:id="@+id/button_navigation_view_main_activity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/white_ff"
+        app:itemTextColor="@color/black"
+        app:itemIconTint="@color/black"
         android:fontFamily="@font/iran_yekan"
         android:layoutDirection="rtl"
         app:menu="@menu/navigation_menu"

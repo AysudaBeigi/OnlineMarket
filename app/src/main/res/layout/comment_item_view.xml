@@ -1,6 +1,6 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/product_view_holder_cardview"
+    android:id="@+id/card_view_comment_item"
     android:layout_width="250dp"
     android:layout_height="195dp"
     android:layout_marginRight="8dp"
@@ -41,8 +41,9 @@
             android:id="@+id/radio_group_rating_comment_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="left"
             android:layout_weight="1"
+            android:layoutDirection="ltr"
             android:orientation="horizontal">
 
             <RadioButton
@@ -50,35 +51,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/digikala_red"
-                android:text="1"/>
+                android:text="@string/text_view_radio_button_one"/>
 
             <RadioButton
                 android:id="@+id/radio_button_2_comment_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/orange_40"
-                android:text="2"/>
+                android:text="@string/text_view_radio_button_two"/>
 
             <RadioButton
                 android:id="@+id/radio_button_3_comment_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/yellow_35"
-                android:text="3"/>
+                android:text="@string/text_view_radio_button_three"/>
 
             <RadioButton
                 android:id="@+id/radio_button_4_comment_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/digikala_green"
-                android:text="4"/>
+                android:text="@string/text_view_radio_button_four"/>
 
             <RadioButton
                 android:id="@+id/radio_button_5_comment_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/digikala_blue"
-                android:text="5"/>
+                android:text="@string/text_view_radio_button_five"/>
 
         </RadioGroup>
     </LinearLayout>

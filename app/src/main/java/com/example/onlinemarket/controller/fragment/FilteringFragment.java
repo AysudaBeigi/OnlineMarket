@@ -69,11 +69,11 @@ public class FilteringFragment extends Fragment {
     }
 
     private void findViews(View view) {
-        mTextView1 = view.findViewById(R.id.text_view_one);
-        mTextView2 = view.findViewById(R.id.text_view_two);
-        mTextView3 = view.findViewById(R.id.text_view_three);
-        mTextView4 = view.findViewById(R.id.text_view_four);
-        mTextView5 = view.findViewById(R.id.text_view_five);
-        mTextView6 = view.findViewById(R.id.text_view_six);
+        mTextView1 = view.findViewById(R.id.text_view_filter_one);
+        mTextView2 = view.findViewById(R.id.text_view_filter_two);
+        mTextView3 = view.findViewById(R.id.text_view_filter_three);
+        mTextView4 = view.findViewById(R.id.text_view_filter_four);
+        mTextView5 = view.findViewById(R.id.text_view_filter_five);
+        mTextView6 = view.findViewById(R.id.text_view_filter_six);
     }
 }

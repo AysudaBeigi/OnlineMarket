@@ -42,7 +42,8 @@ public class SplashActivity extends AppCompatActivity {
                 findViewById(R.id.layout_connection_snack_bar),
                         R.string.internet_is_disconnected);
         snackbar.setDuration(Snackbar.LENGTH_INDEFINITE)
-                .setBackgroundTint(Color.RED)
+                .setBackgroundTint(Color.WHITE)
+                .setTextColor(Color.RED)
                 .setAction(R.string.try_again, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

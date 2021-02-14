@@ -8,26 +8,25 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_margin="4dp"
-        android:padding="2dp"
+        android:background="@color/gray_bd"
         android:backgroundTint="@color/gray_bd"
-        android:background="@color/gray_bd">
+        android:padding="2dp">
 
         <SearchView
             android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="3dp"
+            android:background="@color/gray_bd"
+            android:drawableLeft="@drawable/ic_baseline_search_24"
             android:fontFamily="@font/far_roya_bd"
             android:hint="@string/search_view_search_in_online_store"
             android:padding="3dp"
-            android:background="@color/gray_bd"
-            android:textColorHint="@color/black"
+            android:queryHint="جستجو در فروشگاه آنلاین"
             android:textColor="@color/black"
+            android:textColorHint="@color/colorPrimary"
             android:textSize="15sp"
-            android:queryHint="جستجو در فروشگاه انلاین"
-            android:drawableLeft="@drawable/ic_baseline_search_24"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
 
 
     </androidx.cardview.widget.CardView>

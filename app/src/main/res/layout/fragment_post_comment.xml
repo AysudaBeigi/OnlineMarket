@@ -51,6 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layoutDirection="ltr"
             android:orientation="horizontal">
 
             <RadioButton
@@ -58,35 +59,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/digikala_red"
-                android:text="1"/>
+                android:text="@string/text_view_radio_button_one" />
 
             <RadioButton
                 android:id="@+id/radio_button_2_add_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/orange_40"
-                android:text="2"/>
+                android:text="@string/text_view_radio_button_two" />
 
             <RadioButton
                 android:id="@+id/radio_button_3_add_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/yellow_35"
-                android:text="3"/>
+                android:text="@string/text_view_radio_button_three" />
 
             <RadioButton
                 android:id="@+id/radio_button_4_add_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/digikala_green"
-                android:text="4"/>
+                android:text="@string/text_view_radio_button_four" />
 
             <RadioButton
                 android:id="@+id/radio_button_5_add_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/digikala_blue"
-                android:text="5"/>
+                android:text="@string/text_view_radio_button_five" />
 
         </RadioGroup>
     </LinearLayout>
@@ -111,7 +112,7 @@
         android:layout_marginBottom="64dp"
         android:id="@+id/button_post_comment_fragment"
         android:backgroundTint="@color/digikala_blue_gray"
-        android:text="ثبت دیدگاه" />
+        android:text="@string/button_post_comment" />
 
     <LinearLayout
         android:layout_width="match_parent"

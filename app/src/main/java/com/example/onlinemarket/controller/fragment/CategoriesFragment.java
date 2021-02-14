@@ -82,19 +82,19 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
     }
 
     private void findViews(View view) {
-        mRecyclerViewCategoryOne = view.findViewById(R.id.category_recycler_one);
-        mRecyclerViewCategoryTwo = view.findViewById(R.id.category_recycler_two);
-        mRecyclerViewCategoryThree = view.findViewById(R.id.category_recycler_three);
-        mRecyclerViewCategoryFour = view.findViewById(R.id.category_recycler_four);
-        mRecyclerViewCategoryFive = view.findViewById(R.id.category_recycler_five);
-        mRecyclerViewCategorySix = view.findViewById(R.id.category_recycler_six);
+        mRecyclerViewCategoryOne = view.findViewById(R.id.recycler_view_category_one_categories_fragment);
+        mRecyclerViewCategoryTwo = view.findViewById(R.id.recycler_view_category_two_categories_fragment);
+        mRecyclerViewCategoryThree = view.findViewById(R.id.recycler_view_category_three_categories_fragment);
+        mRecyclerViewCategoryFour = view.findViewById(R.id.recycler_view_category_four_categories_fragment);
+        mRecyclerViewCategoryFive = view.findViewById(R.id.recycler_view_category_five_categories_fragment);
+        mRecyclerViewCategorySix = view.findViewById(R.id.recycler_view_category_six_categories_fragment);
 
-        mTextOne = view.findViewById(R.id.category_name_one);
-        mTextTwo = view.findViewById(R.id.category_name_two);
-        mTextThree = view.findViewById(R.id.category_name_three);
-        mTextFour = view.findViewById(R.id.category_name_four);
-        mTextFive = view.findViewById(R.id.category_name_five);
-        mTextSix = view.findViewById(R.id.category_name_six);
+        mTextOne = view.findViewById(R.id.text_view_category_name_one_categories_fragment);
+        mTextTwo = view.findViewById(R.id.text_view_category_name_two_categories_fragment);
+        mTextThree = view.findViewById(R.id.text_view_category_name_three_categories_fragment);
+        mTextFour = view.findViewById(R.id.text_view_category_name_four_categories_fragment);
+        mTextFive = view.findViewById(R.id.text_view_category_name_five_categories_fragment);
+        mTextSix = view.findViewById(R.id.text_view_category_name_six_categories_fragment);
 
     }
 

@@ -96,15 +96,15 @@ public class HomeFragment extends Fragment implements IOnBackPress {
         mSliderView = view.
                 findViewById(R.id.fragment_home_slider);
         mRecyclerViewLastProducts = view.
-                findViewById(R.id.fragment_home_recycler_view_last_products);
+                findViewById(R.id.recycler_view_latest);
         mRecyclerViewMostVisitedProducts = view.
-                findViewById(R.id.fragment_home_recycler_view_most_viewed);
+                findViewById(R.id.recycler_view_most_viewed);
         mRecyclerViewPopularProducts = view.
-                findViewById(R.id.fragment_home_recycler_view_popularest_products);
+                findViewById(R.id.recycler_view_popularest);
         mRecyclerCategories = view.
-                findViewById(R.id.fragment_home_recyclerview_categories);
+                findViewById(R.id.recycler_view_categories_home_fragment);
         mRecyclerViewWonderfulOffer = view.
-                findViewById(R.id.fragment_home_recycler_view_wonderful_offer);
+                findViewById(R.id.recycler_view_wonderful_offer);
         mSearchViewHomeFragment = view.
                 findViewById(R.id.search_view);
 

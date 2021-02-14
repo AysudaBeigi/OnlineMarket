@@ -93,9 +93,9 @@ public class ProductsVerticalAdapter extends
 
 
         private void findHolderViews(@NonNull View itemView) {
-            mName = itemView.findViewById(R.id.product_category_holder_name);
-            mPrice = itemView.findViewById(R.id.product_category_holder_price);
-            mImage = itemView.findViewById(R.id.product_category_holder_image);
+            mName = itemView.findViewById(R.id.text_view_name_product_vertical_item);
+            mPrice = itemView.findViewById(R.id.text_view_price_product_vertical_item);
+            mImage = itemView.findViewById(R.id.image_view_product_vertical_item);
 
         }
 

@@ -17,33 +17,34 @@
         android:layout_margin="5dp"
         android:paddingBottom="8dp">
 
-        <ImageView
-            android:id="@+id/fragment_categories_image_view"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_view_categories_item"
             android:layout_width="match_parent"
             tools:src="@drawable/ic_placeholder_recycler"
             android:src="@drawable/ic_placeholder_recycler"
             android:layout_height="160dp" />
 
-        <TextView
-            android:id="@+id/fragment_categories_name"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_view_name_categories_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="3dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="4dp"
             android:layout_weight="1"
-            android:maxEms="24"
-            android:maxLines="2"
             android:fontFamily="@font/iran_yekan"
             android:gravity="right"
+            android:maxEms="24"
+            android:maxLines="2"
             android:paddingBottom="4dp"
-            android:layout_marginEnd="3dp"
-            android:text="@string/product_name"
             android:textColor="@color/black"
-            android:textSize="9sp" />
+            android:textSize="9sp"
+            tools:text="@string/product_name" />
 
 
     </LinearLayout>
+
 
 </androidx.cardview.widget.CardView>

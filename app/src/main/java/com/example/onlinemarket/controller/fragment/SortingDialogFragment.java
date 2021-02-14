@@ -71,10 +71,10 @@ public class SortingDialogFragment extends DialogFragment implements IOnBackPres
     }
 
     private void findDialogViews(View view) {
-        mPopular = view.findViewById(R.id.popularity);
+        mPopular = view.findViewById(R.id.radio_button_popularest);
         mNewest = view.findViewById(R.id.latest);
-        mHighToLow = view.findViewById(R.id.high_to_low);
-        mLowToHigh = view.findViewById(R.id.low_to_high);
+        mHighToLow = view.findViewById(R.id.radio_button_high_to_low_price);
+        mLowToHigh = view.findViewById(R.id.radio_button_low_to_high_price);
     }
 
     private void setListener() {

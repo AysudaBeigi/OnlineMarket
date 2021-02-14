@@ -15,7 +15,7 @@
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/card_recycler_view"
+            android:id="@+id/recycler_view_cards"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -26,7 +26,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/layout_continue_shopping"
+        android:id="@+id/layout_add_to_shopping_bag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -54,7 +54,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_add_to_card"
+            android:id="@+id/button_continue_shopping"
             style="@style/PartialTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

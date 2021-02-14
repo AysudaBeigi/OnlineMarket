@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void findViews() {
-        mBottomNavigationView = findViewById(R.id.navigation_view_main_activity);
+        mBottomNavigationView = findViewById(R.id.button_navigation_view_main_activity);
     }
 
     private void setListeners() {

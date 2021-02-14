@@ -67,7 +67,7 @@ public class ImageSliderAdapter extends
         }
 
         private void findHolderViews(View itemView) {
-            imageViewBackground = itemView.findViewById(R.id.iv_auto_image_slider);
+            imageViewBackground = itemView.findViewById(R.id.image_view_auto_image_slider);
         }
 
         private void bindImageItem(Image image) {

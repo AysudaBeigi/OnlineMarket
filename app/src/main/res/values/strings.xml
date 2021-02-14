@@ -53,6 +53,14 @@
     <string name="search_view_search_in_online_store">جست و جو در فروشگاه</string>
     <string name="this_product_is_added_to_shopping_bag"> به سبد خرید اضافه شد </string>
     <string name="please_fist_sign_up">لطفا ابتدا حساب کاربری خود را ایجاد نمایید </string>
+    <string name="text_view_minus">-</string>
+    <string name="text_view_plus">+</string>
+    <string name="text_view_radio_button_one">1</string>
+    <string name="text_view_radio_button_two">2</string>
+    <string name="text_view_radio_button_three">3</string>
+    <string name="text_view_radio_button_four">4</string>
+    <string name="text_view_radio_button_five">5</string>
+    <string name="button_post_comment">ثبت دیدگاه</string>
 
 
 </resources>

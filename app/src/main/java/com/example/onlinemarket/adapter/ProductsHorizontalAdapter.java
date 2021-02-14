@@ -90,9 +90,9 @@ public class ProductsHorizontalAdapter extends RecyclerView.
 
 
         private void findHolderViews(@NonNull View itemView) {
-            mProductName = itemView.findViewById(R.id.product_view_holder_title);
-            mProductPrice = itemView.findViewById(R.id.product_view_holder_price);
-            mProductImage = itemView.findViewById(R.id.product_view_holder_image_cover);
+            mProductName = itemView.findViewById(R.id.text_view_name_prodcut_horizantal_item);
+            mProductPrice = itemView.findViewById(R.id.text_view_price_product_horizantal_item);
+            mProductImage = itemView.findViewById(R.id.image_view_prodcut_horizantal_item);
 
         }
 

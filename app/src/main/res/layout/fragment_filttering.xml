@@ -10,19 +10,20 @@
     tools:context=".controller.fragment.SearchResultFragment">
 
     <LinearLayout
+        android:id="@+id/linear_layout_filttering_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/text_view_one"
+            android:id="@+id/text_view_filter_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ویژگی یک "
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/text_view_two"
+            android:id="@+id/text_view_filter_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/far_trafc_bd"
@@ -32,7 +33,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/text_view_three"
+            android:id="@+id/text_view_filter_three"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ویژگی سه "
@@ -41,9 +42,8 @@
             android:textStyle="bold" />
 
 
-
         <TextView
-            android:id="@+id/text_view_four"
+            android:id="@+id/text_view_filter_four"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ویژگی چهار "
@@ -53,7 +53,7 @@
 
 
         <TextView
-            android:id="@+id/text_view_five"
+            android:id="@+id/text_view_filter_five"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ویژگی پنج "
@@ -63,7 +63,7 @@
 
 
         <TextView
-            android:id="@+id/text_view_six"
+            android:id="@+id/text_view_filter_six"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ویژگی شش "

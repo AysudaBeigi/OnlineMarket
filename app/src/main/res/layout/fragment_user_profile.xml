@@ -30,6 +30,7 @@
             >
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_user_favorit_list"
                 style="@style/PartialTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,6 +62,7 @@
             android:layout_marginTop="10dp">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_user_comments_user_profile"
                 style="@style/PartialTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,6 +94,7 @@
             android:layout_marginTop="10dp">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_addresses_user_profile"
                 style="@style/PartialTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -125,6 +128,7 @@
             android:layout_marginTop="10dp">
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_user_account_info_user_profile"
                 style="@style/PartialTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

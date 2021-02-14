@@ -79,10 +79,9 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
                         public void onItemResponse(Order order) {
                             Log.d(TAG, "postOrder+ onItemResponse + order is " +
                                     order.toString());
-                            // TODO: going to the pay the orders
-                            //Snackbar snackbar= UIUtils.makeSnackBar()
                         }
                     });
+                    //todo : go to pay for product
                 }
 
             }
@@ -154,8 +153,8 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     }
 
     private void findViews(View view) {
-        mShoppingRecyclerView = view.findViewById(R.id.card_recycler_view);
-        mButtonFinalizeShopping = view.findViewById(R.id.button_add_to_card);
+        mShoppingRecyclerView = view.findViewById(R.id.recycler_view_cards);
+        mButtonFinalizeShopping = view.findViewById(R.id.button_add_to_shopping_bag);
     }
 
     @Override

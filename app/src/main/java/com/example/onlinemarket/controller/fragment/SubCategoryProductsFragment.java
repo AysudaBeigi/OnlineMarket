@@ -83,7 +83,7 @@ public class SubCategoryProductsFragment extends Fragment implements IOnBackPres
 
     private void findViews(View view) {
         mRecyclerViewSubCategoryProducts = view.
-                findViewById(R.id.fragment_sub_category_products_recycler_view);
+                findViewById(R.id.recycler_view_fragment_sub_category_products);
         mSearchViewSubCategoryProducts=view.findViewById(R.id.search_view);
     }
 

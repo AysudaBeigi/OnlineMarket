@@ -1,7 +1,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/product_view_holder_cardview"
+    android:id="@+id/card_view_comment_item"
     android:layout_width="135dp"
     android:layout_height="225dp"
     android:layout_margin="8dp"
@@ -16,24 +16,24 @@
         android:paddingBottom="8dp">
 
         <ImageView
-            android:id="@+id/product_view_holder_image_cover"
+            android:id="@+id/image_view_prodcut_horizantal_item"
             android:layout_width="match_parent"
             tools:src="@drawable/ic_placeholder_recycler"
             android:src="@drawable/ic_placeholder_recycler"
             android:layout_height="160dp" />
 
         <TextView
-            android:id="@+id/product_view_holder_title"
+            android:id="@+id/text_view_name_prodcut_horizantal_item"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:maxEms="24"
-            android:maxLines="2"
             android:fontFamily="@font/iran_yekan"
             android:gravity="right"
+            android:maxEms="24"
+            android:maxLines="2"
             android:paddingBottom="4dp"
-            android:text="@string/product_name"
             android:textColor="@color/black"
-            android:textSize="9sp" />
+            android:textSize="9sp"
+            tools:text="@string/product_name" />
 
 <!--
         <View
@@ -46,15 +46,15 @@
 -->
 
         <TextView
-            android:id="@+id/product_view_holder_price"
+            android:id="@+id/text_view_price_product_horizantal_item"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_gravity="left"
             android:gravity="left"
-            android:text="@string/product_price"
             android:textColor="@color/red_22"
             android:textSize="10sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="@string/product_price" />
 
     </LinearLayout>
 

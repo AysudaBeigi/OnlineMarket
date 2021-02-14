@@ -8,7 +8,7 @@
     >
 
     <RadioButton
-        android:id="@+id/popularity"
+        android:id="@+id/radio_button_popularest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/popularity"
@@ -27,7 +27,7 @@
         />
 
     <RadioButton
-        android:id="@+id/high_to_low"
+        android:id="@+id/radio_button_high_to_low_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/high_to_low"
@@ -36,7 +36,7 @@
         />
 
     <RadioButton
-        android:id="@+id/low_to_high"
+        android:id="@+id/radio_button_low_to_high_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/low_to_high"
