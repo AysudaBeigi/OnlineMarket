@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,12 +14,14 @@ import com.example.onlinemarket.controller.fragment.ProductDetailFragment;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.utils.UIUtils;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductsVerticalAdapter extends
-        RecyclerView.Adapter<ProductsVerticalAdapter.ProductVerticalHolder> {
+public class ProductVerticalAdapter extends
+        RecyclerView.Adapter<ProductVerticalAdapter.ProductVerticalHolder> {
 
     private Context mContext;
     private List<Product> mProductsItem;
@@ -35,7 +35,7 @@ public class ProductsVerticalAdapter extends
         notifyDataSetChanged();
     }
 
-    public ProductsVerticalAdapter(Context context, List<Product> productsItem) {
+    public ProductVerticalAdapter(Context context, List<Product> productsItem) {
         mContext = context;
         mProductsItem = productsItem;
     }
@@ -82,8 +82,8 @@ public class ProductsVerticalAdapter extends
 
     public class ProductVerticalHolder extends RecyclerView.ViewHolder {
 
-        private TextView mName, mPrice;
-        private ImageView mImage;
+        private MaterialTextView mName, mPrice;
+        private ShapeableImageView mImage;
 
         public ProductVerticalHolder(@NonNull View itemView) {
             super(itemView);

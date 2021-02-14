@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,14 +15,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_filter_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="ویژگی یک "
             android:textColor="@color/black" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_filter_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_filter_three"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:textStyle="bold" />
 
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_filter_four"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:textStyle="bold" />
 
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_filter_five"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
             android:textStyle="bold" />
 
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_filter_six"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,4 +72,4 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

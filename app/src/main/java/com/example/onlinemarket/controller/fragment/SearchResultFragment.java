@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -13,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.ProductsVerticalAdapter;
+import com.example.onlinemarket.adapter.ProductVerticalAdapter;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.network.NetworkParams;
 import com.example.onlinemarket.repository.MarketRepository;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
 import java.util.Map;
@@ -31,9 +31,9 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
     private String mQuery = "";
 
     private RecyclerView mRecyclerView;
-    private ProductsVerticalAdapter mAdapter;
+    private ProductVerticalAdapter mAdapter;
     private MarketRepository mMarketRepository;
-    private ImageView mSort, mFilter;
+    private ShapeableImageView mSort, mFilter;
     private int mCategoryId;
     Map<String, String> mSearchQueryMap;
 
@@ -74,7 +74,7 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
                     @Override
                     public void onItemResponse(List<Product> items) {
                         if (mAdapter == null) {
-                            mAdapter = new ProductsVerticalAdapter(getContext(), items);
+                            mAdapter = new ProductVerticalAdapter(getContext(), items);
                             mRecyclerView.setAdapter(mAdapter);
                         } else {
                             mAdapter.setProductsItem(items);

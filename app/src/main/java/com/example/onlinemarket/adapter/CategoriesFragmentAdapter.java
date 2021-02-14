@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +14,8 @@ import com.example.onlinemarket.controller.fragment.SubCategoryProductsFragment;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.utils.UIUtils;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,8 +83,8 @@ public class CategoriesFragmentAdapter extends
 
     public class CategoriesFragmentViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mCategoryName;
-        private ImageView mCategoryImage;
+        private MaterialTextView mCategoryName;
+        private ShapeableImageView mCategoryImage;
 
 
         public CategoriesFragmentViewHolder(@NonNull View itemView) {

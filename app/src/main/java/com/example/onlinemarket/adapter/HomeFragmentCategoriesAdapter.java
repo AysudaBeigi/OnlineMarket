@@ -4,12 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
@@ -17,6 +14,9 @@ import com.example.onlinemarket.controller.fragment.SubCategoryProductsFragment;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.utils.UIUtils;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,9 +77,9 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mCategoryName;
-        private ImageView mCategoryImage;
-        private CardView mCardView;
+        private MaterialTextView mCategoryName;
+        private ShapeableImageView mCategoryImage;
+        private MaterialCardView mCardView;
         ArrayList<Integer> mColors = new ArrayList<>();
 
         public CategoryViewHolder(@NonNull View itemView) {
@@ -107,7 +107,7 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
         }
 
         private void bindCategory(Category categoriesItem, int position) {
-            //mCardView.setBackgroundColor(mColors.get(position));
+            mCardView.setCardBackgroundColor(mColors.get(position));
             mCategoryName.setText(categoriesItem.getName() + "");
             Image imageItem = categoriesItem.getImages();
             List<String> imagesItemList = new ArrayList<>();

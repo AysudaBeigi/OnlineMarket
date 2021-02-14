@@ -16,7 +16,7 @@ import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.HomeFragmentCategoriesAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
-import com.example.onlinemarket.adapter.ProductsHorizontalAdapter;
+import com.example.onlinemarket.adapter.ProductHorizontalAdapter;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
@@ -32,10 +32,10 @@ public class HomeFragment extends Fragment implements IOnBackPress {
 
     private SliderView mSliderView;
     private ImageSliderAdapter mImageSliderAdapter;
-    private ProductsHorizontalAdapter mLastProductsHorizontalAdapter;
-    private ProductsHorizontalAdapter mMostVisitedProductsHorizontalAdapter;
-    private ProductsHorizontalAdapter mPopularProductsHorizontalAdapter;
-    private ProductsHorizontalAdapter mAmazingOfferAdapter;
+    private ProductHorizontalAdapter mLastProductHorizontalAdapter;
+    private ProductHorizontalAdapter mMostVisitedProductHorizontalAdapter;
+    private ProductHorizontalAdapter mPopularProductHorizontalAdapter;
+    private ProductHorizontalAdapter mAmazingOfferAdapter;
     private HomeFragmentCategoriesAdapter mHomeFragmentCategoriesAdapter;
 
     private SearchView mSearchViewHomeFragment;
@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                         Log.d(TAG, "fetchLastProducts++onItemResponse"
                                 + items.get(0).getName());
                         initRecyclerView(mRecyclerViewLastProducts,
-                                mLastProductsHorizontalAdapter, items);
+                                mLastProductHorizontalAdapter, items);
 
                     }
                 });
@@ -140,7 +140,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                                 items.get(0).getName());
 
                         initRecyclerView(mRecyclerViewMostVisitedProducts
-                                , mMostVisitedProductsHorizontalAdapter, items);
+                                , mMostVisitedProductHorizontalAdapter, items);
 
                     }
                 });
@@ -150,7 +150,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
                     @Override
                     public void onItemResponse(List<Product> items) {
                         initRecyclerView(mRecyclerViewPopularProducts,
-                                mPopularProductsHorizontalAdapter, items);
+                                mPopularProductHorizontalAdapter, items);
 
                     }
                 });
@@ -179,7 +179,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
 
 
     private void initRecyclerView(RecyclerView recyclerView,
-                                  ProductsHorizontalAdapter adapter,
+                                  ProductHorizontalAdapter adapter,
                                   List<Product> products) {
         Log.d(TAG, "HomeF : initRecyclerView");
 
@@ -188,7 +188,7 @@ public class HomeFragment extends Fragment implements IOnBackPress {
 
 
         if (adapter == null) {
-            adapter = new ProductsHorizontalAdapter(getContext(),
+            adapter = new ProductHorizontalAdapter(getContext(),
                     products);
             recyclerView.setAdapter(adapter);
         } else {

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,10 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CategoriesFragmentAdapter;
-import com.example.onlinemarket.adapter.ProductsHorizontalAdapter;
+import com.example.onlinemarket.adapter.ProductHorizontalAdapter;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.MarketRepository;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +31,11 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
     private CategoriesFragmentAdapter mAdapterOne, mAdapterTwo, mAdapterThree,
             mAdapterFour, mAdapterFive,
             mAdapterSix;
-    private ProductsHorizontalAdapter mPAdapterOne, mPAdapterTwo, mPAdapterThree,
+    private ProductHorizontalAdapter mPAdapterOne, mPAdapterTwo, mPAdapterThree,
             mPAdapterFour, mPAdapterFive,
             mPAdapterSix;
 
-    private TextView mTextOne, mTextTwo, mTextThree, mTextFour, mTextFive, mTextSix;
+    private MaterialTextView mTextOne, mTextTwo, mTextThree, mTextFour, mTextFive, mTextSix;
 
     private MarketRepository mMarketRepository;
     private List<Category> mCategories = new ArrayList<>();
@@ -120,7 +120,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterOne == null) {
-                                                mPAdapterOne = new ProductsHorizontalAdapter(getContext(),
+                                                mPAdapterOne = new ProductHorizontalAdapter(getContext(),
                                                         products);
                                                 mRecyclerViewCategoryOne.setAdapter(mPAdapterOne);
                                             } else {
@@ -154,7 +154,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterTwo == null) {
-                                                mPAdapterTwo = new ProductsHorizontalAdapter(
+                                                mPAdapterTwo = new ProductHorizontalAdapter(
                                                         getContext(),
                                                         products);
                                                 mRecyclerViewCategoryTwo.setAdapter(mPAdapterTwo);
@@ -189,7 +189,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterThree == null) {
-                                                mPAdapterThree = new ProductsHorizontalAdapter(getContext(),
+                                                mPAdapterThree = new ProductHorizontalAdapter(getContext(),
                                                         products);
                                                 mRecyclerViewCategoryThree.setAdapter(mPAdapterThree);
                                             } else {
@@ -223,7 +223,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterFour == null) {
-                                                mPAdapterFour = new ProductsHorizontalAdapter(getContext(),
+                                                mPAdapterFour = new ProductHorizontalAdapter(getContext(),
                                                         products);
                                                 mRecyclerViewCategoryFour.setAdapter(mPAdapterFour);
                                             } else {
@@ -257,7 +257,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterFive == null) {
-                                                mPAdapterFive = new ProductsHorizontalAdapter(getContext(),
+                                                mPAdapterFive = new ProductHorizontalAdapter(getContext(),
                                                         products);
                                                 mRecyclerViewCategoryFive.setAdapter(mPAdapterFive);
                                             } else {
@@ -291,7 +291,7 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterSix == null) {
-                                                mPAdapterSix = new ProductsHorizontalAdapter(getContext(),
+                                                mPAdapterSix = new ProductHorizontalAdapter(getContext(),
                                                         products);
                                                 mRecyclerViewCategorySix.setAdapter(mPAdapterSix);
                                             } else {

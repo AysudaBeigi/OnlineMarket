@@ -6,13 +6,13 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Comment;
+import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
@@ -68,11 +68,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     public class CommentViewHolder extends RecyclerView.ViewHolder {
 
         private MaterialTextView mTextViewComment;
-        private RadioButton mRadioButton1;
-        private RadioButton mRadioButton2;
-        private RadioButton mRadioButton3;
-        private RadioButton mRadioButton4;
-        private RadioButton mRadioButton5;
+        private MaterialRadioButton mRadioButton1;
+        private MaterialRadioButton mRadioButton2;
+        private MaterialRadioButton mRadioButton3;
+        private MaterialRadioButton mRadioButton4;
+        private MaterialRadioButton mRadioButton5;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);

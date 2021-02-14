@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Attribute;
 import com.example.onlinemarket.repository.MarketRepository;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class FilteringFragment extends Fragment {
     public static final String ARGS_CATEGORY_ID = "argsCategoryId";
     private int mCategoryId;
     private MarketRepository mMarketRepository;
-    private TextView mTextView1, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6;
+    private MaterialTextView mTextView1, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6;
     List<Attribute> mAttributes;
 
     public FilteringFragment() {

@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_margin="4dp"
@@ -22,13 +23,14 @@
             android:fontFamily="@font/far_roya_bd"
             android:hint="@string/search_view_search_in_online_store"
             android:padding="3dp"
+            app:defaultQueryHint="@string/search_view_search_in_online_store"
             android:queryHint="جستجو در فروشگاه آنلاین"
-            android:textColor="@color/black"
+            android:textColor="@color/colorPrimary"
             android:textColorHint="@color/colorPrimary"
             android:textSize="15sp"
             android:textStyle="bold" />
 
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

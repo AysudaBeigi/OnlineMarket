@@ -17,7 +17,7 @@ import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.CommentRepository;
 import com.example.onlinemarket.repository.CustomerDBRepository;
 import com.example.onlinemarket.utils.UIUtils;
-import com.google.android.material.button.MaterialButton;
+import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -25,12 +25,12 @@ public class PostCommentFragment extends Fragment {
     public static final String ARGS_PRODUCT = "argsProduct";
     private TextInputEditText mEditTextComment;
     private RadioGroup mRadioGroupRating;
-    private RadioButton mRadioButton1;
-    private RadioButton mRadioButton2;
-    private RadioButton mRadioButton3;
-    private RadioButton mRadioButton4;
-    private RadioButton mRadioButton5;
-    private MaterialButton mButtonPostComment;
+    private MaterialRadioButton mRadioButton1;
+    private MaterialRadioButton mRadioButton2;
+    private MaterialRadioButton mRadioButton3;
+    private MaterialRadioButton mRadioButton4;
+    private MaterialRadioButton mRadioButton5;
+    private MaterialRadioButton mButtonPostComment;
     private boolean mIsRated = false;
     private int mRate;
     private int mProductId;

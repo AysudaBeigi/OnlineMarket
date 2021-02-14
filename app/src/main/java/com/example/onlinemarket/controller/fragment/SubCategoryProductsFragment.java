@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.ProductsVerticalAdapter;
+import com.example.onlinemarket.adapter.ProductVerticalAdapter;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.MarketRepository;
 
@@ -104,9 +104,9 @@ public class SubCategoryProductsFragment extends Fragment implements IOnBackPres
     }
 
     private void initAdapter(List<Product> categoryProduct) {
-        ProductsVerticalAdapter productsVerticalAdapter =
-                new ProductsVerticalAdapter(getActivity(), categoryProduct);
-        mRecyclerViewSubCategoryProducts.setAdapter(productsVerticalAdapter);
+        ProductVerticalAdapter productVerticalAdapter =
+                new ProductVerticalAdapter(getActivity(), categoryProduct);
+        mRecyclerViewSubCategoryProducts.setAdapter(productVerticalAdapter);
     }
 
 

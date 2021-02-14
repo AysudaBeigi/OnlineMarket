@@ -5,11 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.utils.UIUtils;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class ImageSliderAdapter extends
     public ImageSliderViewHolder onCreateViewHolder(ViewGroup parent) {
         Log.d(TAG,"ImageSliderAdapter +onCreateViewHolder");
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.image_slide, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.image_slider_item_view, null);
         return new ImageSliderViewHolder(view);
     }
 
@@ -59,7 +59,7 @@ public class ImageSliderAdapter extends
 
     public class ImageSliderViewHolder extends SliderViewAdapter.ViewHolder {
 
-        private ImageView imageViewBackground;
+        private ShapeableImageView imageViewBackground;
 
         public ImageSliderViewHolder(View itemView) {
             super(itemView);

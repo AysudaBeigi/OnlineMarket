@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,14 +15,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
+import com.google.android.material.radiobutton.MaterialRadioButton;
 
 
 public class SortingDialogFragment extends DialogFragment implements IOnBackPress {
 
-    private RadioButton mPopular;
-    private RadioButton mNewest;
-    private RadioButton mLowToHigh;
-    private RadioButton mHighToLow;
+    private MaterialRadioButton mRadioButtonPopularest;
+    private MaterialRadioButton mRadioButtonLatest;
+    private MaterialRadioButton mRadioButtonLowToHighPrice;
+    private MaterialRadioButton mRadioButtonHighToLowPrice;
     public static final int RESULT_CODE_ORDER_DIALOG_FRAGMENT = 20;
     public static final String EXTRA_ORDER_DIALOG_FRAGMENT = "com.example.onlinemarket.EXTRA_ORDERING_FRAGMENT";
     public static final String TAG = "OrderDialogFragment";
@@ -71,33 +71,33 @@ public class SortingDialogFragment extends DialogFragment implements IOnBackPres
     }
 
     private void findDialogViews(View view) {
-        mPopular = view.findViewById(R.id.radio_button_popularest);
-        mNewest = view.findViewById(R.id.latest);
-        mHighToLow = view.findViewById(R.id.radio_button_high_to_low_price);
-        mLowToHigh = view.findViewById(R.id.radio_button_low_to_high_price);
+        mRadioButtonPopularest = view.findViewById(R.id.radio_button_popularest);
+        mRadioButtonLatest = view.findViewById(R.id.latest);
+        mRadioButtonHighToLowPrice = view.findViewById(R.id.radio_button_high_to_low_price);
+        mRadioButtonLowToHighPrice = view.findViewById(R.id.radio_button_low_to_high_price);
     }
 
     private void setListener() {
-        mPopular.setOnClickListener(new View.OnClickListener() {
+        mRadioButtonPopularest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mOrderBy = "popularity";
             }
         });
-        mNewest.setOnClickListener(new View.OnClickListener() {
+        mRadioButtonLatest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mOrderBy = "date";
             }
         });
 
-        mLowToHigh.setOnClickListener(new View.OnClickListener() {
+        mRadioButtonLowToHighPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mOrderBy = "price";
             }
         });
-        mHighToLow.setOnClickListener(new View.OnClickListener() {
+        mRadioButtonHighToLowPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mOrderBy = "price_asc";

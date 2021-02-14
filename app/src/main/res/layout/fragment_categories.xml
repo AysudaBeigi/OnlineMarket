@@ -20,7 +20,7 @@
             android:layout_marginRight="16dp"
             android:orientation="horizontal">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -34,7 +34,7 @@
                 app:fontFamily="@font/far_roya_bd" />
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_view_category_name_one_categories_fragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
 
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
@@ -65,7 +65,7 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,7 +75,7 @@
             android:layout_marginRight="16dp"
             android:orientation="horizontal">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -89,7 +89,7 @@
                 app:fontFamily="@font/far_roya_bd" />
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_view_category_name_two_categories_fragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
 
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
@@ -120,7 +120,7 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -130,7 +130,7 @@
             android:layout_marginRight="16dp"
             android:orientation="horizontal">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -144,7 +144,7 @@
                 app:fontFamily="@font/far_roya_bd" />
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_view_category_name_three_categories_fragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -158,7 +158,7 @@
 
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
@@ -175,7 +175,7 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -185,7 +185,7 @@
             android:layout_marginRight="16dp"
             android:orientation="horizontal">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -199,7 +199,7 @@
                 app:fontFamily="@font/far_roya_bd" />
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_view_category_name_four_categories_fragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -213,7 +213,7 @@
 
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
@@ -230,7 +230,7 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -240,7 +240,7 @@
             android:layout_marginRight="16dp"
             android:orientation="horizontal">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -254,7 +254,7 @@
                 app:fontFamily="@font/far_roya_bd" />
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_view_category_name_five_categories_fragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -268,7 +268,7 @@
 
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
@@ -285,7 +285,7 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -295,7 +295,7 @@
             android:layout_marginRight="16dp"
             android:orientation="horizontal">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -309,7 +309,7 @@
                 app:fontFamily="@font/far_roya_bd" />
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_view_category_name_six_categories_fragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -323,7 +323,7 @@
 
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp"
@@ -342,7 +342,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
                 />
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
 
     </LinearLayout>

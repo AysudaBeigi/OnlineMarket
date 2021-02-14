@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +21,7 @@ import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.CardDBRepository;
 import com.example.onlinemarket.repository.CustomerDBRepository;
 import com.example.onlinemarket.repository.OrderRepository;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
     private CustomerDBRepository mCustomerDBRepository;
     private CardDBRepository mCardDBRepository;
     private RecyclerView mShoppingRecyclerView;
-    private Button mButtonFinalizeShopping;
+    private MaterialButton mButtonFinalizeShopping;
     private CardAdapter mCardAdapter;
     private Customer mCustomer;
 

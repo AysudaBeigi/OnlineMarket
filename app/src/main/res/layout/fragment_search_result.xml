@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -33,9 +33,9 @@
                 android:textColor="@color/black"
                 android:textSize="14sp">
 
-            </TextView>
+            </com.google.android.material.textview.MaterialTextView>
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_view_sort_search_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                 android:layout_weight="1"
                 android:src="@drawable/ic_sort" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -53,9 +53,9 @@
                 android:textColor="@color/black"
                 android:textSize="14sp">
 
-            </TextView>
+            </com.google.android.material.textview.MaterialTextView>
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_view_filter_search_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 android:src="@drawable/ic_filter" />
         </LinearLayout>
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:cardBackgroundColor="@color/white_ff"
@@ -82,7 +82,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
             </androidx.recyclerview.widget.RecyclerView>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 

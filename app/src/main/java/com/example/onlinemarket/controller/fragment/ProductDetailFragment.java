@@ -6,8 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,11 +42,11 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
     private Product mProduct;
     private ImageSliderAdapter mImageSliderAdapter;
     private SliderView mSliderView;
-    private TextView mRegularPrice;
-    private TextView mFinalePrice;
-    private TextView mDescription;
-    private TextView mName;
-    private Button mButtonAddToShoppingBag;
+    private MaterialTextView mOldPrice;
+    private MaterialTextView mLatestPrice;
+    private MaterialTextView mInformation;
+    private MaterialTextView mName;
+    private MaterialButton mButtonAddToShoppingBag;
     private CardDBRepository mCardDBRepository;
     private RecyclerView mRecyclerViewComments;
     private MaterialButton mButtonPostComment;
@@ -104,9 +102,9 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
         Log.d(TAG, "ProductDetailFragment +findViews ");
 
         mSliderView = view.findViewById(R.id.fragment_home_slider);
-        mRegularPrice = view.findViewById(R.id.text_view_old_price_product_detail);
-        mDescription = view.findViewById(R.id.text_view_information_product_detail);
-        mFinalePrice = view.findViewById(R.id.text_view_latest_price_product_detail);
+        mOldPrice = view.findViewById(R.id.text_view_old_price_product_detail);
+        mInformation = view.findViewById(R.id.text_view_information_product_detail);
+        mLatestPrice = view.findViewById(R.id.text_view_latest_price_product_detail);
         mButtonAddToShoppingBag = view.findViewById(R.id.button_add_to_shopping_bag);
         mName = view.findViewById(R.id.text_view_name_prodcut_detail);
         mRecyclerViewComments = view.findViewById(R.id.recycler_view_comments);
@@ -119,13 +117,13 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
     private void initViews() {
         Log.d(TAG, "ProductDetailFragment +initViews ");
 
-        mFinalePrice.setText(mProduct.getPrice() + " " +
+        mLatestPrice.setText(mProduct.getPrice() + " " +
                 getContext().getResources().getString(R.string.toman));
-        mRegularPrice.setText(mProduct.getRegularPrice() + " " +
+        mOldPrice.setText(mProduct.getRegularPrice() + " " +
                 getContext().getResources().getString(R.string.toman));
-        mRegularPrice.setPaintFlags(mRegularPrice.getPaintFlags() |
+        mOldPrice.setPaintFlags(mOldPrice.getPaintFlags() |
                 Paint.STRIKE_THRU_TEXT_FLAG);
-        mDescription.setText(getDescription());
+        mInformation.setText(getInformation());
         mName.setText(mProduct.getName());
         setupImageSliderAdapter(mProduct.getImages());
         CommentRepository.getInstance(getActivity()).
@@ -170,7 +168,7 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
                 LinearLayoutManager.HORIZONTAL, false));
     }
 
-    private String getDescription() {
+    private String getInformation() {
         String description = mProduct.getDescription();
         if (description.equals(null))
             return description;

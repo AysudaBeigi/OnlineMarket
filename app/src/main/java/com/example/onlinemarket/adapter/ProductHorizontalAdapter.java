@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,12 +14,14 @@ import com.example.onlinemarket.controller.fragment.ProductDetailFragment;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.utils.UIUtils;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductsHorizontalAdapter extends RecyclerView.
-        Adapter<ProductsHorizontalAdapter.ProductHorizantalViewHolder> {
+public class ProductHorizontalAdapter extends RecyclerView.
+        Adapter<ProductHorizontalAdapter.ProductHorizantalViewHolder> {
 
     private Context mContext;
     private List<Product> mProductsItem;
@@ -35,7 +35,7 @@ public class ProductsHorizontalAdapter extends RecyclerView.
         notifyDataSetChanged();
     }
 
-    public ProductsHorizontalAdapter(Context context, List<Product> productsItem) {
+    public ProductHorizontalAdapter(Context context, List<Product> productsItem) {
         mContext = context;
         mProductsItem = productsItem;
     }
@@ -76,9 +76,9 @@ public class ProductsHorizontalAdapter extends RecyclerView.
 
     public class ProductHorizantalViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mProductName;
-        private TextView mProductPrice;
-        private ImageView mProductImage;
+        private MaterialTextView mProductName;
+        private MaterialTextView mProductPrice;
+        private ShapeableImageView mProductImage;
 
 
         public ProductHorizantalViewHolder(@NonNull View itemView) {
