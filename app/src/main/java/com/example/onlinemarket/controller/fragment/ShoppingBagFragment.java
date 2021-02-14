@@ -154,7 +154,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
 
     private void findViews(View view) {
         mShoppingRecyclerView = view.findViewById(R.id.recycler_view_cards);
-        mButtonFinalizeShopping = view.findViewById(R.id.button_add_to_shopping_bag);
+        mButtonFinalizeShopping = view.findViewById(R.id.button_finalize_shopping);
     }
 
     @Override

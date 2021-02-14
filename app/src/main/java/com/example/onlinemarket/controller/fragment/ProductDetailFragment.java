@@ -101,7 +101,7 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
     private void findViews(View view) {
         Log.d(TAG, "ProductDetailFragment +findViews ");
 
-        mSliderView = view.findViewById(R.id.fragment_home_slider);
+        mSliderView = view.findViewById(R.id.slider_view_product_detail);
         mOldPrice = view.findViewById(R.id.text_view_old_price_product_detail);
         mInformation = view.findViewById(R.id.text_view_information_product_detail);
         mLatestPrice = view.findViewById(R.id.text_view_latest_price_product_detail);

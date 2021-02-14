@@ -121,19 +121,17 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             mTextViewPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     updateCountAndPrice(++mProductCount);
+                    checkVisibility();
                 }
             });
 
             mTextViewMinus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mProductCount > 1) {
-                        updateCountAndPrice(--mProductCount);
-                    } else {
-                        mTextViewMinus.setVisibility(View.GONE);
-                        mImageViewTrash.setVisibility(View.VISIBLE);
-                    }
+                    updateCountAndPrice(--mProductCount);
+                    checkVisibility();
                 }
             });
 
@@ -151,6 +149,18 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                 }
             });
 
+        }
+
+        private void checkVisibility() {
+            if (mProductCount > 1) {
+                mTextViewMinus.setVisibility(View.VISIBLE);
+                mImageViewTrash.setVisibility(View.GONE);
+
+            } else {
+                mTextViewMinus.setVisibility(View.GONE);
+                mImageViewTrash.setVisibility(View.VISIBLE);
+
+            }
         }
 
         private void updateCountAndPrice(int productCount) {
