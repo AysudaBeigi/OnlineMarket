@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.customer.Customer;
@@ -66,20 +68,26 @@ public class SignUpFragment extends Fragment {
                     showEmailCantEmptySnackBar(view);
                 } else {
                     SignUpCustomer();
-                    replaceUserProfileFragment();
+                    replaceUserProfileFragment(view);
 
                 }
             }
         });
     }
 
-    private void replaceUserProfileFragment() {
+    private void replaceUserProfileFragment(View view) {
         Log.d(TAG, "SignUpCustomer +replaceUserProfileFragment");
 
-        getActivity().getSupportFragmentManager().beginTransaction()
+        NavController navController= Navigation.findNavController(view);
+        navController.navigate(R.id.action_SignUpFragment_to_UserProfileFragment);
+
+
+
+       /* getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_main_activity,
                         UserProfileFragment.newInstance())
                 .commit();
+        */
     }
 
     private void SignUpCustomer() {

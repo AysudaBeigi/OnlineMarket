@@ -1,12 +1,14 @@
 package com.example.onlinemarket.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
@@ -52,9 +54,9 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        Category categoriesItem = mCategoriesItems.get(position);
-        holder.bindCategory(categoriesItem, position);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        Category category = mCategoriesItems.get(position);
+        holder.bindCategory(category, position);
+        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -66,7 +68,7 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
 
 
             }
-        });
+        });*/
     }
 
     @Override
@@ -80,12 +82,24 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
         private MaterialTextView mCategoryName;
         private ShapeableImageView mCategoryImage;
         private MaterialCardView mCardView;
+        private Category mCategory;
         ArrayList<Integer> mColors = new ArrayList<>();
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             findItemViews(itemView);
             initColors();
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NavController navController= Navigation.findNavController(itemView);
+                    Bundle bundle=new Bundle();
+                    bundle.putInt(SubCategoryProductsFragment.ARGS_SUBCATEGORY_ID,mCategory.getId());
+                    navController.navigate(
+                            R.id.action_HomeFragment_to_SubCategoryProductsFragment
+                    ,bundle);
+                }
+            });
 
         }
 
@@ -106,10 +120,11 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
 
         }
 
-        private void bindCategory(Category categoriesItem, int position) {
+        private void bindCategory(Category category, int position) {
+            mCategory=category;
             mCardView.setCardBackgroundColor(mColors.get(position));
-            mCategoryName.setText(categoriesItem.getName() + "");
-            Image imageItem = categoriesItem.getImages();
+            mCategoryName.setText(category.getName() + "");
+            Image imageItem = category.getImages();
             List<String> imagesItemList = new ArrayList<>();
 
             for (int i = 0; i < imageItem.getSrc().length(); i++) {

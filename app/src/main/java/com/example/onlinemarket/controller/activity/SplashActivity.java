@@ -18,7 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class SplashActivity extends AppCompatActivity {
 
-    public static final String TAG = "TAG";
+    public static final String TAG = "onlineMarket";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

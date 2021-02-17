@@ -8,11 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.controller.fragment.ShoppingBagFragment;
 import com.example.onlinemarket.model.Card;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
@@ -60,7 +60,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         Product order = mOrderList.get(position);
         holder.bindProduct(order);
-        holder.setListener(position);
+        //holder.setListener();
     }
 
     @Override
@@ -84,6 +84,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         public CardViewHolder(@NonNull View itemView) {
             super(itemView);
             findHolderViews(itemView);
+            setListener(itemView);
         }
 
 
@@ -117,7 +118,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
         }
 
-        private void setListener(int position) {
+        private void setListener(View view) {
             mTextViewPlus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -137,14 +138,17 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
             mImageViewTrash.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View view) {
                     mCardDBRepository.deleteCart(mCard);
-                    ((AppCompatActivity) mContext).getSupportFragmentManager()
+                   NavController navController=Navigation.findNavController(view);
+                   navController.navigate(
+                           R.id.action_productDetailFragment_to_ShoppingBagFragment);
+                    /*((AppCompatActivity) mContext).getSupportFragmentManager()
                             .beginTransaction().
                             replace(R.id.fragment_container_main_activity,
                                     ShoppingBagFragment.newInstance())
                             .commit();
-
+*/
 
                 }
             });

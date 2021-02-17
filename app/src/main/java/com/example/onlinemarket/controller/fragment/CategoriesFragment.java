@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CategoriesFragmentAdapter;
 import com.example.onlinemarket.adapter.ProductHorizontalAdapter;
@@ -20,8 +19,8 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriesFragment extends Fragment implements IOnBackPress {
-    public static final String TAG = "CategoryFragment";
+public class CategoriesFragment extends Fragment   {
+    public static String TAG = "OnlineMarket";
 
     private RecyclerView mRecyclerViewCategoryOne, mRecyclerViewCategoryTwo,
             mRecyclerViewCategoryThree, mRecyclerViewCategoryFour,
@@ -324,8 +323,5 @@ public class CategoriesFragment extends Fragment implements IOnBackPress {
     }
 
 
-    @Override
-    public boolean onBackPressed() {
-        return true;
-    }
+
 }

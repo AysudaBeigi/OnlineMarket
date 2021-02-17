@@ -1,85 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer_navigation"
-    app:startDestination="@id/home_fragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/HomeFragment">
+
     <fragment
-        android:id="@+id/home_fragment"
+        android:id="@+id/HomeFragment"
         android:name="com.example.onlinemarket.controller.fragment.HomeFragment"
-        android:label="HomeFragment">
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_categoryFragment"
-            app:destination="@id/category_fragment" />
+            android:id="@+id/action_HomeFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
         <action
-            android:id="@+id/action_homeFragment_to_productDetailFragment"
-            app:destination="@id/product_detail_fragment">
-            <argument
-                android:name="productPage"
-                app:argType="android.net.Uri" />
-        </action>
-    </fragment>
-    <fragment
-        android:id="@+id/category_fragment"
-        android:name="com.example.onlinemarket.controller.fragment.SubCategoryProductsFragment"
-        android:label="CategoryFragment">
+            android:id="@+id/action_HomeFragment_to_SubCategoryProductsFragment"
+            app:destination="@id/SubCategoryProductsFragment" />
+
         <action
-            android:id="@+id/action_categoryListFragment_to_productListFragment"
-            app:destination="@id/product_detail_fragment">
-            <argument
-                android:name="categoryName"
-                app:argType="string" />
-        </action>
-    </fragment>
-    <fragment
-        android:id="@+id/shopping_bag_fragment"
-        android:name="com.example.onlinemarket.controller.fragment.ShoppingBagFragment"
-        android:label="ShoppingBagFragment">
-        <action
-            android:id="@+id/action_categoryListFragment_to_productListFragment"
-            app:destination="@id/product_detail_fragment">
-            <argument
-                android:name="categoryName"
-                app:argType="string" />
-        </action>
-    </fragment>
-    <fragment
-        android:id="@+id/user_profile_fragment"
-        android:name="com.example.onlinemarket.controller.fragment.UserProfileFragment"
-        android:label="UserProfileFragment">
-        <action
-            android:id="@+id/action_categoryListFragment_to_productListFragment"
-            app:destination="@id/product_detail_fragment">
-            <argument
-                android:name="categoryName"
-                app:argType="string" />
-        </action>
-    </fragment>
+            android:id="@+id/action_HomeFragment_to_SearchResultFragment"
+            app:destination="@id/SearchResultFragment" />
 
 
 
-    <!--<fragment
-        android:id="@+id/productListFragment"
-        android:name="com.example.onlineshop.view.fragment.ProductListFragment"
-        android:label="ProductListFragment">
-        <action
-            android:id="@+id/action_productListFragment_to_productPageFragment"
-            app:destination="@id/productPageFragment">
-            <argument
-                android:name="productPage"
-                app:argType="android.net.Uri" />
-        </action>
-        <argument
-            android:name="categoryName"
-            app:argType="string" />
-    </fragment>-->
+    </fragment>
     <fragment
-        android:id="@+id/product_detail_fragment"
+        android:id="@+id/productDetailFragment"
         android:name="com.example.onlinemarket.controller.fragment.ProductDetailFragment"
-        android:label="ProductDetailFragment">
+        android:label="productDetailFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        tools:layout="@layout/fragment_product_detail">
+
         <argument
-            android:name="productPage"
-            app:argType="android.net.Uri" />
+            android:name="product"
+            app:argType="com.example.onlinemarket.model.product.Product" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_PostCommentFragment"
+            app:destination="@id/PostCommentFragment" />
+        <action
+            android:id="@+id/action_productDetailFragment_to_ShoppingBagFragment"
+            app:destination="@id/ShoppingBagFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/PostCommentFragment"
+        android:name="com.example.onlinemarket.controller.fragment.PostCommentFragment"
+        android:label="PostCommentFragment"
+        tools:layout="@layout/fragment_post_comment">
+        <argument
+            android:name="product"
+            app:argType="com.example.onlinemarket.model.product.Product" />
+        <action
+            android:id="@+id/action_PostCommentFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/ShoppingBagFragment"
+        android:name="com.example.onlinemarket.controller.fragment.ShoppingBagFragment"
+        android:label="ShoppingBagFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        tools:layout="@layout/fragment_shopping_bag">
+
+        <action
+            android:id="@+id/action_ShoppingBagFragment_to_SignUpFragment"
+            app:destination="@id/SignUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SignUpFragment"
+        android:name="com.example.onlinemarket.controller.fragment.SignUpFragment"
+        android:label="ShoppingBagFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        tools:layout="@layout/fragment_sign_up">
+
+
+        <action
+            android:id="@+id/action_SignUpFragment_to_UserProfileFragment"
+            app:destination="@id/UserProfileFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/UserProfileFragment"
+        android:name="com.example.onlinemarket.controller.fragment.UserProfileFragment"
+        android:label="UserProfileFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        tools:layout="@layout/fragment_user_profile"/>
+
+
+    <fragment
+        android:id="@+id/CategoriesFragment"
+        android:name="com.example.onlinemarket.controller.fragment.CategoriesFragment"
+        android:label="CategoriesFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        tools:layout="@layout/fragment_categories">
+        <action
+            android:id="@+id/action_CategoriesFragment_to_SubCategoryProductsFragment"
+            app:destination="@id/SubCategoryProductsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SubCategoryProductsFragment"
+        android:name="com.example.onlinemarket.controller.fragment.SubCategoryProductsFragment"
+        android:label="SubCategoryProductsFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        tools:layout="@layout/fragment_sub_category_products">
+
+        <action
+            android:id="@+id/action_SubCategoryProductsFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+        <action
+            android:id="@+id/action_SubCategoryProductsFragment_to_SearchResultFragment"
+            app:destination="@id/SearchResultFragment" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/SearchResultFragment"
+        android:name="com.example.onlinemarket.controller.fragment.SearchResultFragment"
+        android:label="SearchResultFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        tools:layout="@layout/fragment_search_result">
+    <argument
+        android:name="query"
+        app:argType="string" />
+    <argument
+        android:name="categoryId"
+        app:argType="integer" />
+        <action
+            android:id="@+id/action_SearchResultFragment_to_SortingDialogFragment"
+            app:destination="@id/SortingDialogFragment" />
+        <action
+            android:id="@+id/action_SearchResultFragment_to_FilteringFragment"
+            app:destination="@id/FilteringFragment" />
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/SortingDialogFragment"
+        android:name="com.example.onlinemarket.controller.fragment.SortingDialogFragment"
+        android:label="SortingDialogFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        tools:layout="@layout/fragment_sorting"/>
+
+    <fragment
+        android:id="@+id/FilteringFragment"
+        android:name="com.example.onlinemarket.controller.fragment.FilteringFragment"
+        android:label="FilteringFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        tools:layout="@layout/fragment_filttering"/>
 
 
 </navigation>

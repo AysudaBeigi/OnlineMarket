@@ -1,12 +1,14 @@
 package com.example.onlinemarket.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
@@ -53,7 +55,7 @@ public class ProductVerticalAdapter extends
     public void onBindViewHolder(@NonNull ProductVerticalHolder holder, int position) {
         Product productItem = mProductsItem.get(position);
         holder.bindProduct(productItem);
-
+/*
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +73,7 @@ public class ProductVerticalAdapter extends
                 });
 
             }
-        });
+        });*/
     }
 
     @Override
@@ -84,10 +86,22 @@ public class ProductVerticalAdapter extends
 
         private MaterialTextView mName, mPrice;
         private ShapeableImageView mImage;
+        private Product mProduct;
 
         public ProductVerticalHolder(@NonNull View itemView) {
             super(itemView);
             findHolderViews(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NavController navController= Navigation.findNavController(itemView);
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
+                    navController.navigate(
+                            R.id.action_SubCategoryProductsFragment_to_productDetailFragment
+                    , bundle);
+                }
+            });
 
         }
 
@@ -99,11 +113,12 @@ public class ProductVerticalAdapter extends
 
         }
 
-        private void bindProduct(Product productItem) {
-            mName.setText(productItem.getName() + "");
-            mPrice.setText(productItem.getPrice() + " " +
+        private void bindProduct(Product product) {
+            mProduct=product;
+            mName.setText(product.getName() + "");
+            mPrice.setText(product.getPrice() + " " +
                     mContext.getResources().getString(R.string.toman));
-            List<Image> productImagesList = productItem.getImages();
+            List<Image> productImagesList = product.getImages();
             List<String> productImagesSrcList = new ArrayList<>();
             for (int i = 0; i < productImagesList.size(); i++) {
                 productImagesSrcList.add(productImagesList.get(i).getSrc());

@@ -1,12 +1,14 @@
 package com.example.onlinemarket.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
@@ -55,17 +57,19 @@ public class ProductHorizontalAdapter extends RecyclerView.
         Product productItem = mProductsItem.get(position);
         holder.bindProduct(productItem);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+       /* holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                ((AppCompatActivity) mContext).
+                *//*((AppCompatActivity) mContext).
                         getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_main_activity,
                                 ProductDetailFragment.
                                         newInstance(productItem)).commit();
+
+               *//*
             }
-        });
+        });*/
     }
 
     @Override
@@ -79,13 +83,24 @@ public class ProductHorizontalAdapter extends RecyclerView.
         private MaterialTextView mProductName;
         private MaterialTextView mProductPrice;
         private ShapeableImageView mProductImage;
+        private Product mProduct;
 
 
         public ProductHorizantalViewHolder(@NonNull View itemView) {
             super(itemView);
 
             findHolderViews(itemView);
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NavController navController=Navigation.findNavController(itemView);
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
+                    navController.navigate(
+                            R.id.action_HomeFragment_to_productDetailFragment
+                    ,bundle);
+                }
+            });
         }
 
 
@@ -96,10 +111,11 @@ public class ProductHorizontalAdapter extends RecyclerView.
 
         }
 
-        private void bindProduct(Product productItem) {
-            mProductName.setText(productItem.getName() + "");
-            mProductPrice.setText(productItem.getPrice() + "");
-            List<Image> imagesList = productItem.getImages();
+        private void bindProduct(Product product) {
+            mProduct=product;
+            mProductName.setText(product.getName() + "");
+            mProductPrice.setText(product.getPrice() + "");
+            List<Image> imagesList = product.getImages();
             List<String> imagesSrclList = new ArrayList<>();
             for (int i = 0; i < imagesList.size(); i++) {
                 imagesSrclList.add(imagesList.get(i).getSrc());

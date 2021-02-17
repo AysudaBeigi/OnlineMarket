@@ -40,13 +40,6 @@ public class UserProfileFragment extends Fragment {
         mCustomer=CustomerDBRepository.getInstance(getActivity()).
                 getCustomer();
 
-        if(mCustomer==null){
-            getActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container_main_activity,
-                            SignUpFragment.newInstance())
-                    .commit();
-        }
 
     }
 
@@ -79,9 +72,7 @@ public class UserProfileFragment extends Fragment {
 
 
 
-    private void findViews(View view) {
-        Log.d(TAG,"UserProfileFragment + findViews ");
-
-        mTextViewUserEmail=view.findViewById(R.id.text_view_user_email);
+        ProfileFragment + findViews ");" +
+            "mTextViewUserEmail=view.findViewById(R.id.text_view_user_email);
     }
-}
+}                           

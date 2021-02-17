@@ -8,10 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CommentAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
@@ -36,9 +37,9 @@ import org.jsoup.safety.Whitelist;
 import java.util.List;
 
 
-public class ProductDetailFragment extends Fragment implements IOnBackPress {
+public class ProductDetailFragment extends Fragment  {
 
-    private static final String ARGS_PRODUCT = "argsProduct";
+    public static final String ARGS_PRODUCT = "argsProduct";
     private Product mProduct;
     private ImageSliderAdapter mImageSliderAdapter;
     private SliderView mSliderView;
@@ -62,11 +63,10 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
     }
 
 
-    public static ProductDetailFragment newInstance(Product product) {
+    public static ProductDetailFragment newInstance() {
         Log.d(TAG, "ProductDetailFragment +newInstance ");
         ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARGS_PRODUCT, product);
         fragment.setArguments(args);
         return fragment;
 
@@ -94,7 +94,7 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
                 container, false);
         findViews(view);
         initViews();
-        setListener();
+        setListener(view);
         return view;
     }
 
@@ -183,7 +183,7 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
 
     }
 
-    private void setListener() {
+    private void setListener(View layoutView) {
         Log.d(TAG, "ProductDetailFragment +setListener ");
 
         mButtonAddToShoppingBag.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +214,7 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
                             R.string.please_fist_sign_up);
                     snackbar.show();
                 } else {
-                    replacePostCommentFragment();
+                    replacePostCommentFragment(layoutView);
                 }
 
             }
@@ -222,12 +222,20 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
 
     }
 
-    private void replacePostCommentFragment() {
-        getActivity().getSupportFragmentManager()
+    private void replacePostCommentFragment(View view) {
+
+        NavController navController= Navigation.findNavController(view);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
+        navController.navigate(R.id.action_productDetailFragment_to_PostCommentFragment,bundle);
+
+        /*getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container_main_activity,
                         PostCommentFragment.newInstance(mProduct))
                 .commit();
+        */
+
     }
 
 
@@ -270,9 +278,6 @@ public class ProductDetailFragment extends Fragment implements IOnBackPress {
         }
     }*/
 
-    @Override
-    public boolean onBackPressed() {
-        return true;
-    }
+
 
 }

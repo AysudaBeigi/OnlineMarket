@@ -1,12 +1,14 @@
 package com.example.onlinemarket.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
@@ -26,21 +28,21 @@ public class CategoriesFragmentAdapter extends
 
     private static final String TAG = "CategoryAdapter";
     private Context mContext;
-    private List<Category> mCategoriesItems;
+    private List<Category> mCategories;
 
     public List<Category> getCategoriesItem() {
-        return mCategoriesItems;
+        return mCategories;
 
     }
 
     public void setCategoriesItem(List<Category> categoriesItems) {
-        mCategoriesItems = categoriesItems;
+        mCategories = categoriesItems;
         notifyDataSetChanged();
     }
 
-    public CategoriesFragmentAdapter(Context context, List<Category> categoriesItems) {
+    public CategoriesFragmentAdapter(Context context, List<Category> categories) {
         mContext = context;
-        mCategoriesItems = categoriesItems;
+        mCategories = categories;
     }
 
     @NonNull
@@ -58,9 +60,9 @@ public class CategoriesFragmentAdapter extends
     @Override
     public void onBindViewHolder(@NonNull CategoriesFragmentViewHolder holder,
                                  int position) {
-        Category categoriesItem = mCategoriesItems.get(position);
-        holder.bindCategory(categoriesItem);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        Category category = mCategories.get(position);
+        holder.bindCategory(category);
+        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((AppCompatActivity) mContext).
@@ -72,12 +74,12 @@ public class CategoriesFragmentAdapter extends
 
 
             }
-        });
+        });*/
     }
 
     @Override
     public int getItemCount() {
-        return mCategoriesItems.size();
+        return mCategories.size();
     }
 
 
@@ -85,11 +87,26 @@ public class CategoriesFragmentAdapter extends
 
         private MaterialTextView mCategoryName;
         private ShapeableImageView mCategoryImage;
-
+        private Category mCategory;
 
         public CategoriesFragmentViewHolder(@NonNull View itemView) {
             super(itemView);
             findHolderViews(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NavController navController = Navigation.findNavController(itemView);
+                    Bundle bundle=new Bundle();
+                    bundle.
+                            putInt(SubCategoryProductsFragment.ARGS_SUBCATEGORY_ID,mCategory.getId());
+                    navController.
+                            navigate(R.id.
+                                    action_CategoriesFragment_to_SubCategoryProductsFragment
+                            ,bundle);
+
+                }
+            });
+
         }
 
 
@@ -99,9 +116,10 @@ public class CategoriesFragmentAdapter extends
 
         }
 
-        private void bindCategory(Category categoriesItem) {
-            mCategoryName.setText(categoriesItem.getName() + "");
-            Image imageItem = categoriesItem.getImages();
+        private void bindCategory(Category category) {
+            mCategory=category;
+            mCategoryName.setText(category.getName() + "");
+            Image imageItem = category.getImages();
             List<String> imagesItemList = new ArrayList<>();
 
             for (int i = 0; i < imageItem.getSrc().length(); i++) {

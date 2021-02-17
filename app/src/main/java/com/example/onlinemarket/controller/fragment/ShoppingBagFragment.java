@@ -7,10 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CardAdapter;
 import com.example.onlinemarket.model.Card;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ShoppingBagFragment extends Fragment implements IOnBackPress {
+public class ShoppingBagFragment extends Fragment   {
 
     public static String TAG = "OnlineMarket";
     private CustomerDBRepository mCustomerDBRepository;
@@ -70,7 +71,7 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
             public void onClick(View v) {
                 mCustomer = mCustomerDBRepository.getCustomer();
                 if (mCustomer == null) {
-                    replaceSignUpFragment();
+                    replaceSignUpFragment(view);
                 } else {
 
                     Order order = getOrder();
@@ -109,10 +110,17 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         return lineItemsItemList;
     }
 
-    private void replaceSignUpFragment() {
-        getActivity().getSupportFragmentManager().beginTransaction()
+    private void replaceSignUpFragment(View view) {
+
+        NavController navController= Navigation.findNavController(view);
+        navController.navigate(R.id.action_ShoppingBagFragment_to_SignUpFragment);
+
+
+      /*  getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_main_activity,
                         SignUpFragment.newInstance()).commit();
+        */
+
     }
 
 
@@ -157,8 +165,6 @@ public class ShoppingBagFragment extends Fragment implements IOnBackPress {
         mButtonFinalizeShopping = view.findViewById(R.id.button_finalize_shopping);
     }
 
-    @Override
-    public boolean onBackPressed() {
-        return true;
-    }
+
+
 }

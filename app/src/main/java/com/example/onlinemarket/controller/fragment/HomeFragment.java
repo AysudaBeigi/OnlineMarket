@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.HomeFragmentCategoriesAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
@@ -28,7 +28,7 @@ import com.smarteist.autoimageslider.SliderView;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements IOnBackPress {
+public class HomeFragment extends Fragment   {
 
     private SliderView mSliderView;
     private ImageSliderAdapter mImageSliderAdapter;
@@ -73,15 +73,15 @@ public class HomeFragment extends Fragment implements IOnBackPress {
 
         findViews(view);
         initViews();
-        setListeners();
+        setListeners(view);
         return view;
     }
 
-    private void setListeners() {
+    private void setListeners(View layoutView) {
         mSearchViewHomeFragment.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                replaceSearchResultFragment(query);
+                replaceSearchResultFragment(query,layoutView);
                 return true;
             }
 
@@ -227,21 +227,26 @@ public class HomeFragment extends Fragment implements IOnBackPress {
 
     }
 
-    private void replaceSearchResultFragment(String query) {
+    private void replaceSearchResultFragment(String query,View view) {
 
-        ((AppCompatActivity) getContext()).getSupportFragmentManager()
+
+        NavController navController= Navigation.findNavController(view);
+        Bundle bundle=new Bundle();
+        bundle.putString(SearchResultFragment.ARGS_QUERY,query);
+        bundle.putInt(SearchResultFragment.ARGS_CATEGORY_ID,-1);
+        navController.navigate(R.id.action_HomeFragment_to_SearchResultFragment
+        ,bundle);
+
+        /*((AppCompatActivity) getContext()).getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container_main_activity,
                         SearchResultFragment.
                                 newInstance(query, -1))
                 .commit();
+        */
+
     }
 
-
-    @Override
-    public boolean onBackPressed() {
-        return true;
-    }
 
 
 }

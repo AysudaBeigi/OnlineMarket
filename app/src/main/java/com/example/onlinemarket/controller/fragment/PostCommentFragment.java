@@ -9,6 +9,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.model.Comment;
@@ -44,12 +46,11 @@ public class PostCommentFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static PostCommentFragment newInstance(Product product) {
+    public static PostCommentFragment newInstance() {
         Log.d(TAG, "PostCommentFragment +newInstance");
 
         PostCommentFragment fragment = new PostCommentFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARGS_PRODUCT, product);
         fragment.setArguments(args);
         return fragment;
     }
@@ -99,7 +100,7 @@ public class PostCommentFragment extends Fragment {
                                 public void onItemResponse(Comment comment) {
                                     Log.d(TAG, "PostCommentFragment + postComment+" +
                                             " onItemResponse");
-                                    replaceProductDetailFragment();
+                                    replaceProductDetailFragment(view);
                                 }
                             });
 
@@ -128,14 +129,21 @@ public class PostCommentFragment extends Fragment {
         });
     }
 
-    private void replaceProductDetailFragment() {
+    private void replaceProductDetailFragment(View view) {
         Log.d(TAG, "PostCommentFragment +replaceProductDetailFragment");
 
-        getActivity().getSupportFragmentManager()
+        NavController navController= Navigation.findNavController(view);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
+        navController.navigate(R.id.action_PostCommentFragment_to_productDetailFragment
+        ,bundle);
+
+       /* getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container_main_activity
                         , ProductDetailFragment.newInstance(mProduct))
-                .commit();
+                .commit();*/
+
     }
 
     private Comment getComment(String review) {
@@ -154,14 +162,14 @@ public class PostCommentFragment extends Fragment {
         snackbar.show();
     }
 
-    private void replaceSignUpFragment() {
+  /*  private void replaceSignUpFragment() {
         Log.d(TAG, "replaceSignUpFragment ");
 
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container_main_activity,
                         SignUpFragment.newInstance());
     }
-
+*/
     private void rating(RadioButton radioButton, int rate) {
         radioButton.setChecked(true);
         mRate = rate;

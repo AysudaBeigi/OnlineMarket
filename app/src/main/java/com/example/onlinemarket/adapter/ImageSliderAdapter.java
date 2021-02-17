@@ -40,7 +40,8 @@ public class ImageSliderAdapter extends
     public ImageSliderViewHolder onCreateViewHolder(ViewGroup parent) {
         Log.d(TAG,"ImageSliderAdapter +onCreateViewHolder");
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.image_slider_item_view, null);
+        View view = LayoutInflater.from(mContext).
+                inflate(R.layout.image_slider_item_view, null);
         return new ImageSliderViewHolder(view);
     }
 

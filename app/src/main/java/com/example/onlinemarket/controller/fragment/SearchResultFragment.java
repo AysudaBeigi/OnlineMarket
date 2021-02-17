@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductVerticalAdapter;
 import com.example.onlinemarket.model.product.Product;
@@ -21,7 +20,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import java.util.List;
 import java.util.Map;
 
-public class SearchResultFragment extends Fragment implements IOnBackPress {
+public class SearchResultFragment extends Fragment   {
 
     public static final String ARGS_QUERY = "ARGS_QUERY";
     public static final String ARGS_CATEGORY_ID = "argsCategoryId";
@@ -41,11 +40,9 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
         // Required empty public constructor
     }
 
-    public static SearchResultFragment newInstance(String query, int categoryId) {
+    public static SearchResultFragment newInstance() {
         SearchResultFragment fragment = new SearchResultFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARGS_QUERY, query);
-        args.putInt(ARGS_CATEGORY_ID, categoryId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,7 +52,7 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
         super.onCreate(savedInstanceState);
 
         mMarketRepository = new MarketRepository(getContext());
-        mQuery = (String) getArguments().get(ARGS_QUERY);
+        mQuery = getArguments().getString(ARGS_QUERY);
         mCategoryId = getArguments().getInt(ARGS_CATEGORY_ID);
         if (mCategoryId == -1) {
             mSearchQueryMap = NetworkParams.getSearchAllProducts(mQuery);
@@ -151,8 +148,6 @@ public class SearchResultFragment extends Fragment implements IOnBackPress {
     }
 
 
-    @Override
-    public boolean onBackPressed() {
-        return true;
-    }
+
+
 }

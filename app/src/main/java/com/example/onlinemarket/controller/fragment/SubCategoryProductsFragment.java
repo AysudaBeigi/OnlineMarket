@@ -6,12 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.onlinemarket.IOnBackPress;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductVerticalAdapter;
 import com.example.onlinemarket.model.product.Product;
@@ -20,7 +20,7 @@ import com.example.onlinemarket.repository.MarketRepository;
 import java.util.List;
 
 
-public class SubCategoryProductsFragment extends Fragment implements IOnBackPress {
+public class SubCategoryProductsFragment extends Fragment   {
     public static final String ARGS_SUBCATEGORY_ID = "argsSubcategoryId";
     private RecyclerView mRecyclerViewSubCategoryProducts;
     private MarketRepository mMarketRepository;
@@ -31,10 +31,9 @@ public class SubCategoryProductsFragment extends Fragment implements IOnBackPres
     }
 
 
-    public static SubCategoryProductsFragment newInstance(int subCategoryId) {
+    public static SubCategoryProductsFragment newInstance() {
         SubCategoryProductsFragment fragment = new SubCategoryProductsFragment();
         Bundle args = new Bundle();
-        args.putInt(ARGS_SUBCATEGORY_ID, subCategoryId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,14 +52,14 @@ public class SubCategoryProductsFragment extends Fragment implements IOnBackPres
                 container, false);
         findViews(view);
         initViews();
-        setListeners();
+        setListeners(view);
         return view;
     }
-    private void setListeners() {
+    private void setListeners(View rootLayout) {
         mSearchViewSubCategoryProducts.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                replaceSearchResultFragment(query);
+                replaceSearchResultFragment(query,rootLayout);
                 return true;
             }
 
@@ -70,14 +69,16 @@ public class SubCategoryProductsFragment extends Fragment implements IOnBackPres
             }
         });
     }
-    private void replaceSearchResultFragment(String query) {
+    private void replaceSearchResultFragment(String query,View view) {
 
-        ((AppCompatActivity) getContext()).
-                getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container_main_activity,
-                        SearchResultFragment.
-                                newInstance(query,mSubCategoryId))
-                .commit();
+        NavController navController= Navigation.findNavController(view);
+        Bundle bundle=new Bundle();
+        bundle.putString(SearchResultFragment.ARGS_QUERY,query);
+        bundle.putInt(SearchResultFragment.ARGS_CATEGORY_ID,-mSubCategoryId);
+        navController.navigate(
+                R.id.action_SubCategoryProductsFragment_to_SearchResultFragment
+        ,bundle);
+
     }
 
 
@@ -109,11 +110,6 @@ public class SubCategoryProductsFragment extends Fragment implements IOnBackPres
         mRecyclerViewSubCategoryProducts.setAdapter(productVerticalAdapter);
     }
 
-
-    @Override
-    public boolean onBackPressed() {
-        return true;
-    }
 
 
 }
