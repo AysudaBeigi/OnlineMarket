@@ -16,7 +16,7 @@ import com.google.android.material.textview.MaterialTextView;
 public class UserProfileFragment extends Fragment {
     private MaterialTextView mTextViewUserEmail;
     private Customer mCustomer;
-    public static String TAG="OnlineMarket";
+    public static String TAG = "OnlineMarket";
 
     public UserProfileFragment() {
         // Required empty public constructor
@@ -24,7 +24,7 @@ public class UserProfileFragment extends Fragment {
 
 
     public static UserProfileFragment newInstance() {
-        Log.d(TAG,"UserProfileFragment + newInstance ");
+        Log.d(TAG, "UserProfileFragment + newInstance ");
         UserProfileFragment fragment = new UserProfileFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -35,9 +35,9 @@ public class UserProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"UserProfileFragment + onCreate ");
+        Log.d(TAG, "UserProfileFragment + onCreate ");
 
-        mCustomer=CustomerDBRepository.getInstance(getActivity()).
+        mCustomer = CustomerDBRepository.getInstance(getActivity()).
                 getCustomer();
 
 
@@ -46,7 +46,7 @@ public class UserProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_user_profile,
+        View view = inflater.inflate(R.layout.fragment_user_profile,
                 container, false);
 
         findViews(view);
@@ -57,11 +57,11 @@ public class UserProfileFragment extends Fragment {
     }
 
     private void initViews() {
-        Log.d(TAG,"UserProfileFragment + initViews ");
+        Log.d(TAG, "UserProfileFragment + initViews ");
 
-        if(mCustomer!=null){
-            Log.d(TAG,"UserProfileFragment + mCustomer!=null ");
-            Log.d(TAG,"UserProfileFragment + mCustomer email is : "+mCustomer.getEmail());
+        if (mCustomer != null) {
+            Log.d(TAG, "UserProfileFragment + mCustomer!=null ");
+            Log.d(TAG, "UserProfileFragment + mCustomer email is : " + mCustomer.getEmail());
 
             mTextViewUserEmail.setText(CustomerDBRepository.getInstance(getActivity()).
                     getCustomer().getEmail());
@@ -70,9 +70,9 @@ public class UserProfileFragment extends Fragment {
     }
 
 
+    private void findViews(View view) {
 
-
-        ProfileFragment + findViews ");" +
-            "mTextViewUserEmail=view.findViewById(R.id.text_view_user_email);
+        mTextViewUserEmail = view.findViewById(R.id.text_view_user_email);
     }
+
 }                           
