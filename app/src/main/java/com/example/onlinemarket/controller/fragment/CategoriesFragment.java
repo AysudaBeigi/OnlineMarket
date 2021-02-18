@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CategoriesFragmentAdapter;
-import com.example.onlinemarket.adapter.ProductHorizontalAdapter;
+import com.example.onlinemarket.adapter.CategoryProductsHorizontalAdapter;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.MarketRepository;
@@ -30,7 +30,7 @@ public class CategoriesFragment extends Fragment   {
     private CategoriesFragmentAdapter mAdapterOne, mAdapterTwo, mAdapterThree,
             mAdapterFour, mAdapterFive,
             mAdapterSix;
-    private ProductHorizontalAdapter mPAdapterOne, mPAdapterTwo, mPAdapterThree,
+    private CategoryProductsHorizontalAdapter mPAdapterOne, mPAdapterTwo, mPAdapterThree,
             mPAdapterFour, mPAdapterFive,
             mPAdapterSix;
 
@@ -119,7 +119,7 @@ public class CategoriesFragment extends Fragment   {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterOne == null) {
-                                                mPAdapterOne = new ProductHorizontalAdapter(getContext(),
+                                                mPAdapterOne = new CategoryProductsHorizontalAdapter(getContext(),
                                                         products);
                                                 mRecyclerViewCategoryOne.setAdapter(mPAdapterOne);
                                             } else {
@@ -153,7 +153,7 @@ public class CategoriesFragment extends Fragment   {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterTwo == null) {
-                                                mPAdapterTwo = new ProductHorizontalAdapter(
+                                                mPAdapterTwo = new CategoryProductsHorizontalAdapter(
                                                         getContext(),
                                                         products);
                                                 mRecyclerViewCategoryTwo.setAdapter(mPAdapterTwo);
@@ -188,7 +188,7 @@ public class CategoriesFragment extends Fragment   {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterThree == null) {
-                                                mPAdapterThree = new ProductHorizontalAdapter(getContext(),
+                                                mPAdapterThree = new CategoryProductsHorizontalAdapter(getContext(),
                                                         products);
                                                 mRecyclerViewCategoryThree.setAdapter(mPAdapterThree);
                                             } else {
@@ -222,7 +222,7 @@ public class CategoriesFragment extends Fragment   {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterFour == null) {
-                                                mPAdapterFour = new ProductHorizontalAdapter(getContext(),
+                                                mPAdapterFour = new CategoryProductsHorizontalAdapter(getContext(),
                                                         products);
                                                 mRecyclerViewCategoryFour.setAdapter(mPAdapterFour);
                                             } else {
@@ -256,7 +256,7 @@ public class CategoriesFragment extends Fragment   {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterFive == null) {
-                                                mPAdapterFive = new ProductHorizontalAdapter(getContext(),
+                                                mPAdapterFive = new CategoryProductsHorizontalAdapter(getContext(),
                                                         products);
                                                 mRecyclerViewCategoryFive.setAdapter(mPAdapterFive);
                                             } else {
@@ -290,7 +290,7 @@ public class CategoriesFragment extends Fragment   {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterSix == null) {
-                                                mPAdapterSix = new ProductHorizontalAdapter(getContext(),
+                                                mPAdapterSix = new CategoryProductsHorizontalAdapter(getContext(),
                                                         products);
                                                 mRecyclerViewCategorySix.setAdapter(mPAdapterSix);
                                             } else {

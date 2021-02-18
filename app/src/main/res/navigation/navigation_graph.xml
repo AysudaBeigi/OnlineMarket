@@ -116,6 +116,11 @@
         <action
             android:id="@+id/action_CategoriesFragment_to_SubCategoryProductsFragment"
             app:destination="@id/SubCategoryProductsFragment" />
+        <action
+            android:id="@+id/action_CategoriesFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+
+
     </fragment>
     <fragment
         android:id="@+id/SubCategoryProductsFragment"

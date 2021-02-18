@@ -80,6 +80,9 @@ public class ShoppingBagFragment extends Fragment   {
                         public void onItemResponse(Order order) {
                             Log.d(TAG, "postOrder+ onItemResponse + order is " +
                                     order.toString());
+
+
+
                         }
                     });
                     //todo : go to pay for product

@@ -22,8 +22,8 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductHorizontalAdapter extends RecyclerView.
-        Adapter<ProductHorizontalAdapter.ProductHorizantalViewHolder> {
+public class CategoryProductsHorizontalAdapter extends RecyclerView.
+        Adapter<CategoryProductsHorizontalAdapter.ProductHorizantalViewHolder> {
 
     private Context mContext;
     private List<Product> mProductsItem;
@@ -37,7 +37,7 @@ public class ProductHorizontalAdapter extends RecyclerView.
         notifyDataSetChanged();
     }
 
-    public ProductHorizontalAdapter(Context context, List<Product> productsItem) {
+    public CategoryProductsHorizontalAdapter(Context context, List<Product> productsItem) {
         mContext = context;
         mProductsItem = productsItem;
     }
@@ -57,19 +57,9 @@ public class ProductHorizontalAdapter extends RecyclerView.
         Product productItem = mProductsItem.get(position);
         holder.bindProduct(productItem);
 
-       /* holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                *//*((AppCompatActivity) mContext).
-                        getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container_main_activity,
-                                ProductDetailFragment.
-                                        newInstance(productItem)).commit();
 
-               *//*
-            }
-        });*/
+
     }
 
     @Override
@@ -97,7 +87,7 @@ public class ProductHorizontalAdapter extends RecyclerView.
                     Bundle bundle=new Bundle();
                     bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
                     navController.navigate(
-                            R.id.action_HomeFragment_to_productDetailFragment
+                            R.id.action_CategoriesFragment_to_productDetailFragment
                     ,bundle);
                 }
             });

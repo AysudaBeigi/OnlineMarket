@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.adapter.CategoryProductsHorizontalAdapter;
 import com.example.onlinemarket.adapter.HomeFragmentCategoriesAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
-import com.example.onlinemarket.adapter.ProductHorizontalAdapter;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
@@ -32,10 +32,10 @@ public class HomeFragment extends Fragment   {
 
     private SliderView mSliderView;
     private ImageSliderAdapter mImageSliderAdapter;
-    private ProductHorizontalAdapter mLastProductHorizontalAdapter;
-    private ProductHorizontalAdapter mMostVisitedProductHorizontalAdapter;
-    private ProductHorizontalAdapter mPopularProductHorizontalAdapter;
-    private ProductHorizontalAdapter mAmazingOfferAdapter;
+    private CategoryProductsHorizontalAdapter mLastCategoryProductsHorizontalAdapter;
+    private CategoryProductsHorizontalAdapter mMostVisitedCategoryProductsHorizontalAdapter;
+    private CategoryProductsHorizontalAdapter mPopularCategoryProductsHorizontalAdapter;
+    private CategoryProductsHorizontalAdapter mAmazingOfferAdapter;
     private HomeFragmentCategoriesAdapter mHomeFragmentCategoriesAdapter;
 
     private SearchView mSearchViewHomeFragment;
@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment   {
                         Log.d(TAG, "fetchLastProducts++onItemResponse"
                                 + items.get(0).getName());
                         initRecyclerView(mRecyclerViewLastProducts,
-                                mLastProductHorizontalAdapter, items);
+                                mLastCategoryProductsHorizontalAdapter, items);
 
                     }
                 });
@@ -140,7 +140,7 @@ public class HomeFragment extends Fragment   {
                                 items.get(0).getName());
 
                         initRecyclerView(mRecyclerViewMostVisitedProducts
-                                , mMostVisitedProductHorizontalAdapter, items);
+                                , mMostVisitedCategoryProductsHorizontalAdapter, items);
 
                     }
                 });
@@ -150,7 +150,7 @@ public class HomeFragment extends Fragment   {
                     @Override
                     public void onItemResponse(List<Product> items) {
                         initRecyclerView(mRecyclerViewPopularProducts,
-                                mPopularProductHorizontalAdapter, items);
+                                mPopularCategoryProductsHorizontalAdapter, items);
 
                     }
                 });
@@ -179,7 +179,7 @@ public class HomeFragment extends Fragment   {
 
 
     private void initRecyclerView(RecyclerView recyclerView,
-                                  ProductHorizontalAdapter adapter,
+                                  CategoryProductsHorizontalAdapter adapter,
                                   List<Product> products) {
         Log.d(TAG, "HomeF : initRecyclerView");
 
@@ -188,7 +188,7 @@ public class HomeFragment extends Fragment   {
 
 
         if (adapter == null) {
-            adapter = new ProductHorizontalAdapter(getContext(),
+            adapter = new CategoryProductsHorizontalAdapter(getContext(),
                     products);
             recyclerView.setAdapter(adapter);
         } else {

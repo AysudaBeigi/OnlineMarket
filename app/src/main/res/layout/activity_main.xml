@@ -15,34 +15,37 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9" />-->
+
+
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/navigation_graph" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/button_navigation_view_main_activity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/white_ff"
-        app:itemTextColor="@color/black"
-        app:itemIconTint="@color/black"
         android:fontFamily="@font/iran_yekan"
         android:layoutDirection="rtl"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
         app:menu="@menu/navigation_menu"
         tools:layout_editor_absoluteX="44dp"
         tools:layout_editor_absoluteY="153dp">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:  ="parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/navigation_graph" />
-
-
+    <!-- <fragment
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:name="androidx.navigation.fragment.NavHostFragment"
+         android:id="@+id/nav_host_fragment"
+         app:navGraph="@navigation/mobile_navigation" />
+ -->
 </LinearLayout>
