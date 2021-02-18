@@ -36,31 +36,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d(TAG,"MainActivity + after setContentView");
 
-        /*FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentById(R.id.nav_host_fragment);
-        if (fragment == null) {
-            Log.d(TAG,"fragment == null");
-            fragmentManager
-                    .beginTransaction()
-                    .add(R.id.nav_host_fragment, HomeFragment.newInstance())
-                    .commit();
-        }*/
-        //findViews();
-
-        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        mBottomNavigationView = findViewById(R.id.button_navigation_view_main_activity);
-        Log.d(TAG,"MainActivity + after findViews");
+        findViews();
+       Log.d(TAG,"MainActivity + after findViews");
 
         // val navController=requireActivity().findNavController(R.id.navHostLoggedInView)
        // bottomBarView.setupWithNavController(navController)
         //setupActionBarWithNavController(MainActivity@this, navController())
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(mNavController.getGraph())
+
                 .build();
         Log.d(TAG,"MainActivity + after new AppBarConfiguration.Builder");
 
-        NavigationUI.setupActionBarWithNavController(this, mNavController);
-        Log.d(TAG,"MainActivity + after  setupActionBarWithNavController");
+       // NavigationUI.setupActionBarWithNavController(this, mNavController);
+       // Log.d(TAG,"MainActivity + after  setupActionBarWithNavController");
 
         NavigationUI.setupWithNavController(mBottomNavigationView,mNavController);
         Log.d(TAG,"MainActivity + after  setupWithNavController");
@@ -91,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
         //override fun onSupportNavigateUp(): Boolean {
            // return navController().navigateUp() || super.onSupportNavigateUp()
         //}
+       /* mNavController.navigateUp();
+        return super.onSupportNavigateUp();
+*/
         return NavigationUI.navigateUp(mNavController, mAppBarConfiguration);
     }
 

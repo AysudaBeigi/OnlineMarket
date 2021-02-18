@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -38,6 +40,8 @@ public class ShoppingBagFragment extends Fragment   {
     private CardAdapter mCardAdapter;
     private Customer mCustomer;
 
+    private NavController mNavController;
+
 
     public ShoppingBagFragment() {
         // Required empty public constructor
@@ -66,12 +70,17 @@ public class ShoppingBagFragment extends Fragment   {
         findViews(view);
         initViews();
 
+        setListeners();
+        return view;
+    }
+
+    private void setListeners() {
         mButtonFinalizeShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCustomer = mCustomerDBRepository.getCustomer();
                 if (mCustomer == null) {
-                    replaceSignUpFragment(view);
+                    replaceSignUpFragment();
                 } else {
 
                     Order order = getOrder();
@@ -90,7 +99,6 @@ public class ShoppingBagFragment extends Fragment   {
 
             }
         });
-        return view;
     }
 
     private Order getOrder() {
@@ -113,17 +121,14 @@ public class ShoppingBagFragment extends Fragment   {
         return lineItemsItemList;
     }
 
-    private void replaceSignUpFragment(View view) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mNavController=Navigation.findNavController(view);
+    }
 
-        NavController navController= Navigation.findNavController(view);
-        navController.navigate(R.id.action_ShoppingBagFragment_to_SignUpFragment);
-
-
-      /*  getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container_main_activity,
-                        SignUpFragment.newInstance()).commit();
-        */
-
+    private void replaceSignUpFragment() {
+        mNavController.navigate(R.id.action_ShoppingBagFragment_to_SignUpFragment);
     }
 
 

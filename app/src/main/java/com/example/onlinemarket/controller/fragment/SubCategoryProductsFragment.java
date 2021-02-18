@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -26,6 +28,7 @@ public class SubCategoryProductsFragment extends Fragment   {
     private MarketRepository mMarketRepository;
     private int mSubCategoryId;
     private SearchView mSearchViewSubCategoryProducts;
+    private NavController mNavController;
     public SubCategoryProductsFragment() {
         // Required empty public constructor
     }
@@ -52,14 +55,14 @@ public class SubCategoryProductsFragment extends Fragment   {
                 container, false);
         findViews(view);
         initViews();
-        setListeners(view);
+        setListeners();
         return view;
     }
-    private void setListeners(View rootLayout) {
+    private void setListeners() {
         mSearchViewSubCategoryProducts.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                replaceSearchResultFragment(query,rootLayout);
+                replaceSearchResultFragment(query);
                 return true;
             }
 
@@ -69,13 +72,19 @@ public class SubCategoryProductsFragment extends Fragment   {
             }
         });
     }
-    private void replaceSearchResultFragment(String query,View view) {
 
-        NavController navController= Navigation.findNavController(view);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mNavController=Navigation.findNavController(view);
+    }
+
+    private void replaceSearchResultFragment(String query) {
+
         Bundle bundle=new Bundle();
         bundle.putString(SearchResultFragment.ARGS_QUERY,query);
         bundle.putInt(SearchResultFragment.ARGS_CATEGORY_ID,-mSubCategoryId);
-        navController.navigate(
+        mNavController.navigate(
                 R.id.action_SubCategoryProductsFragment_to_SearchResultFragment
         ,bundle);
 

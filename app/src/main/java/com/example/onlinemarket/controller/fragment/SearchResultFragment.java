@@ -36,6 +36,7 @@ public class SearchResultFragment extends Fragment   {
     private int mCategoryId;
     Map<String, String> mSearchQueryMap;
 
+
     public SearchResultFragment() {
         // Required empty public constructor
     }
@@ -111,14 +112,7 @@ public class SearchResultFragment extends Fragment   {
         mFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*getActivity().
-                        getSupportFragmentManager().
-                        beginTransaction()
-                        .replace(R.id.fragment_container_main_activity,
-                                FilteringFragment.
-                                        newInstance())
-                        .commit();
-*/
+               //todo : handle filter section
             }
         });
 

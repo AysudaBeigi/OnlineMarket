@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,6 +25,7 @@ public class SignUpFragment extends Fragment {
     private String mCustomerEmail;
     private CustomerDBRepository mCustomerDBRepository;
     public static String TAG = "OnlineMarket";
+    private NavController mNavController;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -68,26 +71,24 @@ public class SignUpFragment extends Fragment {
                     showEmailCantEmptySnackBar(view);
                 } else {
                     SignUpCustomer();
-                    replaceUserProfileFragment(view);
+                    replaceUserProfileFragment();
 
                 }
             }
         });
     }
 
-    private void replaceUserProfileFragment(View view) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mNavController=Navigation.findNavController(view);
+    }
+
+    private void replaceUserProfileFragment() {
         Log.d(TAG, "SignUpCustomer +replaceUserProfileFragment");
 
-        NavController navController= Navigation.findNavController(view);
-        navController.navigate(R.id.action_SignUpFragment_to_UserProfileFragment);
+        mNavController.navigate(R.id.action_SignUpFragment_to_UserProfileFragment);
 
-
-
-       /* getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container_main_activity,
-                        UserProfileFragment.newInstance())
-                .commit();
-        */
     }
 
     private void SignUpCustomer() {

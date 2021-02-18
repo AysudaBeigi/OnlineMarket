@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -45,6 +47,7 @@ public class HomeFragment extends Fragment   {
     private RecyclerView mRecyclerCategories;
     private RecyclerView mRecyclerViewWonderfulOffer;
     private MarketRepository mMarketRepository;
+    private NavController mNavController;
 
     public static String TAG = "OnlineMarket";
 
@@ -73,15 +76,15 @@ public class HomeFragment extends Fragment   {
 
         findViews(view);
         initViews();
-        setListeners(view);
+        setListeners();
         return view;
     }
 
-    private void setListeners(View layoutView) {
+    private void setListeners() {
         mSearchViewHomeFragment.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                replaceSearchResultFragment(query,layoutView);
+                replaceSearchResultFragment(query);
                 return true;
             }
 
@@ -227,23 +230,20 @@ public class HomeFragment extends Fragment   {
 
     }
 
-    private void replaceSearchResultFragment(String query,View view) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mNavController=Navigation.findNavController(view);
+    }
 
+    private void replaceSearchResultFragment(String query) {
 
-        NavController navController= Navigation.findNavController(view);
         Bundle bundle=new Bundle();
         bundle.putString(SearchResultFragment.ARGS_QUERY,query);
         bundle.putInt(SearchResultFragment.ARGS_CATEGORY_ID,-1);
-        navController.navigate(R.id.action_HomeFragment_to_SearchResultFragment
+        mNavController.navigate(R.id.action_HomeFragment_to_SearchResultFragment
         ,bundle);
 
-        /*((AppCompatActivity) getContext()).getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container_main_activity,
-                        SearchResultFragment.
-                                newInstance(query, -1))
-                .commit();
-        */
 
     }
 

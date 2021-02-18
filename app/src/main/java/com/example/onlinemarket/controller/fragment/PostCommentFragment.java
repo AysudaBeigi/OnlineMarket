@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -39,6 +41,7 @@ public class PostCommentFragment extends Fragment {
     private int mProductId;
     private Product mProduct;
     private Customer mCustomer;
+    private NavController mNavController;
     public static String TAG = "OnlineMarket";
 
 
@@ -100,7 +103,7 @@ public class PostCommentFragment extends Fragment {
                                 public void onItemResponse(Comment comment) {
                                     Log.d(TAG, "PostCommentFragment + postComment+" +
                                             " onItemResponse");
-                                    replaceProductDetailFragment(view);
+                                    replaceProductDetailFragment();
                                 }
                             });
 
@@ -129,20 +132,21 @@ public class PostCommentFragment extends Fragment {
         });
     }
 
-    private void replaceProductDetailFragment(View view) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mNavController = Navigation.findNavController(view);
+
+    }
+
+    private void replaceProductDetailFragment() {
         Log.d(TAG, "PostCommentFragment +replaceProductDetailFragment");
 
-        NavController navController= Navigation.findNavController(view);
         Bundle bundle=new Bundle();
         bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
-        navController.navigate(R.id.action_PostCommentFragment_to_productDetailFragment
+        mNavController.navigate(R.id.action_PostCommentFragment_to_productDetailFragment
         ,bundle);
 
-       /* getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container_main_activity
-                        , ProductDetailFragment.newInstance(mProduct))
-                .commit();*/
 
     }
 

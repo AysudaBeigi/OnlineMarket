@@ -80,6 +80,7 @@ public class CategoriesFragment extends Fragment   {
         return view;
     }
 
+
     private void findViews(View view) {
         mRecyclerViewCategoryOne = view.findViewById(R.id.recycler_view_category_one_categories_fragment);
         mRecyclerViewCategoryTwo = view.findViewById(R.id.recycler_view_category_two_categories_fragment);

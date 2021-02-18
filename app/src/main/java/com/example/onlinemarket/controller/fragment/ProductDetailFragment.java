@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -56,6 +58,8 @@ public class ProductDetailFragment extends Fragment  {
     private View mViewShowSnackBar;
     private Customer mCustomer;
     public static String TAG = "OnlineMarket";
+   private NavController mNavController;
+
 
 
     public ProductDetailFragment() {
@@ -94,7 +98,7 @@ public class ProductDetailFragment extends Fragment  {
                 container, false);
         findViews(view);
         initViews();
-        setListener(view);
+        setListener();
         return view;
     }
 
@@ -183,7 +187,7 @@ public class ProductDetailFragment extends Fragment  {
 
     }
 
-    private void setListener(View layoutView) {
+    private void setListener() {
         Log.d(TAG, "ProductDetailFragment +setListener ");
 
         mButtonAddToShoppingBag.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +218,7 @@ public class ProductDetailFragment extends Fragment  {
                             R.string.please_fist_sign_up);
                     snackbar.show();
                 } else {
-                    replacePostCommentFragment(layoutView);
+                    replacePostCommentFragment();
                 }
 
             }
@@ -222,12 +226,17 @@ public class ProductDetailFragment extends Fragment  {
 
     }
 
-    private void replacePostCommentFragment(View view) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mNavController=Navigation.findNavController(view);
+    }
 
-        NavController navController= Navigation.findNavController(view);
+    private void replacePostCommentFragment() {
+
         Bundle bundle=new Bundle();
         bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
-        navController.navigate(R.id.action_productDetailFragment_to_PostCommentFragment,bundle);
+        mNavController.navigate(R.id.action_productDetailFragment_to_PostCommentFragment,bundle);
 
         /*getActivity().getSupportFragmentManager()
                 .beginTransaction()
