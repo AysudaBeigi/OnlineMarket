@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.CategoryProductsHorizontalAdapter;
 import com.example.onlinemarket.adapter.HomeFragmentCategoriesAdapter;
+import com.example.onlinemarket.adapter.HomeProductsHorizontalAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Image;
@@ -34,10 +34,10 @@ public class HomeFragment extends Fragment   {
 
     private SliderView mSliderView;
     private ImageSliderAdapter mImageSliderAdapter;
-    private CategoryProductsHorizontalAdapter mLastCategoryProductsHorizontalAdapter;
-    private CategoryProductsHorizontalAdapter mMostVisitedCategoryProductsHorizontalAdapter;
-    private CategoryProductsHorizontalAdapter mPopularCategoryProductsHorizontalAdapter;
-    private CategoryProductsHorizontalAdapter mAmazingOfferAdapter;
+    private HomeProductsHorizontalAdapter mLastCategoryProductsHorizontalAdapter;
+    private HomeProductsHorizontalAdapter mMostVisitedCategoryProductsHorizontalAdapter;
+    private HomeProductsHorizontalAdapter mPopularCategoryProductsHorizontalAdapter;
+    private HomeProductsHorizontalAdapter mAmazingOfferAdapter;
     private HomeFragmentCategoriesAdapter mHomeFragmentCategoriesAdapter;
 
     private SearchView mSearchViewHomeFragment;
@@ -182,7 +182,7 @@ public class HomeFragment extends Fragment   {
 
 
     private void initRecyclerView(RecyclerView recyclerView,
-                                  CategoryProductsHorizontalAdapter adapter,
+                                  HomeProductsHorizontalAdapter adapter,
                                   List<Product> products) {
         Log.d(TAG, "HomeF : initRecyclerView");
 
@@ -191,7 +191,7 @@ public class HomeFragment extends Fragment   {
 
 
         if (adapter == null) {
-            adapter = new CategoryProductsHorizontalAdapter(getContext(),
+            adapter = new HomeProductsHorizontalAdapter(getContext(),
                     products);
             recyclerView.setAdapter(adapter);
         } else {

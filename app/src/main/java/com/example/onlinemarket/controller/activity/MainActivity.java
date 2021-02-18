@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.onlinemarket.R;
@@ -20,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView mBottomNavigationView;
     private NavController mNavController;
-    private  AppBarConfiguration mAppBarConfiguration;
     private static String TAG="OnlineMarket";
 
     public static Intent newIntent(Context context) {
@@ -34,59 +32,22 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG,"MainActivity + onCreate");
 
         setContentView(R.layout.activity_main);
-        Log.d(TAG,"MainActivity + after setContentView");
 
         findViews();
-       Log.d(TAG,"MainActivity + after findViews");
-
-        // val navController=requireActivity().findNavController(R.id.navHostLoggedInView)
-       // bottomBarView.setupWithNavController(navController)
-        //setupActionBarWithNavController(MainActivity@this, navController())
-
-        mAppBarConfiguration = new AppBarConfiguration.Builder(mNavController.getGraph())
-
-                .build();
-        Log.d(TAG,"MainActivity + after new AppBarConfiguration.Builder");
-
-       // NavigationUI.setupActionBarWithNavController(this, mNavController);
-       // Log.d(TAG,"MainActivity + after  setupActionBarWithNavController");
-
         NavigationUI.setupWithNavController(mBottomNavigationView,mNavController);
-        Log.d(TAG,"MainActivity + after  setupWithNavController");
         moveNavigationButton();
 
-/*
-
-        //Set bottom navigation
-        mNavController = Navigation.findNavController(this,
-                R.id.nav_host_fragment);
-        NavigationUI.setupWithNavController(mBinding.bottomNavigation,
-                mNavController);
-        //Set navigation up button
-        mAppBarConfiguration = new AppBarConfiguration.
-                Builder(mNavController.getGraph())
-                .setOpenableLayout(mBinding.drawerLayout)
-                .build();
-        NavigationUI.setupActionBarWithNavController(this,
-                mNavController,
-                mBinding.drawerLayout);
-
-       */
-
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         Log.d(TAG,"onSupportNavigateUp");
-        //override fun onSupportNavigateUp(): Boolean {
-           // return navController().navigateUp() || super.onSupportNavigateUp()
-        //}
-       /* mNavController.navigateUp();
-        return super.onSupportNavigateUp();
-*/
-        return NavigationUI.navigateUp(mNavController, mAppBarConfiguration);
+
+        return mNavController.navigateUp();
     }
 
     private void moveNavigationButton() {
+
         mBottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
