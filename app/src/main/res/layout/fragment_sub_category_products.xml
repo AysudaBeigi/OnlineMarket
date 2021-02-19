@@ -1,28 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
 
-    <com.google.android.material.card.MaterialCardView
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/white_ff"
-        app:cardCornerRadius="8dp">
-
-        <include layout="@layout/search_view"
-            android:id="@+id/sub_categories_fragment_search_view"/>
+        android:layout_margin="10dp"
+        android:orientation="vertical">
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_fragment_sub_category_products"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
-            android:background="@color/white_ff" />
-    </com.google.android.material.card.MaterialCardView>
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/white_ff"
+            app:cardCornerRadius="8dp">
 
-</LinearLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_margin="4dp"
+                android:background="@color/gray_bd"
+                android:backgroundTint="@color/gray_bd"
+                android:padding="2dp">
+
+                <SearchView
+                    android:id="@+id/search_view_sub_category_products"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="3dp"
+                    android:background="@color/gray_bd"
+                    android:drawableLeft="@drawable/ic_baseline_search_24"
+                    android:fontFamily="@font/far_roya_bd"
+                    android:padding="3dp"
+                    android:queryHint="جستجو در فروشگاه آنلاین"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="@color/colorPrimary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_fragment_sub_category_products"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="72dp"
+                android:background="@color/white_ff" />
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</layout>

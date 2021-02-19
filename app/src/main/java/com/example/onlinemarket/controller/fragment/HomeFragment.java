@@ -9,6 +9,7 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -19,35 +20,29 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.HomeFragmentCategoriesAdapter;
 import com.example.onlinemarket.adapter.HomeProductsHorizontalAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
+import com.example.onlinemarket.databinding.FragmentHomeBinding;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Image;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.MarketRepository;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderView;
 
 import java.util.List;
 
 
 public class HomeFragment extends Fragment   {
 
-    private SliderView mSliderView;
     private ImageSliderAdapter mImageSliderAdapter;
     private HomeProductsHorizontalAdapter mLastCategoryProductsHorizontalAdapter;
     private HomeProductsHorizontalAdapter mMostVisitedCategoryProductsHorizontalAdapter;
     private HomeProductsHorizontalAdapter mPopularCategoryProductsHorizontalAdapter;
-    private HomeProductsHorizontalAdapter mAmazingOfferAdapter;
+    private HomeProductsHorizontalAdapter mWonderfulOfferAdapter;
     private HomeFragmentCategoriesAdapter mHomeFragmentCategoriesAdapter;
 
-    private SearchView mSearchViewHomeFragment;
-    private RecyclerView mRecyclerViewLastProducts;
-    private RecyclerView mRecyclerViewMostVisitedProducts;
-    private RecyclerView mRecyclerViewPopularProducts;
-    private RecyclerView mRecyclerCategories;
-    private RecyclerView mRecyclerViewWonderfulOffer;
     private MarketRepository mMarketRepository;
     private NavController mNavController;
+    private FragmentHomeBinding mBinding;
 
     public static String TAG = "OnlineMarket";
 
@@ -71,17 +66,16 @@ public class HomeFragment extends Fragment   {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home,
+        mBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_home,
                 container, false);
 
-        findViews(view);
         initViews();
         setListeners();
-        return view;
+        return mBinding.getRoot();
     }
 
     private void setListeners() {
-        mSearchViewHomeFragment.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mBinding.searchViewHome.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 replaceSearchResultFragment(query);
@@ -95,7 +89,7 @@ public class HomeFragment extends Fragment   {
         });
     }
 
-    private void findViews(View view) {
+   /* private void findViews(View view) {
         mSliderView = view.
                 findViewById(R.id.fragment_home_slider);
         mRecyclerViewLastProducts = view.
@@ -111,7 +105,7 @@ public class HomeFragment extends Fragment   {
         mSearchViewHomeFragment = view.
                 findViewById(R.id.search_view);
 
-    }
+    }*/
 
     private void initViews() {
         mMarketRepository.fetchProduct(608,
@@ -129,7 +123,7 @@ public class HomeFragment extends Fragment   {
                     public void onItemResponse(List<Product> items) {
                         Log.d(TAG, "fetchLastProducts++onItemResponse"
                                 + items.get(0).getName());
-                        initRecyclerView(mRecyclerViewLastProducts,
+                        initRecyclerView(mBinding.recyclerViewLatest,
                                 mLastCategoryProductsHorizontalAdapter, items);
 
                     }
@@ -142,7 +136,7 @@ public class HomeFragment extends Fragment   {
                         Log.d(TAG, "fetchMostVisitedProducts++onItemResponse" +
                                 items.get(0).getName());
 
-                        initRecyclerView(mRecyclerViewMostVisitedProducts
+                        initRecyclerView(mBinding.recyclerViewMostViewed
                                 , mMostVisitedCategoryProductsHorizontalAdapter, items);
 
                     }
@@ -152,7 +146,7 @@ public class HomeFragment extends Fragment   {
                 new MarketRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
-                        initRecyclerView(mRecyclerViewPopularProducts,
+                        initRecyclerView(mBinding.recyclerViewPopularest,
                                 mPopularCategoryProductsHorizontalAdapter, items);
 
                     }
@@ -164,8 +158,8 @@ public class HomeFragment extends Fragment   {
                         Log.d(TAG, "fetchAmazing++onItemResponse" +
                                 items.get(0).getName());
 
-                        initRecyclerView(mRecyclerViewWonderfulOffer
-                                , mAmazingOfferAdapter, items);
+                        initRecyclerView(mBinding.recyclerViewWonderfulOffer
+                                , mWonderfulOfferAdapter, items);
 
                     }
                 });
@@ -173,7 +167,7 @@ public class HomeFragment extends Fragment   {
                 new MarketRepository.CategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> categories) {
-                        mRecyclerCategories.setLayoutManager(new LinearLayoutManager(getContext(),
+                        mBinding.recyclerViewCategoriesHomeFragment.setLayoutManager(new LinearLayoutManager(getContext(),
                                 LinearLayoutManager.HORIZONTAL, false));
                         initCategoryAdapter(categories);
                     }
@@ -213,7 +207,7 @@ public class HomeFragment extends Fragment   {
             mHomeFragmentCategoriesAdapter =
                     new HomeFragmentCategoriesAdapter(getContext(),
                             categoriesItems);
-            mRecyclerCategories.setAdapter(mHomeFragmentCategoriesAdapter);
+            mBinding.recyclerViewCategoriesHomeFragment.setAdapter(mHomeFragmentCategoriesAdapter);
         } else {
             mHomeFragmentCategoriesAdapter.setCategoriesItem(categoriesItems);
             mHomeFragmentCategoriesAdapter.notifyDataSetChanged();
@@ -224,9 +218,9 @@ public class HomeFragment extends Fragment   {
     private void setupImageSliderAdapter(List<Image> imagesItems) {
         mImageSliderAdapter = new
                 ImageSliderAdapter(getContext(), imagesItems);
-        mSliderView.setSliderAdapter(mImageSliderAdapter);
-        mSliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
-        mSliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        mBinding.sliderViewHome.setSliderAdapter(mImageSliderAdapter);
+        mBinding.sliderViewHome.setIndicatorAnimation(IndicatorAnimationType.WORM);
+        mBinding.sliderViewHome.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
 
     }
 

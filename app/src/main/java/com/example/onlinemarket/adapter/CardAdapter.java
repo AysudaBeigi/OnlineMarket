@@ -142,13 +142,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                     mCardDBRepository.deleteCart(mCard);
                    NavController navController=Navigation.findNavController(view);
                    navController.navigate(
-                           R.id.action_productDetailFragment_to_ShoppingBagFragment);
-                    /*((AppCompatActivity) mContext).getSupportFragmentManager()
-                            .beginTransaction().
-                            replace(R.id.fragment_container_main_activity,
-                                    ShoppingBagFragment.newInstance())
-                            .commit();
-*/
+                           R.id.action_ShoppingBagFragment_to_ShoppingBagFragment);
 
                 }
             });

@@ -1,72 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="8dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <LinearLayout
-        android:id="@+id/layout_cards"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_cards"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-
-    </LinearLayout>
-
+    </data>
 
     <RelativeLayout
-        android:id="@+id/layout_add_to_shopping_bag"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/white_ff">
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_view_sum"
-            style="@style/GeneralTextStyle"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:id="@+id/layout_cards"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:gravity="left"
-            android:text="@string/text_view_sum_price_shopping_bag" />
+            android:layout_marginBottom="50dp"
+            android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_view_sum_prices"
-            style="@style/PartialTextStyle"
-            android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_cards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/layout_add_to_shopping_bag"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_view_sum"
-            android:layout_alignParentLeft="true"
-            android:gravity="left"
-            android:layoutDirection="rtl"
-            tools:text="مجموع" />
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="@color/white_ff">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_sum"
+                style="@style/GeneralTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:gravity="left"
+                android:text="@string/text_view_sum_price_shopping_bag" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_sum_prices"
+                style="@style/PartialTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_view_sum"
+                android:layout_alignParentLeft="true"
+                android:gravity="left"
+                android:layoutDirection="rtl"
+                tools:text="مجموع" />
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_finalize_shopping"
-            style="@style/PartialTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="2dp"
-            android:background="@drawable/btn_rounded"
-            android:backgroundTint="@color/white_ff"
-            android:drawableLeft="@drawable/ic_final_shop"
-            android:text="@string/final_shop"
-            android:textColor="@color/white_ff"
-            app:backgroundTint="@color/colorPrimary" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_finalize_shopping"
+                style="@style/PartialTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="2dp"
+                android:background="@drawable/btn_rounded"
+                android:backgroundTint="@color/white_ff"
+                android:drawableLeft="@drawable/ic_final_shop"
+                android:text="@string/final_shop"
+                android:textColor="@color/white_ff"
+                app:backgroundTint="@color/colorPrimary" />
+        </RelativeLayout>
+
     </RelativeLayout>
-
-</RelativeLayout>
+</layout>

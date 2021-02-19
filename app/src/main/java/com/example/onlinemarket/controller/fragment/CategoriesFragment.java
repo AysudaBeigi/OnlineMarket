@@ -5,16 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CategoriesFragmentAdapter;
 import com.example.onlinemarket.adapter.CategoryProductsHorizontalAdapter;
+import com.example.onlinemarket.databinding.FragmentCategoriesBinding;
 import com.example.onlinemarket.model.product.Category;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.MarketRepository;
-import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,22 +22,24 @@ import java.util.List;
 public class CategoriesFragment extends Fragment   {
     public static String TAG = "OnlineMarket";
 
-    private RecyclerView mRecyclerViewCategoryOne, mRecyclerViewCategoryTwo,
-            mRecyclerViewCategoryThree, mRecyclerViewCategoryFour,
-            mRecyclerViewCategoryFive,
-            mRecyclerViewCategorySix;
+    private CategoriesFragmentAdapter mAdapterOne;
+    private CategoriesFragmentAdapter mAdapterTwo;
+    private CategoriesFragmentAdapter mAdapterThree;
+    private CategoriesFragmentAdapter mAdapterFour;
+    private CategoriesFragmentAdapter mAdapterFive;
+    private CategoriesFragmentAdapter mAdapterSix;
 
-    private CategoriesFragmentAdapter mAdapterOne, mAdapterTwo, mAdapterThree,
-            mAdapterFour, mAdapterFive,
-            mAdapterSix;
-    private CategoryProductsHorizontalAdapter mPAdapterOne, mPAdapterTwo, mPAdapterThree,
-            mPAdapterFour, mPAdapterFive,
-            mPAdapterSix;
+    private CategoryProductsHorizontalAdapter mPAdapterOne;
+    private CategoryProductsHorizontalAdapter mPAdapterTwo;
+    private CategoryProductsHorizontalAdapter mPAdapterThree;
+    private CategoryProductsHorizontalAdapter mPAdapterFour;
+    private CategoryProductsHorizontalAdapter mPAdapterFive;
+    private CategoryProductsHorizontalAdapter mPAdapterSix;
 
-    private MaterialTextView mTextOne, mTextTwo, mTextThree, mTextFour, mTextFive, mTextSix;
 
     private MarketRepository mMarketRepository;
     private List<Category> mCategories = new ArrayList<>();
+    private FragmentCategoriesBinding mBinding;
 
     public CategoriesFragment() {
         // Required empty public constructor
@@ -71,32 +73,15 @@ public class CategoriesFragment extends Fragment   {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_categories,
-                container, false);
+        mBinding= DataBindingUtil.inflate(inflater,
+                R.layout.fragment_categories,
+                container,
+                false);
 
-        findViews(view);
-
-        return view;
+        return mBinding.getRoot();
     }
 
 
-    private void findViews(View view) {
-        mRecyclerViewCategoryOne = view.findViewById(R.id.recycler_view_category_one_categories_fragment);
-        mRecyclerViewCategoryTwo = view.findViewById(R.id.recycler_view_category_two_categories_fragment);
-        mRecyclerViewCategoryThree = view.findViewById(R.id.recycler_view_category_three_categories_fragment);
-        mRecyclerViewCategoryFour = view.findViewById(R.id.recycler_view_category_four_categories_fragment);
-        mRecyclerViewCategoryFive = view.findViewById(R.id.recycler_view_category_five_categories_fragment);
-        mRecyclerViewCategorySix = view.findViewById(R.id.recycler_view_category_six_categories_fragment);
-
-        mTextOne = view.findViewById(R.id.text_view_category_name_one_categories_fragment);
-        mTextTwo = view.findViewById(R.id.text_view_category_name_two_categories_fragment);
-        mTextThree = view.findViewById(R.id.text_view_category_name_three_categories_fragment);
-        mTextFour = view.findViewById(R.id.text_view_category_name_four_categories_fragment);
-        mTextFive = view.findViewById(R.id.text_view_category_name_five_categories_fragment);
-        mTextSix = view.findViewById(R.id.text_view_category_name_six_categories_fragment);
-
-    }
 
     private void updateCategoriesRecyclerAdapter() {
         mMarketRepository.fetchSubCategories(mCategories.get(0).getId(),
@@ -108,13 +93,15 @@ public class CategoriesFragment extends Fragment   {
                             if (mAdapterOne == null) {
                                 mAdapterOne = new CategoriesFragmentAdapter(getContext(),
                                         subCategories);
-                                mRecyclerViewCategoryOne.setAdapter(mAdapterOne);
+                                mBinding.recyclerViewCategoryOneCategoriesFragment
+                                        .setAdapter(mAdapterOne);
                             } else {
                                 mAdapterOne.setCategoriesItem(subCategories);
                                 mAdapterOne.notifyDataSetChanged();
                             }
 
                         } else {
+
                             mMarketRepository.fetchCategoryProduct(mCategories.get(0).getId(),
                                     new MarketRepository.productsCallback() {
                                         @Override
@@ -122,7 +109,8 @@ public class CategoriesFragment extends Fragment   {
                                             if (mPAdapterOne == null) {
                                                 mPAdapterOne = new CategoryProductsHorizontalAdapter(getContext(),
                                                         products);
-                                                mRecyclerViewCategoryOne.setAdapter(mPAdapterOne);
+                                                mBinding.recyclerViewCategoryOneCategoriesFragment
+                                                        .setAdapter(mPAdapterOne);
                                             } else {
                                                 mPAdapterOne.setProductsItem(products);
                                                 mPAdapterOne.notifyDataSetChanged();
@@ -142,7 +130,8 @@ public class CategoriesFragment extends Fragment   {
                             if (mAdapterTwo == null) {
                                 mAdapterTwo = new CategoriesFragmentAdapter(getContext(),
                                         subCategories);
-                                mRecyclerViewCategoryTwo.setAdapter(mAdapterTwo);
+                                mBinding.recyclerViewCategoryTwoCategoriesFragment
+                                        .setAdapter(mAdapterTwo);
                             } else {
                                 mAdapterTwo.setCategoriesItem(subCategories);
                                 mAdapterTwo.notifyDataSetChanged();
@@ -157,7 +146,8 @@ public class CategoriesFragment extends Fragment   {
                                                 mPAdapterTwo = new CategoryProductsHorizontalAdapter(
                                                         getContext(),
                                                         products);
-                                                mRecyclerViewCategoryTwo.setAdapter(mPAdapterTwo);
+                                                mBinding.recyclerViewCategoryTwoCategoriesFragment
+                                                        .setAdapter(mPAdapterTwo);
                                             } else {
                                                 mPAdapterTwo.setProductsItem(products);
                                                 mPAdapterTwo.notifyDataSetChanged();
@@ -177,7 +167,8 @@ public class CategoriesFragment extends Fragment   {
                             if (mAdapterThree == null) {
                                 mAdapterThree = new CategoriesFragmentAdapter(getContext(),
                                         subCategories);
-                                mRecyclerViewCategoryThree.setAdapter(mAdapterThree);
+                                mBinding.recyclerViewCategoryThreeCategoriesFragment
+                                        .setAdapter(mAdapterThree);
                             } else {
                                 mAdapterThree.setCategoriesItem(subCategories);
                                 mAdapterThree.notifyDataSetChanged();
@@ -191,7 +182,8 @@ public class CategoriesFragment extends Fragment   {
                                             if (mPAdapterThree == null) {
                                                 mPAdapterThree = new CategoryProductsHorizontalAdapter(getContext(),
                                                         products);
-                                                mRecyclerViewCategoryThree.setAdapter(mPAdapterThree);
+                                                mBinding.recyclerViewCategoryThreeCategoriesFragment
+                                                        .setAdapter(mPAdapterThree);
                                             } else {
                                                 mPAdapterThree.setProductsItem(products);
                                                 mPAdapterThree.notifyDataSetChanged();
@@ -211,7 +203,8 @@ public class CategoriesFragment extends Fragment   {
                             if (mAdapterFour == null) {
                                 mAdapterFour = new CategoriesFragmentAdapter(getContext(),
                                         subCategories);
-                                mRecyclerViewCategoryFour.setAdapter(mAdapterFour);
+                                mBinding.recyclerViewCategoryFourCategoriesFragment
+                                        .setAdapter(mAdapterFour);
                             } else {
                                 mAdapterFour.setCategoriesItem(subCategories);
                                 mAdapterFour.notifyDataSetChanged();
@@ -225,7 +218,8 @@ public class CategoriesFragment extends Fragment   {
                                             if (mPAdapterFour == null) {
                                                 mPAdapterFour = new CategoryProductsHorizontalAdapter(getContext(),
                                                         products);
-                                                mRecyclerViewCategoryFour.setAdapter(mPAdapterFour);
+                                                mBinding.recyclerViewCategoryFourCategoriesFragment
+                                                        .setAdapter(mPAdapterFour);
                                             } else {
                                                 mPAdapterFour.setProductsItem(products);
                                                 mPAdapterFour.notifyDataSetChanged();
@@ -245,7 +239,8 @@ public class CategoriesFragment extends Fragment   {
                             if (mAdapterFive == null) {
                                 mAdapterFive = new CategoriesFragmentAdapter(getContext(),
                                         subCategories);
-                                mRecyclerViewCategoryFive.setAdapter(mAdapterFive);
+                                mBinding.recyclerViewCategoryFiveCategoriesFragment
+                                        .setAdapter(mAdapterFive);
                             } else {
                                 mAdapterFive.setCategoriesItem(subCategories);
                                 mAdapterFive.notifyDataSetChanged();
@@ -259,7 +254,8 @@ public class CategoriesFragment extends Fragment   {
                                             if (mPAdapterFive == null) {
                                                 mPAdapterFive = new CategoryProductsHorizontalAdapter(getContext(),
                                                         products);
-                                                mRecyclerViewCategoryFive.setAdapter(mPAdapterFive);
+                                                mBinding.recyclerViewCategoryFiveCategoriesFragment
+                                                        .setAdapter(mPAdapterFive);
                                             } else {
                                                 mPAdapterFive.setProductsItem(products);
                                                 mPAdapterFive.notifyDataSetChanged();
@@ -279,7 +275,8 @@ public class CategoriesFragment extends Fragment   {
                             if (mAdapterSix == null) {
                                 mAdapterSix = new CategoriesFragmentAdapter(getContext(),
                                         subCategories);
-                                mRecyclerViewCategorySix.setAdapter(mAdapterSix);
+                                mBinding.recyclerViewCategorySixCategoriesFragment
+                                        .setAdapter(mAdapterSix);
                             } else {
                                 mAdapterSix.setCategoriesItem(subCategories);
                                 mAdapterSix.notifyDataSetChanged();
@@ -293,7 +290,8 @@ public class CategoriesFragment extends Fragment   {
                                             if (mPAdapterSix == null) {
                                                 mPAdapterSix = new CategoryProductsHorizontalAdapter(getContext(),
                                                         products);
-                                                mRecyclerViewCategorySix.setAdapter(mPAdapterSix);
+                                                mBinding.recyclerViewCategorySixCategoriesFragment
+                                                        .setAdapter(mPAdapterSix);
                                             } else {
                                                 mPAdapterSix.setProductsItem(products);
                                                 mPAdapterSix.notifyDataSetChanged();
@@ -314,12 +312,12 @@ public class CategoriesFragment extends Fragment   {
                 names.add(items.get(i).getName());
             }
         }
-        mTextOne.setText(names.get(0));
-        mTextTwo.setText(names.get(1));
-        mTextThree.setText(names.get(2));
-        mTextFour.setText(names.get(3));
-        mTextFive.setText(names.get(4));
-        mTextSix.setText(names.get(5));
+        mBinding.textViewCategoryNameOneCategoriesFragment.setText(names.get(0));
+        mBinding.textViewCategoryNameTwoCategoriesFragment.setText(names.get(1));
+        mBinding.textViewCategoryNameThreeCategoriesFragment.setText(names.get(2));
+        mBinding.textViewCategoryNameFourCategoriesFragment.setText(names.get(3));
+        mBinding.textViewCategoryNameFiveCategoriesFragment.setText(names.get(4));
+        mBinding.textViewCategoryNameSixCategoriesFragment.setText(names.get(5));
 
     }
 

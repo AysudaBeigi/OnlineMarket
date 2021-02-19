@@ -5,12 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.databinding.FragmentFiltteringBinding;
 import com.example.onlinemarket.model.Attribute;
 import com.example.onlinemarket.repository.MarketRepository;
-import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class FilteringFragment extends Fragment {
     public static final String ARGS_CATEGORY_ID = "argsCategoryId";
     private int mCategoryId;
     private MarketRepository mMarketRepository;
-    private MaterialTextView mTextView1, mTextView2, mTextView3, mTextView4, mTextView5, mTextView6;
     List<Attribute> mAttributes;
+    private FragmentFiltteringBinding mBinding;
 
     public FilteringFragment() {
         // Required empty public constructor
@@ -42,9 +43,9 @@ public class FilteringFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_filttering, container,
-                false);
-        findViews(view);
+       mBinding= DataBindingUtil.
+               inflate(inflater, R.layout.fragment_filttering,
+                       container, false);
 
        /* mMarketRepository.fetchAttributes(
                 new MarketRepository.AttributesCallback() {
@@ -65,15 +66,8 @@ public class FilteringFragment extends Fragment {
         }*/
 
 
-        return view;
+        return mBinding.getRoot();
     }
 
-    private void findViews(View view) {
-        mTextView1 = view.findViewById(R.id.text_view_filter_one);
-        mTextView2 = view.findViewById(R.id.text_view_filter_two);
-        mTextView3 = view.findViewById(R.id.text_view_filter_three);
-        mTextView4 = view.findViewById(R.id.text_view_filter_four);
-        mTextView5 = view.findViewById(R.id.text_view_filter_five);
-        mTextView6 = view.findViewById(R.id.text_view_filter_six);
-    }
+
 }

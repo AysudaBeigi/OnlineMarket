@@ -76,6 +76,11 @@
         <action
             android:id="@+id/action_ShoppingBagFragment_to_SignUpFragment"
             app:destination="@id/SignUpFragment" />
+         <action
+            android:id="@+id/action_ShoppingBagFragment_to_ShoppingBagFragment"
+            app:destination="@id/ShoppingBagFragment" />
+
+
     </fragment>
     <fragment
         android:id="@+id/SignUpFragment"

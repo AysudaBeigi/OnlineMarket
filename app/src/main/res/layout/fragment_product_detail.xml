@@ -1,219 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
 
-    <ScrollView
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
 
 
-        <LinearLayout
-            android:id="@+id/layout_product_detail"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="1dp"
-            android:orientation="vertical"
-            android:padding="1dp">
+            android:layout_height="match_parent">
 
-            <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/slider_view_product_detail"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                app:sliderAnimationDuration="600"
-                app:sliderAutoCycleDirection="right"
-                app:sliderAutoCycleEnabled="true"
-                app:sliderIndicatorAnimationDuration="600"
-                app:sliderIndicatorGravity="left|bottom"
-                app:sliderIndicatorOrientation="horizontal"
-                app:sliderIndicatorSelectedColor="@color/gray_21"
-                app:sliderIndicatorUnselectedColor="@color/gray_75"
-                app:sliderScrollTimeInSec="3"
-                app:sliderStartAutoCycle="true" />
-
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_view_name_prodcut_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/iran_yekan"
-                android:layoutDirection="rtl"
-                android:lines="2"
-                android:text="@string/product_name"
-                android:textColor="@color/black"
-                android:textSize="18sp">
-
-            </com.google.android.material.textview.MaterialTextView>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="2dp"
-                android:background="?android:attr/listDivider"
-                android:outlineAmbientShadowColor="#DDDDDD"
-                android:outlineSpotShadowColor="#DDDDDD" />
-
-            <ScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layoutDirection="rtl">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_view_information_product_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:fontFamily="@font/iran_yekan"
-                    android:layoutDirection="rtl"
-                    android:lines="10"
-                    android:text="@string/product_description"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-            </ScrollView>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="2dp"
-                android:background="?android:attr/listDivider"
-                android:outlineAmbientShadowColor="#DDDDDD"
-                android:outlineSpotShadowColor="#DDDDDD" />
-
-
-            <RelativeLayout
-                android:id="@+id/layout_users_comment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_view_users_comment"
-                    style="@style/PartialTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="right"
-                    android:gravity="right"
-                    android:text="نظرات کاربران" />
-
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/text_view_users_comment"
-                    android:layout_margin="4dp"
-                    app:cardBackgroundColor="@color/white_ff"
-                    app:cardCornerRadius="8dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_view_comments"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="right"
-                        android:layoutDirection="rtl"
-                        android:orientation="horizontal"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:visibility="gone"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
-                        />
-                </com.google.android.material.card.MaterialCardView>
-
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_view_have_not_comment"
-                    style="@style/GeneralTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/text_view_users_comment"
-                    android:layoutDirection="rtl"
-                    android:layout_centerHorizontal="true"
-                    android:text="هنوز نظری ثبت نشده است"
-                    android:textColor="@color/digikala_blue_gray"
-                    android:visibility="visible" />
-
-            </RelativeLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_post_comment_product_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/digikala_blue_gray"
-                android:layoutDirection="rtl"
-                android:text="ثبت دیدگاه"
-                app:icon="@drawable/ic_comment" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="2dp"
-                android:background="?android:attr/listDivider"
-                android:outlineAmbientShadowColor="#DDDDDD"
-                android:outlineSpotShadowColor="#DDDDDD" />
 
             <LinearLayout
+                android:id="@+id/layout_product_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:elevation="1dp"
                 android:orientation="vertical"
-                android:id="@+id/layout_show_snack_bar_product_detail"
-                />
+                android:padding="1dp">
 
-            <RelativeLayout
-                android:id="@+id/layout_add_to_shopping_bag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/white_ff">
+                <com.smarteist.autoimageslider.SliderView
+                    android:id="@+id/slider_view_product_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    app:sliderAnimationDuration="600"
+                    app:sliderAutoCycleDirection="right"
+                    app:sliderAutoCycleEnabled="true"
+                    app:sliderIndicatorAnimationDuration="600"
+                    app:sliderIndicatorGravity="left|bottom"
+                    app:sliderIndicatorOrientation="horizontal"
+                    app:sliderIndicatorSelectedColor="@color/gray_21"
+                    app:sliderIndicatorUnselectedColor="@color/gray_75"
+                    app:sliderScrollTimeInSec="3"
+                    app:sliderStartAutoCycle="true" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_view_old_price_product_detail"
-                    style="@style/NonSignificantTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:gravity="left"
-                    android:layoutDirection="rtl"
-                    android:text="@string/product_price"
-                    android:textColor="@color/digikala_gray" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/text_view_latest_price_product_detail"
+                    android:id="@+id/text_view_name_prodcut_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/text_view_old_price_product_detail"
-                    android:layout_alignParentLeft="true"
-                    android:gravity="left"
-                    style="@style/PartialTextStyle"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/iran_yekan"
                     android:layoutDirection="rtl"
-                    android:text="@string/product_price"
-                    />
+                    android:lines="2"
+                    android:text="@string/product_name"
+                    android:textColor="@color/black"
+                    android:textSize="18sp">
 
+                </com.google.android.material.textview.MaterialTextView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="2dp"
+                    android:background="?android:attr/listDivider"
+                    android:outlineAmbientShadowColor="#DDDDDD"
+                    android:outlineSpotShadowColor="#DDDDDD" />
+
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layoutDirection="rtl">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/text_view_information_product_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/iran_yekan"
+                        android:layoutDirection="rtl"
+                        android:lines="10"
+                        android:text="@string/product_description"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </ScrollView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="2dp"
+                    android:background="?android:attr/listDivider"
+                    android:outlineAmbientShadowColor="#DDDDDD"
+                    android:outlineSpotShadowColor="#DDDDDD" />
+
+
+                <RelativeLayout
+                    android:id="@+id/layout_users_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/text_view_users_comment"
+                        style="@style/PartialTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="right"
+                        android:gravity="right"
+                        android:text="نظرات کاربران" />
+
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/text_view_users_comment"
+                        android:layout_margin="4dp"
+                        app:cardBackgroundColor="@color/white_ff"
+                        app:cardCornerRadius="8dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_view_comments"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="right"
+                            android:layoutDirection="rtl"
+                            android:orientation="horizontal"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:visibility="gone"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                            />
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/text_view_have_not_comment"
+                        style="@style/GeneralTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_view_users_comment"
+                        android:layoutDirection="rtl"
+                        android:layout_centerHorizontal="true"
+                        android:text="هنوز نظری ثبت نشده است"
+                        android:textColor="@color/digikala_blue_gray"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_add_to_shopping_bag"
-                    style="@style/PartialTextStyle"
+                    android:id="@+id/button_post_comment_product_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/btn_rounded"
-                    android:backgroundTint="@color/white_ff"
-                    android:text="@string/add_bag"
-                    android:textColor="@color/white_ff"
-                    app:backgroundTint="@color/colorPrimary" />
-            </RelativeLayout>
+                    android:backgroundTint="@color/digikala_blue_gray"
+                    android:layoutDirection="rtl"
+                    android:text="ثبت دیدگاه"
+                    app:icon="@drawable/ic_comment" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="2dp"
+                    android:background="?android:attr/listDivider"
+                    android:outlineAmbientShadowColor="#DDDDDD"
+                    android:outlineSpotShadowColor="#DDDDDD" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/layout_show_snack_bar_product_detail" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_add_to_shopping_bag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/white_ff">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/text_view_old_price_product_detail"
+                        style="@style/NonSignificantTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="left"
+                        android:layoutDirection="rtl"
+                        android:text="@string/product_price"
+                        android:textColor="@color/digikala_gray" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/text_view_latest_price_product_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_view_old_price_product_detail"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="left"
+                        style="@style/PartialTextStyle"
+                        android:layoutDirection="rtl"
+                        android:text="@string/product_price" />
 
 
-        </LinearLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_add_to_shopping_bag"
+                        style="@style/PartialTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/btn_rounded"
+                        android:backgroundTint="@color/white_ff"
+                        android:text="@string/add_bag"
+                        android:textColor="@color/white_ff"
+                        app:backgroundTint="@color/colorPrimary" />
+                </RelativeLayout>
 
 
-    </ScrollView>
+            </LinearLayout>
 
 
-</RelativeLayout>
+        </ScrollView>
+
+
+    </RelativeLayout>
+</layout>

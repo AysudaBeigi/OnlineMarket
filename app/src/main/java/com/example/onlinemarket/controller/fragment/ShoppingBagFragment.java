@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CardAdapter;
+import com.example.onlinemarket.databinding.FragmentShoppingBagBinding;
 import com.example.onlinemarket.model.Card;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.order.LineItemsItem;
@@ -24,7 +26,6 @@ import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.CardDBRepository;
 import com.example.onlinemarket.repository.CustomerDBRepository;
 import com.example.onlinemarket.repository.OrderRepository;
-import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +36,9 @@ public class ShoppingBagFragment extends Fragment   {
     public static String TAG = "OnlineMarket";
     private CustomerDBRepository mCustomerDBRepository;
     private CardDBRepository mCardDBRepository;
-    private RecyclerView mShoppingRecyclerView;
-    private MaterialButton mButtonFinalizeShopping;
     private CardAdapter mCardAdapter;
     private Customer mCustomer;
+    private FragmentShoppingBagBinding mBinding;
 
     private NavController mNavController;
 
@@ -64,18 +64,18 @@ public class ShoppingBagFragment extends Fragment   {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_shopping_bag, container,
+        mBinding= DataBindingUtil.inflate(inflater,
+                R.layout.fragment_shopping_bag, container,
                 false);
 
-        findViews(view);
         initViews();
 
         setListeners();
-        return view;
+        return mBinding.getRoot();
     }
 
     private void setListeners() {
-        mButtonFinalizeShopping.setOnClickListener(new View.OnClickListener() {
+        mBinding.buttonFinalizeShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCustomer = mCustomerDBRepository.getCustomer();
@@ -89,8 +89,6 @@ public class ShoppingBagFragment extends Fragment   {
                         public void onItemResponse(Order order) {
                             Log.d(TAG, "postOrder+ onItemResponse + order is " +
                                     order.toString());
-
-
 
                         }
                     });
@@ -133,12 +131,12 @@ public class ShoppingBagFragment extends Fragment   {
 
 
     private void initViews() {
-        mShoppingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
+        mBinding.recyclerViewCards.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false));
 
         List<Product> orderList = getOrders();
 
-        updateUI(mShoppingRecyclerView, orderList);
+        updateUI(mBinding.recyclerViewCards, orderList);
 
     }
 
@@ -167,12 +165,6 @@ public class ShoppingBagFragment extends Fragment   {
         }
 
     }
-
-    private void findViews(View view) {
-        mShoppingRecyclerView = view.findViewById(R.id.recycler_view_cards);
-        mButtonFinalizeShopping = view.findViewById(R.id.button_finalize_shopping);
-    }
-
 
 
 }

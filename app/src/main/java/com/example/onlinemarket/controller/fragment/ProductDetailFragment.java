@@ -9,15 +9,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CommentAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
+import com.example.onlinemarket.databinding.FragmentProductDetailBinding;
 import com.example.onlinemarket.model.Card;
 import com.example.onlinemarket.model.Comment;
 import com.example.onlinemarket.model.customer.Customer;
@@ -27,10 +28,7 @@ import com.example.onlinemarket.repository.CardDBRepository;
 import com.example.onlinemarket.repository.CommentRepository;
 import com.example.onlinemarket.repository.CustomerDBRepository;
 import com.example.onlinemarket.utils.UIUtils;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textview.MaterialTextView;
-import com.smarteist.autoimageslider.SliderView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -44,23 +42,12 @@ public class ProductDetailFragment extends Fragment  {
     public static final String ARGS_PRODUCT = "argsProduct";
     private Product mProduct;
     private ImageSliderAdapter mImageSliderAdapter;
-    private SliderView mSliderView;
-    private MaterialTextView mOldPrice;
-    private MaterialTextView mLatestPrice;
-    private MaterialTextView mInformation;
-    private MaterialTextView mName;
-    private MaterialButton mButtonAddToShoppingBag;
-    private CardDBRepository mCardDBRepository;
-    private RecyclerView mRecyclerViewComments;
-    private MaterialButton mButtonPostComment;
-    private MaterialTextView mTextViewHaveNotComment;
+   private CardDBRepository mCardDBRepository;
     private CommentAdapter mCommentAdapter;
-    private View mViewShowSnackBar;
     private Customer mCustomer;
     public static String TAG = "OnlineMarket";
    private NavController mNavController;
-
-
+   private FragmentProductDetailBinding mBinding;
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -94,41 +81,26 @@ public class ProductDetailFragment extends Fragment  {
                              Bundle savedInstanceState) {
         Log.d(TAG, "ProductDetailFragment +onCreateView ");
 
-        View view = inflater.inflate(R.layout.fragment_product_detail,
+       mBinding = DataBindingUtil.inflate(inflater,
+               R.layout.fragment_product_detail,
                 container, false);
-        findViews(view);
         initViews();
         setListener();
-        return view;
-    }
-
-    private void findViews(View view) {
-        Log.d(TAG, "ProductDetailFragment +findViews ");
-
-        mSliderView = view.findViewById(R.id.slider_view_product_detail);
-        mOldPrice = view.findViewById(R.id.text_view_old_price_product_detail);
-        mInformation = view.findViewById(R.id.text_view_information_product_detail);
-        mLatestPrice = view.findViewById(R.id.text_view_latest_price_product_detail);
-        mButtonAddToShoppingBag = view.findViewById(R.id.button_add_to_shopping_bag);
-        mName = view.findViewById(R.id.text_view_name_prodcut_detail);
-        mRecyclerViewComments = view.findViewById(R.id.recycler_view_comments);
-        mButtonPostComment = view.findViewById(R.id.button_post_comment_product_detail);
-        mTextViewHaveNotComment = view.findViewById(R.id.text_view_have_not_comment);
-        mViewShowSnackBar = view.findViewById(R.id.layout_show_snack_bar_product_detail);
-
+        return mBinding.getRoot();
     }
 
     private void initViews() {
         Log.d(TAG, "ProductDetailFragment +initViews ");
 
-        mLatestPrice.setText(mProduct.getPrice() + " " +
+        mBinding.textViewLatestPriceProductDetail.setText(mProduct.getPrice() + " " +
                 getContext().getResources().getString(R.string.toman));
-        mOldPrice.setText(mProduct.getRegularPrice() + " " +
+        mBinding.textViewOldPriceProductDetail.setText(mProduct.getRegularPrice() + " " +
                 getContext().getResources().getString(R.string.toman));
-        mOldPrice.setPaintFlags(mOldPrice.getPaintFlags() |
+        mBinding.textViewOldPriceProductDetail.
+                setPaintFlags(mBinding.textViewOldPriceProductDetail.getPaintFlags() |
                 Paint.STRIKE_THRU_TEXT_FLAG);
-        mInformation.setText(getInformation());
-        mName.setText(mProduct.getName());
+        mBinding.textViewInformationProductDetail.setText(getInformation());
+        mBinding.textViewNameProdcutDetail.setText(mProduct.getName());
         setupImageSliderAdapter(mProduct.getImages());
         CommentRepository.getInstance(getActivity()).
                 fetchProductComments(mProduct.getId(),
@@ -150,14 +122,14 @@ public class ProductDetailFragment extends Fragment  {
         if (comments != null) {
             if (comments.size() > 0) {
 
-                mTextViewHaveNotComment.setVisibility(View.GONE);
-                mRecyclerViewComments.setVisibility(View.VISIBLE);
+                mBinding.textViewHaveNotComment.setVisibility(View.GONE);
+                mBinding.recyclerViewComments.setVisibility(View.VISIBLE);
             }
 
         }
         if (mCommentAdapter == null) {
             mCommentAdapter = new CommentAdapter(getContext(), comments);
-            mRecyclerViewComments.setAdapter(mCommentAdapter);
+            mBinding.recyclerViewComments.setAdapter(mCommentAdapter);
         } else {
             mCommentAdapter.setComments(comments);
             mCommentAdapter.notifyDataSetChanged();
@@ -168,7 +140,7 @@ public class ProductDetailFragment extends Fragment  {
     private void initRecyclerView() {
         Log.d(TAG, "ProductDetailFragment +initRecyclerView ");
 
-        mRecyclerViewComments.setLayoutManager(new LinearLayoutManager(getContext(),
+        mBinding.recyclerViewComments.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
     }
 
@@ -190,7 +162,7 @@ public class ProductDetailFragment extends Fragment  {
     private void setListener() {
         Log.d(TAG, "ProductDetailFragment +setListener ");
 
-        mButtonAddToShoppingBag.setOnClickListener(new View.OnClickListener() {
+        mBinding.buttonAddToShoppingBag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "ProductDetailFragment +mButtonAddToShoppingBag + onClick");
@@ -200,22 +172,22 @@ public class ProductDetailFragment extends Fragment  {
                             +isProductInCart());
 
                     Log.d(TAG, "ProductDetailFragment +mButtonAddToShoppingBag + else");
-                    Snackbar snackbar = UIUtils.makeSnackBar(mViewShowSnackBar
+                    Snackbar snackbar = UIUtils.makeSnackBar(mBinding.layoutShowSnackBarProductDetail
                             , R.string.this_product_is_added_to_shopping_bag);
                     snackbar.show();
                     addTooCard();
-                    mButtonAddToShoppingBag.setEnabled(false);
+                    mBinding.buttonAddToShoppingBag.setEnabled(false);
                 }
             }
         });
 
-        mButtonPostComment.setOnClickListener(new View.OnClickListener() {
+        mBinding.buttonPostCommentProductDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "ProductDetailFragment +mButtonPostComment + onClick");
                 if (mCustomer == null) {
-                    Snackbar snackbar = UIUtils.makeSnackBar(mViewShowSnackBar,
-                            R.string.please_fist_sign_up);
+                    Snackbar snackbar = UIUtils.makeSnackBar(mBinding.layoutShowSnackBarProductDetail
+                           , R.string.please_fist_sign_up);
                     snackbar.show();
                 } else {
                     replacePostCommentFragment();
@@ -238,12 +210,6 @@ public class ProductDetailFragment extends Fragment  {
         bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
         mNavController.navigate(R.id.action_productDetailFragment_to_PostCommentFragment,bundle);
 
-        /*getActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container_main_activity,
-                        PostCommentFragment.newInstance(mProduct))
-                .commit();
-        */
 
     }
 
@@ -273,7 +239,7 @@ public class ProductDetailFragment extends Fragment  {
         mImageSliderAdapter = new ImageSliderAdapter(getContext(), imagesItems);
         Log.d(TAG, "ProductDetailFragment + after setupImageSliderAdapter ");
 
-        mSliderView.setSliderAdapter(mImageSliderAdapter);
+        mBinding.sliderViewProductDetail.setSliderAdapter(mImageSliderAdapter);
     }
 
    /* public String getFormattedDescription() {

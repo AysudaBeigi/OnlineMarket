@@ -8,33 +8,38 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BottomNavigationView mBottomNavigationView;
     private NavController mNavController;
     private static String TAG="OnlineMarket";
+    private ActivityMainBinding mBinding;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         return intent;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG,"MainActivity + onCreate");
 
-        setContentView(R.layout.activity_main);
+        mBinding = DataBindingUtil.setContentView(this,
+                R.layout.activity_main);
 
-        findViews();
-        NavigationUI.setupWithNavController(mBottomNavigationView,mNavController);
+        findNavController();
+        NavigationUI.setupWithNavController(mBinding.buttonNavigationViewMainActivity,
+                mNavController);
         moveNavigationButton();
 
     }
@@ -48,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void moveNavigationButton() {
 
-        mBottomNavigationView.setOnNavigationItemSelectedListener(
+        mBinding.buttonNavigationViewMainActivity.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -78,11 +83,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private void findViews() {
+    private void findNavController() {
         Log.d(TAG,"MainActivity + findViews");
 
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        mBottomNavigationView = findViewById(R.id.button_navigation_view_main_activity);
 
     }
 

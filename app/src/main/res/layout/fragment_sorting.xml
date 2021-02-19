@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/sorts_radio_group"
-    android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:layout_margin="8dp"
-    android:padding="8dp"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.google.android.material.radiobutton.MaterialRadioButton
-        android:id="@+id/radio_button_popularest"
+    <data>
+
+    </data>
+
+    <RadioGroup
+        android:id="@+id/sorts_radio_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/popularity"
-        style="@style/PartialTextStyle"
-        android:textSize="16sp"
-        android:outlineSpotShadowColor="@color/red_22"
-        />
+        android:layout_height="300dp"
+        android:layout_margin="8dp"
+        android:padding="8dp">
 
-    <com.google.android.material.radiobutton.MaterialRadioButton
-        android:id="@+id/latest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/newest"
-        style="@style/PartialTextStyle"
-        android:textSize="16sp"
-        />
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_button_popularest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/popularity"
+            style="@style/PartialTextStyle"
+            android:textSize="16sp"
+            android:outlineSpotShadowColor="@color/red_22" />
 
-    <com.google.android.material.radiobutton.MaterialRadioButton
-        android:id="@+id/radio_button_high_to_low_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/high_to_low"
-        android:textSize="16sp"
-        style="@style/PartialTextStyle"
-        />
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_button_latest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/newest"
+            style="@style/PartialTextStyle"
+            android:textSize="16sp" />
 
-    <com.google.android.material.radiobutton.MaterialRadioButton
-        android:id="@+id/radio_button_low_to_high_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/low_to_high"
-        android:textSize="16sp"
-        style="@style/PartialTextStyle"
-        />
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_button_high_to_low_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/high_to_low"
+            android:textSize="16sp"
+            style="@style/PartialTextStyle" />
 
-</RadioGroup>
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_button_low_to_high_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/low_to_high"
+            android:textSize="16sp"
+            style="@style/PartialTextStyle" />
+
+    </RadioGroup>
+</layout>

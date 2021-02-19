@@ -1,114 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:padding="10dp"
-    tools:context=".controller.fragment.PostCommentFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/layout_comment_text"
+    <data>
+
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:orientation="vertical">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_view_comment_text"
-            style="@style/PartialTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="متن دیدگاه" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text_comment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_comment_rate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout_comment_text"
-        android:layout_marginTop="72dp"
-        android:orientation="vertical">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_view_comment_rate"
-            style="@style/PartialTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="right"
-            android:text="امتیاز" />
-
-        <RadioGroup
-            android:id="@+id/radio_group_rating_add_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layoutDirection="ltr"
-            android:orientation="horizontal">
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_button_1_add_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/digikala_red"
-                android:text="@string/text_view_radio_button_one" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_button_2_add_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/orange_40"
-                android:text="@string/text_view_radio_button_two" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_button_3_add_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/yellow_35"
-                android:text="@string/text_view_radio_button_three" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_button_4_add_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/digikala_green"
-                android:text="@string/text_view_radio_button_four" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/radio_button_5_add_comment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/digikala_blue"
-                android:text="@string/text_view_radio_button_five" />
-
-        </RadioGroup>
-    </LinearLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="64dp"
-        android:id="@+id/button_post_comment_fragment"
-        android:backgroundTint="@color/digikala_blue_gray"
-        android:text="@string/button_post_comment" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:id="@+id/layout_show_snack_bar_post_comment"
-        android:layout_alignParentBottom="true"
-        />
+        android:padding="10dp"
+        tools:context=".controller.fragment.PostCommentFragment">
 
-</RelativeLayout>
+        <LinearLayout
+            android:id="@+id/layout_comment_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_comment_text"
+                style="@style/PartialTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="متن دیدگاه" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_comment_rate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_comment_text"
+            android:layout_marginTop="72dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_comment_rate"
+                style="@style/PartialTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="right"
+                android:text="امتیاز" />
+
+            <RadioGroup
+                android:id="@+id/radio_group_rating_add_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layoutDirection="ltr"
+                android:orientation="horizontal">
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radio_button_1_add_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/digikala_red"
+                    android:text="@string/text_view_radio_button_one" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radio_button_2_add_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/orange_40"
+                    android:text="@string/text_view_radio_button_two" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radio_button_3_add_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/yellow_35"
+                    android:text="@string/text_view_radio_button_three" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radio_button_4_add_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/digikala_green"
+                    android:text="@string/text_view_radio_button_four" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radio_button_5_add_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/digikala_blue"
+                    android:text="@string/text_view_radio_button_five" />
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="64dp"
+            android:id="@+id/button_post_comment"
+            android:backgroundTint="@color/digikala_blue_gray"
+            android:text="@string/button_post_comment" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:id="@+id/layout_show_snack_bar_post_comment"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+</layout>

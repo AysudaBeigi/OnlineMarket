@@ -10,32 +10,23 @@ import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.databinding.FragmentPostCommentBinding;
 import com.example.onlinemarket.model.Comment;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.CommentRepository;
 import com.example.onlinemarket.repository.CustomerDBRepository;
 import com.example.onlinemarket.utils.UIUtils;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
 
 public class PostCommentFragment extends Fragment {
     public static final String ARGS_PRODUCT = "argsProduct";
-    private TextInputEditText mEditTextComment;
-    private RadioGroup mRadioGroupRating;
-    private MaterialRadioButton mRadioButton1;
-    private MaterialRadioButton mRadioButton2;
-    private MaterialRadioButton mRadioButton3;
-    private MaterialRadioButton mRadioButton4;
-    private MaterialRadioButton mRadioButton5;
-    private MaterialButton mButtonPostComment;
     private boolean mIsRated = false;
     private int mRate;
     private int mProductId;
@@ -43,7 +34,7 @@ public class PostCommentFragment extends Fragment {
     private Customer mCustomer;
     private NavController mNavController;
     public static String TAG = "OnlineMarket";
-
+    private FragmentPostCommentBinding mBinding;
 
     public PostCommentFragment() {
         // Required empty public constructor
@@ -72,19 +63,19 @@ public class PostCommentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_post_comment, container,
+        mBinding = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_post_comment, container,
                 false);
 
-        findViews(view);
-        setListeners(view);
-        return view;
+        setListeners(mBinding.getRoot());
+        return mBinding.getRoot();
     }
 
     private void setListeners(View view) {
-        mButtonPostComment.setOnClickListener(new View.OnClickListener() {
+        mBinding.buttonPostComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String review = mEditTextComment.getText().toString();
+                String review = mBinding.editTextComment.getText().toString();
 
                 if (review.isEmpty() || !mIsRated) {
                     showCompleteCommentSnackBar(view);
@@ -92,7 +83,7 @@ public class PostCommentFragment extends Fragment {
                 } else {
                     Log.d(TAG, "PostCommentFragment + comment is complete");
 
-                    mButtonPostComment.setBackgroundColor(
+                    mBinding.buttonPostComment.setBackgroundColor(
                             getResources().getColor(R.color.digikala_red));
 
                     Comment comment = getComment(review);
@@ -111,19 +102,19 @@ public class PostCommentFragment extends Fragment {
             }
 
         });
-        mRadioGroupRating.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        mBinding.radioGroupRatingAddComment.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == mRadioButton1.getId()) {
-                    rating(mRadioButton1, 1);
-                } else if (checkedId == mRadioButton2.getId()) {
-                    rating(mRadioButton2, 2);
-                } else if (checkedId == mRadioButton3.getId()) {
-                    rating(mRadioButton3, 3);
-                } else if (checkedId == mRadioButton4.getId()) {
-                    rating(mRadioButton4, 4);
-                } else if (checkedId == mRadioButton5.getId()) {
-                    rating(mRadioButton5, 5);
+                if (checkedId == mBinding.radioButton1AddComment.getId()) {
+                    rating(mBinding.radioButton1AddComment, 1);
+                } else if (checkedId == mBinding.radioButton2AddComment.getId()) {
+                    rating(mBinding.radioButton2AddComment, 2);
+                } else if (checkedId == mBinding.radioButton3AddComment.getId()) {
+                    rating(mBinding.radioButton3AddComment, 3);
+                } else if (checkedId == mBinding.radioButton4AddComment.getId()) {
+                    rating(mBinding.radioButton4AddComment, 4);
+                } else if (checkedId == mBinding.radioButton5AddComment.getId()) {
+                    rating(mBinding.radioButton5AddComment, 5);
                 } else {
                     mIsRated = false;
                 }
@@ -142,10 +133,10 @@ public class PostCommentFragment extends Fragment {
     private void replaceProductDetailFragment() {
         Log.d(TAG, "PostCommentFragment +replaceProductDetailFragment");
 
-        Bundle bundle=new Bundle();
-        bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT, mProduct);
         mNavController.navigate(R.id.action_PostCommentFragment_to_productDetailFragment
-        ,bundle);
+                , bundle);
 
 
     }
@@ -166,29 +157,11 @@ public class PostCommentFragment extends Fragment {
         snackbar.show();
     }
 
-  /*  private void replaceSignUpFragment() {
-        Log.d(TAG, "replaceSignUpFragment ");
 
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container_main_activity,
-                        SignUpFragment.newInstance());
-    }
-*/
     private void rating(RadioButton radioButton, int rate) {
         radioButton.setChecked(true);
         mRate = rate;
         mIsRated = true;
-    }
-
-    private void findViews(View view) {
-        mEditTextComment = view.findViewById(R.id.edit_text_comment);
-        mRadioGroupRating = view.findViewById(R.id.radio_group_rating_add_comment);
-        mRadioButton1 = view.findViewById(R.id.radio_button_1_add_comment);
-        mRadioButton2 = view.findViewById(R.id.radio_button_2_add_comment);
-        mRadioButton3 = view.findViewById(R.id.radio_button_3_add_comment);
-        mRadioButton4 = view.findViewById(R.id.radio_button_4_add_comment);
-        mRadioButton5 = view.findViewById(R.id.radio_button_5_add_comment);
-        mButtonPostComment = view.findViewById(R.id.button_post_comment_fragment);
     }
 
 

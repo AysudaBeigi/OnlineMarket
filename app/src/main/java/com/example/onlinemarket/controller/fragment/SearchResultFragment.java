@@ -7,15 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductVerticalAdapter;
+import com.example.onlinemarket.databinding.FragmentSearchResultBinding;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.network.NetworkParams;
 import com.example.onlinemarket.repository.MarketRepository;
-import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
 import java.util.Map;
@@ -29,13 +29,11 @@ public class SearchResultFragment extends Fragment   {
 
     private String mQuery = "";
 
-    private RecyclerView mRecyclerView;
     private ProductVerticalAdapter mAdapter;
     private MarketRepository mMarketRepository;
-    private ShapeableImageView mSort, mFilter;
     private int mCategoryId;
     Map<String, String> mSearchQueryMap;
-
+    private FragmentSearchResultBinding mBinding;
 
     public SearchResultFragment() {
         // Required empty public constructor
@@ -73,7 +71,7 @@ public class SearchResultFragment extends Fragment   {
                     public void onItemResponse(List<Product> items) {
                         if (mAdapter == null) {
                             mAdapter = new ProductVerticalAdapter(getContext(), items);
-                            mRecyclerView.setAdapter(mAdapter);
+                            mBinding.recyclerViewSearchResult.setAdapter(mAdapter);
                         } else {
                             mAdapter.setProductsItem(items);
                             mAdapter.notifyDataSetChanged();
@@ -85,22 +83,15 @@ public class SearchResultFragment extends Fragment   {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_search_result, container, false);
-        findViews(view);
+       mBinding= DataBindingUtil.inflate(inflater,
+               R.layout.fragment_search_result, container, false);
         setListeners();
-        return view;
+        return mBinding.getRoot();
     }
 
-    private void findViews(View view) {
-        mRecyclerView = view.findViewById(R.id.recycler_view_search_result);
-        mSort = view.findViewById(R.id.image_view_sort_search_result);
-        mFilter = view.findViewById(R.id.image_view_filter_search_result);
-
-    }
 
     private void setListeners() {
-        mSort.setOnClickListener(new View.OnClickListener() {
+        mBinding.imageViewSortSearchResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SortingDialogFragment orderDialogFragment = SortingDialogFragment.newInstance();
@@ -109,7 +100,7 @@ public class SearchResultFragment extends Fragment   {
                 orderDialogFragment.show(getParentFragmentManager(), TAG_CHOOSE_ORDER);
             }
         });
-        mFilter.setOnClickListener(new View.OnClickListener() {
+        mBinding.imageViewFilterSearchResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                //todo : handle filter section

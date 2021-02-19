@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    <data>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_splash_activity"
+    </data>
+
+    <RelativeLayout
+
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:background="@color/white_ff"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="animation_shopping_loader.json"
-        app:lottie_loop="true"/>
+        android:layout_height="match_parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_splash_activity"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:background="@color/white_ff"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="animation_shopping_loader.json"
+            app:lottie_loop="true" />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/layout_connection_snack_bar"
-        android:layout_below="@+id/animation_splash_activity"
-        android:orientation="vertical"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_connection_snack_bar"
+            android:layout_below="@+id/animation_splash_activity"
+            android:orientation="vertical"
 
-        >
+            >
 
-    </LinearLayout>
+        </LinearLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

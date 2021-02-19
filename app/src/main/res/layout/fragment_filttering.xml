@@ -1,75 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    app:cardBackgroundColor="@color/white_ff"
-    app:cardCornerRadius="4dp"
-    tools:context=".controller.fragment.SearchResultFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/linear_layout_filttering_fragment"
+    <data>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/white_ff"
+        app:cardCornerRadius="4dp"
+        tools:context=".controller.fragment.SearchResultFragment">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_view_filter_one"
+        <LinearLayout
+            android:id="@+id/linear_layout_filttering_fragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ویژگی یک "
-            android:textColor="@color/black" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_view_filter_two"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/far_trafc_bd"
-            android:text="ویژگی دو "
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_filter_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ویژگی یک "
+                android:textColor="@color/black" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_view_filter_three"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ویژگی سه "
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_filter_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/far_trafc_bd"
+                android:text="ویژگی دو "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_view_filter_four"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ویژگی چهار "
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_filter_three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ویژگی سه "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_view_filter_five"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ویژگی پنج "
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_filter_four"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ویژگی چهار "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_view_filter_six"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ویژگی شش "
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_filter_five"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ویژگی پنج "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view_filter_six"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ویژگی شش "
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -8,14 +8,15 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.ProductVerticalAdapter;
+import com.example.onlinemarket.databinding.FragmentSubCategoryProductsBinding;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.MarketRepository;
 
@@ -24,11 +25,11 @@ import java.util.List;
 
 public class SubCategoryProductsFragment extends Fragment   {
     public static final String ARGS_SUBCATEGORY_ID = "argsSubcategoryId";
-    private RecyclerView mRecyclerViewSubCategoryProducts;
     private MarketRepository mMarketRepository;
     private int mSubCategoryId;
-    private SearchView mSearchViewSubCategoryProducts;
     private NavController mNavController;
+    private FragmentSubCategoryProductsBinding mBinding;
+
     public SubCategoryProductsFragment() {
         // Required empty public constructor
     }
@@ -51,15 +52,16 @@ public class SubCategoryProductsFragment extends Fragment   {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sub_category_products,
+        mBinding= DataBindingUtil.inflate(inflater,
+                R.layout.fragment_sub_category_products,
                 container, false);
-        findViews(view);
         initViews();
         setListeners();
-        return view;
+        return mBinding.getRoot();
     }
     private void setListeners() {
-        mSearchViewSubCategoryProducts.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mBinding.searchViewSubCategoryProducts.
+                setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 replaceSearchResultFragment(query);
@@ -91,14 +93,8 @@ public class SubCategoryProductsFragment extends Fragment   {
     }
 
 
-    private void findViews(View view) {
-        mRecyclerViewSubCategoryProducts = view.
-                findViewById(R.id.recycler_view_fragment_sub_category_products);
-        mSearchViewSubCategoryProducts=view.findViewById(R.id.search_view);
-    }
-
     private void initViews() {
-        mRecyclerViewSubCategoryProducts.
+        mBinding.recyclerViewFragmentSubCategoryProducts.
                 setLayoutManager(new LinearLayoutManager(getContext()));
         mMarketRepository.fetchCategoryProduct(
                 mSubCategoryId,
@@ -116,7 +112,7 @@ public class SubCategoryProductsFragment extends Fragment   {
     private void initAdapter(List<Product> categoryProduct) {
         ProductVerticalAdapter productVerticalAdapter =
                 new ProductVerticalAdapter(getActivity(), categoryProduct);
-        mRecyclerViewSubCategoryProducts.setAdapter(productVerticalAdapter);
+        mBinding.recyclerViewFragmentSubCategoryProducts.setAdapter(productVerticalAdapter);
     }
 
 

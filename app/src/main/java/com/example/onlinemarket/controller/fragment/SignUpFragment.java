@@ -8,24 +8,24 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.databinding.FragmentSignUpBinding;
 import com.example.onlinemarket.model.customer.Customer;
 import com.example.onlinemarket.repository.CustomerDBRepository;
-import com.google.android.material.button.MaterialButton;
+import com.example.onlinemarket.utils.UIUtils;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputEditText;
 
 public class SignUpFragment extends Fragment {
-    private TextInputEditText mEditTextEmail;
-    private MaterialButton mButtonEnterOnlineMarket;
     private String mCustomerEmail;
     private CustomerDBRepository mCustomerDBRepository;
     public static String TAG = "OnlineMarket";
     private NavController mNavController;
+    private FragmentSignUpBinding mBinding;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -52,23 +52,23 @@ public class SignUpFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sign_up, container,
+        mBinding = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_sign_up, container,
                 false);
         Log.d(TAG, "SignUpFragment + onCreateView ");
 
-        findViews(view);
-        setListeners(view);
-        return view;
+        setListeners();
+        return mBinding.getRoot();
     }
 
-    private void setListeners(View view) {
-        mButtonEnterOnlineMarket.setOnClickListener(new View.OnClickListener() {
+    private void setListeners() {
+        mBinding.buttonEnterOnlineMarket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCustomerEmail = mEditTextEmail.getText().toString();
+                mCustomerEmail = mBinding.textInputEditTextUserEmail.getText().toString();
 
                 if (mCustomerEmail.isEmpty()) {
-                    showEmailCantEmptySnackBar(view);
+                    showEmailCantEmptySnackBar();
                 } else {
                     SignUpCustomer();
                     replaceUserProfileFragment();
@@ -81,7 +81,7 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mNavController=Navigation.findNavController(view);
+        mNavController = Navigation.findNavController(view);
     }
 
     private void replaceUserProfileFragment() {
@@ -103,20 +103,12 @@ public class SignUpFragment extends Fragment {
         });
     }
 
-    private void showEmailCantEmptySnackBar(View view) {
+    private void showEmailCantEmptySnackBar() {
         Log.d(TAG, "SignUpFragment + showEmailCantEmptySnackBar ");
-
-        Snackbar snackbar = Snackbar
-                .make(view.findViewById(R.id.layout_show_email_cant_empty_snack_bar),
-                        "ابتدا ایمیل خود را وارد کنید",
-                        Snackbar.LENGTH_INDEFINITE);
+        Snackbar snackbar = UIUtils.makeSnackBar(mBinding.layoutShowEmailCantEmptySnackBar,
+                R.string.first_enter_your_email);
         snackbar.show();
     }
 
-    private void findViews(View view) {
-        Log.d(TAG, "SignUpFragment + findViews ");
 
-        mEditTextEmail = view.findViewById(R.id.text_input_edit_text_user_email);
-        mButtonEnterOnlineMarket = view.findViewById(R.id.button_enter_online_market);
-    }
 }
