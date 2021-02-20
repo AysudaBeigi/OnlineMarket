@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.ProductVerticalAdapter;
+import com.example.onlinemarket.adapter.SearchResultProductsAdapter;
 import com.example.onlinemarket.databinding.FragmentSearchResultBinding;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.network.NetworkParams;
@@ -29,7 +29,7 @@ public class SearchResultFragment extends Fragment   {
 
     private String mQuery = "";
 
-    private ProductVerticalAdapter mAdapter;
+    private SearchResultProductsAdapter mAdapter;
     private MarketRepository mMarketRepository;
     private int mCategoryId;
     Map<String, String> mSearchQueryMap;
@@ -70,7 +70,7 @@ public class SearchResultFragment extends Fragment   {
                     @Override
                     public void onItemResponse(List<Product> items) {
                         if (mAdapter == null) {
-                            mAdapter = new ProductVerticalAdapter(getContext(), items);
+                            mAdapter = new SearchResultProductsAdapter(getContext(), items);
                             mBinding.recyclerViewSearchResult.setAdapter(mAdapter);
                         } else {
                             mAdapter.setProductsItem(items);

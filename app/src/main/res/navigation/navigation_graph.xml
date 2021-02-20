@@ -168,6 +168,11 @@
         <action
             android:id="@+id/action_SearchResultFragment_to_FilteringFragment"
             app:destination="@id/FilteringFragment" />
+         <action
+            android:id="@+id/action_SearchResultFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+
+
     </fragment>
 
 

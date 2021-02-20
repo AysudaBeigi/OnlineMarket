@@ -15,7 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.adapter.ProductVerticalAdapter;
+import com.example.onlinemarket.adapter.SubCategoryProductsAdapter;
 import com.example.onlinemarket.databinding.FragmentSubCategoryProductsBinding;
 import com.example.onlinemarket.model.product.Product;
 import com.example.onlinemarket.repository.MarketRepository;
@@ -110,8 +110,8 @@ public class SubCategoryProductsFragment extends Fragment   {
     }
 
     private void initAdapter(List<Product> categoryProduct) {
-        ProductVerticalAdapter productVerticalAdapter =
-                new ProductVerticalAdapter(getActivity(), categoryProduct);
+        SubCategoryProductsAdapter productVerticalAdapter =
+                new SubCategoryProductsAdapter(getActivity(), categoryProduct);
         mBinding.recyclerViewFragmentSubCategoryProducts.setAdapter(productVerticalAdapter);
     }
 

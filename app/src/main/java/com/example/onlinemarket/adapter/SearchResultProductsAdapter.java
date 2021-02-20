@@ -22,8 +22,8 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductVerticalAdapter extends
-        RecyclerView.Adapter<ProductVerticalAdapter.ProductVerticalHolder> {
+public class SearchResultProductsAdapter extends
+        RecyclerView.Adapter<SearchResultProductsAdapter.ProductVerticalHolder> {
 
     private Context mContext;
     private List<Product> mProductsItem;
@@ -37,7 +37,7 @@ public class ProductVerticalAdapter extends
         notifyDataSetChanged();
     }
 
-    public ProductVerticalAdapter(Context context, List<Product> productsItem) {
+    public SearchResultProductsAdapter(Context context, List<Product> productsItem) {
         mContext = context;
         mProductsItem = productsItem;
     }
@@ -55,25 +55,7 @@ public class ProductVerticalAdapter extends
     public void onBindViewHolder(@NonNull ProductVerticalHolder holder, int position) {
         Product productItem = mProductsItem.get(position);
         holder.bindProduct(productItem);
-/*
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
-                        ((AppCompatActivity) mContext).getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.fragment_container_main_activity,
-                                        ProductDetailFragment.newInstance(productItem)).
-                                commit();
-
-                    }
-                });
-
-            }
-        });*/
     }
 
     @Override
@@ -98,7 +80,7 @@ public class ProductVerticalAdapter extends
                     Bundle bundle=new Bundle();
                     bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
                     navController.navigate(
-                            R.id.action_SubCategoryProductsFragment_to_productDetailFragment
+                            R.id.action_SearchResultFragment_to_productDetailFragment
                     , bundle);
                 }
             });
