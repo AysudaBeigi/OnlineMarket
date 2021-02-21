@@ -60,7 +60,7 @@ public class CategoriesFragment extends Fragment   {
         mProductRepository = new ProductRepository(getContext());
         mCategoryRepository = new CategoryRepository(getContext());
 
-        mCategoryRepository.fetchCategories(
+        mCategoryRepository.setCategoriesLiveData(
                 new CategoryRepository.CategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> categories) {
@@ -87,7 +87,7 @@ public class CategoriesFragment extends Fragment   {
 
 
     private void updateCategoriesRecyclerAdapter() {
-        mCategoryRepository.fetchSubCategories(mCategories.get(0).getId(),
+        mCategoryRepository.setSubCategoriesLiveData(mCategories.get(0).getId(),
                 new CategoryRepository.subCategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> subCategories) {
@@ -124,7 +124,7 @@ public class CategoriesFragment extends Fragment   {
                     }
 
                 });
-        mCategoryRepository.fetchSubCategories(mCategories.get(1).getId(),
+        mCategoryRepository.setSubCategoriesLiveData(mCategories.get(1).getId(),
                 new CategoryRepository.subCategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> subCategories) {
@@ -161,7 +161,7 @@ public class CategoriesFragment extends Fragment   {
                     }
 
                 });
-        mCategoryRepository.fetchSubCategories(mCategories.get(2).getId(),
+        mCategoryRepository.setSubCategoriesLiveData(mCategories.get(2).getId(),
                 new CategoryRepository.subCategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> subCategories) {
@@ -197,7 +197,7 @@ public class CategoriesFragment extends Fragment   {
                     }
 
                 });
-        mCategoryRepository.fetchSubCategories(mCategories.get(3).getId(),
+        mCategoryRepository.setSubCategoriesLiveData(mCategories.get(3).getId(),
                 new CategoryRepository.subCategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> subCategories) {
@@ -233,7 +233,7 @@ public class CategoriesFragment extends Fragment   {
                     }
 
                 });
-        mCategoryRepository.fetchSubCategories(mCategories.get(4).getId(),
+        mCategoryRepository.setSubCategoriesLiveData(mCategories.get(4).getId(),
                 new CategoryRepository.subCategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> subCategories) {
@@ -269,7 +269,7 @@ public class CategoriesFragment extends Fragment   {
                     }
 
                 });
-        mCategoryRepository.fetchSubCategories(mCategories.get(5).getId(),
+        mCategoryRepository.setSubCategoriesLiveData(mCategories.get(5).getId(),
                 new CategoryRepository.subCategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> subCategories) {

@@ -20,13 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.HomeFragmentCategoriesAdapter;
-import com.example.onlinemarket.adapter.HomeProductsHorizontalAdapter;
+import com.example.onlinemarket.adapter.HomeProductsAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
 import com.example.onlinemarket.data.model.product.Category;
 import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.data.remote.NetworkParams;
-import com.example.onlinemarket.data.repository.CategoryRepository;
 import com.example.onlinemarket.databinding.FragmentHomeBinding;
 import com.example.onlinemarket.viewModel.HomeViewModel;
 import com.example.onlinemarket.viewModel.SearchResultViewModel;
@@ -39,14 +38,13 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private ImageSliderAdapter mImageSliderAdapter;
-    private HomeProductsHorizontalAdapter mLastCategoryProductsHorizontalAdapter;
-    private HomeProductsHorizontalAdapter mMostVisitedCategoryProductsHorizontalAdapter;
-    private HomeProductsHorizontalAdapter mPopularCategoryProductsHorizontalAdapter;
-    private HomeProductsHorizontalAdapter mAmazingOfferAdapter;
+    private HomeProductsAdapter mLastCategoryProductsHorizontalAdapter;
+    private HomeProductsAdapter mMostVisitedCategoryProductsHorizontalAdapter;
+    private HomeProductsAdapter mPopularCategoryProductsHorizontalAdapter;
+    private HomeProductsAdapter mAmazingOfferAdapter;
     private HomeFragmentCategoriesAdapter mHomeFragmentCategoriesAdapter;
 
-    private HomeViewModel mProductViewModel;
-    private CategoryRepository mCategoryRepository;
+    private HomeViewModel mHomeViewModel;
     private NavController mNavController;
     private FragmentHomeBinding mBinding;
 
@@ -60,17 +58,18 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mProductViewModel = new ViewModelProvider(this).
+        mHomeViewModel = new ViewModelProvider(this).
                 get(HomeViewModel.class);
         setProductsLiveData();
-        mCategoryRepository = new CategoryRepository(getActivity());
     }
+
     private void setProductsLiveData() {
-        mProductViewModel.setSpecialProductLiveData();
-        mProductViewModel.setAmazingOfferProductsLiveData();
-        mProductViewModel.setLatestProductsLiveData();
-        mProductViewModel.setMostVisitedProductsLiveData();
-        mProductViewModel.setPopularProductsLivData();
+        mHomeViewModel.setSpecialProductLiveData();
+        mHomeViewModel.setAmazingOfferProductsLiveData();
+        mHomeViewModel.setLatestProductsLiveData();
+        mHomeViewModel.setMostVisitedProductsLiveData();
+        mHomeViewModel.setPopularProductsLivData();
+        mHomeViewModel.setCategoriesLiveData();
     }
 
 
@@ -101,7 +100,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setObservers() {
-        mProductViewModel.getSpecialProductLiveData().
+        mHomeViewModel.getSpecialProductLiveData().
                 observe(this, new Observer<Product>() {
                     @Override
                     public void onChanged(Product product) {
@@ -111,7 +110,7 @@ public class HomeFragment extends Fragment {
                 });
 
 
-        mProductViewModel.getLatestProductsLiveData()
+        mHomeViewModel.getLatestProductsLiveData()
                 .observe(this, new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
@@ -121,7 +120,7 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
-        mProductViewModel.getMostVisitedProductsLiveData()
+        mHomeViewModel.getMostVisitedProductsLiveData()
                 .observe(this, new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
@@ -133,7 +132,7 @@ public class HomeFragment extends Fragment {
                 });
 
 
-        mProductViewModel.getPopularProductsLiveData()
+        mHomeViewModel.getPopularProductsLiveData()
                 .observe(this, new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
@@ -143,7 +142,7 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
-        mProductViewModel.getAmazingOfferProductsLiveData()
+        mHomeViewModel.getAmazingOfferProductsLiveData()
                 .observe(this, new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
@@ -152,21 +151,23 @@ public class HomeFragment extends Fragment {
 
                     }
                 });
-        mCategoryRepository.fetchCategories(
-                new CategoryRepository.CategoriesCallback() {
+        mHomeViewModel.getCategoriesLiveData()
+                .observe(this, new Observer<List<Category>>() {
                     @Override
-                    public void onItemResponse(List<Category> categories) {
+                    public void onChanged(List<Category> categories) {
                         mBinding.recyclerViewCategoriesHomeFragment.
                                 setLayoutManager(new LinearLayoutManager(getContext(),
                                         LinearLayoutManager.HORIZONTAL, false));
                         initCategoryAdapter(categories);
+
                     }
                 });
+
     }
 
 
     private void setupRecyclerView(RecyclerView recyclerView,
-                                   HomeProductsHorizontalAdapter adapter,
+                                   HomeProductsAdapter adapter,
                                    List<Product> products) {
         Log.d(TAG, "HomeF : initRecyclerView");
 
@@ -174,7 +175,7 @@ public class HomeFragment extends Fragment {
                 LinearLayoutManager.HORIZONTAL, false));
 
         if (adapter == null) {
-            adapter = new HomeProductsHorizontalAdapter(getContext(),
+            adapter = new HomeProductsAdapter(getContext(),
                     products);
             recyclerView.setAdapter(adapter);
         } else {
@@ -221,7 +222,7 @@ public class HomeFragment extends Fragment {
 
     private void replaceSearchResultFragment(String query) {
 
-        SearchResultViewModel searchResultViewModel=new ViewModelProvider(this)
+        SearchResultViewModel searchResultViewModel = new ViewModelProvider(this)
                 .get(SearchResultViewModel.class);
         searchResultViewModel.
                 setSearchResultProductsLiveData(NetworkParams.getSearchAllProducts(query));

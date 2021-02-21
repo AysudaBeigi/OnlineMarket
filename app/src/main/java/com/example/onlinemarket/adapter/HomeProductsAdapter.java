@@ -22,8 +22,8 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeProductsHorizontalAdapter extends RecyclerView.
-        Adapter<HomeProductsHorizontalAdapter.HomeProductsHorizantalViewHolder> {
+public class HomeProductsAdapter extends RecyclerView.
+        Adapter<HomeProductsAdapter.HomeProductsHorizantalViewHolder> {
 
 private Context mContext;
         private List<Product> mProductsItem;
@@ -37,7 +37,7 @@ private Context mContext;
             notifyDataSetChanged();
         }
 
-        public HomeProductsHorizontalAdapter(Context context, List<Product> productsItem) {
+        public HomeProductsAdapter(Context context, List<Product> productsItem) {
             mContext = context;
             mProductsItem = productsItem;
         }
