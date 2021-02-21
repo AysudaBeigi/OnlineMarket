@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.model.product.Image;
+import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.utils.UIUtils;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.smarteist.autoimageslider.SliderViewAdapter;

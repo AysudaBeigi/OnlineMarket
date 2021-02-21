@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/HomeFragment"
-        android:name="com.example.onlinemarket.controller.fragment.HomeFragment"
+        android:name="com.example.onlinemarket.view.fragment.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.example.onlinemarket.controller.fragment.ProductDetailFragment"
+        android:name="com.example.onlinemarket.view.fragment.ProductDetailFragment"
         android:label="productDetailFragment"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
@@ -51,7 +51,7 @@
 
     <fragment
         android:id="@+id/PostCommentFragment"
-        android:name="com.example.onlinemarket.controller.fragment.PostCommentFragment"
+        android:name="com.example.onlinemarket.view.fragment.PostCommentFragment"
         android:label="PostCommentFragment"
         tools:layout="@layout/fragment_post_comment">
         <argument
@@ -65,7 +65,7 @@
 
     <fragment
         android:id="@+id/ShoppingBagFragment"
-        android:name="com.example.onlinemarket.controller.fragment.ShoppingBagFragment"
+        android:name="com.example.onlinemarket.view.fragment.ShoppingBagFragment"
         android:label="ShoppingBagFragment"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/SignUpFragment"
-        android:name="com.example.onlinemarket.controller.fragment.SignUpFragment"
+        android:name="com.example.onlinemarket.view.fragment.SignUpFragment"
         android:label="ShoppingBagFragment"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
@@ -100,7 +100,7 @@
     </fragment>
     <fragment
         android:id="@+id/UserProfileFragment"
-        android:name="com.example.onlinemarket.controller.fragment.UserProfileFragment"
+        android:name="com.example.onlinemarket.view.fragment.UserProfileFragment"
         android:label="UserProfileFragment"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
@@ -111,7 +111,7 @@
 
     <fragment
         android:id="@+id/CategoriesFragment"
-        android:name="com.example.onlinemarket.controller.fragment.CategoriesFragment"
+        android:name="com.example.onlinemarket.view.fragment.CategoriesFragment"
         android:label="CategoriesFragment"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
@@ -129,7 +129,7 @@
     </fragment>
     <fragment
         android:id="@+id/SubCategoryProductsFragment"
-        android:name="com.example.onlinemarket.controller.fragment.SubCategoryProductsFragment"
+        android:name="com.example.onlinemarket.view.fragment.SubCategoryProductsFragment"
         android:label="SubCategoryProductsFragment"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
@@ -149,7 +149,7 @@
 
     <fragment
         android:id="@+id/SearchResultFragment"
-        android:name="com.example.onlinemarket.controller.fragment.SearchResultFragment"
+        android:name="com.example.onlinemarket.view.fragment.SearchResultFragment"
         android:label="SearchResultFragment"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
@@ -179,7 +179,7 @@
 
     <fragment
         android:id="@+id/SortingDialogFragment"
-        android:name="com.example.onlinemarket.controller.fragment.SortingDialogFragment"
+        android:name="com.example.onlinemarket.view.fragment.SortingDialogFragment"
         android:label="SortingDialogFragment"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"
@@ -189,7 +189,7 @@
 
     <fragment
         android:id="@+id/FilteringFragment"
-        android:name="com.example.onlinemarket.controller.fragment.FilteringFragment"
+        android:name="com.example.onlinemarket.view.fragment.FilteringFragment"
         android:label="FilteringFragment"
         app:enterAnim="@anim/slide_in_left"
         app:exitAnim="@anim/slide_out_right"

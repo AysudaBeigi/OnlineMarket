@@ -13,10 +13,10 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.model.Card;
-import com.example.onlinemarket.model.product.Image;
-import com.example.onlinemarket.model.product.Product;
-import com.example.onlinemarket.repository.CardDBRepository;
+import com.example.onlinemarket.data.model.Card;
+import com.example.onlinemarket.data.model.product.Image;
+import com.example.onlinemarket.data.model.product.Product;
+import com.example.onlinemarket.data.repository.CardDBRepository;
 import com.example.onlinemarket.utils.UIUtils;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;

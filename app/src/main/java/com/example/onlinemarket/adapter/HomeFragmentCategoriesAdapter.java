@@ -12,10 +12,10 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.controller.fragment.SubCategoryProductsFragment;
-import com.example.onlinemarket.model.product.Category;
-import com.example.onlinemarket.model.product.Image;
+import com.example.onlinemarket.data.model.product.Category;
+import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.utils.UIUtils;
+import com.example.onlinemarket.view.fragment.SubCategoryProductsFragment;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;

@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:padding="10dp"
-        tools:context=".controller.fragment.PostCommentFragment">
+        tools:context=".view.fragment.PostCommentFragment">
 
         <LinearLayout
             android:id="@+id/layout_comment_text"

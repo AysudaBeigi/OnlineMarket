@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.model.Comment;
+import com.example.onlinemarket.data.model.Comment;
 import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.textview.MaterialTextView;
 

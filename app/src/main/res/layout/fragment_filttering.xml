@@ -13,7 +13,7 @@
         android:layout_margin="10dp"
         app:cardBackgroundColor="@color/white_ff"
         app:cardCornerRadius="4dp"
-        tools:context=".controller.fragment.SearchResultFragment">
+        tools:context=".view.fragment.SearchResultFragment">
 
         <LinearLayout
             android:id="@+id/linear_layout_filttering_fragment"
