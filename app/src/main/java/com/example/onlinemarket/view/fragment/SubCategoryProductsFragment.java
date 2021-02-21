@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.SubCategoryProductsAdapter;
 import com.example.onlinemarket.data.model.product.Product;
-import com.example.onlinemarket.data.repository.MarketRepository;
+import com.example.onlinemarket.data.repository.ProductRepository;
 import com.example.onlinemarket.databinding.FragmentSubCategoryProductsBinding;
 
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.List;
 
 public class SubCategoryProductsFragment extends Fragment   {
     public static final String ARGS_SUBCATEGORY_ID = "argsSubcategoryId";
-    private MarketRepository mMarketRepository;
+    private ProductRepository mProductRepository;
     private int mSubCategoryId;
     private NavController mNavController;
     private FragmentSubCategoryProductsBinding mBinding;
@@ -45,7 +45,7 @@ public class SubCategoryProductsFragment extends Fragment   {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMarketRepository = new MarketRepository(getActivity());
+        mProductRepository = new ProductRepository(getActivity());
         mSubCategoryId = getArguments().getInt(ARGS_SUBCATEGORY_ID);
     }
 
@@ -96,9 +96,9 @@ public class SubCategoryProductsFragment extends Fragment   {
     private void initViews() {
         mBinding.recyclerViewFragmentSubCategoryProducts.
                 setLayoutManager(new LinearLayoutManager(getContext()));
-        mMarketRepository.fetchCategoryProduct(
+        mProductRepository.fetchCategoryProduct(
                 mSubCategoryId,
-                new MarketRepository.productsCallback() {
+                new ProductRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> products) {
                         initAdapter(products);

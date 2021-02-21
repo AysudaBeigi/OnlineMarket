@@ -5,7 +5,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.onlinemarket.data.model.Attribute;
-import com.example.onlinemarket.data.model.product.Category;
 import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.data.remote.NetworkParams;
 import com.example.onlinemarket.data.remote.retrofit.RetrofitInstance;
@@ -18,12 +17,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MarketRepository {
+public class ProductRepository {
 
     private static String TAG="OnlineMarket";
     private WooCommerceAPIService mWooCommerceAPIService;
 
-    public MarketRepository(Context context) {
+    public ProductRepository(Context context) {
         mWooCommerceAPIService = RetrofitInstance.getInstance(context).getRetrofit().
                 create(WooCommerceAPIService.class);
     }
@@ -83,22 +82,6 @@ public class MarketRepository {
         });
     }
 
-    public void fetchCategories(CategoriesCallback categoriesCallback) {
-        mWooCommerceAPIService.getCategories(NetworkParams.getCategories()).
-                enqueue(new Callback<List<Category>>() {
-                    @Override
-                    public void onResponse(Call<List<Category>> call,
-                                           Response<List<Category>> response) {
-                        List<Category> categories = response.body();
-                        categoriesCallback.onItemResponse(categories);
-                    }
-                    @Override
-                    public void onFailure(Call<List<Category>> call, Throwable t) {
-                        Log.e(TAG, t.getMessage(), t);
-
-                    }
-                });
-    }
 
     public void fetchCategoryProduct(int categoryId, productsCallback productsCallback) {
         mWooCommerceAPIService.getProducts(NetworkParams.getCategoryProducts(categoryId)).
@@ -112,22 +95,6 @@ public class MarketRepository {
 
                     @Override
                     public void onFailure(Call<List<Product>> call, Throwable t) {
-                        Log.e(TAG, t.getMessage(), t);
-                    }
-                });
-    }
-
-     public void fetchSubCategories(int parentId, subCategoriesCallback subCategoriesCallback) {
-        mWooCommerceAPIService.getCategories(NetworkParams.getSubCategories(parentId)).
-                enqueue(new Callback<List<Category>>() {
-                    @Override
-                    public void onResponse(Call<List<Category>> call,
-                                           Response<List<Category>> response) {
-                        List<Category> subCategories = response.body();
-                        subCategoriesCallback.onItemResponse(subCategories);
-                    }
-                    @Override
-                    public void onFailure(Call<List<Category>> call, Throwable t) {
                         Log.e(TAG, t.getMessage(), t);
                     }
                 });
@@ -218,13 +185,7 @@ public class MarketRepository {
         void onItemResponse(List<Product> products);
     }
 
-    public interface CategoriesCallback {
-        void onItemResponse(List<Category> categories);
-    }
 
-    public interface subCategoriesCallback {
-        void onItemResponse(List<Category> subCategories);
-    }
 
     public interface productCallback {
         void onItemResponse(Product product);

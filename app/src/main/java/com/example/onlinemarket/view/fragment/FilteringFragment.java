@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.Attribute;
-import com.example.onlinemarket.data.repository.MarketRepository;
+import com.example.onlinemarket.data.repository.ProductRepository;
 import com.example.onlinemarket.databinding.FragmentFiltteringBinding;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 public class FilteringFragment extends Fragment {
     public static final String ARGS_CATEGORY_ID = "argsCategoryId";
     private int mCategoryId;
-    private MarketRepository mMarketRepository;
+    private ProductRepository mProductRepository;
     List<Attribute> mAttributes;
     private FragmentFiltteringBinding mBinding;
 
@@ -37,7 +37,7 @@ public class FilteringFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMarketRepository = new MarketRepository(getActivity());
+        mProductRepository = new ProductRepository(getActivity());
     }
 
     @Override

@@ -13,7 +13,8 @@ import com.example.onlinemarket.adapter.CategoriesFragmentAdapter;
 import com.example.onlinemarket.adapter.CategoryProductsHorizontalAdapter;
 import com.example.onlinemarket.data.model.product.Category;
 import com.example.onlinemarket.data.model.product.Product;
-import com.example.onlinemarket.data.repository.MarketRepository;
+import com.example.onlinemarket.data.repository.CategoryRepository;
+import com.example.onlinemarket.data.repository.ProductRepository;
 import com.example.onlinemarket.databinding.FragmentCategoriesBinding;
 
 import java.util.ArrayList;
@@ -37,7 +38,8 @@ public class CategoriesFragment extends Fragment   {
     private CategoryProductsHorizontalAdapter mPAdapterSix;
 
 
-    private MarketRepository mMarketRepository;
+    private ProductRepository mProductRepository;
+    private CategoryRepository mCategoryRepository;
     private List<Category> mCategories = new ArrayList<>();
     private FragmentCategoriesBinding mBinding;
 
@@ -55,10 +57,11 @@ public class CategoriesFragment extends Fragment   {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMarketRepository = new MarketRepository(getContext());
+        mProductRepository = new ProductRepository(getContext());
+        mCategoryRepository = new CategoryRepository(getContext());
 
-        mMarketRepository.fetchCategories(
-                new MarketRepository.CategoriesCallback() {
+        mCategoryRepository.fetchCategories(
+                new CategoryRepository.CategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> categories) {
                         mCategories = categories;
@@ -84,8 +87,8 @@ public class CategoriesFragment extends Fragment   {
 
 
     private void updateCategoriesRecyclerAdapter() {
-        mMarketRepository.fetchSubCategories(mCategories.get(0).getId(),
-                new MarketRepository.subCategoriesCallback() {
+        mCategoryRepository.fetchSubCategories(mCategories.get(0).getId(),
+                new CategoryRepository.subCategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> subCategories) {
                         if (subCategories.size() > 0) {
@@ -102,8 +105,8 @@ public class CategoriesFragment extends Fragment   {
 
                         } else {
 
-                            mMarketRepository.fetchCategoryProduct(mCategories.get(0).getId(),
-                                    new MarketRepository.productsCallback() {
+                            mProductRepository.fetchCategoryProduct(mCategories.get(0).getId(),
+                                    new ProductRepository.productsCallback() {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterOne == null) {
@@ -121,8 +124,8 @@ public class CategoriesFragment extends Fragment   {
                     }
 
                 });
-        mMarketRepository.fetchSubCategories(mCategories.get(1).getId(),
-                new MarketRepository.subCategoriesCallback() {
+        mCategoryRepository.fetchSubCategories(mCategories.get(1).getId(),
+                new CategoryRepository.subCategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> subCategories) {
                         if (subCategories.size() > 0) {
@@ -138,8 +141,8 @@ public class CategoriesFragment extends Fragment   {
                             }
 
                         } else {
-                            mMarketRepository.fetchCategoryProduct(mCategories.get(1).getId(),
-                                    new MarketRepository.productsCallback() {
+                            mProductRepository.fetchCategoryProduct(mCategories.get(1).getId(),
+                                    new ProductRepository.productsCallback() {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterTwo == null) {
@@ -158,8 +161,8 @@ public class CategoriesFragment extends Fragment   {
                     }
 
                 });
-        mMarketRepository.fetchSubCategories(mCategories.get(2).getId(),
-                new MarketRepository.subCategoriesCallback() {
+        mCategoryRepository.fetchSubCategories(mCategories.get(2).getId(),
+                new CategoryRepository.subCategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> subCategories) {
                         if (subCategories.size() > 0) {
@@ -175,8 +178,8 @@ public class CategoriesFragment extends Fragment   {
                             }
 
                         } else {
-                            mMarketRepository.fetchCategoryProduct(mCategories.get(2).getId(),
-                                    new MarketRepository.productsCallback() {
+                            mProductRepository.fetchCategoryProduct(mCategories.get(2).getId(),
+                                    new ProductRepository.productsCallback() {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterThree == null) {
@@ -194,8 +197,8 @@ public class CategoriesFragment extends Fragment   {
                     }
 
                 });
-        mMarketRepository.fetchSubCategories(mCategories.get(3).getId(),
-                new MarketRepository.subCategoriesCallback() {
+        mCategoryRepository.fetchSubCategories(mCategories.get(3).getId(),
+                new CategoryRepository.subCategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> subCategories) {
                         if (subCategories.size() > 0) {
@@ -211,8 +214,8 @@ public class CategoriesFragment extends Fragment   {
                             }
 
                         } else {
-                            mMarketRepository.fetchCategoryProduct(mCategories.get(3).getId(),
-                                    new MarketRepository.productsCallback() {
+                            mProductRepository.fetchCategoryProduct(mCategories.get(3).getId(),
+                                    new ProductRepository.productsCallback() {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterFour == null) {
@@ -230,8 +233,8 @@ public class CategoriesFragment extends Fragment   {
                     }
 
                 });
-        mMarketRepository.fetchSubCategories(mCategories.get(4).getId(),
-                new MarketRepository.subCategoriesCallback() {
+        mCategoryRepository.fetchSubCategories(mCategories.get(4).getId(),
+                new CategoryRepository.subCategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> subCategories) {
                         if (subCategories.size() > 0) {
@@ -247,8 +250,8 @@ public class CategoriesFragment extends Fragment   {
                             }
 
                         } else {
-                            mMarketRepository.fetchCategoryProduct(mCategories.get(4).getId(),
-                                    new MarketRepository.productsCallback() {
+                            mProductRepository.fetchCategoryProduct(mCategories.get(4).getId(),
+                                    new ProductRepository.productsCallback() {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterFive == null) {
@@ -266,8 +269,8 @@ public class CategoriesFragment extends Fragment   {
                     }
 
                 });
-        mMarketRepository.fetchSubCategories(mCategories.get(5).getId(),
-                new MarketRepository.subCategoriesCallback() {
+        mCategoryRepository.fetchSubCategories(mCategories.get(5).getId(),
+                new CategoryRepository.subCategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> subCategories) {
                         if (subCategories.size() > 0) {
@@ -283,8 +286,8 @@ public class CategoriesFragment extends Fragment   {
                             }
 
                         } else {
-                            mMarketRepository.fetchCategoryProduct(mCategories.get(5).getId(),
-                                    new MarketRepository.productsCallback() {
+                            mProductRepository.fetchCategoryProduct(mCategories.get(5).getId(),
+                                    new ProductRepository.productsCallback() {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
                                             if (mPAdapterSix == null) {

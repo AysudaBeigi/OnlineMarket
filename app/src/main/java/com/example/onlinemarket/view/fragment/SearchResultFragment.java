@@ -14,7 +14,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.SearchResultProductsAdapter;
 import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.data.remote.NetworkParams;
-import com.example.onlinemarket.data.repository.MarketRepository;
+import com.example.onlinemarket.data.repository.ProductRepository;
 import com.example.onlinemarket.databinding.FragmentSearchResultBinding;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class SearchResultFragment extends Fragment   {
     private String mQuery = "";
 
     private SearchResultProductsAdapter mAdapter;
-    private MarketRepository mMarketRepository;
+    private ProductRepository mProductRepository;
     private int mCategoryId;
     Map<String, String> mSearchQueryMap;
     private FragmentSearchResultBinding mBinding;
@@ -50,7 +50,7 @@ public class SearchResultFragment extends Fragment   {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mMarketRepository = new MarketRepository(getContext());
+        mProductRepository = new ProductRepository(getContext());
         mQuery = getArguments().getString(ARGS_QUERY);
         mCategoryId = getArguments().getInt(ARGS_CATEGORY_ID);
         if (mCategoryId == -1) {
@@ -64,8 +64,8 @@ public class SearchResultFragment extends Fragment   {
     }
 
     private void searchAndInitViews() {
-        mMarketRepository.fetchSearchProducts(mSearchQueryMap,
-                new MarketRepository.productsCallback() {
+        mProductRepository.fetchSearchProducts(mSearchQueryMap,
+                new ProductRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
                         if (mAdapter == null) {

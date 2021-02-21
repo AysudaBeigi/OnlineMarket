@@ -23,7 +23,8 @@ import com.example.onlinemarket.adapter.ImageSliderAdapter;
 import com.example.onlinemarket.data.model.product.Category;
 import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.data.model.product.Product;
-import com.example.onlinemarket.data.repository.MarketRepository;
+import com.example.onlinemarket.data.repository.CategoryRepository;
+import com.example.onlinemarket.data.repository.ProductRepository;
 import com.example.onlinemarket.databinding.FragmentHomeBinding;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
@@ -40,7 +41,8 @@ public class HomeFragment extends Fragment   {
     private HomeProductsHorizontalAdapter mWonderfulOfferAdapter;
     private HomeFragmentCategoriesAdapter mHomeFragmentCategoriesAdapter;
 
-    private MarketRepository mMarketRepository;
+    private ProductRepository mProductRepository;
+    private CategoryRepository mCategoryRepository;
     private NavController mNavController;
     private FragmentHomeBinding mBinding;
 
@@ -60,7 +62,8 @@ public class HomeFragment extends Fragment   {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMarketRepository = new MarketRepository(getActivity());
+        mProductRepository = new ProductRepository(getActivity());
+        mCategoryRepository = new CategoryRepository(getActivity());
     }
 
     @Override
@@ -89,27 +92,9 @@ public class HomeFragment extends Fragment   {
         });
     }
 
-   /* private void findViews(View view) {
-        mSliderView = view.
-                findViewById(R.id.fragment_home_slider);
-        mRecyclerViewLastProducts = view.
-                findViewById(R.id.recycler_view_latest);
-        mRecyclerViewMostVisitedProducts = view.
-                findViewById(R.id.recycler_view_most_viewed);
-        mRecyclerViewPopularProducts = view.
-                findViewById(R.id.recycler_view_popularest);
-        mRecyclerCategories = view.
-                findViewById(R.id.recycler_view_categories_home_fragment);
-        mRecyclerViewWonderfulOffer = view.
-                findViewById(R.id.recycler_view_wonderful_offer);
-        mSearchViewHomeFragment = view.
-                findViewById(R.id.search_view);
-
-    }*/
-
     private void initViews() {
-        mMarketRepository.fetchProduct(608,
-                new MarketRepository.productCallback() {
+        mProductRepository.fetchProduct(608,
+                new ProductRepository.productCallback() {
                     @Override
                     public void onItemResponse(Product product) {
 
@@ -117,8 +102,8 @@ public class HomeFragment extends Fragment   {
                     }
                 });
 
-        mMarketRepository.fetchLastProducts(
-                new MarketRepository.productsCallback() {
+        mProductRepository.fetchLastProducts(
+                new ProductRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
                         Log.d(TAG, "fetchLastProducts++onItemResponse"
@@ -129,8 +114,8 @@ public class HomeFragment extends Fragment   {
                     }
                 });
 
-        mMarketRepository.fetchMostVisitedProducts(
-                new MarketRepository.productsCallback() {
+        mProductRepository.fetchMostVisitedProducts(
+                new ProductRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
                         Log.d(TAG, "fetchMostVisitedProducts++onItemResponse" +
@@ -142,8 +127,8 @@ public class HomeFragment extends Fragment   {
                     }
                 });
 
-        mMarketRepository.fetchPopularProducts(1,
-                new MarketRepository.productsCallback() {
+        mProductRepository.fetchPopularProducts(1,
+                new ProductRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
                         initRecyclerView(mBinding.recyclerViewPopularest,
@@ -151,8 +136,8 @@ public class HomeFragment extends Fragment   {
 
                     }
                 });
-        mMarketRepository.fetchPopularProducts(2,
-                new MarketRepository.productsCallback() {
+        mProductRepository.fetchPopularProducts(2,
+                new ProductRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
                         Log.d(TAG, "fetchAmazing++onItemResponse" +
@@ -163,8 +148,8 @@ public class HomeFragment extends Fragment   {
 
                     }
                 });
-        mMarketRepository.fetchCategories(
-                new MarketRepository.CategoriesCallback() {
+        mCategoryRepository.fetchCategories(
+                new CategoryRepository.CategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> categories) {
                         mBinding.recyclerViewCategoriesHomeFragment.setLayoutManager(new LinearLayoutManager(getContext(),
