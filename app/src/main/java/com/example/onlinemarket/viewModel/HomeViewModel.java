@@ -11,13 +11,12 @@ import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.data.repository.ProductRepository;
 
 import java.util.List;
-import java.util.Map;
 
-public class ProductViewModel extends AndroidViewModel {
+public class HomeViewModel extends AndroidViewModel {
 
     private ProductRepository mProductRepository;
 
-    private ProductViewModel(@NonNull Application application, Context context) {
+    private HomeViewModel(@NonNull Application application, Context context) {
         super(application);
         mProductRepository = new ProductRepository(context);
     }
@@ -38,15 +37,8 @@ public class ProductViewModel extends AndroidViewModel {
         return mProductRepository.getMostVisitedProductsLiveData();
     }
 
-    public MutableLiveData<List<Product>> getCategoryProductsLiveData() {
-        return mProductRepository.getCategoryProductsLiveData();
-    }
 
-    public MutableLiveData<List<Product>> getSearchResultProductsLiveData() {
-        return mProductRepository.getSearchResultProductsLiveData();
-    }
-
-    public MutableLiveData<Product> getProductLiveData() {
+    public MutableLiveData<Product> getSpecialProductLiveData() {
         return mProductRepository.getProductLiveData();
     }
 
@@ -70,13 +62,6 @@ public class ProductViewModel extends AndroidViewModel {
         mProductRepository.setMostVisitedProductsLiveData();
     }
 
-    public void setSearchResultProductsLiveData(Map<String, String> query) {
-        mProductRepository.setSearchResultProductsLiveData(query);
-    }
-
-    public void setCategoryProductsLiveData(int categoryId) {
-        mProductRepository.setCategoryProductsLiveData(categoryId);
-    }
 
 
 

@@ -1,12 +1,13 @@
 package com.example.onlinemarket.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +16,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.product.Category;
 import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.utils.UIUtils;
-import com.example.onlinemarket.view.fragment.SubCategoryProductsFragment;
+import com.example.onlinemarket.viewModel.SubCategoryProductsViewModel;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -29,6 +30,7 @@ public class CategoriesFragmentAdapter extends
     private static final String TAG = "CategoryAdapter";
     private Context mContext;
     private List<Category> mCategories;
+    private SubCategoryProductsViewModel mSubCategoryProductsViewModel;
 
     public List<Category> getCategoriesItem() {
         return mCategories;
@@ -40,9 +42,11 @@ public class CategoriesFragmentAdapter extends
         notifyDataSetChanged();
     }
 
-    public CategoriesFragmentAdapter(Context context, List<Category> categories) {
+    public CategoriesFragmentAdapter(ViewModelStoreOwner owner, Context context, List<Category> categories) {
         mContext = context;
         mCategories = categories;
+        mSubCategoryProductsViewModel = new ViewModelProvider(owner)
+                .get(SubCategoryProductsViewModel.class);
     }
 
     @NonNull
@@ -62,19 +66,7 @@ public class CategoriesFragmentAdapter extends
                                  int position) {
         Category category = mCategories.get(position);
         holder.bindCategory(category);
-        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((AppCompatActivity) mContext).
-                        getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container_main_activity,
-                                SubCategoryProductsFragment.
-                                newInstance(categoriesItem.getId())).
-                        commit();
 
-
-            }
-        });*/
     }
 
     @Override
@@ -95,14 +87,11 @@ public class CategoriesFragmentAdapter extends
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mSubCategoryProductsViewModel.setCategoryProductsLiveData(mCategory.getId());
                     NavController navController = Navigation.findNavController(itemView);
-                    Bundle bundle=new Bundle();
-                    bundle.
-                            putInt(SubCategoryProductsFragment.ARGS_SUBCATEGORY_ID,mCategory.getId());
                     navController.
                             navigate(R.id.
-                                    action_CategoriesFragment_to_SubCategoryProductsFragment
-                            ,bundle);
+                                    action_CategoriesFragment_to_SubCategoryProductsFragment);
 
                 }
             });
@@ -117,7 +106,7 @@ public class CategoriesFragmentAdapter extends
         }
 
         private void bindCategory(Category category) {
-            mCategory=category;
+            mCategory = category;
             mCategoryName.setText(category.getName() + "");
             Image imageItem = category.getImages();
             List<String> imagesItemList = new ArrayList<>();

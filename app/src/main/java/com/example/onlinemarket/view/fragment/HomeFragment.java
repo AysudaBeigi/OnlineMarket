@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,25 +25,27 @@ import com.example.onlinemarket.adapter.ImageSliderAdapter;
 import com.example.onlinemarket.data.model.product.Category;
 import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.data.model.product.Product;
+import com.example.onlinemarket.data.remote.NetworkParams;
 import com.example.onlinemarket.data.repository.CategoryRepository;
-import com.example.onlinemarket.data.repository.ProductRepository;
 import com.example.onlinemarket.databinding.FragmentHomeBinding;
+import com.example.onlinemarket.viewModel.HomeViewModel;
+import com.example.onlinemarket.viewModel.SearchResultViewModel;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 
 import java.util.List;
 
 
-public class HomeFragment extends Fragment   {
+public class HomeFragment extends Fragment {
 
     private ImageSliderAdapter mImageSliderAdapter;
     private HomeProductsHorizontalAdapter mLastCategoryProductsHorizontalAdapter;
     private HomeProductsHorizontalAdapter mMostVisitedCategoryProductsHorizontalAdapter;
     private HomeProductsHorizontalAdapter mPopularCategoryProductsHorizontalAdapter;
-    private HomeProductsHorizontalAdapter mWonderfulOfferAdapter;
+    private HomeProductsHorizontalAdapter mAmazingOfferAdapter;
     private HomeFragmentCategoriesAdapter mHomeFragmentCategoriesAdapter;
 
-    private ProductRepository mProductRepository;
+    private HomeViewModel mProductViewModel;
     private CategoryRepository mCategoryRepository;
     private NavController mNavController;
     private FragmentHomeBinding mBinding;
@@ -52,27 +56,31 @@ public class HomeFragment extends Fragment   {
         // Required empty public constructor
     }
 
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mProductRepository = new ProductRepository(getActivity());
+        mProductViewModel = new ViewModelProvider(this).
+                get(HomeViewModel.class);
+        setProductsLiveData();
         mCategoryRepository = new CategoryRepository(getActivity());
     }
+    private void setProductsLiveData() {
+        mProductViewModel.setSpecialProductLiveData();
+        mProductViewModel.setAmazingOfferProductsLiveData();
+        mProductViewModel.setLatestProductsLiveData();
+        mProductViewModel.setMostVisitedProductsLiveData();
+        mProductViewModel.setPopularProductsLivData();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding= DataBindingUtil.inflate(inflater,R.layout.fragment_home,
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home,
                 container, false);
 
-        initViews();
+        setObservers();
         setListeners();
         return mBinding.getRoot();
     }
@@ -92,59 +100,55 @@ public class HomeFragment extends Fragment   {
         });
     }
 
-    private void initViews() {
-        mProductRepository.setSpecialProductLiveData(608,
-                new ProductRepository.productCallback() {
+    private void setObservers() {
+        mProductViewModel.getSpecialProductLiveData().
+                observe(this, new Observer<Product>() {
                     @Override
-                    public void onItemResponse(Product product) {
-
+                    public void onChanged(Product product) {
                         setupImageSliderAdapter(product.getImages());
-                    }
-                });
-
-        mProductRepository.setLatestProductsLiveData(
-                new ProductRepository.productsCallback() {
-                    @Override
-                    public void onItemResponse(List<Product> items) {
-                        Log.d(TAG, "fetchLastProducts++onItemResponse"
-                                + items.get(0).getName());
-                        initRecyclerView(mBinding.recyclerViewLatest,
-                                mLastCategoryProductsHorizontalAdapter, items);
 
                     }
                 });
 
-        mProductRepository.setMostVisitedProductsLiveData(
-                new ProductRepository.productsCallback() {
-                    @Override
-                    public void onItemResponse(List<Product> items) {
-                        Log.d(TAG, "fetchMostVisitedProducts++onItemResponse" +
-                                items.get(0).getName());
 
-                        initRecyclerView(mBinding.recyclerViewMostViewed
-                                , mMostVisitedCategoryProductsHorizontalAdapter, items);
+        mProductViewModel.getLatestProductsLiveData()
+                .observe(this, new Observer<List<Product>>() {
+                    @Override
+                    public void onChanged(List<Product> products) {
+                        setupRecyclerView(mBinding.recyclerViewLatest,
+                                mLastCategoryProductsHorizontalAdapter, products);
 
                     }
                 });
 
-        mProductRepository.setPopularProductsLiveData(1,
-                new ProductRepository.productsCallback() {
+        mProductViewModel.getMostVisitedProductsLiveData()
+                .observe(this, new Observer<List<Product>>() {
                     @Override
-                    public void onItemResponse(List<Product> items) {
-                        initRecyclerView(mBinding.recyclerViewPopularest,
-                                mPopularCategoryProductsHorizontalAdapter, items);
+                    public void onChanged(List<Product> products) {
+
+                        setupRecyclerView(mBinding.recyclerViewMostViewed
+                                , mMostVisitedCategoryProductsHorizontalAdapter, products);
 
                     }
                 });
-        mProductRepository.setPopularProductsLiveData(2,
-                new ProductRepository.productsCallback() {
-                    @Override
-                    public void onItemResponse(List<Product> items) {
-                        Log.d(TAG, "fetchAmazing++onItemResponse" +
-                                items.get(0).getName());
 
-                        initRecyclerView(mBinding.recyclerViewWonderfulOffer
-                                , mWonderfulOfferAdapter, items);
+
+        mProductViewModel.getPopularProductsLiveData()
+                .observe(this, new Observer<List<Product>>() {
+                    @Override
+                    public void onChanged(List<Product> products) {
+                        setupRecyclerView(mBinding.recyclerViewPopularest,
+                                mPopularCategoryProductsHorizontalAdapter, products);
+
+                    }
+                });
+
+        mProductViewModel.getAmazingOfferProductsLiveData()
+                .observe(this, new Observer<List<Product>>() {
+                    @Override
+                    public void onChanged(List<Product> products) {
+                        setupRecyclerView(mBinding.recyclerViewWonderfulOffer
+                                , mAmazingOfferAdapter, products);
 
                     }
                 });
@@ -154,21 +158,20 @@ public class HomeFragment extends Fragment   {
                     public void onItemResponse(List<Category> categories) {
                         mBinding.recyclerViewCategoriesHomeFragment.
                                 setLayoutManager(new LinearLayoutManager(getContext(),
-                                LinearLayoutManager.HORIZONTAL, false));
+                                        LinearLayoutManager.HORIZONTAL, false));
                         initCategoryAdapter(categories);
                     }
                 });
     }
 
 
-    private void initRecyclerView(RecyclerView recyclerView,
-                                  HomeProductsHorizontalAdapter adapter,
-                                  List<Product> products) {
+    private void setupRecyclerView(RecyclerView recyclerView,
+                                   HomeProductsHorizontalAdapter adapter,
+                                   List<Product> products) {
         Log.d(TAG, "HomeF : initRecyclerView");
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
-
 
         if (adapter == null) {
             adapter = new HomeProductsHorizontalAdapter(getContext(),
@@ -213,20 +216,18 @@ public class HomeFragment extends Fragment   {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mNavController=Navigation.findNavController(view);
+        mNavController = Navigation.findNavController(view);
     }
 
     private void replaceSearchResultFragment(String query) {
 
-        Bundle bundle=new Bundle();
-        bundle.putString(SearchResultFragment.ARGS_QUERY,query);
-        bundle.putInt(SearchResultFragment.ARGS_CATEGORY_ID,-1);
-        mNavController.navigate(R.id.action_HomeFragment_to_SearchResultFragment
-        ,bundle);
-
+        SearchResultViewModel searchResultViewModel=new ViewModelProvider(this)
+                .get(SearchResultViewModel.class);
+        searchResultViewModel.
+                setSearchResultProductsLiveData(NetworkParams.getSearchAllProducts(query));
+        mNavController.navigate(R.id.action_HomeFragment_to_SearchResultFragment);
 
     }
-
 
 
 }

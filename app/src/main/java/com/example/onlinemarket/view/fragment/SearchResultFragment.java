@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.SearchResultProductsAdapter;
@@ -16,6 +18,7 @@ import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.data.remote.NetworkParams;
 import com.example.onlinemarket.data.repository.ProductRepository;
 import com.example.onlinemarket.databinding.FragmentSearchResultBinding;
+import com.example.onlinemarket.viewModel.SearchResultViewModel;
 
 import java.util.List;
 import java.util.Map;
@@ -34,16 +37,10 @@ public class SearchResultFragment extends Fragment   {
     private int mCategoryId;
     Map<String, String> mSearchQueryMap;
     private FragmentSearchResultBinding mBinding;
+    private SearchResultViewModel  mSearchResultViewModel;
 
     public SearchResultFragment() {
         // Required empty public constructor
-    }
-
-    public static SearchResultFragment newInstance() {
-        SearchResultFragment fragment = new SearchResultFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -51,28 +48,23 @@ public class SearchResultFragment extends Fragment   {
         super.onCreate(savedInstanceState);
 
         mProductRepository = new ProductRepository(getContext());
-        mQuery = getArguments().getString(ARGS_QUERY);
-        mCategoryId = getArguments().getInt(ARGS_CATEGORY_ID);
-        if (mCategoryId == -1) {
-            mSearchQueryMap = NetworkParams.getSearchAllProducts(mQuery);
-        } else {
-            mSearchQueryMap = NetworkParams.getSearchCategoryProducts(mQuery, mCategoryId);
-        }
+        mSearchResultViewModel =new ViewModelProvider(this).
+                get(SearchResultViewModel.class);
 
         searchAndInitViews();
 
     }
 
     private void searchAndInitViews() {
-        mProductRepository.setSearchResultProductsLiveData(mSearchQueryMap,
-                new ProductRepository.productsCallback() {
+        mSearchResultViewModel.getSearchResultProductsLiveData()
+                .observe(this, new Observer<List<Product>>() {
                     @Override
-                    public void onItemResponse(List<Product> items) {
+                    public void onChanged(List<Product> products) {
                         if (mAdapter == null) {
-                            mAdapter = new SearchResultProductsAdapter(getContext(), items);
+                            mAdapter = new SearchResultProductsAdapter(getContext(), products);
                             mBinding.recyclerViewSearchResult.setAdapter(mAdapter);
                         } else {
-                            mAdapter.setProductsItem(items);
+                            mAdapter.setProductsItem(products);
                             mAdapter.notifyDataSetChanged();
                         }
                     }

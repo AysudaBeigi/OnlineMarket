@@ -26,7 +26,6 @@
             app:destination="@id/SearchResultFragment" />
 
 
-
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -76,7 +75,7 @@
         <action
             android:id="@+id/action_ShoppingBagFragment_to_SignUpFragment"
             app:destination="@id/SignUpFragment" />
-         <action
+        <action
             android:id="@+id/action_ShoppingBagFragment_to_ShoppingBagFragment"
             app:destination="@id/ShoppingBagFragment" />
 
@@ -106,7 +105,7 @@
         app:exitAnim="@anim/slide_out_right"
         app:popEnterAnim="@anim/slide_in_right"
         app:popExitAnim="@anim/slide_out_left"
-        tools:layout="@layout/fragment_user_profile"/>
+        tools:layout="@layout/fragment_user_profile" />
 
 
     <fragment
@@ -156,25 +155,18 @@
         app:popEnterAnim="@anim/slide_in_right"
         app:popExitAnim="@anim/slide_out_left"
         tools:layout="@layout/fragment_search_result">
-    <argument
-        android:name="query"
-        app:argType="string" />
-    <argument
-        android:name="categoryId"
-        app:argType="integer" />
         <action
             android:id="@+id/action_SearchResultFragment_to_SortingDialogFragment"
             app:destination="@id/SortingDialogFragment" />
         <action
             android:id="@+id/action_SearchResultFragment_to_FilteringFragment"
             app:destination="@id/FilteringFragment" />
-         <action
+        <action
             android:id="@+id/action_SearchResultFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />
 
 
     </fragment>
-
 
 
     <fragment
@@ -185,7 +177,7 @@
         app:exitAnim="@anim/slide_out_right"
         app:popEnterAnim="@anim/slide_in_right"
         app:popExitAnim="@anim/slide_out_left"
-        tools:layout="@layout/fragment_sorting"/>
+        tools:layout="@layout/fragment_sorting" />
 
     <fragment
         android:id="@+id/FilteringFragment"
@@ -195,7 +187,7 @@
         app:exitAnim="@anim/slide_out_right"
         app:popEnterAnim="@anim/slide_in_right"
         app:popExitAnim="@anim/slide_out_left"
-        tools:layout="@layout/fragment_filttering"/>
+        tools:layout="@layout/fragment_filttering" />
 
 
 </navigation>

@@ -94,7 +94,7 @@ public class CategoriesFragment extends Fragment   {
                         if (subCategories.size() > 0) {
 
                             if (mAdapterOne == null) {
-                                mAdapterOne = new CategoriesFragmentAdapter(getContext(),
+                                mAdapterOne = new CategoriesFragmentAdapter(this,getContext(),
                                         subCategories);
                                 mBinding.recyclerViewCategoryOneCategoriesFragment
                                         .setAdapter(mAdapterOne);

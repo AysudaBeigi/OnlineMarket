@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,36 +19,33 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.SubCategoryProductsAdapter;
 import com.example.onlinemarket.data.model.product.Product;
-import com.example.onlinemarket.data.repository.ProductRepository;
+import com.example.onlinemarket.data.remote.NetworkParams;
 import com.example.onlinemarket.databinding.FragmentSubCategoryProductsBinding;
+import com.example.onlinemarket.viewModel.SearchResultViewModel;
+import com.example.onlinemarket.viewModel.SubCategoryProductsViewModel;
 
 import java.util.List;
 
 
 public class SubCategoryProductsFragment extends Fragment   {
     public static final String ARGS_SUBCATEGORY_ID = "argsSubcategoryId";
-    private ProductRepository mProductRepository;
     private int mSubCategoryId;
     private NavController mNavController;
     private FragmentSubCategoryProductsBinding mBinding;
+    private SubCategoryProductsViewModel mSubCategoryProductsViewModel;
+
 
     public SubCategoryProductsFragment() {
         // Required empty public constructor
     }
 
 
-    public static SubCategoryProductsFragment newInstance() {
-        SubCategoryProductsFragment fragment = new SubCategoryProductsFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mProductRepository = new ProductRepository(getActivity());
-        mSubCategoryId = getArguments().getInt(ARGS_SUBCATEGORY_ID);
+        mSubCategoryProductsViewModel= new ViewModelProvider(this)
+                        .get(SubCategoryProductsViewModel.class);
+
     }
 
     @Override
@@ -83,12 +82,13 @@ public class SubCategoryProductsFragment extends Fragment   {
 
     private void replaceSearchResultFragment(String query) {
 
-        Bundle bundle=new Bundle();
-        bundle.putString(SearchResultFragment.ARGS_QUERY,query);
-        bundle.putInt(SearchResultFragment.ARGS_CATEGORY_ID,-mSubCategoryId);
+        SearchResultViewModel searchResultViewModel=new ViewModelProvider(this)
+                .get(SearchResultViewModel.class);
+        searchResultViewModel.
+                setSearchResultProductsLiveData(NetworkParams.getSearchCategoryProducts(query,
+                        mSubCategoryId));
         mNavController.navigate(
-                R.id.action_SubCategoryProductsFragment_to_SearchResultFragment
-        ,bundle);
+                R.id.action_SubCategoryProductsFragment_to_SearchResultFragment);
 
     }
 
@@ -96,15 +96,13 @@ public class SubCategoryProductsFragment extends Fragment   {
     private void initViews() {
         mBinding.recyclerViewFragmentSubCategoryProducts.
                 setLayoutManager(new LinearLayoutManager(getContext()));
-        mProductRepository.setCategoryProductsLiveData(
-                mSubCategoryId,
-                new ProductRepository.productsCallback() {
+        mSubCategoryProductsViewModel.getCategoryProductsLiveData()
+                .observe(this, new Observer<List<Product>>() {
                     @Override
-                    public void onItemResponse(List<Product> products) {
+                    public void onChanged(List<Product> products) {
                         initAdapter(products);
                     }
                 });
-
 
 
     }
