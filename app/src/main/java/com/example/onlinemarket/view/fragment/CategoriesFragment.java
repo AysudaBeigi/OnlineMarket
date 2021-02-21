@@ -105,7 +105,7 @@ public class CategoriesFragment extends Fragment   {
 
                         } else {
 
-                            mProductRepository.fetchCategoryProduct(mCategories.get(0).getId(),
+                            mProductRepository.setCategoryProductsLiveData(mCategories.get(0).getId(),
                                     new ProductRepository.productsCallback() {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
@@ -141,7 +141,7 @@ public class CategoriesFragment extends Fragment   {
                             }
 
                         } else {
-                            mProductRepository.fetchCategoryProduct(mCategories.get(1).getId(),
+                            mProductRepository.setCategoryProductsLiveData(mCategories.get(1).getId(),
                                     new ProductRepository.productsCallback() {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
@@ -178,7 +178,7 @@ public class CategoriesFragment extends Fragment   {
                             }
 
                         } else {
-                            mProductRepository.fetchCategoryProduct(mCategories.get(2).getId(),
+                            mProductRepository.setCategoryProductsLiveData(mCategories.get(2).getId(),
                                     new ProductRepository.productsCallback() {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
@@ -214,7 +214,7 @@ public class CategoriesFragment extends Fragment   {
                             }
 
                         } else {
-                            mProductRepository.fetchCategoryProduct(mCategories.get(3).getId(),
+                            mProductRepository.setCategoryProductsLiveData(mCategories.get(3).getId(),
                                     new ProductRepository.productsCallback() {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
@@ -250,7 +250,7 @@ public class CategoriesFragment extends Fragment   {
                             }
 
                         } else {
-                            mProductRepository.fetchCategoryProduct(mCategories.get(4).getId(),
+                            mProductRepository.setCategoryProductsLiveData(mCategories.get(4).getId(),
                                     new ProductRepository.productsCallback() {
                                         @Override
                                         public void onItemResponse(List<Product> products) {
@@ -286,7 +286,7 @@ public class CategoriesFragment extends Fragment   {
                             }
 
                         } else {
-                            mProductRepository.fetchCategoryProduct(mCategories.get(5).getId(),
+                            mProductRepository.setCategoryProductsLiveData(mCategories.get(5).getId(),
                                     new ProductRepository.productsCallback() {
                                         @Override
                                         public void onItemResponse(List<Product> products) {

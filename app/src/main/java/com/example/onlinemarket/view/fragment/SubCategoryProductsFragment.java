@@ -96,7 +96,7 @@ public class SubCategoryProductsFragment extends Fragment   {
     private void initViews() {
         mBinding.recyclerViewFragmentSubCategoryProducts.
                 setLayoutManager(new LinearLayoutManager(getContext()));
-        mProductRepository.fetchCategoryProduct(
+        mProductRepository.setCategoryProductsLiveData(
                 mSubCategoryId,
                 new ProductRepository.productsCallback() {
                     @Override

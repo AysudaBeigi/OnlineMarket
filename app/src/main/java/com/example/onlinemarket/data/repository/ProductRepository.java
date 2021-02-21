@@ -4,7 +4,8 @@ package com.example.onlinemarket.data.repository;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.onlinemarket.data.model.Attribute;
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.data.remote.NetworkParams;
 import com.example.onlinemarket.data.remote.retrofit.RetrofitInstance;
@@ -19,35 +20,73 @@ import retrofit2.Response;
 
 public class ProductRepository {
 
-    private static String TAG="OnlineMarket";
+    private static String TAG = "OnlineMarket";
     private WooCommerceAPIService mWooCommerceAPIService;
+    private MutableLiveData<List<Product>> mLatestProductsLiveData;
+    private MutableLiveData<List<Product>> mPopularProductsLiveData;
+    private MutableLiveData<List<Product>> mMostVisitedProductsLiveData;
+    private MutableLiveData<List<Product>> mCategoryProductsLiveData;
+    private MutableLiveData<List<Product>> mSearchResultProductsLiveData;
+    private MutableLiveData<Product> mProductLiveData;
 
     public ProductRepository(Context context) {
         mWooCommerceAPIService = RetrofitInstance.getInstance(context).getRetrofit().
                 create(WooCommerceAPIService.class);
+
+        mLatestProductsLiveData = new MutableLiveData<>();
+        mMostVisitedProductsLiveData = new MutableLiveData<>();
+        mPopularProductsLiveData = new MutableLiveData<>();
+        mSearchResultProductsLiveData = new MutableLiveData<>();
+        mProductLiveData = new MutableLiveData<>();
+        mCategoryProductsLiveData = new MutableLiveData<>();
     }
 
-    public void fetchLastProducts(productsCallback productsCallback) {
-        Log.d(TAG,"MarketRepository : fetchLastProducts");
+    public MutableLiveData<List<Product>> getLatestProductsLiveData() {
+        return mLatestProductsLiveData;
+    }
+
+    public MutableLiveData<List<Product>> getPopularProductsLiveData() {
+        return mPopularProductsLiveData;
+    }
+
+    public MutableLiveData<List<Product>> getMostVisitedProductsLiveData() {
+        return mMostVisitedProductsLiveData;
+    }
+
+    public MutableLiveData<List<Product>> getCategoryProductsLiveData() {
+        return mCategoryProductsLiveData;
+    }
+
+    public MutableLiveData<List<Product>> getSearchResultProductsLiveData() {
+        return mSearchResultProductsLiveData;
+    }
+
+    public MutableLiveData<Product> getProductLiveData() {
+        return mProductLiveData;
+    }
+
+
+    public void setLatestProductsLiveData() {
+        Log.d(TAG, "MarketRepository : fetchLastProducts");
 
         mWooCommerceAPIService.getProducts(NetworkParams.getLastProducts()).
                 enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                List<Product> lastProducts = response.body();
-                productsCallback.onItemResponse(lastProducts);
-            }
+                    @Override
+                    public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                        List<Product> lastProducts = response.body();
+                        mLatestProductsLiveData.setValue(lastProducts);
+                    }
 
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-                Log.e(TAG, t.getMessage(), t);
-            }
-        });
+                    @Override
+                    public void onFailure(Call<List<Product>> call, Throwable t) {
+                        Log.e(TAG, t.getMessage(), t);
+                    }
+                });
     }
 
 
-    public void fetchMostVisitedProducts(productsCallback productsCallback) {
-        Log.d(TAG,"MarketRepository : fetchMostVisitedProducts");
+    public void setMostVisitedProductsLiveData() {
+        Log.d(TAG, "MarketRepository : fetchMostVisitedProducts");
 
         mWooCommerceAPIService.getProducts(NetworkParams.getMostVisitedProducts()).
                 enqueue(new Callback<List<Product>>() {
@@ -55,8 +94,9 @@ public class ProductRepository {
                     public void onResponse(Call<List<Product>> call,
                                            Response<List<Product>> response) {
                         List<Product> mostVisitedProducts = response.body();
-                        productsCallback.onItemResponse(mostVisitedProducts);
+                        mMostVisitedProductsLiveData.setValue(mostVisitedProducts);
                     }
+
                     @Override
                     public void onFailure(Call<List<Product>> call, Throwable t) {
                         Log.e(TAG, t.getMessage(), t);
@@ -64,33 +104,34 @@ public class ProductRepository {
                 });
     }
 
-    public void fetchPopularProducts( int page ,productsCallback productsCallback) {
+    public void setPopularProductsLiveData(int page) {
 
-        Log.d(TAG,"MarketRepository : fetchPopularProducts");
+        Log.d(TAG, "MarketRepository : fetchPopularProducts");
         mWooCommerceAPIService.getProducts(NetworkParams.getPopularProducts(page)).
                 enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call,
-                                   Response<List<Product>> response) {
-                List<Product> popularProducts = response.body();
-                productsCallback.onItemResponse(popularProducts);
-            }
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-                Log.e(TAG, t.getMessage(), t);
-            }
-        });
+                    @Override
+                    public void onResponse(Call<List<Product>> call,
+                                           Response<List<Product>> response) {
+                        List<Product> popularProducts = response.body();
+                        mPopularProductsLiveData.setValue(popularProducts);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Product>> call, Throwable t) {
+                        Log.e(TAG, t.getMessage(), t);
+                    }
+                });
     }
 
 
-    public void fetchCategoryProduct(int categoryId, productsCallback productsCallback) {
+    public void setCategoryProductsLiveData(int categoryId) {
         mWooCommerceAPIService.getProducts(NetworkParams.getCategoryProducts(categoryId)).
                 enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(Call<List<Product>> call,
                                            Response<List<Product>> response) {
                         List<Product> categoryProducts = response.body();
-                        productsCallback.onItemResponse(categoryProducts);
+                        mCategoryProductsLiveData.setValue(categoryProducts);
                     }
 
                     @Override
@@ -101,14 +142,14 @@ public class ProductRepository {
     }
 
 
-    public void fetchProduct(int productId, productCallback productCallback) {
+    public void setProductLiveData(int productId) {
         mWooCommerceAPIService.getProduct(productId, NetworkParams.getBaseQuery()).
                 enqueue(new Callback<Product>() {
                     @Override
                     public void onResponse(Call<Product> call,
                                            Response<Product> response) {
                         Product product = response.body();
-                        productCallback.onItemResponse(product);
+                        mProductLiveData.setValue(product);
                     }
 
                     @Override
@@ -118,35 +159,16 @@ public class ProductRepository {
                 });
     }
 
-    public void fetchAttributes(AttributesCallback callback) {
-        mWooCommerceAPIService.getAttributes(NetworkParams.getBaseQuery())
-                .enqueue(new Callback<List<Attribute>>() {
-                    @Override
-                    public void onResponse(Call<List<Attribute>> call,
-                                           Response<List<Attribute>> response) {
-                        List<Attribute> attributes = response.body();
-                        callback.onItemResponse(attributes);
-                    }
 
-                    @Override
-                    public void onFailure(Call<List<Attribute>> call, Throwable t) {
-                        Log.e(TAG, t.getMessage(), t);
-
-                    }
-
-                });
-    }
-
-
-
-    public void fetchSearchProducts( Map<String, String> query, productsCallback callBacks) {
+    public void setSearchResultProductsLiveData(Map<String, String> query) {
         mWooCommerceAPIService.getProducts(query).enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call,
                                    Response<List<Product>> response) {
                 List<Product> searchItems = response.body();
-                callBacks.onItemResponse(searchItems);
+                mSearchResultProductsLiveData.setValue(searchItems);
             }
+
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
                 Log.e(TAG, t.getMessage(), t);
@@ -180,21 +202,6 @@ public class ProductRepository {
         });
     }
 */
-
-    public interface productsCallback {
-        void onItemResponse(List<Product> products);
-    }
-
-
-
-    public interface productCallback {
-        void onItemResponse(Product product);
-    }
-
-    public interface AttributesCallback {
-        void onItemResponse(List<Attribute> attributes);
-    }
-
 
 
 }

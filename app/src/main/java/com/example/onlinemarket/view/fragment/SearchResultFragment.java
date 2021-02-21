@@ -64,7 +64,7 @@ public class SearchResultFragment extends Fragment   {
     }
 
     private void searchAndInitViews() {
-        mProductRepository.fetchSearchProducts(mSearchQueryMap,
+        mProductRepository.setSearchResultProductsLiveData(mSearchQueryMap,
                 new ProductRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {

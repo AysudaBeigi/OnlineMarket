@@ -93,7 +93,7 @@ public class HomeFragment extends Fragment   {
     }
 
     private void initViews() {
-        mProductRepository.fetchProduct(608,
+        mProductRepository.setProductLiveData(608,
                 new ProductRepository.productCallback() {
                     @Override
                     public void onItemResponse(Product product) {
@@ -102,7 +102,7 @@ public class HomeFragment extends Fragment   {
                     }
                 });
 
-        mProductRepository.fetchLastProducts(
+        mProductRepository.setLatestProductsLiveData(
                 new ProductRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment   {
                     }
                 });
 
-        mProductRepository.fetchMostVisitedProducts(
+        mProductRepository.setMostVisitedProductsLiveData(
                 new ProductRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment   {
                     }
                 });
 
-        mProductRepository.fetchPopularProducts(1,
+        mProductRepository.setPopularProductsLiveData(1,
                 new ProductRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
@@ -136,7 +136,7 @@ public class HomeFragment extends Fragment   {
 
                     }
                 });
-        mProductRepository.fetchPopularProducts(2,
+        mProductRepository.setPopularProductsLiveData(2,
                 new ProductRepository.productsCallback() {
                     @Override
                     public void onItemResponse(List<Product> items) {
