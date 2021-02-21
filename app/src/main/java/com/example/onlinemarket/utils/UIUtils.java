@@ -17,13 +17,7 @@ public class UIUtils {
 
     }
 
-   /* public static void replaceFragment(FragmentManager fragmentManager,Fragment fragment) {
 
-        fragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container_main_activity, fragment)
-                .commit();
-    }*/
     public static void setImageUsingPicasso(String imageSrc, ImageView imageView){
         Log.d(TAG,"setImageUsingPicasso");
 

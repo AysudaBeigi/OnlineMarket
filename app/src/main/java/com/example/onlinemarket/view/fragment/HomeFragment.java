@@ -152,7 +152,8 @@ public class HomeFragment extends Fragment   {
                 new CategoryRepository.CategoriesCallback() {
                     @Override
                     public void onItemResponse(List<Category> categories) {
-                        mBinding.recyclerViewCategoriesHomeFragment.setLayoutManager(new LinearLayoutManager(getContext(),
+                        mBinding.recyclerViewCategoriesHomeFragment.
+                                setLayoutManager(new LinearLayoutManager(getContext(),
                                 LinearLayoutManager.HORIZONTAL, false));
                         initCategoryAdapter(categories);
                     }
