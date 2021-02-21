@@ -8,10 +8,13 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.databinding.ActivitySplashBinding;
 import com.example.onlinemarket.utils.UIUtils;
+import com.example.onlinemarket.viewModel.ProductViewModel;
 import com.example.onlinemarket.viewModel.SplashViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -19,14 +22,23 @@ public class SplashActivity extends AppCompatActivity {
 
     public static final String TAG = "onlineMarket";
     private SplashViewModel mSplashViewModel;
+    private ProductViewModel mProductViewModel;
+    private ActivitySplashBinding mSplashBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        mSplashBinding = DataBindingUtil.setContentView(this,
+                R.layout.activity_splash);
+
         mSplashViewModel = new ViewModelProvider(this).get(SplashViewModel.class);
+        mProductViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
+
         if (mSplashViewModel.isNotworkConnected(this)) {
             Log.d(TAG, "isNetworkConnected");
+
+            setProductsLiveData();
+
             startMainActivityAfterDelay();
         } else {
             Log.d(TAG, "is not NetworkConnected");
@@ -36,11 +48,19 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
+    private void setProductsLiveData() {
+        mProductViewModel.setSpecialProductLiveData();
+        mProductViewModel.setAmazingOfferProductsLiveData();
+        mProductViewModel.setLatestProductsLiveData();
+        mProductViewModel.setMostVisitedProductsLiveData();
+        mProductViewModel.setPopularProductsLivData();
+    }
+
     private void showInternetIsDisconnectedSnackBar() {
         Log.d(TAG, "showInternetIsDisconnectedSnackBar");
 
         Snackbar snackbar = UIUtils.makeSnackBar(
-                findViewById(R.id.layout_connection_snack_bar),
+                mSplashBinding.layoutConnectionSnackBar,
                 R.string.internet_is_disconnected);
         snackbar.setDuration(Snackbar.LENGTH_INDEFINITE)
                 .setBackgroundTint(Color.WHITE)
@@ -68,8 +88,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 6000);
     }
-
-
 
 
 }

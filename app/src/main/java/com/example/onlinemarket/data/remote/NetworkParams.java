@@ -22,8 +22,9 @@ public class NetworkParams {
     public static final String RATING = "rating";
     public static final String POPULARITY = "popularity";
     public static final String PER_PAGE = "per_page";
+    public static final int SPECIAL_PROUCT_ID = 608;
 
-    public static String  TAG="OnlineMarket";
+    public static String TAG = "OnlineMarket";
 
     public static final Map<String, String> BASE_OPTIONS = new HashMap<String, String>() {{
         put("consumer_key", CONSUMER_KEY);
@@ -31,7 +32,7 @@ public class NetworkParams {
     }};
 
     public static Map<String, String> getMostVisitedProducts() {
-        Log.d(TAG,"MarketRepository : getMostVisitedProducts");
+        Log.d(TAG, "MarketRepository : getMostVisitedProducts");
 
         Map<String, String> queryMap = new HashMap<>();
         queryMap.putAll(BASE_OPTIONS);
@@ -40,19 +41,32 @@ public class NetworkParams {
         return queryMap;
     }
 
-    public static Map<String, String> getPopularProducts(int page) {
-        Log.d(TAG,"MarketRepository : getPopularProducts");
+
+    public static Map<String, String> getPopularProducts() {
+        Log.d(TAG, "MarketRepository : getPopularProducts");
 
         Map<String, String> queryMap = new HashMap<>();
         queryMap.putAll(BASE_OPTIONS);
-        queryMap.put(PAGE, String.valueOf(page));
+        queryMap.put(PAGE, String.valueOf(1));
+        queryMap.put(ORDERBY, POPULARITY);
+        return queryMap;
+    }
+
+
+    public static Map<String, String> getAmazingOfferProducts() {
+        Log.d(TAG, "MarketRepository : getPopularProducts");
+
+        Map<String, String> queryMap = new HashMap<>();
+        queryMap.putAll(BASE_OPTIONS);
+        queryMap.put(PAGE, String.valueOf(2));
         queryMap.put(ORDERBY, POPULARITY);
 
         return queryMap;
     }
 
+
     public static Map<String, String> getLastProducts() {
-        Log.d(TAG,"MarketRepository : getLastProducts");
+        Log.d(TAG, "MarketRepository : getLastProducts");
 
         Map<String, String> queryMap = new HashMap<>();
         queryMap.putAll(BASE_OPTIONS);
@@ -116,8 +130,8 @@ public class NetworkParams {
         queryMap.putAll(BASE_OPTIONS);
         queryMap.put(SEARCH, query);
         queryMap.put(ORDERBY, orderby);
-        if(orderby.equals("price_asc"))
-            queryMap.put(ORDER,"asc");
+        if (orderby.equals("price_asc"))
+            queryMap.put(ORDER, "asc");
         return queryMap;
     }
 
@@ -128,8 +142,8 @@ public class NetworkParams {
         queryMap.put(SEARCH, query);
         queryMap.put(CATEGORY, String.valueOf(categoryId));
         queryMap.put(ORDERBY, orderby);
-        if(orderby.equals("price_asc"))
-            queryMap.put(ORDER,"asc");
+        if (orderby.equals("price_asc"))
+            queryMap.put(ORDER, "asc");
         return queryMap;
     }
 
@@ -149,33 +163,8 @@ public class NetworkParams {
         queryOptions.put("email", email);
         return queryOptions;
     }
-    /*public static Map<String, String> getSortedLowToHighSearchProducts(String query) {
-        Map<String, String> products = new HashMap<>();
-        products.putAll(BASE_OPTIONS);
-        products.put(SEARCH, query);
-        products.put("orderby", "price");
 
-        return products;
-    }
 
-    public static Map<String, String> getSortedHighToLowSearchProducts(String query) {
-        Map<String, String> products = new HashMap<>();
-        products.putAll(BASE_OPTIONS);
-        products.put(SEARCH, query);
-        products.put("orderby", "price");
-
-        return products;
-    }
-
-    public static Map<String, String> getSortedTotalSalesSearchProducts(String query) {
-        Map<String, String> products = new HashMap<>();
-        products.putAll(BASE_OPTIONS);
-        products.put(SEARCH, query);
-        products.put("orderby", "slug");
-
-        return products;
-    }
-*/
     public static Map<String, String> getProductComments(int productId) {
         Map<String, String> products = new HashMap<>();
         products.putAll(BASE_OPTIONS);
@@ -190,8 +179,6 @@ public class NetworkParams {
 
         return products;
     }
-
-
 
 
 }

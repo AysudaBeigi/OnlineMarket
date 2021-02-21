@@ -24,6 +24,7 @@ public class ProductRepository {
     private WooCommerceAPIService mWooCommerceAPIService;
     private MutableLiveData<List<Product>> mLatestProductsLiveData;
     private MutableLiveData<List<Product>> mPopularProductsLiveData;
+    private MutableLiveData<List<Product>> mAmazingOfferProductsLiveData;
     private MutableLiveData<List<Product>> mMostVisitedProductsLiveData;
     private MutableLiveData<List<Product>> mCategoryProductsLiveData;
     private MutableLiveData<List<Product>> mSearchResultProductsLiveData;
@@ -36,6 +37,7 @@ public class ProductRepository {
         mLatestProductsLiveData = new MutableLiveData<>();
         mMostVisitedProductsLiveData = new MutableLiveData<>();
         mPopularProductsLiveData = new MutableLiveData<>();
+        mAmazingOfferProductsLiveData = new MutableLiveData<>();
         mSearchResultProductsLiveData = new MutableLiveData<>();
         mProductLiveData = new MutableLiveData<>();
         mCategoryProductsLiveData = new MutableLiveData<>();
@@ -47,6 +49,10 @@ public class ProductRepository {
 
     public MutableLiveData<List<Product>> getPopularProductsLiveData() {
         return mPopularProductsLiveData;
+    }
+
+    public MutableLiveData<List<Product>> getAmazingOfferProductsLiveData() {
+        return mAmazingOfferProductsLiveData;
     }
 
     public MutableLiveData<List<Product>> getMostVisitedProductsLiveData() {
@@ -104,16 +110,35 @@ public class ProductRepository {
                 });
     }
 
-    public void setPopularProductsLiveData(int page) {
+    public void setPopularProductsLiveData() {
 
         Log.d(TAG, "MarketRepository : fetchPopularProducts");
-        mWooCommerceAPIService.getProducts(NetworkParams.getPopularProducts(page)).
+        mWooCommerceAPIService.getProducts(NetworkParams.getPopularProducts()).
                 enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(Call<List<Product>> call,
                                            Response<List<Product>> response) {
-                        List<Product> popularProducts = response.body();
-                        mPopularProductsLiveData.setValue(popularProducts);
+                        List<Product> products = response.body();
+                        mPopularProductsLiveData.setValue(products);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Product>> call, Throwable t) {
+                        Log.e(TAG, t.getMessage(), t);
+                    }
+                });
+    }
+
+    public void setAmazingOfferProductsLiveData() {
+
+        Log.d(TAG, "MarketRepository : fetchPopularProducts");
+        mWooCommerceAPIService.getProducts(NetworkParams.getAmazingOfferProducts()).
+                enqueue(new Callback<List<Product>>() {
+                    @Override
+                    public void onResponse(Call<List<Product>> call,
+                                           Response<List<Product>> response) {
+                        List<Product> products = response.body();
+                        mAmazingOfferProductsLiveData.setValue(products);
                     }
 
                     @Override
@@ -142,8 +167,9 @@ public class ProductRepository {
     }
 
 
-    public void setProductLiveData(int productId) {
-        mWooCommerceAPIService.getProduct(productId, NetworkParams.getBaseQuery()).
+    public void setSpecialProductLiveData() {
+        mWooCommerceAPIService.getProduct(NetworkParams.SPECIAL_PROUCT_ID,
+                NetworkParams.getBaseQuery()).
                 enqueue(new Callback<Product>() {
                     @Override
                     public void onResponse(Call<Product> call,

@@ -13,13 +13,13 @@ import com.example.onlinemarket.data.repository.ProductRepository;
 import java.util.List;
 import java.util.Map;
 
-public class ProductViewModel  extends AndroidViewModel {
+public class ProductViewModel extends AndroidViewModel {
 
     private ProductRepository mProductRepository;
 
-    private ProductViewModel(@NonNull Application application , Context context) {
+    private ProductViewModel(@NonNull Application application, Context context) {
         super(application);
-        mProductRepository= new ProductRepository(context);
+        mProductRepository = new ProductRepository(context);
     }
 
     public MutableLiveData<List<Product>> getLatestProductsLiveData() {
@@ -27,6 +27,10 @@ public class ProductViewModel  extends AndroidViewModel {
     }
 
     public MutableLiveData<List<Product>> getPopularProductsLiveData() {
+        return mProductRepository.getPopularProductsLiveData();
+    }
+
+    public MutableLiveData<List<Product>> getAmazingOfferProductsLiveData() {
         return mProductRepository.getPopularProductsLiveData();
     }
 
@@ -46,26 +50,33 @@ public class ProductViewModel  extends AndroidViewModel {
         return mProductRepository.getProductLiveData();
     }
 
+    public void setSpecialProductLiveData() {
+        mProductRepository.setSpecialProductLiveData();
+    }
 
-    public void setLatestProductsLiveData(){
+    public void setLatestProductsLiveData() {
         mProductRepository.setLatestProductsLiveData();
     }
-    public void setPopularProductsLivData(int page){
-        mProductRepository.setPopularProductsLiveData(page);
-    }
-    public void setMostVisitedProductsLiveData(){
-        mProductRepository.setMostVisitedProductsLiveData();
-    }
-    public void setSearchResultProductsLiveData(Map<String, String> query){
-        mProductRepository.setSearchResultProductsLiveData(query);
-    }
-    public void setCategoryProductsLiveData(int categoryId){
-        mProductRepository.setCategoryProductsLiveData(categoryId);
-    }
-    public void setProductLiveData(int productId){
-        mProductRepository.setProductLiveData(productId);
+
+    public void setPopularProductsLivData() {
+        mProductRepository.setPopularProductsLiveData();
     }
 
+    public void setAmazingOfferProductsLiveData() {
+        mProductRepository.setAmazingOfferProductsLiveData();
+    }
+
+    public void setMostVisitedProductsLiveData() {
+        mProductRepository.setMostVisitedProductsLiveData();
+    }
+
+    public void setSearchResultProductsLiveData(Map<String, String> query) {
+        mProductRepository.setSearchResultProductsLiveData(query);
+    }
+
+    public void setCategoryProductsLiveData(int categoryId) {
+        mProductRepository.setCategoryProductsLiveData(categoryId);
+    }
 
 
 

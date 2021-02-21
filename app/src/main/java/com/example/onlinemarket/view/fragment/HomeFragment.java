@@ -93,7 +93,7 @@ public class HomeFragment extends Fragment   {
     }
 
     private void initViews() {
-        mProductRepository.setProductLiveData(608,
+        mProductRepository.setSpecialProductLiveData(608,
                 new ProductRepository.productCallback() {
                     @Override
                     public void onItemResponse(Product product) {
