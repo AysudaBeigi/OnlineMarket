@@ -3,6 +3,7 @@ package com.example.onlinemarket.data.repository;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
 import com.example.onlinemarket.data.model.customer.Customer;
@@ -24,6 +25,7 @@ public class CustomerDBRepository implements ICustomerRepository {
     private WooCommerceAPIService mWooCommerceAPIService;
     private Context mContext;
     public static String TAG = "OnlineMarket";
+    private MutableLiveData<Customer> mPostCustomerMutableLiveData;
 
 
     public static CustomerDBRepository getInstance(Context context) {
@@ -46,11 +48,15 @@ public class CustomerDBRepository implements ICustomerRepository {
                 .build();
         mICustomerDatabaseDAO = onlineMarketDatabase.
                 getCustomerDatabaseDAO();
+        mPostCustomerMutableLiveData=new MutableLiveData<>();
     }
 
 
-    public void postCustomer(Customer customer, CustomerDBRepository.CustomerCallback
-            customerCallbacks) {
+    public MutableLiveData<Customer> getPostCustomerMutableLiveData() {
+        return mPostCustomerMutableLiveData;
+    }
+
+    public void postCustomer(Customer customer) {
 
         mWooCommerceAPIService.postCustomer(
                 NetworkParams.getBaseQuery(),customer).
@@ -59,7 +65,7 @@ public class CustomerDBRepository implements ICustomerRepository {
                     public void onResponse(Call<Customer> call, Response<Customer> response) {
 
                         Customer customer= response.body();
-                        customerCallbacks.onItemResponse(customer);
+                        mPostCustomerMutableLiveData.setValue(customer);
 
                     }
 
@@ -92,9 +98,5 @@ public class CustomerDBRepository implements ICustomerRepository {
         return mICustomerDatabaseDAO.getCustomer();
     }
 
-
-    public interface CustomerCallback {
-        void onItemResponse(Customer customer);
-    }
 
 }

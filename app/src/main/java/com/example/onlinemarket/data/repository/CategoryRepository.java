@@ -31,6 +31,7 @@ public class CategoryRepository {
     }
 
     public MutableLiveData<List<Category>> getCategoriesLiveData() {
+
         return mCategoriesLiveData;
     }
 

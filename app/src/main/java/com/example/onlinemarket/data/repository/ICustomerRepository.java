@@ -4,8 +4,7 @@ import com.example.onlinemarket.data.model.customer.Customer;
 
 public interface ICustomerRepository {
 
-    void postCustomer(Customer customer, CustomerDBRepository.CustomerCallback
-            customerCallbacks);
+    void postCustomer(Customer customer);
 
     void updateCustomer(Customer customer);
 
