@@ -37,7 +37,6 @@ public class CommentRepository {
         mWooCommerceAPIService = RetrofitInstance.getInstance(context).getRetrofit().
                 create(WooCommerceAPIService.class);
 
-
     }
 
     public MutableLiveData<List<Comment>> getProductCommentsLiveData() {
@@ -48,7 +47,7 @@ public class CommentRepository {
         return mPostCommentLiveData;
     }
 
-    public void postComment(Comment comment) {
+    public void postCommentLiveData(Comment comment) {
         Call<Comment> call =
                 mWooCommerceAPIService.postComment(comment.getProductId(),
                         comment.getReview(),
@@ -87,7 +86,7 @@ public class CommentRepository {
         });
     }
 
-    public void fetchProductComments(int productId ) {
+    public void setProductComments(int productId ) {
         Call<List<Comment>> call =
                 mWooCommerceAPIService.getProductComments
                         (NetworkParams.getProductComments(productId));

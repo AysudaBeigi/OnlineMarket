@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,36 +20,28 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CommentAdapter;
 import com.example.onlinemarket.adapter.ImageSliderAdapter;
-import com.example.onlinemarket.data.model.Card;
 import com.example.onlinemarket.data.model.Comment;
 import com.example.onlinemarket.data.model.customer.Customer;
 import com.example.onlinemarket.data.model.product.Image;
-import com.example.onlinemarket.data.model.product.Product;
-import com.example.onlinemarket.data.repository.CardDBRepository;
-import com.example.onlinemarket.data.repository.CommentRepository;
-import com.example.onlinemarket.data.repository.CustomerDBRepository;
 import com.example.onlinemarket.databinding.FragmentProductDetailBinding;
 import com.example.onlinemarket.utils.UIUtils;
+import com.example.onlinemarket.viewModel.ProductDetailViewModel;
 import com.google.android.material.snackbar.Snackbar;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.safety.Whitelist;
 
 import java.util.List;
 
 
-public class ProductDetailFragment extends Fragment  {
+public class ProductDetailFragment extends Fragment {
 
     public static final String ARGS_PRODUCT = "argsProduct";
-    private Product mProduct;
+    //private Product mProduct;
     private ImageSliderAdapter mImageSliderAdapter;
-   private CardDBRepository mCardDBRepository;
     private CommentAdapter mCommentAdapter;
     private Customer mCustomer;
     public static String TAG = "OnlineMarket";
-   private NavController mNavController;
-   private FragmentProductDetailBinding mBinding;
+    private NavController mNavController;
+    private FragmentProductDetailBinding mBinding;
+    private ProductDetailViewModel mViewModel;
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -58,13 +52,13 @@ public class ProductDetailFragment extends Fragment  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "ProductDetailFragment +onCreate ");
+        initData();
+    }
 
-        mProduct = (Product) getArguments().get(ARGS_PRODUCT);
-        mCardDBRepository = CardDBRepository.getInstance(getActivity());
-        mCustomer = CustomerDBRepository.getInstance(getActivity())
-                .getCustomer();
-        Log.d(TAG, "ProductDetailFragment +product name is  " + mProduct.getName());
-
+    private void initData() {
+        mViewModel = new ViewModelProvider(this).get(ProductDetailViewModel.class);
+        mCustomer = mViewModel.getCustomer();
+        mViewModel.setProductComments();
     }
 
     @Override
@@ -72,8 +66,8 @@ public class ProductDetailFragment extends Fragment  {
                              Bundle savedInstanceState) {
         Log.d(TAG, "ProductDetailFragment +onCreateView ");
 
-       mBinding = DataBindingUtil.inflate(inflater,
-               R.layout.fragment_product_detail,
+        mBinding = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_product_detail,
                 container, false);
         initViews();
         setListener();
@@ -83,27 +77,25 @@ public class ProductDetailFragment extends Fragment  {
     private void initViews() {
         Log.d(TAG, "ProductDetailFragment +initViews ");
 
-        mBinding.textViewLatestPriceProductDetail.setText(mProduct.getPrice() + " " +
-                getContext().getResources().getString(R.string.toman));
-        mBinding.textViewOldPriceProductDetail.setText(mProduct.getRegularPrice() + " " +
-                getContext().getResources().getString(R.string.toman));
+        mBinding.textViewLatestPriceProductDetail.setText(mViewModel.getPrice());
+        mBinding.textViewOldPriceProductDetail.setText(mViewModel.getRegularPrice());
         mBinding.textViewOldPriceProductDetail.
                 setPaintFlags(mBinding.textViewOldPriceProductDetail.getPaintFlags() |
-                Paint.STRIKE_THRU_TEXT_FLAG);
-        mBinding.textViewInformationProductDetail.setText(getInformation());
-        mBinding.textViewNameProdcutDetail.setText(mProduct.getName());
-        setupImageSliderAdapter(mProduct.getImages());
-        CommentRepository.getInstance(getActivity()).
-                fetchProductComments(mProduct.getId(),
-                        new CommentRepository.CommentsCallback() {
-                            @Override
-                            public void onItemResponse(List<Comment> comments) {
+                        Paint.STRIKE_THRU_TEXT_FLAG);
+        mBinding.textViewInformationProductDetail.setText(mViewModel.getInformation());
+        mBinding.textViewNameProdcutDetail.setText(mViewModel.getName());
+        setupImageSliderAdapter(mViewModel.getImages());
+        mViewModel.getProductCommentsLiveData().
+                observe(this, new Observer<List<Comment>>() {
+                    @Override
+                    public void onChanged(List<Comment> comments) {
+                        Log.d(TAG, "ProductDetailFragment +onItemResponse ");
+                        initRecyclerView();
+                        initCommentAdapter(comments);
 
-                                Log.d(TAG, "ProductDetailFragment +onItemResponse ");
-                                initRecyclerView();
-                                initCommentAdapter(comments);
-                            }
-                        });
+                    }
+                });
+
 
     }
 
@@ -135,20 +127,6 @@ public class ProductDetailFragment extends Fragment  {
                 LinearLayoutManager.HORIZONTAL, false));
     }
 
-    private String getInformation() {
-        String description = mProduct.getDescription();
-        if (description.equals(null))
-            return description;
-        Document document = Jsoup.parse(description);
-        document.outputSettings(new Document.OutputSettings().prettyPrint(false));
-        document.select("br").append("\\n");
-        document.select("p").prepend("\\n\\n");
-        String s = document.html().replaceAll("\\\\n", "\n");
-        return Jsoup.clean(s, "", Whitelist.none(),
-                new Document.OutputSettings().prettyPrint(false));
-
-
-    }
 
     private void setListener() {
         Log.d(TAG, "ProductDetailFragment +setListener ");
@@ -158,15 +136,11 @@ public class ProductDetailFragment extends Fragment  {
             public void onClick(View view) {
                 Log.d(TAG, "ProductDetailFragment +mButtonAddToShoppingBag + onClick");
 
-                if (!isProductInCart()&&mProduct.getPrice()!=null) {
-                    Log.d(TAG, "ProductDetailFragment + isProductInCart"
-                            +isProductInCart());
-
-                    Log.d(TAG, "ProductDetailFragment +mButtonAddToShoppingBag + else");
+                if (mViewModel.isProductInCardAndPriceNotNull()) {
                     Snackbar snackbar = UIUtils.makeSnackBar(mBinding.layoutShowSnackBarProductDetail
                             , R.string.this_product_is_added_to_shopping_bag);
                     snackbar.show();
-                    addTooCard();
+                    mViewModel.addTooCard();
                     mBinding.buttonAddToShoppingBag.setEnabled(false);
                 }
             }
@@ -178,7 +152,7 @@ public class ProductDetailFragment extends Fragment  {
                 Log.d(TAG, "ProductDetailFragment +mButtonPostComment + onClick");
                 if (mCustomer == null) {
                     Snackbar snackbar = UIUtils.makeSnackBar(mBinding.layoutShowSnackBarProductDetail
-                           , R.string.please_fist_sign_up);
+                            , R.string.please_fist_sign_up);
                     snackbar.show();
                 } else {
                     replacePostCommentFragment();
@@ -192,42 +166,21 @@ public class ProductDetailFragment extends Fragment  {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mNavController=Navigation.findNavController(view);
+        mNavController = Navigation.findNavController(view);
     }
 
     private void replacePostCommentFragment() {
 
-        Bundle bundle=new Bundle();
-        bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
-        mNavController.navigate(R.id.action_productDetailFragment_to_PostCommentFragment,bundle);
-
+        mNavController.navigate(R.id.action_productDetailFragment_to_PostCommentFragment);
 
     }
 
-
-    public boolean isProductInCart() {
-        Log.d(TAG, "ProductDetailFragment +isProductInCart ");
-
-        Card card = new Card(mProduct, mProduct.getId(), 1);
-        return mCardDBRepository.getCarts().contains(card);
-    }
-
-    public void addTooCard() {
-        Log.d(TAG, "ProductDetailFragment +addTooCard ");
-
-        Card card = new Card(mProduct, mProduct.getId(), 1);
-
-        mCardDBRepository.insertCart(card);
-
-
-    }
-
-    private void setupImageSliderAdapter(List<Image> imagesItems) {
+    private void setupImageSliderAdapter(List<Image> images) {
         Log.d(TAG, "ProductDetailFragment +setupImageSliderAdapter ");
         Log.d(TAG, "ProductDetailFragment +setupImageSliderAdapter+ first image is  "
-                + imagesItems.get(0).getSrc());
+                + images.get(0).getSrc());
 
-        mImageSliderAdapter = new ImageSliderAdapter(getContext(), imagesItems);
+        mImageSliderAdapter = new ImageSliderAdapter(getContext(), images);
         Log.d(TAG, "ProductDetailFragment + after setupImageSliderAdapter ");
 
         mBinding.sliderViewProductDetail.setSliderAdapter(mImageSliderAdapter);
@@ -243,7 +196,6 @@ public class ProductDetailFragment extends Fragment  {
             return Html.fromHtml(mProduct.getDescription()).toString();
         }
     }*/
-
 
 
 }

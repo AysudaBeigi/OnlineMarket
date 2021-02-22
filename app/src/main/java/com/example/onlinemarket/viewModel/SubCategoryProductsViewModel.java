@@ -18,7 +18,7 @@ public class SubCategoryProductsViewModel extends AndroidViewModel {
 
     private SubCategoryProductsViewModel(@NonNull Application application, Context context) {
         super(application);
-        mProductRepository = new ProductRepository(context);
+        mProductRepository =  ProductRepository.getInstance(context);
     }
 
 

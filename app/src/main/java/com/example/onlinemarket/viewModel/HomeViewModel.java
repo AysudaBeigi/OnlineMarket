@@ -21,7 +21,7 @@ public class HomeViewModel extends AndroidViewModel {
 
     private HomeViewModel(@NonNull Application application, Context context) {
         super(application);
-        mProductRepository = new ProductRepository(context);
+        mProductRepository =ProductRepository.getInstance(context);
         mCategoryRepository = new CategoryRepository(context);
     }
 
@@ -44,7 +44,7 @@ public class HomeViewModel extends AndroidViewModel {
 
 
     public MutableLiveData<Product> getSpecialProductLiveData() {
-        return mProductRepository.getProductLiveData();
+        return mProductRepository.getSpecialProductLiveData();
     }
 
     public MutableLiveData<List<Category>> getCategoriesLiveData() {
@@ -77,5 +77,9 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
 
+    public void setUserSelectedProduct(Product product){
+
+        mProductRepository.setUserSelectedProduct(product);
+    }
 
 }

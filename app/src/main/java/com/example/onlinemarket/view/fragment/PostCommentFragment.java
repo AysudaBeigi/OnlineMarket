@@ -12,52 +12,41 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.Comment;
-import com.example.onlinemarket.data.model.customer.Customer;
-import com.example.onlinemarket.data.model.product.Product;
-import com.example.onlinemarket.data.repository.CommentRepository;
-import com.example.onlinemarket.data.repository.CustomerDBRepository;
 import com.example.onlinemarket.databinding.FragmentPostCommentBinding;
 import com.example.onlinemarket.utils.UIUtils;
+import com.example.onlinemarket.viewModel.PostCommentViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 public class PostCommentFragment extends Fragment {
-    public static final String ARGS_PRODUCT = "argsProduct";
+    public static String TAG = "OnlineMarket";
     private boolean mIsRated = false;
     private int mRate;
-    private int mProductId;
-    private Product mProduct;
-    private Customer mCustomer;
     private NavController mNavController;
-    public static String TAG = "OnlineMarket";
     private FragmentPostCommentBinding mBinding;
+    private PostCommentViewModel mViewModel;
 
     public PostCommentFragment() {
         // Required empty public constructor
     }
 
-    public static PostCommentFragment newInstance() {
-        Log.d(TAG, "PostCommentFragment +newInstance");
-
-        PostCommentFragment fragment = new PostCommentFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "PostCommentFragment +onCreate");
+        initData();
+    }
 
-        mProduct = (Product) getArguments().getSerializable(ARGS_PRODUCT);
-        mProductId = mProduct.getId();
-        mCustomer = CustomerDBRepository.getInstance(getActivity())
-                .getCustomer();
+    private void initData() {
+        mViewModel = new ViewModelProvider(this).get(PostCommentViewModel.class);
     }
 
     @Override
@@ -67,11 +56,11 @@ public class PostCommentFragment extends Fragment {
                 R.layout.fragment_post_comment, container,
                 false);
 
-        setListeners(mBinding.getRoot());
+        setListeners(mBinding.getRoot() ,this);
         return mBinding.getRoot();
     }
 
-    private void setListeners(View view) {
+    private void setListeners(View view, LifecycleOwner owner) {
         mBinding.buttonPostComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,25 +68,22 @@ public class PostCommentFragment extends Fragment {
 
                 if (review.isEmpty() || !mIsRated) {
                     showCompleteCommentSnackBar(view);
-
                 } else {
                     Log.d(TAG, "PostCommentFragment + comment is complete");
 
                     mBinding.buttonPostComment.setBackgroundColor(
                             getResources().getColor(R.color.digikala_red));
-
-                    Comment comment = getComment(review);
-
-                    CommentRepository.getInstance(getActivity())
-                            .postComment(comment, new CommentRepository.CommentCallback() {
+                    mViewModel.postCommentLiveData(review,mRate);
+                    mViewModel.getPostCommentLiveData()
+                            .observe(owner, new Observer<Comment>() {
                                 @Override
-                                public void onItemResponse(Comment comment) {
+                                public void onChanged(Comment comment) {
                                     Log.d(TAG, "PostCommentFragment + postComment+" +
                                             " onItemResponse");
                                     replaceProductDetailFragment();
+
                                 }
                             });
-
                 }
             }
 
@@ -132,21 +118,10 @@ public class PostCommentFragment extends Fragment {
 
     private void replaceProductDetailFragment() {
         Log.d(TAG, "PostCommentFragment +replaceProductDetailFragment");
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT, mProduct);
-        mNavController.navigate(R.id.action_PostCommentFragment_to_productDetailFragment
-                , bundle);
-
-
+        mNavController.navigate(R.id.action_PostCommentFragment_to_productDetailFragment);
     }
 
-    private Comment getComment(String review) {
-        Log.d(TAG, "PostCommentFragment +getComment");
 
-        return new Comment(mProductId, review,
-                mCustomer.getEmail(), mRate);
-    }
 
     private void showCompleteCommentSnackBar(View view) {
         Log.d(TAG, "PostCommentFragment +showCompleteCommentSnackBar");

@@ -32,14 +32,6 @@ public class SignUpFragment extends Fragment {
     }
 
 
-    public static SignUpFragment newInstance() {
-        Log.d(TAG, "SignUpFragment + newInstance ");
-
-        SignUpFragment fragment = new SignUpFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

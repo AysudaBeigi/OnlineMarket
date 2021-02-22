@@ -6,6 +6,8 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.onlinemarket.R;
+import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.data.remote.NetworkParams;
 import com.example.onlinemarket.data.remote.retrofit.RetrofitInstance;
@@ -28,10 +30,22 @@ public class ProductRepository {
     private MutableLiveData<List<Product>> mMostVisitedProductsLiveData;
     private MutableLiveData<List<Product>> mCategoryProductsLiveData;
     private MutableLiveData<List<Product>> mSearchResultProductsLiveData;
-    private MutableLiveData<Product> mProductLiveData;
+    private MutableLiveData<Product> mSpecialProductLiveData;
+    private static ProductRepository sInstance;
+    private Product mUserSelectedProduct;
+    private Context mContext;
 
-    public ProductRepository(Context context) {
-        mWooCommerceAPIService = RetrofitInstance.getInstance(context).getRetrofit().
+    public static ProductRepository getInstance(Context context) {
+
+        if (sInstance == null)
+            sInstance = new ProductRepository(context);
+        return sInstance;
+    }
+
+
+    private ProductRepository(Context context) {
+        mContext=context.getApplicationContext();
+        mWooCommerceAPIService = RetrofitInstance.getInstance(mContext).getRetrofit().
                 create(WooCommerceAPIService.class);
 
         mLatestProductsLiveData = new MutableLiveData<>();
@@ -39,7 +53,7 @@ public class ProductRepository {
         mPopularProductsLiveData = new MutableLiveData<>();
         mAmazingOfferProductsLiveData = new MutableLiveData<>();
         mSearchResultProductsLiveData = new MutableLiveData<>();
-        mProductLiveData = new MutableLiveData<>();
+        mSpecialProductLiveData = new MutableLiveData<>();
         mCategoryProductsLiveData = new MutableLiveData<>();
     }
 
@@ -67,8 +81,8 @@ public class ProductRepository {
         return mSearchResultProductsLiveData;
     }
 
-    public MutableLiveData<Product> getProductLiveData() {
-        return mProductLiveData;
+    public MutableLiveData<Product> getSpecialProductLiveData() {
+        return mSpecialProductLiveData;
     }
 
 
@@ -158,7 +172,6 @@ public class ProductRepository {
                         List<Product> categoryProducts = response.body();
                         mCategoryProductsLiveData.setValue(categoryProducts);
                     }
-
                     @Override
                     public void onFailure(Call<List<Product>> call, Throwable t) {
                         Log.e(TAG, t.getMessage(), t);
@@ -175,9 +188,8 @@ public class ProductRepository {
                     public void onResponse(Call<Product> call,
                                            Response<Product> response) {
                         Product product = response.body();
-                        mProductLiveData.setValue(product);
+                        mSpecialProductLiveData.setValue(product);
                     }
-
                     @Override
                     public void onFailure(Call<Product> call, Throwable t) {
                         Log.e(TAG, t.getMessage(), t);
@@ -201,6 +213,34 @@ public class ProductRepository {
             }
         });
     }
+
+    public void setUserSelectedProduct(Product userSelectedProduct) {
+        mUserSelectedProduct = userSelectedProduct;
+    }
+
+    public Product getUserSelectedProduct() {
+        return mUserSelectedProduct;
+    }
+    public int getUserSelectedProductId(){
+        return mUserSelectedProduct.getId();
+    }
+     public String getUserSelectedProductName(){
+        return mUserSelectedProduct.getName();
+    }
+    public List<Image> getUserSelectedProductImages(){
+        return mUserSelectedProduct.getImages();
+    }
+
+    public String getUserSelectedProductPrice(){
+        return mUserSelectedProduct.getPrice() + " " +
+                mContext.getResources().getString(R.string.toman);
+    }
+
+    public String getUserSelectedProductRegularPrice(){
+        return mUserSelectedProduct.getRegularPrice() + " " +
+                mContext.getResources().getString(R.string.toman);
+    }
+
 
    /* public void fetchSearchFilteredProducts(String query, productsCallback callBacks) {
 

@@ -16,11 +16,13 @@ import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.data.repository.CategoryRepository;
 import com.example.onlinemarket.data.repository.ProductRepository;
 import com.example.onlinemarket.databinding.FragmentCategoriesBinding;
+import com.example.onlinemarket.viewModel.CategoriesViewModel;
+import com.example.onlinemarket.viewModel.HomeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriesFragment extends Fragment   {
+public class CategoriesFragment extends Fragment {
     public static String TAG = "OnlineMarket";
 
     private CategoriesFragmentAdapter mAdapterOne;
@@ -38,8 +40,12 @@ public class CategoriesFragment extends Fragment   {
     private CategoryProductsHorizontalAdapter mPAdapterSix;
 
 
-    private ProductRepository mProductRepository;
-    private CategoryRepository mCategoryRepository;
+    /* private ProductRepository mProductRepository;
+     private CategoryRepository mCategoryRepository;
+     */
+    private HomeViewModel mProductViewModel;
+    private CategoriesViewModel mCategoriesViewModel;
+
     private List<Category> mCategories = new ArrayList<>();
     private FragmentCategoriesBinding mBinding;
 
@@ -47,17 +53,10 @@ public class CategoriesFragment extends Fragment   {
         // Required empty public constructor
     }
 
-    public static CategoriesFragment newInstance() {
-        CategoriesFragment fragment = new CategoriesFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mProductRepository = new ProductRepository(getContext());
+        mProductRepository = ProductRepository.getInstance(getContext());
         mCategoryRepository = new CategoryRepository(getContext());
 
         mCategoryRepository.setCategoriesLiveData(
@@ -76,14 +75,13 @@ public class CategoriesFragment extends Fragment   {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding= DataBindingUtil.inflate(inflater,
+        mBinding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_categories,
                 container,
                 false);
 
         return mBinding.getRoot();
     }
-
 
 
     private void updateCategoriesRecyclerAdapter() {
@@ -94,7 +92,7 @@ public class CategoriesFragment extends Fragment   {
                         if (subCategories.size() > 0) {
 
                             if (mAdapterOne == null) {
-                                mAdapterOne = new CategoriesFragmentAdapter(this,getContext(),
+                                mAdapterOne = new CategoriesFragmentAdapter(this, getContext(),
                                         subCategories);
                                 mBinding.recyclerViewCategoryOneCategoriesFragment
                                         .setAdapter(mAdapterOne);
@@ -323,7 +321,6 @@ public class CategoriesFragment extends Fragment   {
         mBinding.textViewCategoryNameSixCategoriesFragment.setText(names.get(5));
 
     }
-
 
 
 }

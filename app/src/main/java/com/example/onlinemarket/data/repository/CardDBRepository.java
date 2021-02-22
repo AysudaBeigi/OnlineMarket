@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.room.Room;
 
 import com.example.onlinemarket.data.model.Card;
+import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.data.room.ICartDatabaseDAO;
 import com.example.onlinemarket.data.room.OnlineMarketDatabase;
 
@@ -66,5 +67,14 @@ public class CardDBRepository implements ICartRepository {
         return mCartDAO.getCart(productId);
     }
 
+
+    public void addProductTooCard(Product product) {
+        Card card = new Card(product, product.getId(), 1);
+        insertCart(card);
+    }
+    public boolean isProductInCard(Product product) {
+        Card card = new Card(product,product.getId(), 1);
+        return getCarts().contains(card);
+    }
 
 }
