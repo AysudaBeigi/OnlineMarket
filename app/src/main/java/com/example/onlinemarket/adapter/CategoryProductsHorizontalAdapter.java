@@ -67,6 +67,7 @@ public class CategoryProductsHorizontalAdapter extends RecyclerView.
         private Product mProduct;
 
 
+        //todo : ndf jkbmfh
         public ProductHorizantalViewHolder(@NonNull View itemView) {
             super(itemView);
 
