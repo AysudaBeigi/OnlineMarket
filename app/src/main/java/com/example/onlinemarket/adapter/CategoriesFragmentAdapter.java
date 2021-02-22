@@ -39,10 +39,11 @@ public class CategoriesFragmentAdapter extends
         notifyDataSetChanged();
     }
 
-    public CategoriesFragmentAdapter(ViewModelStoreOwner owner, Context context, List<Category> categories) {
+    public CategoriesFragmentAdapter(Context context, List<Category> categories
+    ,  ViewModelStoreOwner viewModelStoreOwner) {
         mContext = context;
         mCategories = categories;
-        mSubCategoryProductsViewModel = new ViewModelProvider(owner)
+        mSubCategoryProductsViewModel = new ViewModelProvider(viewModelStoreOwner)
                 .get(SubCategoryProductsViewModel.class);
     }
 
