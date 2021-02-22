@@ -54,15 +54,6 @@ public class ProductDetailFragment extends Fragment  {
     }
 
 
-    public static ProductDetailFragment newInstance() {
-        Log.d(TAG, "ProductDetailFragment +newInstance ");
-        ProductDetailFragment fragment = new ProductDetailFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

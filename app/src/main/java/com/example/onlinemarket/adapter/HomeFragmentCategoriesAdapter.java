@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,11 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.product.Category;
 import com.example.onlinemarket.data.model.product.Image;
+import com.example.onlinemarket.databinding.HomeFrgamentCategoryItemViewBinding;
 import com.example.onlinemarket.utils.UIUtils;
 import com.example.onlinemarket.view.fragment.SubCategoryProductsFragment;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.imageview.ShapeableImageView;
-import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +26,7 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
     private static final String TAG = "CategoryAdapter";
     private Context mContext;
     private List<Category> mCategoriesItems;
-
-    public List<Category> getCategoriesItem() {
-        return mCategoriesItems;
-
-    }
-
+    private HomeFrgamentCategoryItemViewBinding mBinding;
     public void setCategoriesItem(List<Category> categoriesItems) {
         mCategoriesItems = categoriesItems;
         notifyDataSetChanged();
@@ -46,29 +40,17 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.home_frgament_category_item_view, parent, false);
+       mBinding =
+                DataBindingUtil.inflate(LayoutInflater.from(mContext),
+                R.layout.home_frgament_category_item_view, parent, false);
 
-        return new CategoryViewHolder(view);
+        return new CategoryViewHolder(mBinding.getRoot());
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Category category = mCategoriesItems.get(position);
         holder.bindCategory(category, position);
-        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                        ((AppCompatActivity) mContext).getSupportFragmentManager()
-                                .beginTransaction().
-                                replace(R.id.fragment_container_main_activity,
-                        SubCategoryProductsFragment.newInstance(categoriesItem.getId()))
-                .commit();
-
-
-            }
-        });*/
     }
 
     @Override
@@ -79,15 +61,11 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
-        private MaterialTextView mCategoryName;
-        private ShapeableImageView mCategoryImage;
-        private MaterialCardView mCardView;
         private Category mCategory;
         ArrayList<Integer> mColors = new ArrayList<>();
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
-            findItemViews(itemView);
             initColors();
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -113,17 +91,10 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
         }
 
 
-        private void findItemViews(@NonNull View itemView) {
-            mCategoryName = itemView.findViewById(R.id.text_view_category_name_home_fragment);
-            mCategoryImage = itemView.findViewById(R.id.image_view_category_home_fragment);
-            mCardView = itemView.findViewById(R.id.card_view_home_categories_item);
-
-        }
-
         private void bindCategory(Category category, int position) {
             mCategory=category;
-            mCardView.setCardBackgroundColor(mColors.get(position));
-            mCategoryName.setText(category.getName() + "");
+            mBinding.cardViewHomeCategoriesItem.setCardBackgroundColor(mColors.get(position));
+            mBinding.textViewCategoryNameHomeFragment.setText(category.getName() + "");
             Image imageItem = category.getImages();
             List<String> imagesItemList = new ArrayList<>();
 
@@ -134,7 +105,7 @@ public class HomeFragmentCategoriesAdapter extends RecyclerView.Adapter<HomeFrag
             for (int i = 0; i < imagesItemList.size(); i++) {
                 if (imagesItemList.get(i) != null) {
                     UIUtils.setImageUsingPicasso(imagesItemList.get(i),
-                            mCategoryImage);
+                            mBinding.imageViewCategoryHomeFragment);
                     break;
                 }
 

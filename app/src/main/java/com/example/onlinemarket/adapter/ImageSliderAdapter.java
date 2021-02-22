@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.databinding.DataBindingUtil;
+
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.product.Image;
+import com.example.onlinemarket.databinding.ImageSliderItemViewBinding;
 import com.example.onlinemarket.utils.UIUtils;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.ArrayList;
@@ -20,10 +22,7 @@ public class ImageSliderAdapter extends
     private Context mContext;
     private List<Image> mImagesItems = new ArrayList<>();
     public static String TAG = "OnlineMarket";
-
-    public List<Image> getImagesItems() {
-        return mImagesItems;
-    }
+    private ImageSliderItemViewBinding mBinding;
 
     public void setImagesItems(List<Image> imagesItems) {
         mImagesItems = imagesItems;
@@ -31,23 +30,24 @@ public class ImageSliderAdapter extends
     }
 
     public ImageSliderAdapter(Context context, List<Image> imagesItems) {
-        Log.d(TAG,"ImageSliderAdapter");
+        Log.d(TAG, "ImageSliderAdapter");
         mContext = context;
         mImagesItems = imagesItems;
     }
 
     @Override
     public ImageSliderViewHolder onCreateViewHolder(ViewGroup parent) {
-        Log.d(TAG,"ImageSliderAdapter +onCreateViewHolder");
+        Log.d(TAG, "ImageSliderAdapter +onCreateViewHolder");
 
-        View view = LayoutInflater.from(mContext).
-                inflate(R.layout.image_slider_item_view, null);
-        return new ImageSliderViewHolder(view);
+        mBinding = DataBindingUtil
+                .inflate(LayoutInflater.from(mContext),
+                        R.layout.image_slider_item_view, parent, false);
+        return new ImageSliderViewHolder(mBinding.getRoot());
     }
 
     @Override
     public void onBindViewHolder(ImageSliderViewHolder viewHolder, final int position) {
-        Log.d(TAG,"ImageSliderAdapter +onBindViewHolder");
+        Log.d(TAG, "ImageSliderAdapter +onBindViewHolder");
 
         Image imageItem = mImagesItems.get(position);
         viewHolder.bindImageItem(imageItem);
@@ -60,22 +60,15 @@ public class ImageSliderAdapter extends
 
     public class ImageSliderViewHolder extends SliderViewAdapter.ViewHolder {
 
-        private ShapeableImageView imageViewBackground;
-
         public ImageSliderViewHolder(View itemView) {
             super(itemView);
-            findHolderViews(itemView);
-        }
-
-        private void findHolderViews(View itemView) {
-            imageViewBackground = itemView.findViewById(R.id.image_view_auto_image_slider);
         }
 
         private void bindImageItem(Image image) {
-            Log.d(TAG,"ImageSliderAdapter +bindImageItem");
+            Log.d(TAG, "ImageSliderAdapter +bindImageItem");
 
             if (image.getSrc().length() != 0)
-                UIUtils.setImageUsingPicasso(image.getSrc(), imageViewBackground);
+                UIUtils.setImageUsingPicasso(image.getSrc(), mBinding.imageViewAutoImageSlider);
 
         }
 

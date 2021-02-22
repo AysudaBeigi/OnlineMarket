@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,9 +18,8 @@ import com.example.onlinemarket.data.model.Card;
 import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.data.repository.CardDBRepository;
+import com.example.onlinemarket.databinding.CardItemViewBinding;
 import com.example.onlinemarket.utils.UIUtils;
-import com.google.android.material.imageview.ShapeableImageView;
-import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 
@@ -30,11 +30,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     private List<Product> mOrderList;
     private int mSumPriceCarts = 0;
     CardDBRepository mCardDBRepository;
+    private CardItemViewBinding mBinding;
 
-
-    public List<Product> getOrderList() {
-        return mOrderList;
-    }
 
     public void setOrderList(List<Product> orderList) {
         mOrderList = orderList;
@@ -50,17 +47,17 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
     @NonNull
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.card_item_view, parent, false);
+        mBinding=
+        DataBindingUtil.inflate(LayoutInflater.from(mContext),
+                R.layout.card_item_view, parent, false);
 
-        return new CardViewHolder(view);
+        return new CardViewHolder(mBinding.getRoot());
     }
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         Product order = mOrderList.get(position);
         holder.bindProduct(order);
-        //holder.setListener();
     }
 
     @Override
@@ -70,56 +67,37 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
     public class CardViewHolder extends RecyclerView.ViewHolder {
 
-        private MaterialTextView mTextViewName;
-        private MaterialTextView mTextViewPlus,
-                mTextViewMinus;
-        private MaterialTextView mTextViewCount, mTextViewBasePriceCard;
-        private ShapeableImageView mImageViewProduct, mImageViewTrash;
         private Card mCard;
         private int mProductCount;
         private int basePriceCard = 0;
         private int mSumPriceCard = 0;
 
-
         public CardViewHolder(@NonNull View itemView) {
             super(itemView);
-            findHolderViews(itemView);
-            setListener(itemView);
-        }
-
-
-        private void findHolderViews(@NonNull View itemView) {
-            mTextViewName = itemView.findViewById(R.id.text_View_name_card_item);
-            mTextViewPlus = itemView.findViewById(R.id.card_plus_button);
-            mTextViewCount = itemView.findViewById(R.id.cout_card_item);
-            mTextViewMinus = itemView.findViewById(R.id.text_view_minus_card_item);
-            mImageViewTrash = itemView.findViewById(R.id.image_view_trash_card_item);
-            mImageViewProduct = itemView.findViewById(R.id.image_view_card_item);
-            mTextViewBasePriceCard = itemView.findViewById(R.id.text_view_price_card_item);
-
+            setListener();
         }
 
         private void bindProduct(Product order) {
             Log.d(TAG, "bindProduct: order name is :" + order.getName());
             mCard = mCardDBRepository.getCart(order.getId());
             mProductCount = mCard.getProductCount();
-            mTextViewName.setText(order.getName());
+            mBinding.textViewNameCardItem.setText(order.getName());
             basePriceCard = Integer.parseInt(order.getPrice());
-            mTextViewBasePriceCard.setText(basePriceCard
+            mBinding.textViewPriceCardItem.setText(basePriceCard
                     + mContext.getResources().getString(R.string.toman));
-            mTextViewCount.setText(mProductCount + "");
+            mBinding.coutCardItem.setText(mProductCount + "");
             mSumPriceCard = basePriceCard * mProductCount;
             mSumPriceCarts = mSumPriceCarts + mSumPriceCard;
 
             List<Image> imagesItems = order.getImages();
             if (imagesItems.get(0).getSrc().length() != 0)
                 UIUtils.setImageUsingPicasso(imagesItems.get(0).getSrc(),
-                        mImageViewProduct);
+                        mBinding.imageViewCardItem);
 
         }
 
-        private void setListener(View view) {
-            mTextViewPlus.setOnClickListener(new View.OnClickListener() {
+        private void setListener() {
+            mBinding.cardPlusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -128,7 +106,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                 }
             });
 
-            mTextViewMinus.setOnClickListener(new View.OnClickListener() {
+            mBinding.textViewMinusCardItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     updateCountAndPrice(--mProductCount);
@@ -136,7 +114,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                 }
             });
 
-            mImageViewTrash.setOnClickListener(new View.OnClickListener() {
+            mBinding.imageViewTrashCardItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     mCardDBRepository.deleteCart(mCard);
@@ -151,12 +129,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
         private void checkVisibility() {
             if (mProductCount > 1) {
-                mTextViewMinus.setVisibility(View.VISIBLE);
-                mImageViewTrash.setVisibility(View.GONE);
+                mBinding.textViewMinusCardItem.setVisibility(View.VISIBLE);
+                mBinding.imageViewTrashCardItem.setVisibility(View.GONE);
 
             } else {
-                mTextViewMinus.setVisibility(View.GONE);
-                mImageViewTrash.setVisibility(View.VISIBLE);
+                mBinding.textViewMinusCardItem.setVisibility(View.GONE);
+                mBinding.imageViewTrashCardItem.setVisibility(View.VISIBLE);
 
             }
         }
@@ -164,7 +142,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         private void updateCountAndPrice(int productCount) {
             mCard.setProductCount(productCount);
             mCardDBRepository.updateCart(mCard);
-            mTextViewCount.setText(productCount + "");
+            mBinding.coutCardItem.setText(productCount + "");
             updateSumPriceCarts();
         }
 

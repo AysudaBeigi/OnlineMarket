@@ -8,12 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.Comment;
-import com.google.android.material.radiobutton.MaterialRadioButton;
-import com.google.android.material.textview.MaterialTextView;
+import com.example.onlinemarket.databinding.CommentItemViewBinding;
 
 import java.util.List;
 
@@ -21,10 +21,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     private Context mContext;
     private List<Comment> mComments;
-
-    public List<Comment> getComments() {
-        return mComments;
-    }
+    private CommentItemViewBinding mBinding;
 
     public void setComments(List<Comment> comments) {
         mComments = comments;
@@ -39,10 +36,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     @NonNull
     @Override
     public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.comment_item_view, parent, false);
+        mBinding =
+                DataBindingUtil.inflate(LayoutInflater.from(mContext),
+                R.layout.comment_item_view, parent, false);
 
-        return new CommentViewHolder(view);
+        return new CommentViewHolder(mBinding.getRoot());
     }
 
 
@@ -51,12 +49,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         Comment comment = mComments.get(position);
         holder.bindItem(comment);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     @Override
@@ -67,28 +59,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     public class CommentViewHolder extends RecyclerView.ViewHolder {
 
-        private MaterialTextView mTextViewComment;
-        private MaterialRadioButton mRadioButton1;
-        private MaterialRadioButton mRadioButton2;
-        private MaterialRadioButton mRadioButton3;
-        private MaterialRadioButton mRadioButton4;
-        private MaterialRadioButton mRadioButton5;
-
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            findItemViews(itemView);
-
-        }
-
-
-        private void findItemViews(@NonNull View itemView) {
-            mTextViewComment = itemView.findViewById(R.id.text_view_comment_item);
-            mRadioButton1 = itemView.findViewById(R.id.radio_button_1_comment_item);
-            mRadioButton2 = itemView.findViewById(R.id.radio_button_2_comment_item);
-            mRadioButton3 = itemView.findViewById(R.id.radio_button_3_comment_item);
-            mRadioButton4 = itemView.findViewById(R.id.radio_button_4_comment_item);
-            mRadioButton5 = itemView.findViewById(R.id.radio_button_5_comment_item);
         }
 
         private String getReview(Comment comment) {
@@ -105,23 +78,23 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         private void bindItem(Comment comment) {
 
-            mTextViewComment.setText(getReview(comment));
+            mBinding.textViewCommentItem.setText(getReview(comment));
             int rate = comment.getRating();
             switch (rate) {
                 case 1:
-                    mRadioButton1.setChecked(true);
+                    mBinding.radioButton1CommentItem.setChecked(true);
                     break;
                 case 2:
-                    mRadioButton2.setChecked(true);
+                    mBinding.radioButton2CommentItem.setChecked(true);
                     break;
                 case 3:
-                    mRadioButton3.setChecked(true);
+                    mBinding.radioButton3CommentItem.setChecked(true);
                     break;
                 case 4:
-                    mRadioButton4.setChecked(true);
+                    mBinding.radioButton4CommentItem.setChecked(true);
                     break;
                 case 5:
-                    mRadioButton5.setChecked(true);
+                    mBinding.radioButton5CommentItem.setChecked(true);
                     break;
 
             }

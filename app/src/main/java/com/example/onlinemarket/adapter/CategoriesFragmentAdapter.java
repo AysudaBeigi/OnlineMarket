@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.NavController;
@@ -15,10 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.product.Category;
 import com.example.onlinemarket.data.model.product.Image;
+import com.example.onlinemarket.databinding.CategoriesFragmentItemViewBinding;
 import com.example.onlinemarket.utils.UIUtils;
 import com.example.onlinemarket.viewModel.SubCategoryProductsViewModel;
-import com.google.android.material.imageview.ShapeableImageView;
-import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +31,8 @@ public class CategoriesFragmentAdapter extends
     private Context mContext;
     private List<Category> mCategories;
     private SubCategoryProductsViewModel mSubCategoryProductsViewModel;
+    private CategoriesFragmentItemViewBinding mBinding;
 
-    public List<Category> getCategoriesItem() {
-        return mCategories;
-
-    }
 
     public void setCategoriesItem(List<Category> categoriesItems) {
         mCategories = categoriesItems;
@@ -53,12 +50,12 @@ public class CategoriesFragmentAdapter extends
     @Override
     public CategoriesFragmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                            int viewType) {
-        View view = LayoutInflater.from(mContext)
-                .inflate(R.layout.categories_fragment_item_view,
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(mContext),
+                R.layout.categories_fragment_item_view,
                         parent,
                         false);
 
-        return new CategoriesFragmentViewHolder(view);
+        return new CategoriesFragmentViewHolder(mBinding.getRoot());
     }
 
     @Override
@@ -77,13 +74,10 @@ public class CategoriesFragmentAdapter extends
 
     public class CategoriesFragmentViewHolder extends RecyclerView.ViewHolder {
 
-        private MaterialTextView mCategoryName;
-        private ShapeableImageView mCategoryImage;
         private Category mCategory;
 
         public CategoriesFragmentViewHolder(@NonNull View itemView) {
             super(itemView);
-            findHolderViews(itemView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -98,16 +92,9 @@ public class CategoriesFragmentAdapter extends
 
         }
 
-
-        private void findHolderViews(@NonNull View itemView) {
-            mCategoryName = itemView.findViewById(R.id.text_view_name_categories_item);
-            mCategoryImage = itemView.findViewById(R.id.image_view_categories_item);
-
-        }
-
         private void bindCategory(Category category) {
             mCategory = category;
-            mCategoryName.setText(category.getName() + "");
+            mBinding.textViewNameCategoriesItem.setText(category.getName() + "");
             Image imageItem = category.getImages();
             List<String> imagesItemList = new ArrayList<>();
 
@@ -118,7 +105,8 @@ public class CategoriesFragmentAdapter extends
             for (int i = 0; i < imagesItemList.size(); i++) {
                 if (imagesItemList.get(i) != null) {
 
-                    UIUtils.setImageUsingPicasso(imagesItemList.get(i), mCategoryImage);
+                    UIUtils.setImageUsingPicasso(imagesItemList.get(i),
+                            mBinding.imageViewCategoriesItem);
                     break;
                 }
 

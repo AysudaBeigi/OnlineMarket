@@ -179,7 +179,7 @@ public class HomeFragment extends Fragment {
                     products);
             recyclerView.setAdapter(adapter);
         } else {
-            adapter.setProductsItem(products);
+            adapter.setProduct(products);
             adapter.notifyDataSetChanged();
 
         }
