@@ -35,19 +35,12 @@ public class PostCommentFragment extends Fragment {
     private NavController mNavController;
     public static String TAG = "OnlineMarket";
     private FragmentPostCommentBinding mBinding;
+    private CommentRepository mCommentRepository;
 
     public PostCommentFragment() {
         // Required empty public constructor
     }
 
-    public static PostCommentFragment newInstance() {
-        Log.d(TAG, "PostCommentFragment +newInstance");
-
-        PostCommentFragment fragment = new PostCommentFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

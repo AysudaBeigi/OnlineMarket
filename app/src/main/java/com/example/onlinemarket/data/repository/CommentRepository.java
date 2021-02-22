@@ -87,7 +87,7 @@ public class CommentRepository {
         });
     }
 
-    public void fetchProductComments(int productId ) {
+    public void setProductComments(int productId ) {
         Call<List<Comment>> call =
                 mWooCommerceAPIService.getProductComments
                         (NetworkParams.getProductComments(productId));

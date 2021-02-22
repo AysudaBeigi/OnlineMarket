@@ -37,9 +37,6 @@
         app:popExitAnim="@anim/slide_out_left"
         tools:layout="@layout/fragment_product_detail">
 
-        <argument
-            android:name="product"
-            app:argType="com.example.onlinemarket.model.product.Product" />
         <action
             android:id="@+id/action_productDetailFragment_to_PostCommentFragment"
             app:destination="@id/PostCommentFragment" />
@@ -53,9 +50,7 @@
         android:name="com.example.onlinemarket.view.fragment.PostCommentFragment"
         android:label="PostCommentFragment"
         tools:layout="@layout/fragment_post_comment">
-        <argument
-            android:name="product"
-            app:argType="com.example.onlinemarket.model.product.Product" />
+
         <action
             android:id="@+id/action_PostCommentFragment_to_productDetailFragment"
             app:destination="@id/productDetailFragment" />

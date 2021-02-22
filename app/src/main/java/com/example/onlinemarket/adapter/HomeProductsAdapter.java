@@ -1,7 +1,6 @@
 package com.example.onlinemarket.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,8 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.databinding.ProductHorizantalItemViewBinding;
+import com.example.onlinemarket.utils.OnlineMarketPreferences;
 import com.example.onlinemarket.utils.UIUtils;
-import com.example.onlinemarket.view.fragment.ProductDetailFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,11 +77,11 @@ private Context mContext;
                     @Override
                     public void onClick(View v) {
                         NavController navController= Navigation.findNavController(itemView);
-                        Bundle bundle=new Bundle();
-                        bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
+                        OnlineMarketPreferences.
+                                getInstance(mContext).
+                                setUserSelectedProduct(mProduct);
                         navController.navigate(
-                                R.id.action_HomeFragment_to_productDetailFragment
-                                ,bundle);
+                                R.id.action_HomeFragment_to_productDetailFragment);
                     }
                 });
             }
