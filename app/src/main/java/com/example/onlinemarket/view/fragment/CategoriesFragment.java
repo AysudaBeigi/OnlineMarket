@@ -105,6 +105,7 @@ public class CategoriesFragment extends Fragment {
                                         .setAdapter(mAdapterOne);
                             } else {
                                 mAdapterOne.setCategories(categories);
+                                mAdapterOne.notifyDataSetChanged();
                             }
 
                         } else {
@@ -115,12 +116,16 @@ public class CategoriesFragment extends Fragment {
                                         @Override
                                         public void onChanged(List<Product> products) {
                                             if (mPAdapterOne == null) {
-                                                mPAdapterOne = new CategoryProductsHorizontalAdapter(getContext(),
+                                                mPAdapterOne = new CategoryProductsHorizontalAdapter
+                                                        (getContext(),
                                                         products,viewModelStoreOwner);
-                                                mBinding.recyclerViewCategoryOneCategoriesFragment
+                                                mBinding
+                                                        .recyclerViewCategoryOneCategoriesFragment
                                                         .setAdapter(mPAdapterOne);
                                             } else {
                                                 mPAdapterOne.setProducts(products);
+                                                mPAdapterOne.notifyDataSetChanged();
+
                                             }
                                         }
                                     });
@@ -143,6 +148,7 @@ public class CategoriesFragment extends Fragment {
                                         .setAdapter(mAdapterTwo);
                             } else {
                                 mAdapterTwo.setCategories(categories);
+                                mAdapterTwo.notifyDataSetChanged();
                             }
 
                         } else {
@@ -162,6 +168,7 @@ public class CategoriesFragment extends Fragment {
                                                         .setAdapter(mPAdapterTwo);
                                             } else {
                                                 mPAdapterTwo.setProducts(products);
+                                                mPAdapterTwo.notifyDataSetChanged();
                                             }
                                         }
                                     });
@@ -186,6 +193,7 @@ public class CategoriesFragment extends Fragment {
                                         .setAdapter(mAdapterThree);
                             } else {
                                 mAdapterThree.setCategories(categories);
+                                mAdapterThree.notifyDataSetChanged();
                             }
 
                         } else {
@@ -205,6 +213,7 @@ public class CategoriesFragment extends Fragment {
                                                         .setAdapter(mPAdapterThree);
                                             } else {
                                                 mPAdapterThree.setProducts(products);
+                                                mPAdapterThree.notifyDataSetChanged();
                                             }
                                         }
                                     });
@@ -227,6 +236,7 @@ public class CategoriesFragment extends Fragment {
                                         .setAdapter(mAdapterFour);
                             } else {
                                 mAdapterFour.setCategories(categories);
+                                mAdapterFour.notifyDataSetChanged();
                             }
 
                         } else {
@@ -245,6 +255,7 @@ public class CategoriesFragment extends Fragment {
                                                         .setAdapter(mPAdapterFour);
                                             } else {
                                                 mPAdapterFour.setProducts(products);
+                                                mPAdapterFour.notifyDataSetChanged();
                                             }
                                         }
                                     });
@@ -268,6 +279,7 @@ public class CategoriesFragment extends Fragment {
                                         .setAdapter(mAdapterFive);
                             } else {
                                 mAdapterFive.setCategories(categories);
+                                mAdapterFive.notifyDataSetChanged();
                             }
 
                         } else {
@@ -286,6 +298,7 @@ public class CategoriesFragment extends Fragment {
                                                         .setAdapter(mPAdapterFive);
                                             } else {
                                                 mPAdapterFive.setProducts(products);
+                                                mPAdapterFive.notifyDataSetChanged();
                                             }
                                         }
                                     });
@@ -309,6 +322,7 @@ public class CategoriesFragment extends Fragment {
                                         .setAdapter(mAdapterSix);
                             } else {
                                 mAdapterSix.setCategories(categories);
+                                mAdapterSix.notifyDataSetChanged();
                             }
 
                         } else {
@@ -328,6 +342,7 @@ public class CategoriesFragment extends Fragment {
                                                         .setAdapter(mPAdapterSix);
                                             } else {
                                                 mPAdapterSix.setProducts(products);
+                                                mPAdapterSix.notifyDataSetChanged();
                                             }
                                         }
                                     });

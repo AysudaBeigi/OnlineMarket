@@ -20,7 +20,7 @@ public class SearchResultViewModel extends AndroidViewModel {
     private CategoryRepository mCategoryRepository;
     private OnlineMarketPreferences mOnlineMarketPreferences;
 
-    private SearchResultViewModel(@NonNull Application application) {
+    public SearchResultViewModel(@NonNull Application application) {
         super(application);
         mProductRepository = ProductRepository.getInstance(application);
         mCategoryRepository = CategoryRepository.getInstance(application);

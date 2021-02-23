@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.ActivitySplashBinding;
 import com.example.onlinemarket.utils.UIUtils;
-import com.example.onlinemarket.viewModel.HomeViewModel;
 import com.example.onlinemarket.viewModel.SplashViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -22,17 +21,19 @@ public class SplashActivity extends AppCompatActivity {
 
     public static final String TAG = "onlineMarket";
     private SplashViewModel mSplashViewModel;
-    private HomeViewModel mHomeViewModel;
     private ActivitySplashBinding mSplashBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "SplashActivity +++ onCreate");
+
         mSplashBinding = DataBindingUtil.setContentView(this,
                 R.layout.activity_splash);
+        Log.d(TAG, "SplashActivity +++ after + DataBindingUtil");
 
         mSplashViewModel = new ViewModelProvider(this).get(SplashViewModel.class);
-        mHomeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        Log.d(TAG, "SplashActivity +++ after + ViewModelProvider");
 
         if (mSplashViewModel.isNotworkConnected(this)) {
             Log.d(TAG, "isNetworkConnected");
@@ -49,12 +50,14 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void setRequiredLiveDatas() {
-        mHomeViewModel.setSpecialProductLiveData();
-        mHomeViewModel.setAmazingOfferProductsLiveData();
-        mHomeViewModel.setLatestProductsLiveData();
-        mHomeViewModel.setMostVisitedProductsLiveData();
-        mHomeViewModel.setPopularProductsLivData();
-        mHomeViewModel.setCategoriesLiveData();
+        Log.d(TAG, "SplashActivity +++ setRequiredLiveDatas");
+
+        mSplashViewModel.setSpecialProductLiveData();
+        mSplashViewModel.setAmazingOfferProductsLiveData();
+        mSplashViewModel.setLatestProductsLiveData();
+        mSplashViewModel.setMostVisitedProductsLiveData();
+        mSplashViewModel.setPopularProductsLivData();
+        mSplashViewModel.setCategoriesLiveData();
     }
 
     private void showInternetIsDisconnectedSnackBar() {

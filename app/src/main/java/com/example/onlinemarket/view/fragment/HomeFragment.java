@@ -192,6 +192,7 @@ public class HomeFragment extends Fragment {
                     setAdapter(mHomeCategoriesAdapter);
         } else {
             mHomeCategoriesAdapter.setCategories(categories);
+            mHomeCategoriesAdapter.notifyDataSetChanged();
         }
     }
 

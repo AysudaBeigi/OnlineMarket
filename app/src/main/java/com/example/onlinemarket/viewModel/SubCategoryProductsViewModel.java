@@ -1,7 +1,6 @@
 package com.example.onlinemarket.viewModel;
 
 import android.app.Application;
-import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -20,9 +19,9 @@ public class SubCategoryProductsViewModel extends AndroidViewModel {
     private ProductRepository mProductRepository;
     private CategoryRepository mCategoryRepository;
 
-    private SubCategoryProductsViewModel(@NonNull Application application, Context context) {
+    public SubCategoryProductsViewModel(@NonNull Application application) {
         super(application);
-        mProductRepository =  ProductRepository.getInstance(context);
+        mProductRepository =  ProductRepository.getInstance(application);
         mCategoryRepository=CategoryRepository.getInstance(application);
     }
 
