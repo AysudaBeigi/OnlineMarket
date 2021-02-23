@@ -8,16 +8,16 @@ import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.data.model.customer.Customer;
-import com.example.onlinemarket.data.repository.CustomerDBRepository;
 import com.example.onlinemarket.databinding.FragmentUserProfileBinding;
+import com.example.onlinemarket.viewModel.UserProfileViewModel;
 
 public class UserProfileFragment extends Fragment {
-    private Customer mCustomer;
     public static String TAG = "OnlineMarket";
     private FragmentUserProfileBinding mBinding;
+    private UserProfileViewModel mUserProfileViewModel;
 
     public UserProfileFragment() {
         // Required empty public constructor
@@ -29,11 +29,8 @@ public class UserProfileFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
         Log.d(TAG, "UserProfileFragment + onCreate ");
-
-        mCustomer = CustomerDBRepository.getInstance(getActivity()).
-                getCustomer();
-
-
+        mUserProfileViewModel=new ViewModelProvider(this)
+                .get(UserProfileViewModel.class);
     }
 
     @Override
@@ -50,13 +47,9 @@ public class UserProfileFragment extends Fragment {
     private void initViews() {
         Log.d(TAG, "UserProfileFragment + initViews ");
 
-        if (mCustomer != null) {
+        if (mUserProfileViewModel.isCustomerExist()) {
             Log.d(TAG, "UserProfileFragment + mCustomer!=null ");
-            Log.d(TAG, "UserProfileFragment + mCustomer email is : " + mCustomer.getEmail());
-
-            mBinding.textViewUserEmail.setText(CustomerDBRepository.getInstance(getActivity()).
-                    getCustomer().getEmail());
-
+            mBinding.textViewUserEmail.setText(mUserProfileViewModel.getCustomerEmail());
         }
     }
 
