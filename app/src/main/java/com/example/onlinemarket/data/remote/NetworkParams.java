@@ -125,27 +125,15 @@ public class NetworkParams {
         return queryMap;
     }
 
-    public static Map<String, String> getOrderedSearchAllProducts(String query, String orderby) {
-        Map<String, String> queryMap = new HashMap<>();
-        queryMap.putAll(BASE_OPTIONS);
-        queryMap.put(SEARCH, query);
+
+    public static Map<String, String>
+    getOrderedSearchResultProducts(Map<String ,String > queryMap, String orderby) {
         queryMap.put(ORDERBY, orderby);
         if (orderby.equals("price_asc"))
             queryMap.put(ORDER, "asc");
         return queryMap;
     }
 
-    public static Map<String, String>
-    getOrderedSearchCategoryProducts(String query, int categoryId, String orderby) {
-        Map<String, String> queryMap = new HashMap<>();
-        queryMap.putAll(BASE_OPTIONS);
-        queryMap.put(SEARCH, query);
-        queryMap.put(CATEGORY, String.valueOf(categoryId));
-        queryMap.put(ORDERBY, orderby);
-        if (orderby.equals("price_asc"))
-            queryMap.put(ORDER, "asc");
-        return queryMap;
-    }
 
 
     public static Map<String, String> getFilterSearchProducts(String query, String colorId) {

@@ -61,6 +61,7 @@
     <string name="text_view_radio_button_five">5</string>
     <string name="button_post_comment">ثبت دیدگاه</string>
     <string name="first_enter_your_email">ابتدا ایمیل خود را وارد کنید</string>
+    <string name="text_view_empty_shopping_bag">سبد خرید شما خالی است</string>
 
 
 </resources>

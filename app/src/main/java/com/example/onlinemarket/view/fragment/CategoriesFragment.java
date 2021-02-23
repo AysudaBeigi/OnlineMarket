@@ -53,17 +53,6 @@ public class CategoriesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCategoriesViewModel = new ViewModelProvider(this).get(CategoriesViewModel.class);
-        mCategoriesViewModel.getCategoriesLiveData()
-                .observe(this, new Observer<List<Category>>() {
-                    @Override
-                    public void onChanged(List<Category> categories) {
-                        initData(categories);
-                        setupCategoriesRecyclerAdapter(CategoriesFragment.this,
-                                CategoriesFragment.this);
-
-                    }
-                });
-
     }
 
     private void initData(List<Category> categories) {
@@ -79,8 +68,22 @@ public class CategoriesFragment extends Fragment {
                 R.layout.fragment_categories,
                 container,
                 false);
+        setObservers();
 
         return mBinding.getRoot();
+    }
+
+    private void setObservers() {
+        mCategoriesViewModel.getCategoriesLiveData()
+                .observe(this, new Observer<List<Category>>() {
+                    @Override
+                    public void onChanged(List<Category> categories) {
+                        initData(categories);
+                        setupCategoriesRecyclerAdapter(CategoriesFragment.this,
+                                CategoriesFragment.this);
+
+                    }
+                });
     }
 
 
@@ -101,7 +104,7 @@ public class CategoriesFragment extends Fragment {
                                 mBinding.recyclerViewCategoryOneCategoriesFragment
                                         .setAdapter(mAdapterOne);
                             } else {
-                                mAdapterOne.setCategoriesItem(categories);
+                                mAdapterOne.setCategories(categories);
                             }
 
                         } else {
@@ -113,12 +116,11 @@ public class CategoriesFragment extends Fragment {
                                         public void onChanged(List<Product> products) {
                                             if (mPAdapterOne == null) {
                                                 mPAdapterOne = new CategoryProductsHorizontalAdapter(getContext(),
-                                                        products);
+                                                        products,viewModelStoreOwner);
                                                 mBinding.recyclerViewCategoryOneCategoriesFragment
                                                         .setAdapter(mPAdapterOne);
                                             } else {
-                                                mPAdapterOne.setProductsItem(products);
-                                                mPAdapterOne.notifyDataSetChanged();
+                                                mPAdapterOne.setProducts(products);
                                             }
                                         }
                                     });
@@ -140,8 +142,7 @@ public class CategoriesFragment extends Fragment {
                                 mBinding.recyclerViewCategoryTwoCategoriesFragment
                                         .setAdapter(mAdapterTwo);
                             } else {
-                                mAdapterTwo.setCategoriesItem(categories);
-                                mAdapterTwo.notifyDataSetChanged();
+                                mAdapterTwo.setCategories(categories);
                             }
 
                         } else {
@@ -152,14 +153,15 @@ public class CategoriesFragment extends Fragment {
                                         @Override
                                         public void onChanged(List<Product> products) {
                                             if (mPAdapterTwo == null) {
-                                                mPAdapterTwo = new CategoryProductsHorizontalAdapter(
+                                                mPAdapterTwo = new
+                                                        CategoryProductsHorizontalAdapter(
                                                         getContext(),
-                                                        products);
-                                                mBinding.recyclerViewCategoryTwoCategoriesFragment
+                                                        products,viewModelStoreOwner);
+                                                mBinding.
+                                                        recyclerViewCategoryTwoCategoriesFragment
                                                         .setAdapter(mPAdapterTwo);
                                             } else {
-                                                mPAdapterTwo.setProductsItem(products);
-                                                mPAdapterTwo.notifyDataSetChanged();
+                                                mPAdapterTwo.setProducts(products);
                                             }
                                         }
                                     });
@@ -183,8 +185,7 @@ public class CategoriesFragment extends Fragment {
                                 mBinding.recyclerViewCategoryThreeCategoriesFragment
                                         .setAdapter(mAdapterThree);
                             } else {
-                                mAdapterThree.setCategoriesItem(categories);
-                                mAdapterThree.notifyDataSetChanged();
+                                mAdapterThree.setCategories(categories);
                             }
 
                         } else {
@@ -195,13 +196,15 @@ public class CategoriesFragment extends Fragment {
                                         @Override
                                         public void onChanged(List<Product> products) {
                                             if (mPAdapterThree == null) {
-                                                mPAdapterThree = new CategoryProductsHorizontalAdapter(getContext(),
-                                                        products);
-                                                mBinding.recyclerViewCategoryThreeCategoriesFragment
+                                                mPAdapterThree = new
+                                                        CategoryProductsHorizontalAdapter(
+                                                                getContext(),
+                                                        products,viewModelStoreOwner);
+                                                mBinding.
+                                                        recyclerViewCategoryThreeCategoriesFragment
                                                         .setAdapter(mPAdapterThree);
                                             } else {
-                                                mPAdapterThree.setProductsItem(products);
-                                                mPAdapterThree.notifyDataSetChanged();
+                                                mPAdapterThree.setProducts(products);
                                             }
                                         }
                                     });
@@ -223,8 +226,7 @@ public class CategoriesFragment extends Fragment {
                                 mBinding.recyclerViewCategoryFourCategoriesFragment
                                         .setAdapter(mAdapterFour);
                             } else {
-                                mAdapterFour.setCategoriesItem(categories);
-                                mAdapterFour.notifyDataSetChanged();
+                                mAdapterFour.setCategories(categories);
                             }
 
                         } else {
@@ -235,13 +237,14 @@ public class CategoriesFragment extends Fragment {
                                         @Override
                                         public void onChanged(List<Product> products) {
                                             if (mPAdapterFour == null) {
-                                                mPAdapterFour = new CategoryProductsHorizontalAdapter(getContext(),
-                                                        products);
-                                                mBinding.recyclerViewCategoryFourCategoriesFragment
+                                                mPAdapterFour = new
+                                                        CategoryProductsHorizontalAdapter(getContext(),
+                                                        products,viewModelStoreOwner);
+                                                mBinding.
+                                                        recyclerViewCategoryFourCategoriesFragment
                                                         .setAdapter(mPAdapterFour);
                                             } else {
-                                                mPAdapterFour.setProductsItem(products);
-                                                mPAdapterFour.notifyDataSetChanged();
+                                                mPAdapterFour.setProducts(products);
                                             }
                                         }
                                     });
@@ -264,8 +267,7 @@ public class CategoriesFragment extends Fragment {
                                 mBinding.recyclerViewCategoryFiveCategoriesFragment
                                         .setAdapter(mAdapterFive);
                             } else {
-                                mAdapterFive.setCategoriesItem(categories);
-                                mAdapterFive.notifyDataSetChanged();
+                                mAdapterFive.setCategories(categories);
                             }
 
                         } else {
@@ -276,14 +278,14 @@ public class CategoriesFragment extends Fragment {
                                         @Override
                                         public void onChanged(List<Product> products) {
                                             if (mPAdapterFive == null) {
-                                                mPAdapterFive = new CategoryProductsHorizontalAdapter(getContext(),
-                                                        products);
+                                                mPAdapterFive = new
+                                                        CategoryProductsHorizontalAdapter(getContext(),
+                                                        products,viewModelStoreOwner);
                                                 mBinding.
                                                         recyclerViewCategoryFiveCategoriesFragment
                                                         .setAdapter(mPAdapterFive);
                                             } else {
-                                                mPAdapterFive.setProductsItem(products);
-                                                mPAdapterFive.notifyDataSetChanged();
+                                                mPAdapterFive.setProducts(products);
                                             }
                                         }
                                     });
@@ -306,8 +308,7 @@ public class CategoriesFragment extends Fragment {
                                 mBinding.recyclerViewCategorySixCategoriesFragment
                                         .setAdapter(mAdapterSix);
                             } else {
-                                mAdapterSix.setCategoriesItem(categories);
-                                mAdapterSix.notifyDataSetChanged();
+                                mAdapterSix.setCategories(categories);
                             }
 
                         } else {
@@ -318,13 +319,15 @@ public class CategoriesFragment extends Fragment {
                                         @Override
                                         public void onChanged(List<Product> products) {
                                             if (mPAdapterSix == null) {
-                                                mPAdapterSix = new CategoryProductsHorizontalAdapter(getContext(),
-                                                        products);
-                                                mBinding.recyclerViewCategorySixCategoriesFragment
+                                                mPAdapterSix = new
+                                                        CategoryProductsHorizontalAdapter(
+                                                                getContext(),
+                                                        products,viewModelStoreOwner);
+                                                mBinding.
+                                                        recyclerViewCategorySixCategoriesFragment
                                                         .setAdapter(mPAdapterSix);
                                             } else {
-                                                mPAdapterSix.setProductsItem(products);
-                                                mPAdapterSix.notifyDataSetChanged();
+                                                mPAdapterSix.setProducts(products);
                                             }
                                         }
                                     });

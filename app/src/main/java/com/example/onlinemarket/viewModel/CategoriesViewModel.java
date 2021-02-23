@@ -18,7 +18,7 @@ public class CategoriesViewModel extends AndroidViewModel {
     private ProductRepository mProductRepository;
     public CategoriesViewModel(@NonNull Application application) {
         super(application);
-        mCategoryRepository= new CategoryRepository(application);
+        mCategoryRepository=  CategoryRepository.getInstance(application);
         mProductRepository=ProductRepository.getInstance(application);
     }
 
@@ -42,5 +42,12 @@ public class CategoriesViewModel extends AndroidViewModel {
     public MutableLiveData<List<Product>> getCategoryProductsLiveData() {
         return mProductRepository.getCategoryProductsLiveData();
     }
+    public  void setUserSelectedProduct(Product product){
+        mProductRepository.setUserSelectedProduct(product);
+    }
+    public void setUserSelectedCategory(Category userSelectedCategory) {
+        mCategoryRepository.setUserSelectedCategory(userSelectedCategory);
+    }
+
 
 }

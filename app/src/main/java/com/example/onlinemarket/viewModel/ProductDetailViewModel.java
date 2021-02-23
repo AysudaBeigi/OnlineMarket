@@ -60,7 +60,7 @@ public class ProductDetailViewModel extends AndroidViewModel {
         return mProductRepository.getUserSelectedProductImages();
     }
 
-    public boolean isProductInCardAndPriceNotNull() {
+    public boolean isNotProductInCardAndPriceNotNull() {
         return !isProductInCard() &&
                 mProductRepository.getUserSelectedProductPrice() != null;
     }
@@ -101,7 +101,6 @@ public class ProductDetailViewModel extends AndroidViewModel {
     }
 
     public void setProductComments() {
-
         mCommentRepository.setProductComments(mProductRepository.getUserSelectedProductId());
     }
 }

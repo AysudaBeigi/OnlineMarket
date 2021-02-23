@@ -31,7 +31,7 @@ public class PostCommentFragment extends Fragment {
     private int mRate;
     private NavController mNavController;
     private FragmentPostCommentBinding mBinding;
-    private PostCommentViewModel mViewModel;
+    private PostCommentViewModel mPostCommentViewModel;
 
     public PostCommentFragment() {
         // Required empty public constructor
@@ -46,7 +46,8 @@ public class PostCommentFragment extends Fragment {
     }
 
     private void initData() {
-        mViewModel = new ViewModelProvider(this).get(PostCommentViewModel.class);
+        mPostCommentViewModel = new ViewModelProvider(this).
+                get(PostCommentViewModel.class);
     }
 
     @Override
@@ -73,8 +74,8 @@ public class PostCommentFragment extends Fragment {
 
                     mBinding.buttonPostComment.setBackgroundColor(
                             getResources().getColor(R.color.digikala_red));
-                    mViewModel.postCommentLiveData(review,mRate);
-                    mViewModel.getPostCommentLiveData()
+                    mPostCommentViewModel.postCommentLiveData(review,mRate);
+                    mPostCommentViewModel.getPostCommentLiveData()
                             .observe(owner, new Observer<Comment>() {
                                 @Override
                                 public void onChanged(Comment comment) {

@@ -18,7 +18,7 @@ import com.example.onlinemarket.data.model.product.Category;
 import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.databinding.HomeFrgamentCategoryItemViewBinding;
 import com.example.onlinemarket.utils.UIUtils;
-import com.example.onlinemarket.viewModel.SubCategoryProductsViewModel;
+import com.example.onlinemarket.viewModel.CategoriesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +28,9 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
     private Context mContext;
     private List<Category> mCategories;
     private HomeFrgamentCategoryItemViewBinding mBinding;
-    private ViewModelStoreOwner mOwner;
+    private CategoriesViewModel mCategoriesViewModel;
 
-    public void setCategoriesItem(List<Category> categoriesItems) {
+    public void setCategories(List<Category> categoriesItems) {
         mCategories = categoriesItems;
         notifyDataSetChanged();
     }
@@ -38,7 +38,9 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
     public HomeCategoriesAdapter(Context context, List<Category> categories, ViewModelStoreOwner owner) {
         mContext = context;
         mCategories = categories;
-        mOwner = owner;
+        mCategoriesViewModel =
+                new ViewModelProvider(owner).get(CategoriesViewModel.class);
+
     }
 
     @NonNull
@@ -74,9 +76,8 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SubCategoryProductsViewModel subCategoryProductsViewModel =
-                            new ViewModelProvider(mOwner).get(SubCategoryProductsViewModel.class);
-                    subCategoryProductsViewModel.setCategoryProductsLiveData(mCategory.getId());
+                    mCategoriesViewModel.setCategoryProductsLiveData(mCategory.getId());
+                    mCategoriesViewModel.setUserSelectedCategory(mCategory);
 
                     NavController navController = Navigation.findNavController(itemView);
                     navController.navigate(

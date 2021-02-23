@@ -18,7 +18,7 @@ import com.example.onlinemarket.data.model.product.Category;
 import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.databinding.CategoriesFragmentItemViewBinding;
 import com.example.onlinemarket.utils.UIUtils;
-import com.example.onlinemarket.viewModel.SubCategoryProductsViewModel;
+import com.example.onlinemarket.viewModel.CategoriesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +30,12 @@ public class CategoriesFragmentAdapter extends
     private static final String TAG = "CategoryAdapter";
     private Context mContext;
     private List<Category> mCategories;
-    private SubCategoryProductsViewModel mSubCategoryProductsViewModel;
+    private CategoriesViewModel mCategoriesViewModel;
     private CategoriesFragmentItemViewBinding mBinding;
 
 
-    public void setCategoriesItem(List<Category> categoriesItems) {
-        mCategories = categoriesItems;
+    public void setCategories(List<Category> categoriesItem) {
+        mCategories = categoriesItem;
         notifyDataSetChanged();
     }
 
@@ -43,8 +43,8 @@ public class CategoriesFragmentAdapter extends
     ,  ViewModelStoreOwner viewModelStoreOwner) {
         mContext = context;
         mCategories = categories;
-        mSubCategoryProductsViewModel = new ViewModelProvider(viewModelStoreOwner)
-                .get(SubCategoryProductsViewModel.class);
+        mCategoriesViewModel = new ViewModelProvider(viewModelStoreOwner)
+                .get(CategoriesViewModel.class);
     }
 
     @NonNull
@@ -82,7 +82,8 @@ public class CategoriesFragmentAdapter extends
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mSubCategoryProductsViewModel.setCategoryProductsLiveData(mCategory.getId());
+                    mCategoriesViewModel.setCategoryProductsLiveData(mCategory.getId());
+                    mCategoriesViewModel.setUserSelectedCategory(mCategory);
                     NavController navController = Navigation.findNavController(itemView);
                     navController.
                             navigate(R.id.

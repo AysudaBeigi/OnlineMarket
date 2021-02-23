@@ -24,14 +24,6 @@ public class UserProfileFragment extends Fragment {
     }
 
 
-    public static UserProfileFragment newInstance() {
-        Log.d(TAG, "UserProfileFragment + newInstance ");
-        UserProfileFragment fragment = new UserProfileFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 

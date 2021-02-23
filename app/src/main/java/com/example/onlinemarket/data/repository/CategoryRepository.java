@@ -21,11 +21,24 @@ public class CategoryRepository {
     private WooCommerceAPIService mWooCommerceAPIService;
     private MutableLiveData<List<Category>> mCategoriesLiveData;
     private MutableLiveData<List<Category>> mSubCategoriesLiveData;
+    private Category mUserSelectedCategory;
+    private int mUserSelectedCategoryId;
+    private static CategoryRepository sInstance;
+    private Context mContext;
 
-    public CategoryRepository(Context context) {
+
+    public static CategoryRepository getInstance(Context context) {
+
+        if (sInstance == null)
+            sInstance = new CategoryRepository(context);
+        return sInstance;
+    }
+
+    private CategoryRepository(Context context) {
+        mContext=context.getApplicationContext();
         mCategoriesLiveData = new MutableLiveData<>();
         mSubCategoriesLiveData = new MutableLiveData<>();
-        mWooCommerceAPIService = RetrofitInstance.getInstance(context).getRetrofit().
+        mWooCommerceAPIService = RetrofitInstance.getInstance(mContext).getRetrofit().
                 create(WooCommerceAPIService.class);
 
     }
@@ -74,5 +87,19 @@ public class CategoryRepository {
                 });
     }
 
+    public void setUserSelectedCategory(Category userSelectedCategory) {
+        mUserSelectedCategory = userSelectedCategory;
+    }
 
+    public Category getUserSelectedCategory() {
+        return mUserSelectedCategory;
+    }
+
+    public int getUserSelectedCategoryId() {
+        return mUserSelectedCategoryId;
+    }
+
+    public void setUserSelectedCategoryId(int userSelectedCategoryId) {
+        mUserSelectedCategoryId = userSelectedCategoryId;
+    }
 }

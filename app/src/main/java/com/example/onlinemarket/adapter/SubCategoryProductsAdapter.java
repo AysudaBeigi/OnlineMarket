@@ -1,13 +1,14 @@
 package com.example.onlinemarket.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +18,7 @@ import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.databinding.ProductVerticalItemViewBinding;
 import com.example.onlinemarket.utils.UIUtils;
-import com.example.onlinemarket.view.fragment.ProductDetailFragment;
+import com.example.onlinemarket.viewModel.SubCategoryProductsViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,16 +27,20 @@ public class SubCategoryProductsAdapter extends
             RecyclerView.Adapter<SubCategoryProductsAdapter.SubCategoryProductsViewHolder> {
 
         private Context mContext;
-        private List<Product> mProductsItem;
+        private List<Product> mProducts;
         private ProductVerticalItemViewBinding mBinding;
-        public void setProductsItem(List<Product> productsItem) {
-            mProductsItem = productsItem;
+        private SubCategoryProductsViewModel mSubCategoryProductsViewModel;
+        public void setProducts(List<Product> products) {
+            mProducts = products;
             notifyDataSetChanged();
         }
 
-        public SubCategoryProductsAdapter(Context context, List<Product> productsItem) {
+        public SubCategoryProductsAdapter(Context context, List<Product> products,
+                                          ViewModelStoreOwner owner) {
             mContext = context;
-            mProductsItem = productsItem;
+            mProducts = products;
+            mSubCategoryProductsViewModel=new ViewModelProvider(owner).
+                    get(SubCategoryProductsViewModel.class);
         }
 
         @NonNull
@@ -51,19 +56,18 @@ public class SubCategoryProductsAdapter extends
 
         @Override
         public void onBindViewHolder(@NonNull SubCategoryProductsViewHolder holder, int position) {
-            Product productItem = mProductsItem.get(position);
+            Product productItem = mProducts.get(position);
             holder.bindProduct(productItem);
 
         }
 
         @Override
         public int getItemCount() {
-            return mProductsItem.size();
+            return mProducts.size();
         }
 
 
         public class SubCategoryProductsViewHolder extends RecyclerView.ViewHolder {
-
 
             private Product mProduct;
 
@@ -72,12 +76,10 @@ public class SubCategoryProductsAdapter extends
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        mSubCategoryProductsViewModel.setUserSelectedProduct(mProduct);
                         NavController navController= Navigation.findNavController(itemView);
-                        Bundle bundle=new Bundle();
-                        bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
                         navController.navigate(
-                                R.id.action_SubCategoryProductsFragment_to_productDetailFragment
-                                , bundle);
+                                R.id.action_SubCategoryProductsFragment_to_productDetailFragment);
                     }
                 });
 

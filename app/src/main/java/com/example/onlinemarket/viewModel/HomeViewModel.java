@@ -13,6 +13,7 @@ import com.example.onlinemarket.data.repository.CategoryRepository;
 import com.example.onlinemarket.data.repository.ProductRepository;
 
 import java.util.List;
+import java.util.Map;
 
 public class HomeViewModel extends AndroidViewModel {
 
@@ -22,7 +23,7 @@ public class HomeViewModel extends AndroidViewModel {
     private HomeViewModel(@NonNull Application application, Context context) {
         super(application);
         mProductRepository =ProductRepository.getInstance(context);
-        mCategoryRepository = new CategoryRepository(context);
+        mCategoryRepository =CategoryRepository.getInstance(context);
     }
 
 
@@ -80,6 +81,9 @@ public class HomeViewModel extends AndroidViewModel {
     public void setUserSelectedProduct(Product product){
 
         mProductRepository.setUserSelectedProduct(product);
+    }
+    public void setSearchResultProductsLiveData(Map<String, String> query) {
+        mProductRepository.setSearchResultProductsLiveData(query);
     }
 
 }

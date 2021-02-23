@@ -1,13 +1,14 @@
 package com.example.onlinemarket.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +18,7 @@ import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.databinding.ProductVerticalItemViewBinding;
 import com.example.onlinemarket.utils.UIUtils;
-import com.example.onlinemarket.view.fragment.ProductDetailFragment;
+import com.example.onlinemarket.viewModel.SearchResultViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,15 +29,18 @@ public class SearchResultProductsAdapter extends
     private Context mContext;
     private List<Product> mProductsItem;
     private ProductVerticalItemViewBinding mBinding;
+    private SearchResultViewModel mSearchResultViewModel;
 
-    public void setProductsItem(List<Product> productsItem) {
+    public void setProducts(List<Product> productsItem) {
         mProductsItem = productsItem;
         notifyDataSetChanged();
     }
 
-    public SearchResultProductsAdapter(Context context, List<Product> productsItem) {
+    public SearchResultProductsAdapter(Context context, List<Product> products,
+                                       ViewModelStoreOwner owner) {
         mContext = context;
-        mProductsItem = productsItem;
+        mProductsItem = products;
+        mSearchResultViewModel=new ViewModelProvider(owner).get(SearchResultViewModel.class);
     }
 
     @NonNull
@@ -71,12 +75,10 @@ public class SearchResultProductsAdapter extends
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    mSearchResultViewModel.setUserSelectedProduct(mProduct);
                     NavController navController= Navigation.findNavController(itemView);
-                    Bundle bundle=new Bundle();
-                    bundle.putSerializable(ProductDetailFragment.ARGS_PRODUCT,mProduct);
                     navController.navigate(
-                            R.id.action_SearchResultFragment_to_productDetailFragment
-                    , bundle);
+                            R.id.action_SearchResultFragment_to_productDetailFragment);
                 }
             });
 

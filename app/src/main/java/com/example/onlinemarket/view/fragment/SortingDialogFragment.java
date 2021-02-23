@@ -70,12 +70,6 @@ public class SortingDialogFragment extends DialogFragment   {
         return alertDialog;
     }
 
-   /* private void findDialogViews(View view) {
-        mRadioButtonPopularest = view.findViewById(R.id.radio_button_popularest);
-        mRadioButtonLatest = view.findViewById(R.id.latest);
-        mRadioButtonHighToLowPrice = view.findViewById(R.id.radio_button_high_to_low_price);
-        mRadioButtonLowToHighPrice = view.findViewById(R.id.radio_button_low_to_high_price);
-    }*/
 
     private void setListener() {
         mBinding.radioButtonPopularest.setOnClickListener(new View.OnClickListener() {
@@ -105,12 +99,12 @@ public class SortingDialogFragment extends DialogFragment   {
         });
     }
 
-    private void sendResult(String order_by) {
+    private void sendResult(String orderBy) {
         Fragment fragment = getTargetFragment();
         int requestCode = getTargetRequestCode();
         int resultCode = RESULT_CODE_ORDER_DIALOG_FRAGMENT;
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_ORDER_DIALOG_FRAGMENT, order_by);
+        intent.putExtra(EXTRA_ORDER_DIALOG_FRAGMENT, orderBy);
         fragment.onActivityResult(requestCode, resultCode, intent);
     }
 

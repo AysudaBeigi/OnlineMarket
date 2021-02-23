@@ -27,8 +27,8 @@ import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.data.remote.NetworkParams;
 import com.example.onlinemarket.databinding.FragmentHomeBinding;
+import com.example.onlinemarket.utils.OnlineMarketPreferences;
 import com.example.onlinemarket.viewModel.HomeViewModel;
-import com.example.onlinemarket.viewModel.SearchResultViewModel;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 
@@ -148,7 +148,7 @@ public class HomeFragment extends Fragment {
                         mBinding.recyclerViewCategoriesHomeFragment.
                                 setLayoutManager(new LinearLayoutManager(getContext(),
                                         LinearLayoutManager.HORIZONTAL, false));
-                        initCategoryAdapter(categories);
+                        setupCategoryAdapter(categories);
 
                     }
                 });
@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void initCategoryAdapter(List<Category> categories) {
+    private void setupCategoryAdapter(List<Category> categories) {
         Log.d(TAG, "HomeF : initCategoryAdapter");
 
 
@@ -191,8 +191,7 @@ public class HomeFragment extends Fragment {
             mBinding.recyclerViewCategoriesHomeFragment.
                     setAdapter(mHomeCategoriesAdapter);
         } else {
-            mHomeCategoriesAdapter.setCategoriesItem(categories);
-            mHomeCategoriesAdapter.notifyDataSetChanged();
+            mHomeCategoriesAdapter.setCategories(categories);
         }
     }
 
@@ -213,14 +212,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void replaceSearchResultFragment(String query) {
-
-        SearchResultViewModel searchResultViewModel = new ViewModelProvider(this)
-                .get(SearchResultViewModel.class);
-        searchResultViewModel.
+        OnlineMarketPreferences.getInstance(getActivity())
+                .setQueryMap(NetworkParams.getSearchAllProducts(query));
+         mHomeViewModel.
                 setSearchResultProductsLiveData(NetworkParams.getSearchAllProducts(query));
         mNavController.navigate(R.id.action_HomeFragment_to_SearchResultFragment);
 
     }
+
 
 
 
