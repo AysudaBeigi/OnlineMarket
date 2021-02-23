@@ -41,6 +41,11 @@ public class ShoppingBagViewModel extends AndroidViewModel {
         return orderList;
     }
 
+    public boolean isAnyProductInCard() {
+        return mCardDBRepository.getCarts() != null &&
+                mCardDBRepository.getCarts().size() > 0;
+    }
+
     public Customer getCustomer() {
         return mCustomerDBRepository.getCustomer();
 
@@ -75,5 +80,29 @@ public class ShoppingBagViewModel extends AndroidViewModel {
             lineItemsItemList.add(lineItemsItem);
         }
         return lineItemsItemList;
+    }
+
+    public MutableLiveData<Integer> getSumCardPrices() {
+        return mCardDBRepository.getSumCardPrices();
+
+    }
+
+    public void setSumCardsPriceMutableLiveData() {
+        mCardDBRepository.setSumCardsPriceMutableLiveData();
+    }
+
+    public void updateCart(Card card) {
+        mCardDBRepository.updateCart(card);
+
+    }
+
+    public void deleteCart(Card card) {
+        mCardDBRepository.deleteCart(card);
+
+    }
+
+    public Card getCart(int orderId) {
+        return mCardDBRepository.getCart(orderId);
+
     }
 }

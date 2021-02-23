@@ -40,6 +40,7 @@ public class ShoppingBagFragment extends Fragment {
     public ShoppingBagFragment() {
         // Required empty public constructor
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,19 +99,43 @@ public class ShoppingBagFragment extends Fragment {
 
 
     private void initViews() {
-        mBinding.recyclerViewCards.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.VERTICAL, false));
+        if (mShoppingBagViewModel.isAnyProductInCard()) {
+            setViewsVisibility();
+            setObservers();
+            mBinding.recyclerViewCards.setLayoutManager(new LinearLayoutManager(getContext(),
+                    LinearLayoutManager.VERTICAL, false));
 
+        }
+
+    }
+
+    private void setObservers() {
+        mShoppingBagViewModel.getSumCardPrices()
+                .observe(this, new Observer<Integer>() {
+                    @Override
+                    public void onChanged(Integer integer) {
+                        mBinding.textViewSumPrices.setText(integer);
+                    }
+                });
+    }
+
+    private void setViewsVisibility() {
+        mBinding.recyclerViewCards.setVisibility(View.VISIBLE);
+        mBinding.buttonFinalizeShopping.setVisibility(View.VISIBLE);
+        mBinding.textViewSumPrices.setVisibility(View.VISIBLE);
+        mBinding.textViewSum.setVisibility(View.VISIBLE);
+        mBinding.imageViewEmptyShoppingBag.setVisibility(View.GONE);
+        mBinding.textViewEmptyShoppingBag.setVisibility(View.GONE);
     }
 
 
     private void setupAdapters(RecyclerView recyclerView, List<Product> orderList) {
 
         if (mCardAdapter == null) {
-            mCardAdapter = new CardAdapter(getContext(), orderList);
+            mCardAdapter = new CardAdapter(getContext(), orderList, this);
             recyclerView.setAdapter(mCardAdapter);
         } else {
-            mCardAdapter.setOrderList(orderList);
+            mCardAdapter.setProductList(orderList);
             mCardAdapter.notifyDataSetChanged();
         }
 

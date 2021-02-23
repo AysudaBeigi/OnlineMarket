@@ -44,7 +44,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_cards"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -57,7 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:backgroundTint="@color/white_ff">
+            android:backgroundTint="@color/white_ff"
+            android:visibility="gone">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_view_sum"

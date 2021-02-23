@@ -2,6 +2,7 @@ package com.example.onlinemarket.data.repository;
 
 import android.content.Context;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
 import com.example.onlinemarket.data.model.Card;
@@ -14,6 +15,7 @@ import java.util.List;
 public class CardDBRepository implements ICartRepository {
 
     private static CardDBRepository sInstance;
+    private MutableLiveData<Integer> mSumCardsPriceMutableLiveData;
 
     private ICartDatabaseDAO mCartDAO;
     private Context mContext;
@@ -27,13 +29,15 @@ public class CardDBRepository implements ICartRepository {
 
     private CardDBRepository(Context context) {
         mContext = context.getApplicationContext();
-        OnlineMarketDatabase onlineMarketDatabase= Room.databaseBuilder(mContext,
+        OnlineMarketDatabase onlineMarketDatabase = Room.databaseBuilder(mContext,
                 OnlineMarketDatabase.class,
                 "onlineMarket.db")
                 .allowMainThreadQueries()
                 .build();
 
         mCartDAO = onlineMarketDatabase.getCartDatabaseDAO();
+        mSumCardsPriceMutableLiveData = new MutableLiveData<>();
+
     }
 
     @Override
@@ -72,9 +76,26 @@ public class CardDBRepository implements ICartRepository {
         Card card = new Card(product, product.getId(), 1);
         insertCart(card);
     }
+
     public boolean isProductInCard(Product product) {
-        Card card = new Card(product,product.getId(), 1);
+        Card card = new Card(product, product.getId(), 1);
         return getCarts().contains(card);
     }
+
+    public MutableLiveData<Integer> getSumCardPrices() {
+         return mSumCardsPriceMutableLiveData;
+
+    }
+    public void setSumCardsPriceMutableLiveData(){
+        int sumCardPrices = 0;
+        List<Card> cards = getCarts();
+        for (int i = 0; i < cards.size(); i++) {
+            sumCardPrices += Integer.parseInt(cards.get(i).getProduct().getPrice())
+                    * cards.get(i).getProductCount();
+        }
+        mSumCardsPriceMutableLiveData.setValue(sumCardPrices);
+
+    }
+
 
 }

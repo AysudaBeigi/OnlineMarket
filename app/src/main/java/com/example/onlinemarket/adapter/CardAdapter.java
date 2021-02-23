@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,9 +19,9 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.Card;
 import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.data.model.product.Product;
-import com.example.onlinemarket.data.repository.CardDBRepository;
 import com.example.onlinemarket.databinding.CardItemViewBinding;
 import com.example.onlinemarket.utils.UIUtils;
+import com.example.onlinemarket.viewModel.ShoppingBagViewModel;
 
 import java.util.List;
 
@@ -27,42 +29,41 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
     public static final String TAG = "OnlineMarket";
     private Context mContext;
-    private List<Product> mOrderList;
-    private int mSumPriceCarts = 0;
-    CardDBRepository mCardDBRepository;
+    private List<Product> mProductList;
     private CardItemViewBinding mBinding;
+    private ShoppingBagViewModel mShoppingBagViewModel;
 
 
-    public void setOrderList(List<Product> orderList) {
-        mOrderList = orderList;
+    public void setProductList(List<Product> productList) {
+        mProductList = productList;
         notifyDataSetChanged();
     }
 
-    public CardAdapter(Context context, List<Product> orderList) {
+    public CardAdapter(Context context, List<Product> productList, ViewModelStoreOwner owner) {
         mContext = context;
-        mOrderList = orderList;
-        mCardDBRepository = CardDBRepository.getInstance(mContext);
+        mProductList = productList;
+        mShoppingBagViewModel=new ViewModelProvider(owner).get(ShoppingBagViewModel.class);
     }
 
     @NonNull
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        mBinding=
-        DataBindingUtil.inflate(LayoutInflater.from(mContext),
-                R.layout.card_item_view, parent, false);
+        mBinding =
+                DataBindingUtil.inflate(LayoutInflater.from(mContext),
+                        R.layout.card_item_view, parent, false);
 
         return new CardViewHolder(mBinding.getRoot());
     }
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        Product order = mOrderList.get(position);
+        Product order = mProductList.get(position);
         holder.bindProduct(order);
     }
 
     @Override
     public int getItemCount() {
-        return mOrderList.size();
+        return mProductList.size();
     }
 
     public class CardViewHolder extends RecyclerView.ViewHolder {
@@ -70,7 +71,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         private Card mCard;
         private int mProductCount;
         private int basePriceCard = 0;
-        private int mSumPriceCard = 0;
 
         public CardViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,15 +79,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
         private void bindProduct(Product order) {
             Log.d(TAG, "bindProduct: order name is :" + order.getName());
-            mCard = mCardDBRepository.getCart(order.getId());
+            mCard=mShoppingBagViewModel.getCart(order.getId());
             mProductCount = mCard.getProductCount();
             mBinding.textViewNameCardItem.setText(order.getName());
             basePriceCard = Integer.parseInt(order.getPrice());
             mBinding.textViewPriceCardItem.setText(basePriceCard
                     + mContext.getResources().getString(R.string.toman));
             mBinding.coutCardItem.setText(mProductCount + "");
-            mSumPriceCard = basePriceCard * mProductCount;
-            mSumPriceCarts = mSumPriceCarts + mSumPriceCard;
 
             List<Image> imagesItems = order.getImages();
             if (imagesItems.get(0).getSrc().length() != 0)
@@ -117,10 +115,10 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             mBinding.imageViewTrashCardItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mCardDBRepository.deleteCart(mCard);
-                   NavController navController=Navigation.findNavController(view);
-                   navController.navigate(
-                           R.id.action_ShoppingBagFragment_to_ShoppingBagFragment);
+                    mShoppingBagViewModel.deleteCart(mCard);
+                    NavController navController = Navigation.findNavController(view);
+                    navController.navigate(
+                            R.id.action_ShoppingBagFragment_to_ShoppingBagFragment);
 
                 }
             });
@@ -141,14 +139,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
         private void updateCountAndPrice(int productCount) {
             mCard.setProductCount(productCount);
-            mCardDBRepository.updateCart(mCard);
+            mShoppingBagViewModel.updateCart(mCard);
             mBinding.coutCardItem.setText(productCount + "");
-            updateSumPriceCarts();
+            setSumCardsPriceMutableLiveData();
         }
 
-        private void updateSumPriceCarts() {
-            mSumPriceCard = mProductCount * basePriceCard;
-            mSumPriceCarts = mSumPriceCarts + mSumPriceCard;
+        private void setSumCardsPriceMutableLiveData() {
+            mShoppingBagViewModel.setSumCardsPriceMutableLiveData();
         }
 
     }
