@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentUserProfileBinding;
@@ -18,11 +19,12 @@ public class UserProfileFragment extends Fragment {
     public static String TAG = "OnlineMarket";
     private FragmentUserProfileBinding mBinding;
     private UserProfileViewModel mUserProfileViewModel;
+    private NavController mNavController;
+
 
     public UserProfileFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,9 @@ public class UserProfileFragment extends Fragment {
         Log.d(TAG, "UserProfileFragment + onCreate ");
         mUserProfileViewModel=new ViewModelProvider(this)
                 .get(UserProfileViewModel.class);
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

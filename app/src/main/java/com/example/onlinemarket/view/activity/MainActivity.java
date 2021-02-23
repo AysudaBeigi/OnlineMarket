@@ -9,19 +9,22 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.ActivityMainBinding;
+import com.example.onlinemarket.viewModel.MainViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private NavController mNavController;
-    private static String TAG="OnlineMarket";
+    private static String TAG = "OnlineMarket";
     private ActivityMainBinding mBinding;
+    private MainViewModel mMainViewModel;
 
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -32,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG,"MainActivity + onCreate");
+        Log.d(TAG, "MainActivity + onCreate");
 
         mBinding = DataBindingUtil.setContentView(this,
                 R.layout.activity_main);
-
+        mMainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         findNavController();
         NavigationUI.setupWithNavController(mBinding.buttonNavigationViewMainActivity,
                 mNavController);
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        Log.d(TAG,"onSupportNavigateUp");
+        Log.d(TAG, "onSupportNavigateUp");
 
         return mNavController.navigateUp();
     }
@@ -55,35 +58,44 @@ public class MainActivity extends AppCompatActivity {
 
         mBinding.buttonNavigationViewMainActivity.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        mNavController.navigate(R.id.HomeFragment);
-                        return true;
-                    case R.id.navigation_category:
-                        mNavController.navigate(R.id.CategoriesFragment);
-                        return true;
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.navigation_home:
+                                mNavController.navigate(R.id.HomeFragment);
+                                return true;
+                            case R.id.navigation_category:
+                                mNavController.navigate(R.id.CategoriesFragment);
+                                return true;
 
-                    case R.id.navigation_shoppingBag:
-                        mNavController.navigate(R.id.ShoppingBagFragment);
-                        return true;
+                            case R.id.navigation_shoppingBag:
+                                mNavController.navigate(R.id.ShoppingBagFragment);
+                                return true;
 
-                    case R.id.navigation_profile:
-                        mNavController.navigate(R.id.UserProfileFragment);
-                        return true;
+                            case R.id.navigation_profile:
 
-                    default:
-                        throw new IllegalStateException("Unexpected value: "
-                                + item.getItemId());
-                }
-            }
-        });
+                                DecideNavigateSignUpOrUserProfile();
+
+                                return true;
+
+                            default:
+                                throw new IllegalStateException("Unexpected value: "
+                                        + item.getItemId());
+                        }
+                    }
+                });
+    }
+
+    private void DecideNavigateSignUpOrUserProfile() {
+        if (mMainViewModel.isCustomerExist())
+            mNavController.navigate(R.id.UserProfileFragment);
+        else
+           mNavController.navigate(R.id.SignUpFragment);
     }
 
 
     private void findNavController() {
-        Log.d(TAG,"MainActivity + findViews");
+        Log.d(TAG, "MainActivity + findViews");
 
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
