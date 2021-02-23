@@ -10,35 +10,34 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
-import com.example.onlinemarket.data.model.customer.Customer;
-import com.example.onlinemarket.data.repository.CustomerDBRepository;
 import com.example.onlinemarket.databinding.FragmentSignUpBinding;
 import com.example.onlinemarket.utils.UIUtils;
+import com.example.onlinemarket.viewModel.SignUpViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 public class SignUpFragment extends Fragment {
-    private String mCustomerEmail;
-    private CustomerDBRepository mCustomerDBRepository;
     public static String TAG = "OnlineMarket";
+    private String mCustomerEmail;
     private NavController mNavController;
     private FragmentSignUpBinding mBinding;
+    private SignUpViewModel mSignUpViewModel;
 
     public SignUpFragment() {
         // Required empty public constructor
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "SignUpFragment + onCreate ");
+        mSignUpViewModel=new ViewModelProvider(this)
+                .get(SignUpViewModel.class);
 
-        mCustomerDBRepository = CustomerDBRepository.getInstance(getActivity());
     }
 
     @Override
@@ -84,15 +83,8 @@ public class SignUpFragment extends Fragment {
     }
 
     private void SignUpCustomer() {
-        Customer customer = new Customer();
-        customer.setEmail(mCustomerEmail);
-        mCustomerDBRepository.insertCustomer(customer);
-        mCustomerDBRepository.postCustomer(customer, new CustomerDBRepository.CustomerCallback() {
-            @Override
-            public void onItemResponse(Customer customer) {
+        mSignUpViewModel.insertAndPostCustomer(mCustomerEmail);
 
-            }
-        });
     }
 
     private void showEmailCantEmptySnackBar() {

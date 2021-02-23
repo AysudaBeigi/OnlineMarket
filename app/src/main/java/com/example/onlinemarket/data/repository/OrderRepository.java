@@ -37,7 +37,7 @@ public class OrderRepository {
         return mPostOrderMutableLiveData;
     }
 
-    public void postOrder(Order order ){
+    public void setPostOrderLiveData(Order order ){
         mWooCommerceAPIService.postOrder(order).enqueue(new Callback<Order>() {
             @Override
             public void onResponse(Call<Order> call, Response<Order> response) {
