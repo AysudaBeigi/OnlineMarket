@@ -68,7 +68,6 @@ public class CategoriesFragment extends Fragment {
 
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -140,6 +139,7 @@ public class CategoriesFragment extends Fragment {
                         setupCategoriesAdapter(mAdapterSupermarket,
                                 mBinding.recyclerViewCategoryThreeCategoriesFragment,
                                 categories);
+                        //mAdapterSupermarket.notifyDataSetChanged();
                     }
                 });
         mCategoriesViewModel.getSpecialSaleProductsLiveData()
@@ -184,7 +184,6 @@ public class CategoriesFragment extends Fragment {
                                         RecyclerView recyclerView,
                                         List<Category> categories) {
         Log.d(TAG, "setupCategoriesAdapter ");
-
 
         if (adapter == null) {
             adapter = new CategoriesFragmentAdapter(getContext(),

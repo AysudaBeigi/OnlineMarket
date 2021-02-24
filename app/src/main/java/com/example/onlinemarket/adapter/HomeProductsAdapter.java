@@ -1,6 +1,5 @@
 package com.example.onlinemarket.adapter;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,6 @@ import java.util.List;
 public class HomeProductsAdapter extends RecyclerView.
         Adapter<HomeProductsAdapter.HomeProductsHorizantalViewHolder> {
 
-    private Context mContext;
     private List<Product> mProduct;
     private ProductHorizantalItemViewBinding mBinding;
     private ViewModelStoreOwner mOwner;
@@ -37,14 +35,12 @@ public class HomeProductsAdapter extends RecyclerView.
         Log.d(TAG, "HomeProductsAdapter : setProduct");
 
         mProduct = product;
-        notifyDataSetChanged();
     }
 
-    public HomeProductsAdapter(Context context, List<Product> product,
+    public HomeProductsAdapter( List<Product> product,
                                ViewModelStoreOwner owner) {
         Log.d(TAG, "HomeProductsAdapter : HomeProductsAdapter");
 
-        mContext = context;
         mProduct = product;
         mOwner=owner;
     }
@@ -112,17 +108,26 @@ public class HomeProductsAdapter extends RecyclerView.
                             R.id.action_HomeFragment_to_productDetailFragment);
                 }
             });
+
         }
 
 
         private void bindProduct(Product product) {
-            Log.d(TAG, "HomeProductsAdapter : bindProduct");
-            Log.d(TAG, "HomeProductsAdapter :name is "+product.getName());
-            Log.d(TAG, "HomeProductsAdapter : price is "+product.getPrice());
-
             mProduct = product;
+            Log.d(TAG, "HomeProductsAdapter : bindProduct");
+            Log.d(TAG, "HomeProductsAdapter :name is "+mProduct.getName());
+            Log.d(TAG, "HomeProductsAdapter : price is "+mProduct.getPrice());
+
+           // mBinding.setProduct(product);
+            //mBinding.executePendingBindings();
+
             mBinding.textViewNameProdcutHorizantalItem.setText(product.getName() + "");
             mBinding.textViewPriceProductHorizantalItem.setText(product.getPrice() + "");
+            Log.d(TAG, "HomeProductsAdapter : product name in text view is "
+                    + mBinding.textViewNameProdcutHorizantalItem.getText());
+            Log.d(TAG, "HomeProductsAdapter : product price  in text view is "
+                    +mBinding.textViewPriceProductHorizantalItem.getText());
+            mBinding.executePendingBindings();
             List<Image> imagesList = product.getImages();
             List<String> imagesSrclList = new ArrayList<>();
             for (int i = 0; i < imagesList.size(); i++) {

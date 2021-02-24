@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -80,7 +81,7 @@ public class HomeFragment extends Fragment {
                 container, false);
 
         initViews();
-        setObservers();
+        setObservers(this);
         setListeners();
         return mBinding.getRoot();
     }
@@ -108,7 +109,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void setObservers() {
+    private void setObservers(ViewModelStoreOwner owner) {
         Log.d(TAG, "HomeF : setObservers");
 
         mHomeViewModel.getSpecialProductLiveData().
@@ -129,8 +130,12 @@ public class HomeFragment extends Fragment {
                     public void onChanged(List<Product> products) {
                         Log.d(TAG, "HomeF : getLatestProductsLiveData: onChanged ");
 
-                        setupProductAdapter(mBinding.recyclerViewLatest,
-                                mLastCategoryProductsHorizontalAdapter, products);
+                        mLastCategoryProductsHorizontalAdapter =
+                                new HomeProductsAdapter( products, owner);
+                       mBinding.recyclerViewLatest .
+                               setAdapter(mLastCategoryProductsHorizontalAdapter);
+
+                      //  mLastCategoryProductsHorizontalAdapter.notifyDataSetChanged();
 
                     }
                 });
@@ -141,8 +146,12 @@ public class HomeFragment extends Fragment {
                     public void onChanged(List<Product> products) {
                         Log.d(TAG, "HomeF : getMostVisitedProductsLiveData: onChanged ");
 
-                        setupProductAdapter(mBinding.recyclerViewMostViewed
-                                , mMostVisitedCategoryProductsHorizontalAdapter, products);
+                        mMostVisitedCategoryProductsHorizontalAdapter =
+                                new HomeProductsAdapter( products, owner);
+                        mBinding.recyclerViewMostViewed.
+                                setAdapter(mMostVisitedCategoryProductsHorizontalAdapter);
+
+                       // mMostVisitedCategoryProductsHorizontalAdapter.notifyDataSetChanged();
 
                     }
                 });
@@ -153,9 +162,12 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onChanged(List<Product> products) {
                         Log.d(TAG, "HomeF : getPopularProductsLiveData: onChanged ");
+                        mPopularCategoryProductsHorizontalAdapter =
+                                new HomeProductsAdapter( products, owner);
+                        mBinding.recyclerViewPopularest.
+                                setAdapter(mPopularCategoryProductsHorizontalAdapter);
 
-                        setupProductAdapter(mBinding.recyclerViewPopularest,
-                                mPopularCategoryProductsHorizontalAdapter, products);
+                      //  mPopularCategoryProductsHorizontalAdapter.notifyDataSetChanged();
 
                     }
                 });
@@ -165,9 +177,12 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onChanged(List<Product> products) {
                         Log.d(TAG, "HomeF : getAmazingOfferProductsLiveData: onChanged ");
+                        mAmazingOfferAdapter =
+                                new HomeProductsAdapter( products, owner);
+                        mBinding.recyclerViewWonderfulOffer.
+                                setAdapter(mAmazingOfferAdapter);
 
-                        setupProductAdapter(mBinding.recyclerViewWonderfulOffer
-                                , mAmazingOfferAdapter, products);
+                       // mAmazingOfferAdapter.notifyDataSetChanged();
 
                     }
                 });
@@ -178,28 +193,29 @@ public class HomeFragment extends Fragment {
                         Log.d(TAG, "HomeF : getParentCategoriesLiveData: onChanged ");
 
                         setupCategoryAdapter(categories);
+                       // mHomeCategoriesAdapter.notifyDataSetChanged();
 
                     }
                 });
 
     }
 
-
+/*
     private void setupProductAdapter(RecyclerView recyclerView,
                                      HomeProductsAdapter adapter,
                                      List<Product> products) {
         Log.d(TAG, "HomeF : setupRecyclerView");
 
 
-        adapter = new HomeProductsAdapter(getContext(),
-                products, this);
+        adapter = new HomeProductsAdapter( products, this);
         recyclerView.setAdapter(adapter);
 
+        adapter.notifyDataSetChanged();
         Log.d(TAG, "adapter is :" + adapter.toString());
         Log.d(TAG, "recyclerview is  is :" + recyclerView.toString());
         Log.d(TAG, "last product name  is :" + products.get(products.size() - 1).
                 getName());
-    }
+    }*/
 
     private void initRecyclerViews(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),

@@ -35,7 +35,6 @@ public class CategoryProductsHorizontalAdapter extends RecyclerView.
 
     public void setProducts(List<Product> products) {
         mProducts = products;
-        notifyDataSetChanged();
     }
 
     public CategoryProductsHorizontalAdapter(Context context, List<Product> products

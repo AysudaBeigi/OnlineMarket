@@ -106,6 +106,15 @@ public class ShoppingBagFragment extends Fragment {
                     LinearLayoutManager.VERTICAL, false));
 
         }
+        /*else {
+            mBinding.recyclerViewCards.setVisibility(View.GONE);
+            mBinding.buttonFinalizeShopping.setVisibility(View.GONE);
+            mBinding.textViewSumPrices.setVisibility(View.VISIBLE);
+            mBinding.textViewSum.setVisibility(View.VISIBLE);
+            mBinding.imageViewEmptyShoppingBag.setVisibility(View.GONE);
+            mBinding.textViewEmptyShoppingBag.setVisibility(View.GONE);
+
+        }*/
 
     }
 
@@ -126,6 +135,7 @@ public class ShoppingBagFragment extends Fragment {
         mBinding.textViewSum.setVisibility(View.VISIBLE);
         mBinding.imageViewEmptyShoppingBag.setVisibility(View.GONE);
         mBinding.textViewEmptyShoppingBag.setVisibility(View.GONE);
+
     }
 
 
