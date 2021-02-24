@@ -22,8 +22,6 @@ import java.util.List;
 
 public class SearchResultFragment extends Fragment {
 
-    public static final String ARGS_QUERY = "ARGS_QUERY";
-    public static final String ARGS_CATEGORY_ID = "argsCategoryId";
     public static final int REQUEST_CODE_ORDER = 10;
     public static final String TAG_CHOOSE_ORDER = "TAG_CHOOSE_ORDER";
     private SearchResultProductsAdapter mAdapter;
@@ -63,12 +61,10 @@ public class SearchResultFragment extends Fragment {
     }
 
     private void setupAdapter(List<Product> products) {
-        if (mAdapter == null) {
+
             mAdapter = new SearchResultProductsAdapter(getContext(), products,this);
             mBinding.recyclerViewSearchResult.setAdapter(mAdapter);
-        } else {
-            mAdapter.setProducts(products);
-        }
+
     }
 
 

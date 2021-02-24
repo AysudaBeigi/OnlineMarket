@@ -62,7 +62,13 @@ public class HomeFragment extends Fragment {
 
         mHomeViewModel = new ViewModelProvider(this).
                 get(HomeViewModel.class);
-        //setProductsLiveData();
+
+        initData();
+
+    }
+
+    private void initData() {
+        mHomeViewModel.setCategoriesLiveData();
     }
 
     @Override
@@ -73,9 +79,18 @@ public class HomeFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home,
                 container, false);
 
+        initViews();
         setObservers();
         setListeners();
         return mBinding.getRoot();
+    }
+
+    private void initViews() {
+        initRecyclerViews(mBinding.recyclerViewWonderfulOffer);
+        initRecyclerViews(mBinding.recyclerViewPopularest);
+        initRecyclerViews(mBinding.recyclerViewLatest);
+        initRecyclerViews(mBinding.recyclerViewMostViewed);
+        initRecyclerViews(mBinding.recyclerViewCategoriesHomeFragment);
     }
 
     private void setListeners() {
@@ -114,7 +129,7 @@ public class HomeFragment extends Fragment {
                     public void onChanged(List<Product> products) {
                         Log.d(TAG, "HomeF : getLatestProductsLiveData: onChanged ");
 
-                        setupRecyclerView(mBinding.recyclerViewLatest,
+                        setupProductAdapter(mBinding.recyclerViewLatest,
                                 mLastCategoryProductsHorizontalAdapter, products);
 
                     }
@@ -126,7 +141,7 @@ public class HomeFragment extends Fragment {
                     public void onChanged(List<Product> products) {
                         Log.d(TAG, "HomeF : getMostVisitedProductsLiveData: onChanged ");
 
-                        setupRecyclerView(mBinding.recyclerViewMostViewed
+                        setupProductAdapter(mBinding.recyclerViewMostViewed
                                 , mMostVisitedCategoryProductsHorizontalAdapter, products);
 
                     }
@@ -139,7 +154,7 @@ public class HomeFragment extends Fragment {
                     public void onChanged(List<Product> products) {
                         Log.d(TAG, "HomeF : getPopularProductsLiveData: onChanged ");
 
-                        setupRecyclerView(mBinding.recyclerViewPopularest,
+                        setupProductAdapter(mBinding.recyclerViewPopularest,
                                 mPopularCategoryProductsHorizontalAdapter, products);
 
                     }
@@ -151,7 +166,7 @@ public class HomeFragment extends Fragment {
                     public void onChanged(List<Product> products) {
                         Log.d(TAG, "HomeF : getAmazingOfferProductsLiveData: onChanged ");
 
-                        setupRecyclerView(mBinding.recyclerViewWonderfulOffer
+                        setupProductAdapter(mBinding.recyclerViewWonderfulOffer
                                 , mAmazingOfferAdapter, products);
 
                     }
@@ -162,9 +177,6 @@ public class HomeFragment extends Fragment {
                     public void onChanged(List<Category> categories) {
                         Log.d(TAG, "HomeF : getParentCategoriesLiveData: onChanged ");
 
-                        mBinding.recyclerViewCategoriesHomeFragment.
-                                setLayoutManager(new LinearLayoutManager(getContext(),
-                                        LinearLayoutManager.HORIZONTAL, false));
                         setupCategoryAdapter(categories);
 
                     }
@@ -173,44 +185,36 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void setupRecyclerView(RecyclerView recyclerView,
-                                   HomeProductsAdapter adapter,
-                                   List<Product> products) {
+    private void setupProductAdapter(RecyclerView recyclerView,
+                                     HomeProductsAdapter adapter,
+                                     List<Product> products) {
         Log.d(TAG, "HomeF : setupRecyclerView");
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
 
-        if (adapter == null) {
-            adapter = new HomeProductsAdapter(getContext(),
-                    products,this);
-            recyclerView.setAdapter(adapter);
-        } else {
-            adapter.setProducts(products);
-            adapter.notifyDataSetChanged();
+        adapter = new HomeProductsAdapter(getContext(),
+                products, this);
+        recyclerView.setAdapter(adapter);
 
-        }
         Log.d(TAG, "adapter is :" + adapter.toString());
         Log.d(TAG, "recyclerview is  is :" + recyclerView.toString());
         Log.d(TAG, "last product name  is :" + products.get(products.size() - 1).
                 getName());
     }
 
+    private void initRecyclerViews(RecyclerView recyclerView) {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+    }
+
 
     private void setupCategoryAdapter(List<Category> categories) {
         Log.d(TAG, "HomeF : initCategoryAdapter");
 
-
-        if (mHomeCategoriesAdapter == null) {
-            mHomeCategoriesAdapter =
-                    new HomeCategoriesAdapter(getContext(),
-                            categories,this);
-            mBinding.recyclerViewCategoriesHomeFragment.
-                    setAdapter(mHomeCategoriesAdapter);
-        } else {
-            mHomeCategoriesAdapter.setCategories(categories);
-            mHomeCategoriesAdapter.notifyDataSetChanged();
-        }
+        mHomeCategoriesAdapter =
+                new HomeCategoriesAdapter(getContext(),
+                        categories, this);
+        mBinding.recyclerViewCategoriesHomeFragment.
+                setAdapter(mHomeCategoriesAdapter);
     }
 
 
@@ -232,13 +236,11 @@ public class HomeFragment extends Fragment {
     private void replaceSearchResultFragment(String query) {
         OnlineMarketPreferences.getInstance(getActivity())
                 .setQueryMap(NetworkParams.getSearchAllProducts(query));
-         mHomeViewModel.
+        mHomeViewModel.
                 setSearchResultProductsLiveData(NetworkParams.getSearchAllProducts(query));
         mNavController.navigate(R.id.action_HomeFragment_to_SearchResultFragment);
 
     }
-
-
 
 
 }

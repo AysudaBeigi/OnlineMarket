@@ -56,12 +56,12 @@ public class HomeProductsAdapter extends RecyclerView.
         Log.d(TAG, "HomeProductsAdapter : onCreateViewHolder");
 
         mBinding = DataBindingUtil
-                .inflate(LayoutInflater.from(mContext),
+                .inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.product_horizantal__item_view, parent,
                         false);
 
-        return new HomeProductsHorizantalViewHolder(
-                mBinding.getRoot());
+
+        return new HomeProductsHorizantalViewHolder(mBinding.getRoot());
 
     }
 
@@ -95,7 +95,13 @@ public class HomeProductsAdapter extends RecyclerView.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(TAG, " HomeProductsHorizantalViewHolder:onClick ");
+                    Log.d(TAG, " HomeProductsHorizantalViewHolder: onClick ");
+
+                    Log.d(TAG, "HomeProductsAdapter : setOnClickListener");
+                    Log.d(TAG, "HomeProductsAdapter : product name is "
+                            +mProduct.getName());
+                    Log.d(TAG, "HomeProductsAdapter : product price is "
+                            +mProduct.getPrice());
 
                     HomeViewModel viewModel
                             = new ViewModelProvider(mOwner).get(HomeViewModel.class);
@@ -111,6 +117,8 @@ public class HomeProductsAdapter extends RecyclerView.
 
         private void bindProduct(Product product) {
             Log.d(TAG, "HomeProductsAdapter : bindProduct");
+            Log.d(TAG, "HomeProductsAdapter :name is "+product.getName());
+            Log.d(TAG, "HomeProductsAdapter : price is "+product.getPrice());
 
             mProduct = product;
             mBinding.textViewNameProdcutHorizantalItem.setText(product.getName() + "");

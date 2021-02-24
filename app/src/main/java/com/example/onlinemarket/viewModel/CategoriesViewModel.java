@@ -104,6 +104,4 @@ public class CategoriesViewModel extends AndroidViewModel {
         mCategoryRepository.setUserSelectedCategory(userSelectedCategory);
     }
 
-
-
 }
