@@ -24,7 +24,6 @@ import com.example.onlinemarket.databinding.FragmentSubCategoryProductsBinding;
 import com.example.onlinemarket.utils.OnlineMarketPreferences;
 import com.example.onlinemarket.viewModel.SubCategoryProductsViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -33,13 +32,6 @@ public class SubCategoryProductsFragment extends Fragment {
     private NavController mNavController;
     private FragmentSubCategoryProductsBinding mBinding;
     private SubCategoryProductsViewModel mSubCategoryProductsViewModel;
-    private SubCategoryProductsAdapter mHealthProductsAdapter;
-    private SubCategoryProductsAdapter mDigitalProductsAdapter;
-    private SubCategoryProductsAdapter mSupermarketProductsAdapter;
-    private SubCategoryProductsAdapter mSpecialSaleProductsAdapter;
-    private SubCategoryProductsAdapter mBookAndArtsProductsAdapter;
-    private SubCategoryProductsAdapter mFashionAndClothingProductsAdapter;
-    private ArrayList<SubCategoryProductsAdapter> mSubCategoryProductsAdapters = new ArrayList<>();
 
 
     public SubCategoryProductsFragment() {
@@ -52,13 +44,6 @@ public class SubCategoryProductsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mSubCategoryProductsViewModel = new ViewModelProvider(this)
                 .get(SubCategoryProductsViewModel.class);
-
-        mSubCategoryProductsAdapters.add(mHealthProductsAdapter);
-        mSubCategoryProductsAdapters.add(mDigitalProductsAdapter);
-        mSubCategoryProductsAdapters.add(mSupermarketProductsAdapter);
-        mSubCategoryProductsAdapters.add(mSpecialSaleProductsAdapter);
-        mSubCategoryProductsAdapters.add(mBookAndArtsProductsAdapter);
-        mSubCategoryProductsAdapters.add(mFashionAndClothingProductsAdapter);
 
     }
 
@@ -123,27 +108,17 @@ public class SubCategoryProductsFragment extends Fragment {
                 .observe(this, new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
-                        getSelectedCategoryAdapter(products);
+                        initAdapter(products);
                     }
                 });
     }
 
-    private void getSelectedCategoryAdapter(List<Product> products) {
+    private void initAdapter(List<Product> products) {
 
-        int userSelectedAdapterId = mSubCategoryProductsViewModel
-                .getUserSelectedCategory().getId();
-        setupAdapter(products, mSubCategoryProductsAdapters.get(userSelectedAdapterId));
-    }
-
-    private void setupAdapter(List<Product> products, SubCategoryProductsAdapter adapter) {
-        if (adapter == null) {
-            adapter =
-                    new SubCategoryProductsAdapter(getActivity(), products, this);
-            mBinding.recyclerViewFragmentSubCategoryProducts.
-                    setAdapter(adapter);
-        } else {
-            adapter.setProducts(products);
-        }
+        SubCategoryProductsAdapter adapter =
+                new SubCategoryProductsAdapter(getActivity(), products, this);
+        mBinding.recyclerViewFragmentSubCategoryProducts.
+                setAdapter(adapter);
     }
 
 

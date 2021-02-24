@@ -1,6 +1,7 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +37,8 @@ public class CategoriesFragment extends Fragment {
 
     private CategoriesViewModel mCategoriesViewModel;
 
-    private List<Category> mCategories = new ArrayList<>();
     private FragmentCategoriesBinding mBinding;
+    private List<Category> mParents;
 
     public CategoriesFragment() {
         // Required empty public constructor
@@ -46,20 +47,24 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "CategoriesFragment : onCreate");
+
         mCategoriesViewModel = new ViewModelProvider(this).
                 get(CategoriesViewModel.class);
 
-        initData();
 
     }
 
     private void initData() {
-        mCategoriesViewModel.setHealthProductsLiveData();
-        mCategoriesViewModel.setDigitalSubCategoriesLiveData();
-        mCategoriesViewModel.setSupermarketSubCategoriesLiveData();
-        mCategoriesViewModel.setSpecialSaleProductsLiveData();
-        mCategoriesViewModel.setBookAndArtSubCategoriesLiveData();
-        mCategoriesViewModel.mFashionAndClothingSubCategoriesLiveData();
+
+        Log.d(TAG, "CategoriesFragment : initData");
+
+        mCategoriesViewModel.setHealthProductsLiveData(mParents.get(0).getId());
+        mCategoriesViewModel.setDigitalSubCategoriesLiveData(mParents.get(1).getId());
+        mCategoriesViewModel.setSupermarketSubCategoriesLiveData(mParents.get(2).getId());
+        mCategoriesViewModel.setSpecialSaleProductsLiveData(mParents.get(3).getId());
+        mCategoriesViewModel.setBookAndArtSubCategoriesLiveData(mParents.get(4).getId());
+        mCategoriesViewModel.mFashionAndClothingSubCategoriesLiveData(mParents.get(5).getId());
 
     }
 
@@ -67,6 +72,8 @@ public class CategoriesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "CategoriesFragment : onCreateView");
+
         mBinding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_categories,
                 container,
@@ -78,23 +85,36 @@ public class CategoriesFragment extends Fragment {
 
 
     private void initViews(List<Category> categories) {
-        mCategories = categories;
+        Log.d(TAG, "CategoriesFragment : initViews");
+        mParents=new ArrayList<>();
+        mParents=categories;
         setTextName(categories);
     }
 
 
     private void setObservers() {
+        Log.d(TAG, "CategoriesFragment : setObservers");
+
         mCategoriesViewModel.getParentCategoriesLiveData()
                 .observe(this, new Observer<List<Category>>() {
                     @Override
-                    public void onChanged(List<Category> categories) {
+                    public void onChanged(List<Category> categories)
+                    {
+
+                        Log.d(TAG, "getParentCategoriesLiveData : onChanged");
+                        Log.d(TAG, "size is "+categories.size());
+
                         initViews(categories);
+                        initData();
                     }
                 });
         mCategoriesViewModel.getHealthProductsLiveData()
                 .observe(this, new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
+                        Log.d(TAG, "getHealthProductsLiveData : onChanged");
+                        Log.d(TAG, "size is "+products.size());
+
                         setupProductsAdapter(mPAdapterHealth,
                                 mBinding.recyclerViewCategoryOneCategoriesFragment, products);
                     }
@@ -104,6 +124,9 @@ public class CategoriesFragment extends Fragment {
                 .observe(this, new Observer<List<Category>>() {
                     @Override
                     public void onChanged(List<Category> categories) {
+                        Log.d(TAG, "getDigitalSubCategoriesLiveData : onChanged");
+                        Log.d(TAG, "size is "+categories.size());
+
                         setupCategoriesAdapter(mAdapterDigital,
                                 mBinding.recyclerViewCategoryTwoCategoriesFragment,
                                 categories);
@@ -113,6 +136,9 @@ public class CategoriesFragment extends Fragment {
                 .observe(this, new Observer<List<Category>>() {
                     @Override
                     public void onChanged(List<Category> categories) {
+                        Log.d(TAG, "getSupermarketSubCategoriesLiveData : onChanged");
+                        Log.d(TAG, "size is "+categories.size());
+
                         setupCategoriesAdapter(mAdapterSupermarket,
                                 mBinding.recyclerViewCategoryThreeCategoriesFragment,
                                 categories);
@@ -122,6 +148,9 @@ public class CategoriesFragment extends Fragment {
                 .observe(this, new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
+                        Log.d(TAG, "getSpecialSaleProductsLiveData : onChanged");
+                        Log.d(TAG, "size is "+products.size());
+
                         setupProductsAdapter(mPAdapterSpecialSale,
                                 mBinding.recyclerViewCategoryFourCategoriesFragment,
                                 products);
@@ -131,6 +160,9 @@ public class CategoriesFragment extends Fragment {
                 .observe(this, new Observer<List<Category>>() {
                     @Override
                     public void onChanged(List<Category> categories) {
+                        Log.d(TAG, "getBookAndArtSubCategoriesLiveData : onChanged");
+                        Log.d(TAG, "size is "+categories.size());
+
                         setupCategoriesAdapter(mAdapterBookAndArt,
                                 mBinding.recyclerViewCategoryFiveCategoriesFragment
                         ,categories);
@@ -140,6 +172,9 @@ public class CategoriesFragment extends Fragment {
                 .observe(this, new Observer<List<Category>>() {
                     @Override
                     public void onChanged(List<Category> categories) {
+                        Log.d(TAG, "getFashionAndClothingSubCategoriesLiveData : onChanged");
+                        Log.d(TAG, "size is "+categories.size());
+
                         setupCategoriesAdapter(mAdapterFashionAndClothing,
                                 mBinding.recyclerViewCategorySixCategoriesFragment
                         ,categories);
@@ -150,6 +185,8 @@ public class CategoriesFragment extends Fragment {
     private void setupCategoriesAdapter(CategoriesFragmentAdapter adapter,
                                         RecyclerView recyclerView,
                                         List<Category> categories) {
+        Log.d(TAG, "setupCategoriesAdapter ");
+
 
         if (adapter == null) {
             adapter = new CategoriesFragmentAdapter(getContext(),
@@ -164,6 +201,7 @@ public class CategoriesFragment extends Fragment {
     private void setupProductsAdapter(CategoryProductsHorizontalAdapter adapter,
                                       RecyclerView recyclerView,
                                       List<Product> products) {
+        Log.d(TAG, "setupProductsAdapter ");
 
         if (adapter == null) {
             adapter = new CategoryProductsHorizontalAdapter
@@ -176,6 +214,8 @@ public class CategoriesFragment extends Fragment {
     }
 
     public void initAllRecyclerViews() {
+        Log.d(TAG, "initAllRecyclerViews ");
+
         initRecyclerView(mBinding.recyclerViewCategoryOneCategoriesFragment);
         initRecyclerView(mBinding.recyclerViewCategoryTwoCategoriesFragment);
         initRecyclerView(mBinding.recyclerViewCategoryThreeCategoriesFragment);
@@ -186,11 +226,15 @@ public class CategoriesFragment extends Fragment {
     }
 
     private void initRecyclerView(RecyclerView recyclerView) {
+        Log.d(TAG, "initRecyclerView ");
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
     }
 
     private void setTextName(List<Category> categories) {
+        Log.d(TAG, "setTextName ");
+
         mBinding.textViewCategoryNameOneCategoriesFragment.setText(categories.get(0).getName());
         mBinding.textViewCategoryNameTwoCategoriesFragment.setText(categories.get(1).getName());
         mBinding.textViewCategoryNameThreeCategoriesFragment.setText(categories.get(2).getName());

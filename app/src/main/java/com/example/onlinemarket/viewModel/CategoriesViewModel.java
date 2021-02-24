@@ -26,10 +26,12 @@ public class CategoriesViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<Category>> getParentCategoriesLiveData() {
         return mCategoryRepository.getParentCategoriesLiveData();
+
     }
 
-    public void setDigitalSubCategoriesLiveData() {
-        mCategoryRepository.setDigitalSubCategoriesLiveData();
+
+    public void setDigitalSubCategoriesLiveData(int parentId) {
+        mCategoryRepository.setDigitalSubCategoriesLiveData(parentId);
     }
 
     public MutableLiveData<List<Category>>
@@ -38,8 +40,8 @@ public class CategoriesViewModel extends AndroidViewModel {
     }
 
 
-    public void setSupermarketSubCategoriesLiveData() {
-        mCategoryRepository.setSupermarketSubCategoriesLiveData();
+    public void setSupermarketSubCategoriesLiveData(int parentId) {
+        mCategoryRepository.setSupermarketSubCategoriesLiveData(parentId);
     }
 
     public MutableLiveData<List<Category>>
@@ -48,8 +50,8 @@ public class CategoriesViewModel extends AndroidViewModel {
     }
 
     //
-    public void setBookAndArtSubCategoriesLiveData() {
-        mCategoryRepository.setBookAndArtSubCategoriesLiveData();
+    public void setBookAndArtSubCategoriesLiveData(int parentId) {
+        mCategoryRepository.setBookAndArtSubCategoriesLiveData(parentId);
     }
 
     public MutableLiveData<List<Category>>
@@ -57,8 +59,8 @@ public class CategoriesViewModel extends AndroidViewModel {
         return mCategoryRepository.getBookAndArtSubCategoriesLiveData();
     }
 
-    public void mFashionAndClothingSubCategoriesLiveData() {
-        mCategoryRepository.mFashionAndClothingSubCategoriesLiveData();
+    public void mFashionAndClothingSubCategoriesLiveData(int parentId) {
+        mCategoryRepository.mFashionAndClothingSubCategoriesLiveData(parentId);
     }
 
     public MutableLiveData<List<Category>>
@@ -66,8 +68,8 @@ public class CategoriesViewModel extends AndroidViewModel {
         return mCategoryRepository.getFashionAndClothingSubCategoriesLiveData();
     }
 
-    public void setHealthProductsLiveData() {
-        mProductRepository.setHealthProductsLiveData();
+    public void setHealthProductsLiveData(int categoryId) {
+        mProductRepository.setHealthProductsLiveData(categoryId);
     }
 
     public MutableLiveData<List<Product>>
@@ -75,8 +77,8 @@ public class CategoriesViewModel extends AndroidViewModel {
         return mProductRepository.getHealthProductsLiveData();
     }
 
-    public void setSpecialSaleProductsLiveData() {
-        mProductRepository.setSpecialSaleProductsLiveData();
+    public void setSpecialSaleProductsLiveData(int categoryId) {
+        mProductRepository.setSpecialSaleProductsLiveData(categoryId);
     }
 
     public MutableLiveData<List<Product>>
@@ -101,6 +103,7 @@ public class CategoriesViewModel extends AndroidViewModel {
     public void setUserSelectedCategory(Category userSelectedCategory) {
         mCategoryRepository.setUserSelectedCategory(userSelectedCategory);
     }
+
 
 
 }

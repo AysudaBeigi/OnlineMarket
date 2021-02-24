@@ -18,10 +18,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CategoryRepository {
-    public static final int FASHION_ID = 5;
-    public static final int DIGITAL_ID = 1;
-    public static final int SUPERMARKET_ID = 2;
-    public static final int BOOK_ART_ID = 4;
     private static String TAG = "OnlineMarket";
     private WooCommerceAPIService mWooCommerceAPIService;
 
@@ -33,7 +29,6 @@ public class CategoryRepository {
 
 
     private Category mUserSelectedCategory;
-    private int mUserSelectedCategoryId;
     private static CategoryRepository sInstance;
     private Context mContext;
 
@@ -107,8 +102,8 @@ public class CategoryRepository {
     }
 
 
-    public void mFashionAndClothingSubCategoriesLiveData() {
-        mWooCommerceAPIService.getCategories(NetworkParams.getSubCategories(FASHION_ID)).
+    public void mFashionAndClothingSubCategoriesLiveData(int parentId) {
+        mWooCommerceAPIService.getCategories(NetworkParams.getSubCategories(parentId)).
                 enqueue(new Callback<List<Category>>() {
                     @Override
                     public void onResponse(Call<List<Category>> call,
@@ -124,8 +119,8 @@ public class CategoryRepository {
                 });
     }
 
-    public void setDigitalSubCategoriesLiveData() {
-        mWooCommerceAPIService.getCategories(NetworkParams.getSubCategories(DIGITAL_ID)).
+    public void setDigitalSubCategoriesLiveData(int parentId) {
+        mWooCommerceAPIService.getCategories(NetworkParams.getSubCategories(parentId)).
                 enqueue(new Callback<List<Category>>() {
                     @Override
                     public void onResponse(Call<List<Category>> call,
@@ -141,8 +136,8 @@ public class CategoryRepository {
                 });
     }
 
-    public void setSupermarketSubCategoriesLiveData() {
-        mWooCommerceAPIService.getCategories(NetworkParams.getSubCategories(SUPERMARKET_ID)).
+    public void setSupermarketSubCategoriesLiveData(int parentId) {
+        mWooCommerceAPIService.getCategories(NetworkParams.getSubCategories(parentId)).
                 enqueue(new Callback<List<Category>>() {
                     @Override
                     public void onResponse(Call<List<Category>> call,
@@ -158,8 +153,8 @@ public class CategoryRepository {
                 });
     }
 
-    public void setBookAndArtSubCategoriesLiveData() {
-        mWooCommerceAPIService.getCategories(NetworkParams.getSubCategories(BOOK_ART_ID)).
+    public void setBookAndArtSubCategoriesLiveData(int parentId) {
+        mWooCommerceAPIService.getCategories(NetworkParams.getSubCategories(parentId)).
                 enqueue(new Callback<List<Category>>() {
                     @Override
                     public void onResponse(Call<List<Category>> call,
@@ -184,12 +179,6 @@ public class CategoryRepository {
         return mUserSelectedCategory;
     }
 
-    public int getUserSelectedCategoryId() {
-        return mUserSelectedCategoryId;
-    }
 
-    public void setUserSelectedCategoryId(int userSelectedCategoryId) {
-        mUserSelectedCategoryId = userSelectedCategoryId;
-    }
 
 }

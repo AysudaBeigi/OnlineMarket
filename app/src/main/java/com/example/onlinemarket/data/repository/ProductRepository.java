@@ -22,8 +22,6 @@ import retrofit2.Response;
 
 public class ProductRepository {
 
-    public static final int SPECIAL_SALE_ID = 3;
-    public static final int HEALTH_ID = 0;
     private static String TAG = "OnlineMarket";
     private WooCommerceAPIService mWooCommerceAPIService;
     private MutableLiveData<List<Product>> mLatestProductsLiveData;
@@ -195,8 +193,8 @@ public class ProductRepository {
                 });
     }
 
-    public void setSpecialSaleProductsLiveData() {
-        mWooCommerceAPIService.getProducts(NetworkParams.getCategoryProducts(SPECIAL_SALE_ID)).
+    public void setSpecialSaleProductsLiveData(int categoryId) {
+        mWooCommerceAPIService.getProducts(NetworkParams.getCategoryProducts(categoryId)).
                 enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(Call<List<Product>> call,
@@ -212,8 +210,8 @@ public class ProductRepository {
                 });
     }
 
-    public void setHealthProductsLiveData() {
-        mWooCommerceAPIService.getProducts(NetworkParams.getCategoryProducts(HEALTH_ID)).
+    public void setHealthProductsLiveData(int categoryId) {
+        mWooCommerceAPIService.getProducts(NetworkParams.getCategoryProducts(categoryId)).
                 enqueue(new Callback<List<Product>>() {
                     @Override
                     public void onResponse(Call<List<Product>> call,

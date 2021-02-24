@@ -82,7 +82,7 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mCategoriesViewModel.set(mCategory.getId());
+                    mCategoriesViewModel.setCategoryProductsLiveData(mCategory.getId());
                     mCategoriesViewModel.setUserSelectedCategory(mCategory);
 
                     NavController navController = Navigation.findNavController(itemView);
