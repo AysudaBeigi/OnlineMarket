@@ -24,6 +24,7 @@ import com.example.onlinemarket.databinding.FragmentSubCategoryProductsBinding;
 import com.example.onlinemarket.utils.OnlineMarketPreferences;
 import com.example.onlinemarket.viewModel.SubCategoryProductsViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,7 +33,13 @@ public class SubCategoryProductsFragment extends Fragment {
     private NavController mNavController;
     private FragmentSubCategoryProductsBinding mBinding;
     private SubCategoryProductsViewModel mSubCategoryProductsViewModel;
-    private SubCategoryProductsAdapter mSubCategoryProductsAdapter;
+    private SubCategoryProductsAdapter mHealthProductsAdapter;
+    private SubCategoryProductsAdapter mDigitalProductsAdapter;
+    private SubCategoryProductsAdapter mSupermarketProductsAdapter;
+    private SubCategoryProductsAdapter mSpecialSaleProductsAdapter;
+    private SubCategoryProductsAdapter mBookAndArtsProductsAdapter;
+    private SubCategoryProductsAdapter mFashionAndClothingProductsAdapter;
+    private ArrayList<SubCategoryProductsAdapter> mSubCategoryProductsAdapters = new ArrayList<>();
 
 
     public SubCategoryProductsFragment() {
@@ -45,6 +52,13 @@ public class SubCategoryProductsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mSubCategoryProductsViewModel = new ViewModelProvider(this)
                 .get(SubCategoryProductsViewModel.class);
+
+        mSubCategoryProductsAdapters.add(mHealthProductsAdapter);
+        mSubCategoryProductsAdapters.add(mDigitalProductsAdapter);
+        mSubCategoryProductsAdapters.add(mSupermarketProductsAdapter);
+        mSubCategoryProductsAdapters.add(mSpecialSaleProductsAdapter);
+        mSubCategoryProductsAdapters.add(mBookAndArtsProductsAdapter);
+        mSubCategoryProductsAdapters.add(mFashionAndClothingProductsAdapter);
 
     }
 
@@ -84,10 +98,10 @@ public class SubCategoryProductsFragment extends Fragment {
 
     private void replaceSearchResultFragment(String query) {
 
-            OnlineMarketPreferences.getInstance(getActivity())
+        OnlineMarketPreferences.getInstance(getActivity())
                 .setQueryMap(NetworkParams.getSearchCategoryProducts(query,
                         mSubCategoryProductsViewModel.getUserSelectedCategory().getId()));
-       mSubCategoryProductsViewModel.
+        mSubCategoryProductsViewModel.
                 setSearchResultProductsLiveData(NetworkParams.getSearchCategoryProducts(query,
                         mSubCategoryProductsViewModel.getUserSelectedCategory().getId()));
 
@@ -104,23 +118,31 @@ public class SubCategoryProductsFragment extends Fragment {
     }
 
     private void setObservers() {
+
         mSubCategoryProductsViewModel.getCategoryProductsLiveData()
                 .observe(this, new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
-                        initAdapter(products);
+                        getSelectedCategoryAdapter(products);
                     }
                 });
     }
 
-    private void initAdapter(List<Product> products) {
-        if (mSubCategoryProductsAdapter == null) {
-            mSubCategoryProductsAdapter =
-                    new SubCategoryProductsAdapter(getActivity(), products,this);
-        mBinding.recyclerViewFragmentSubCategoryProducts.
-                setAdapter(mSubCategoryProductsAdapter);
-        }else {
-            mSubCategoryProductsAdapter.setProducts(products);
+    private void getSelectedCategoryAdapter(List<Product> products) {
+
+        int userSelectedAdapterId = mSubCategoryProductsViewModel
+                .getUserSelectedCategory().getId();
+        setupAdapter(products, mSubCategoryProductsAdapters.get(userSelectedAdapterId));
+    }
+
+    private void setupAdapter(List<Product> products, SubCategoryProductsAdapter adapter) {
+        if (adapter == null) {
+            adapter =
+                    new SubCategoryProductsAdapter(getActivity(), products, this);
+            mBinding.recyclerViewFragmentSubCategoryProducts.
+                    setAdapter(adapter);
+        } else {
+            adapter.setProducts(products);
         }
     }
 

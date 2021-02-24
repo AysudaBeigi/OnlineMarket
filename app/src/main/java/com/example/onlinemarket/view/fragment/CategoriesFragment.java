@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.CategoriesFragmentAdapter;
@@ -26,19 +26,13 @@ import java.util.List;
 public class CategoriesFragment extends Fragment {
     public static String TAG = "OnlineMarket";
 
-    private CategoriesFragmentAdapter mAdapterOne;
-    private CategoriesFragmentAdapter mAdapterTwo;
-    private CategoriesFragmentAdapter mAdapterThree;
-    private CategoriesFragmentAdapter mAdapterFour;
-    private CategoriesFragmentAdapter mAdapterFive;
-    private CategoriesFragmentAdapter mAdapterSix;
+    private CategoriesFragmentAdapter mAdapterDigital;
+    private CategoriesFragmentAdapter mAdapterSupermarket;
+    private CategoriesFragmentAdapter mAdapterBookAndArt;
+    private CategoriesFragmentAdapter mAdapterFashionAndClothing;
 
-    private CategoryProductsHorizontalAdapter mPAdapterOne;
-    private CategoryProductsHorizontalAdapter mPAdapterTwo;
-    private CategoryProductsHorizontalAdapter mPAdapterThree;
-    private CategoryProductsHorizontalAdapter mPAdapterFour;
-    private CategoryProductsHorizontalAdapter mPAdapterFive;
-    private CategoryProductsHorizontalAdapter mPAdapterSix;
+    private CategoryProductsHorizontalAdapter mPAdapterHealth;
+    private CategoryProductsHorizontalAdapter mPAdapterSpecialSale;
 
     private CategoriesViewModel mCategoriesViewModel;
 
@@ -52,12 +46,21 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCategoriesViewModel = new ViewModelProvider(this).get(CategoriesViewModel.class);
+        mCategoriesViewModel = new ViewModelProvider(this).
+                get(CategoriesViewModel.class);
+
+        initData();
+
     }
 
-    private void initData(List<Category> categories) {
-        mCategories = categories;
-        setTextName(categories);
+    private void initData() {
+        mCategoriesViewModel.setHealthProductsLiveData();
+        mCategoriesViewModel.setDigitalSubCategoriesLiveData();
+        mCategoriesViewModel.setSupermarketSubCategoriesLiveData();
+        mCategoriesViewModel.setSpecialSaleProductsLiveData();
+        mCategoriesViewModel.setBookAndArtSubCategoriesLiveData();
+        mCategoriesViewModel.mFashionAndClothingSubCategoriesLiveData();
+
     }
 
 
@@ -68,304 +71,132 @@ public class CategoriesFragment extends Fragment {
                 R.layout.fragment_categories,
                 container,
                 false);
+        initAllRecyclerViews();
         setObservers();
-
         return mBinding.getRoot();
     }
 
+
+    private void initViews(List<Category> categories) {
+        mCategories = categories;
+        setTextName(categories);
+    }
+
+
     private void setObservers() {
-        mCategoriesViewModel.getCategoriesLiveData()
+        mCategoriesViewModel.getParentCategoriesLiveData()
                 .observe(this, new Observer<List<Category>>() {
                     @Override
                     public void onChanged(List<Category> categories) {
-                        initData(categories);
-                        setupCategoriesRecyclerAdapter(CategoriesFragment.this,
-                                CategoriesFragment.this);
-
+                        initViews(categories);
                     }
                 });
-    }
-
-
-    private void setupCategoriesRecyclerAdapter(LifecycleOwner lifecycleOwner,
-                                                ViewModelStoreOwner viewModelStoreOwner) {
-        mCategoriesViewModel.
-                setSubCategoriesLiveData(mCategories.get(0).getId());
-
-        mCategoriesViewModel.getSubCategoriesLiveData()
-                .observe(this, new Observer<List<Category>>() {
+        mCategoriesViewModel.getHealthProductsLiveData()
+                .observe(this, new Observer<List<Product>>() {
                     @Override
-                    public void onChanged(List<Category> categories) {
-                        if (categories.size() > 0) {
-                            if (mAdapterOne == null) {
-                                mAdapterOne = new CategoriesFragmentAdapter(
-                                        getContext(),
-                                        categories, viewModelStoreOwner);
-                                mBinding.recyclerViewCategoryOneCategoriesFragment
-                                        .setAdapter(mAdapterOne);
-                            } else {
-                                mAdapterOne.setCategories(categories);
-                                mAdapterOne.notifyDataSetChanged();
-                            }
-
-                        } else {
-                            mCategoriesViewModel.
-                                    setCategoryProductsLiveData(mCategories.get(0).getId());
-                            mCategoriesViewModel.getCategoryProductsLiveData()
-                                    .observe(lifecycleOwner, new Observer<List<Product>>() {
-                                        @Override
-                                        public void onChanged(List<Product> products) {
-                                            if (mPAdapterOne == null) {
-                                                mPAdapterOne = new CategoryProductsHorizontalAdapter
-                                                        (getContext(),
-                                                        products,viewModelStoreOwner);
-                                                mBinding
-                                                        .recyclerViewCategoryOneCategoriesFragment
-                                                        .setAdapter(mPAdapterOne);
-                                            } else {
-                                                mPAdapterOne.setProducts(products);
-                                                mPAdapterOne.notifyDataSetChanged();
-
-                                            }
-                                        }
-                                    });
-                        }
+                    public void onChanged(List<Product> products) {
+                        setupProductsAdapter(mPAdapterHealth,
+                                mBinding.recyclerViewCategoryOneCategoriesFragment, products);
                     }
-
-
                 });
 
-        mCategoriesViewModel.setSubCategoriesLiveData(mCategories.get(1).getId());
-        mCategoriesViewModel.getSubCategoriesLiveData()
+        mCategoriesViewModel.getDigitalSubCategoriesLiveData()
                 .observe(this, new Observer<List<Category>>() {
                     @Override
                     public void onChanged(List<Category> categories) {
-                        if (categories.size() > 0) {
-                            if (mAdapterTwo == null) {
-                                mAdapterTwo = new CategoriesFragmentAdapter(getContext(),
-                                        categories, viewModelStoreOwner);
-                                mBinding.recyclerViewCategoryTwoCategoriesFragment
-                                        .setAdapter(mAdapterTwo);
-                            } else {
-                                mAdapterTwo.setCategories(categories);
-                                mAdapterTwo.notifyDataSetChanged();
-                            }
-
-                        } else {
-                            mCategoriesViewModel.
-                                    setCategoryProductsLiveData(mCategories.get(1).getId());
-                            mCategoriesViewModel.getCategoryProductsLiveData()
-                                    .observe(lifecycleOwner, new Observer<List<Product>>() {
-                                        @Override
-                                        public void onChanged(List<Product> products) {
-                                            if (mPAdapterTwo == null) {
-                                                mPAdapterTwo = new
-                                                        CategoryProductsHorizontalAdapter(
-                                                        getContext(),
-                                                        products,viewModelStoreOwner);
-                                                mBinding.
-                                                        recyclerViewCategoryTwoCategoriesFragment
-                                                        .setAdapter(mPAdapterTwo);
-                                            } else {
-                                                mPAdapterTwo.setProducts(products);
-                                                mPAdapterTwo.notifyDataSetChanged();
-                                            }
-                                        }
-                                    });
-
-                        }
+                        setupCategoriesAdapter(mAdapterDigital,
+                                mBinding.recyclerViewCategoryTwoCategoriesFragment,
+                                categories);
                     }
-
-
                 });
-
-        mCategoriesViewModel.setSubCategoriesLiveData(mCategories.get(2).getId());
-        mCategoriesViewModel.getSubCategoriesLiveData()
+        mCategoriesViewModel.getSupermarketSubCategoriesLiveData()
                 .observe(this, new Observer<List<Category>>() {
                     @Override
                     public void onChanged(List<Category> categories) {
-                        if (categories.size() > 0) {
-
-                            if (mAdapterThree == null) {
-                                mAdapterThree = new CategoriesFragmentAdapter(getContext(),
-                                        categories, viewModelStoreOwner);
-                                mBinding.recyclerViewCategoryThreeCategoriesFragment
-                                        .setAdapter(mAdapterThree);
-                            } else {
-                                mAdapterThree.setCategories(categories);
-                                mAdapterThree.notifyDataSetChanged();
-                            }
-
-                        } else {
-                            mCategoriesViewModel.
-                                    setCategoryProductsLiveData(mCategories.get(2).getId());
-                            mCategoriesViewModel.getCategoryProductsLiveData()
-                                    .observe(lifecycleOwner, new Observer<List<Product>>() {
-                                        @Override
-                                        public void onChanged(List<Product> products) {
-                                            if (mPAdapterThree == null) {
-                                                mPAdapterThree = new
-                                                        CategoryProductsHorizontalAdapter(
-                                                                getContext(),
-                                                        products,viewModelStoreOwner);
-                                                mBinding.
-                                                        recyclerViewCategoryThreeCategoriesFragment
-                                                        .setAdapter(mPAdapterThree);
-                                            } else {
-                                                mPAdapterThree.setProducts(products);
-                                                mPAdapterThree.notifyDataSetChanged();
-                                            }
-                                        }
-                                    });
-                        }
+                        setupCategoriesAdapter(mAdapterSupermarket,
+                                mBinding.recyclerViewCategoryThreeCategoriesFragment,
+                                categories);
                     }
-
                 });
-
-        mCategoriesViewModel.setSubCategoriesLiveData(mCategories.get(3).getId());
-        mCategoriesViewModel.getSubCategoriesLiveData()
-                .observe(this, new Observer<List<Category>>() {
+        mCategoriesViewModel.getSpecialSaleProductsLiveData()
+                .observe(this, new Observer<List<Product>>() {
                     @Override
-                    public void onChanged(List<Category> categories) {
-                        if (categories.size() > 0) {
-
-                            if (mAdapterFour == null) {
-                                mAdapterFour = new CategoriesFragmentAdapter(getContext(),
-                                        categories, viewModelStoreOwner);
-                                mBinding.recyclerViewCategoryFourCategoriesFragment
-                                        .setAdapter(mAdapterFour);
-                            } else {
-                                mAdapterFour.setCategories(categories);
-                                mAdapterFour.notifyDataSetChanged();
-                            }
-
-                        } else {
-                            mCategoriesViewModel.
-                                    setCategoryProductsLiveData(mCategories.get(3).getId());
-                            mCategoriesViewModel.getCategoryProductsLiveData()
-                                    .observe(lifecycleOwner, new Observer<List<Product>>() {
-                                        @Override
-                                        public void onChanged(List<Product> products) {
-                                            if (mPAdapterFour == null) {
-                                                mPAdapterFour = new
-                                                        CategoryProductsHorizontalAdapter(getContext(),
-                                                        products,viewModelStoreOwner);
-                                                mBinding.
-                                                        recyclerViewCategoryFourCategoriesFragment
-                                                        .setAdapter(mPAdapterFour);
-                                            } else {
-                                                mPAdapterFour.setProducts(products);
-                                                mPAdapterFour.notifyDataSetChanged();
-                                            }
-                                        }
-                                    });
-
-                        }
+                    public void onChanged(List<Product> products) {
+                        setupProductsAdapter(mPAdapterSpecialSale,
+                                mBinding.recyclerViewCategoryFourCategoriesFragment,
+                                products);
                     }
-
                 });
-
-        mCategoriesViewModel.setSubCategoriesLiveData(mCategories.get(4).getId());
-        mCategoriesViewModel.getSubCategoriesLiveData()
+        mCategoriesViewModel.getBookAndArtSubCategoriesLiveData()
                 .observe(this, new Observer<List<Category>>() {
                     @Override
                     public void onChanged(List<Category> categories) {
-                        if (categories.size() > 0) {
-
-                            if (mAdapterFive == null) {
-                                mAdapterFive = new CategoriesFragmentAdapter(getContext(),
-                                        categories, viewModelStoreOwner);
+                        setupCategoriesAdapter(mAdapterBookAndArt,
                                 mBinding.recyclerViewCategoryFiveCategoriesFragment
-                                        .setAdapter(mAdapterFive);
-                            } else {
-                                mAdapterFive.setCategories(categories);
-                                mAdapterFive.notifyDataSetChanged();
-                            }
-
-                        } else {
-                            mCategoriesViewModel.
-                                    setCategoryProductsLiveData(mCategories.get(4).getId());
-                            mCategoriesViewModel.getCategoryProductsLiveData()
-                                    .observe(lifecycleOwner, new Observer<List<Product>>() {
-                                        @Override
-                                        public void onChanged(List<Product> products) {
-                                            if (mPAdapterFive == null) {
-                                                mPAdapterFive = new
-                                                        CategoryProductsHorizontalAdapter(getContext(),
-                                                        products,viewModelStoreOwner);
-                                                mBinding.
-                                                        recyclerViewCategoryFiveCategoriesFragment
-                                                        .setAdapter(mPAdapterFive);
-                                            } else {
-                                                mPAdapterFive.setProducts(products);
-                                                mPAdapterFive.notifyDataSetChanged();
-                                            }
-                                        }
-                                    });
-
-                        }
+                        ,categories);
                     }
-
                 });
-
-        mCategoriesViewModel.setSubCategoriesLiveData(mCategories.get(5).getId());
-        mCategoriesViewModel.getSubCategoriesLiveData()
+        mCategoriesViewModel.getFashionAndClothingSubCategoriesLiveData()
                 .observe(this, new Observer<List<Category>>() {
                     @Override
                     public void onChanged(List<Category> categories) {
-                        if (categories.size() > 0) {
-
-                            if (mAdapterSix == null) {
-                                mAdapterSix = new CategoriesFragmentAdapter(getContext(),
-                                        categories, viewModelStoreOwner);
+                        setupCategoriesAdapter(mAdapterFashionAndClothing,
                                 mBinding.recyclerViewCategorySixCategoriesFragment
-                                        .setAdapter(mAdapterSix);
-                            } else {
-                                mAdapterSix.setCategories(categories);
-                                mAdapterSix.notifyDataSetChanged();
-                            }
-
-                        } else {
-                            mCategoriesViewModel.
-                                    setCategoryProductsLiveData(mCategories.get(5).getId());
-                            mCategoriesViewModel.getCategoryProductsLiveData()
-                                    .observe(lifecycleOwner, new Observer<List<Product>>() {
-                                        @Override
-                                        public void onChanged(List<Product> products) {
-                                            if (mPAdapterSix == null) {
-                                                mPAdapterSix = new
-                                                        CategoryProductsHorizontalAdapter(
-                                                                getContext(),
-                                                        products,viewModelStoreOwner);
-                                                mBinding.
-                                                        recyclerViewCategorySixCategoriesFragment
-                                                        .setAdapter(mPAdapterSix);
-                                            } else {
-                                                mPAdapterSix.setProducts(products);
-                                                mPAdapterSix.notifyDataSetChanged();
-                                            }
-                                        }
-                                    });
-
-                        }
+                        ,categories);
                     }
                 });
+    }
+
+    private void setupCategoriesAdapter(CategoriesFragmentAdapter adapter,
+                                        RecyclerView recyclerView,
+                                        List<Category> categories) {
+
+        if (adapter == null) {
+            adapter = new CategoriesFragmentAdapter(getContext(),
+                    categories, this);
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter.setCategories(categories);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void setupProductsAdapter(CategoryProductsHorizontalAdapter adapter,
+                                      RecyclerView recyclerView,
+                                      List<Product> products) {
+
+        if (adapter == null) {
+            adapter = new CategoryProductsHorizontalAdapter
+                    (getContext(), products, this);
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter.setProducts(products);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    public void initAllRecyclerViews() {
+        initRecyclerView(mBinding.recyclerViewCategoryOneCategoriesFragment);
+        initRecyclerView(mBinding.recyclerViewCategoryTwoCategoriesFragment);
+        initRecyclerView(mBinding.recyclerViewCategoryThreeCategoriesFragment);
+        initRecyclerView(mBinding.recyclerViewCategoryFourCategoriesFragment);
+        initRecyclerView(mBinding.recyclerViewCategoryFiveCategoriesFragment);
+        initRecyclerView(mBinding.recyclerViewCategorySixCategoriesFragment);
 
     }
 
-    private void setTextName(List<Category> items) {
-        List<String> names = new ArrayList<>();
-        for (int i = 0; i < items.size(); i++) {
-            if (!names.equals(items.get(i).getName())) {
-                names.add(items.get(i).getName());
-            }
-        }
-        mBinding.textViewCategoryNameOneCategoriesFragment.setText(names.get(0));
-        mBinding.textViewCategoryNameTwoCategoriesFragment.setText(names.get(1));
-        mBinding.textViewCategoryNameThreeCategoriesFragment.setText(names.get(2));
-        mBinding.textViewCategoryNameFourCategoriesFragment.setText(names.get(3));
-        mBinding.textViewCategoryNameFiveCategoriesFragment.setText(names.get(4));
-        mBinding.textViewCategoryNameSixCategoriesFragment.setText(names.get(5));
+    private void initRecyclerView(RecyclerView recyclerView) {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+    }
+
+    private void setTextName(List<Category> categories) {
+        mBinding.textViewCategoryNameOneCategoriesFragment.setText(categories.get(0).getName());
+        mBinding.textViewCategoryNameTwoCategoriesFragment.setText(categories.get(1).getName());
+        mBinding.textViewCategoryNameThreeCategoriesFragment.setText(categories.get(2).getName());
+        mBinding.textViewCategoryNameFourCategoriesFragment.setText(categories.get(3).getName());
+        mBinding.textViewCategoryNameFiveCategoriesFragment.setText(categories.get(4).getName());
+        mBinding.textViewCategoryNameSixCategoriesFragment.setText(categories.get(5).getName());
 
     }
 

@@ -18,6 +18,13 @@ public class Category {
     @SerializedName("count")
     private Integer mCount;
 
+    @SerializedName("parent")
+    private int parent;
+
+    public int getParent() {
+        return parent;
+    }
+
     public String getName() {
         return name;
     }

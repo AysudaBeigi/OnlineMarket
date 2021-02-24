@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
 
                     }
                 });
-        mHomeViewModel.getCategoriesLiveData()
+        mHomeViewModel.getParentCategoriesLiveData()
                 .observe(this, new Observer<List<Category>>() {
                     @Override
                     public void onChanged(List<Category> categories) {

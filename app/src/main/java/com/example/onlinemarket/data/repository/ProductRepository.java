@@ -22,6 +22,8 @@ import retrofit2.Response;
 
 public class ProductRepository {
 
+    public static final int SPECIAL_SALE_ID = 3;
+    public static final int HEALTH_ID = 0;
     private static String TAG = "OnlineMarket";
     private WooCommerceAPIService mWooCommerceAPIService;
     private MutableLiveData<List<Product>> mLatestProductsLiveData;
@@ -31,6 +33,8 @@ public class ProductRepository {
     private MutableLiveData<List<Product>> mCategoryProductsLiveData;
     private MutableLiveData<List<Product>> mSearchResultProductsLiveData;
     private MutableLiveData<Product> mSpecialProductLiveData;
+    private MutableLiveData<List<Product>> mHealthProductsLiveData;
+    private MutableLiveData<List<Product>> mSpecialSaleProductsLiveData;
     private static ProductRepository sInstance;
     private Product mUserSelectedProduct;
     private Context mContext;
@@ -44,7 +48,7 @@ public class ProductRepository {
 
 
     private ProductRepository(Context context) {
-        mContext=context.getApplicationContext();
+        mContext = context.getApplicationContext();
         mWooCommerceAPIService = RetrofitInstance.getInstance(mContext).getRetrofit().
                 create(WooCommerceAPIService.class);
 
@@ -55,6 +59,17 @@ public class ProductRepository {
         mSearchResultProductsLiveData = new MutableLiveData<>();
         mSpecialProductLiveData = new MutableLiveData<>();
         mCategoryProductsLiveData = new MutableLiveData<>();
+        mHealthProductsLiveData = new MutableLiveData<>();
+        mSpecialSaleProductsLiveData = new MutableLiveData<>();
+
+    }
+
+    public MutableLiveData<List<Product>> getHealthProductsLiveData() {
+        return mHealthProductsLiveData;
+    }
+
+    public MutableLiveData<List<Product>> getSpecialSaleProductsLiveData() {
+        return mSpecialSaleProductsLiveData;
     }
 
     public MutableLiveData<List<Product>> getLatestProductsLiveData() {
@@ -172,6 +187,41 @@ public class ProductRepository {
                         List<Product> categoryProducts = response.body();
                         mCategoryProductsLiveData.setValue(categoryProducts);
                     }
+
+                    @Override
+                    public void onFailure(Call<List<Product>> call, Throwable t) {
+                        Log.e(TAG, t.getMessage(), t);
+                    }
+                });
+    }
+
+    public void setSpecialSaleProductsLiveData() {
+        mWooCommerceAPIService.getProducts(NetworkParams.getCategoryProducts(SPECIAL_SALE_ID)).
+                enqueue(new Callback<List<Product>>() {
+                    @Override
+                    public void onResponse(Call<List<Product>> call,
+                                           Response<List<Product>> response) {
+                        List<Product> categoryProducts = response.body();
+                        mSpecialSaleProductsLiveData.setValue(categoryProducts);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Product>> call, Throwable t) {
+                        Log.e(TAG, t.getMessage(), t);
+                    }
+                });
+    }
+
+    public void setHealthProductsLiveData() {
+        mWooCommerceAPIService.getProducts(NetworkParams.getCategoryProducts(HEALTH_ID)).
+                enqueue(new Callback<List<Product>>() {
+                    @Override
+                    public void onResponse(Call<List<Product>> call,
+                                           Response<List<Product>> response) {
+                        List<Product> categoryProducts = response.body();
+                        mHealthProductsLiveData.setValue(categoryProducts);
+                    }
+
                     @Override
                     public void onFailure(Call<List<Product>> call, Throwable t) {
                         Log.e(TAG, t.getMessage(), t);
@@ -190,6 +240,7 @@ public class ProductRepository {
                         Product product = response.body();
                         mSpecialProductLiveData.setValue(product);
                     }
+
                     @Override
                     public void onFailure(Call<Product> call, Throwable t) {
                         Log.e(TAG, t.getMessage(), t);
@@ -221,22 +272,25 @@ public class ProductRepository {
     public Product getUserSelectedProduct() {
         return mUserSelectedProduct;
     }
-    public int getUserSelectedProductId(){
+
+    public int getUserSelectedProductId() {
         return mUserSelectedProduct.getId();
     }
-     public String getUserSelectedProductName(){
+
+    public String getUserSelectedProductName() {
         return mUserSelectedProduct.getName();
     }
-    public List<Image> getUserSelectedProductImages(){
+
+    public List<Image> getUserSelectedProductImages() {
         return mUserSelectedProduct.getImages();
     }
 
-    public String getUserSelectedProductPrice(){
+    public String getUserSelectedProductPrice() {
         return mUserSelectedProduct.getPrice() + " " +
                 mContext.getResources().getString(R.string.toman);
     }
 
-    public String getUserSelectedProductRegularPrice(){
+    public String getUserSelectedProductRegularPrice() {
         return mUserSelectedProduct.getRegularPrice() + " " +
                 mContext.getResources().getString(R.string.toman);
     }

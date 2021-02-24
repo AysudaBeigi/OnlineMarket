@@ -50,8 +50,8 @@ public class SplashViewModel extends AndroidViewModel {
         mProductRepository.setMostVisitedProductsLiveData();
     }
 
-    public void setCategoriesLiveData() {
-        mCategoryRepository.setCategoriesLiveData();
+    public void setParentCategoriesLiveData() {
+        mCategoryRepository.setParentCategoriesLiveData();
     }
 
 

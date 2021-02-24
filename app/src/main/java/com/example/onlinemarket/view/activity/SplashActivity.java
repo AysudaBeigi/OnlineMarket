@@ -57,7 +57,8 @@ public class SplashActivity extends AppCompatActivity {
         mSplashViewModel.setLatestProductsLiveData();
         mSplashViewModel.setMostVisitedProductsLiveData();
         mSplashViewModel.setPopularProductsLivData();
-        mSplashViewModel.setCategoriesLiveData();
+        mSplashViewModel.setParentCategoriesLiveData();
+
     }
 
     private void showInternetIsDisconnectedSnackBar() {

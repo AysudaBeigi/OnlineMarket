@@ -21,22 +21,25 @@ public class SubCategoryProductsViewModel extends AndroidViewModel {
 
     public SubCategoryProductsViewModel(@NonNull Application application) {
         super(application);
-        mProductRepository =  ProductRepository.getInstance(application);
-        mCategoryRepository=CategoryRepository.getInstance(application);
+        mProductRepository = ProductRepository.getInstance(application);
+        mCategoryRepository = CategoryRepository.getInstance(application);
     }
-
 
 
     public MutableLiveData<List<Product>> getCategoryProductsLiveData() {
         return mProductRepository.getCategoryProductsLiveData();
     }
+
+
     public Category getUserSelectedCategory() {
         return mCategoryRepository.getUserSelectedCategory();
     }
-    public void setUserSelectedProduct(Product product){
+
+    public void setUserSelectedProduct(Product product) {
 
         mProductRepository.setUserSelectedProduct(product);
     }
+
     public void setSearchResultProductsLiveData(Map<String, String> query) {
         mProductRepository.setSearchResultProductsLiveData(query);
     }
