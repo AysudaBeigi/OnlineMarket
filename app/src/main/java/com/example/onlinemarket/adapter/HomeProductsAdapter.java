@@ -1,6 +1,7 @@
 package com.example.onlinemarket.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,13 +31,19 @@ public class HomeProductsAdapter extends RecyclerView.
     private List<Product> mProduct;
     private ProductHorizantalItemViewBinding mBinding;
     private ViewModelStoreOwner mOwner;
+    public static String TAG = "OnlineMarket";
 
-    public void setProduct(List<Product> product) {
+    public void setProducts(List<Product> product) {
+        Log.d(TAG, "HomeProductsAdapter : setProduct");
+
         mProduct = product;
         notifyDataSetChanged();
     }
 
-    public HomeProductsAdapter(Context context, List<Product> product, ViewModelStoreOwner owner) {
+    public HomeProductsAdapter(Context context, List<Product> product,
+                               ViewModelStoreOwner owner) {
+        Log.d(TAG, "HomeProductsAdapter : HomeProductsAdapter");
+
         mContext = context;
         mProduct = product;
         mOwner=owner;
@@ -46,6 +53,8 @@ public class HomeProductsAdapter extends RecyclerView.
     @Override
     public HomeProductsHorizantalViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                                int viewType) {
+        Log.d(TAG, "HomeProductsAdapter : onCreateViewHolder");
+
         mBinding = DataBindingUtil
                 .inflate(LayoutInflater.from(mContext),
                         R.layout.product_horizantal__item_view, parent,
@@ -60,12 +69,16 @@ public class HomeProductsAdapter extends RecyclerView.
     @Override
     public void onBindViewHolder(@NonNull HomeProductsHorizantalViewHolder holder,
                                  int position) {
+        Log.d(TAG, "HomeProductsAdapter : onBindViewHolder");
+
         Product product = mProduct.get(position);
         holder.bindProduct(product);
     }
 
     @Override
     public int getItemCount() {
+        Log.d(TAG, "HomeProductsAdapter : getItemCount");
+
         return mProduct.size();
     }
 
@@ -76,10 +89,14 @@ public class HomeProductsAdapter extends RecyclerView.
 
         public HomeProductsHorizantalViewHolder(@NonNull View itemView) {
             super(itemView);
+            Log.d(TAG, "HomeProductsAdapter : HomeProductsHorizantalViewHolder");
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d(TAG, " HomeProductsHorizantalViewHolder:onClick ");
+
                     HomeViewModel viewModel
                             = new ViewModelProvider(mOwner).get(HomeViewModel.class);
                     viewModel.setUserSelectedProduct(mProduct);
@@ -93,6 +110,8 @@ public class HomeProductsAdapter extends RecyclerView.
 
 
         private void bindProduct(Product product) {
+            Log.d(TAG, "HomeProductsAdapter : bindProduct");
+
             mProduct = product;
             mBinding.textViewNameProdcutHorizantalItem.setText(product.getName() + "");
             mBinding.textViewPriceProductHorizantalItem.setText(product.getPrice() + "");

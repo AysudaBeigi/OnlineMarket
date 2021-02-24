@@ -58,6 +58,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "HomeF : onCreate");
+
         mHomeViewModel = new ViewModelProvider(this).
                 get(HomeViewModel.class);
         //setProductsLiveData();
@@ -66,6 +68,8 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "HomeF : onCreateView");
+
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home,
                 container, false);
 
@@ -90,10 +94,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void setObservers() {
+        Log.d(TAG, "HomeF : setObservers");
+
         mHomeViewModel.getSpecialProductLiveData().
                 observe(this, new Observer<Product>() {
                     @Override
                     public void onChanged(Product product) {
+                        Log.d(TAG, "HomeF : getSpecialProductLiveData: onChanged ");
+
                         setupImageSliderAdapter(product.getImages());
 
                     }
@@ -104,6 +112,8 @@ public class HomeFragment extends Fragment {
                 .observe(this, new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
+                        Log.d(TAG, "HomeF : getLatestProductsLiveData: onChanged ");
+
                         setupRecyclerView(mBinding.recyclerViewLatest,
                                 mLastCategoryProductsHorizontalAdapter, products);
 
@@ -114,6 +124,7 @@ public class HomeFragment extends Fragment {
                 .observe(this, new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
+                        Log.d(TAG, "HomeF : getMostVisitedProductsLiveData: onChanged ");
 
                         setupRecyclerView(mBinding.recyclerViewMostViewed
                                 , mMostVisitedCategoryProductsHorizontalAdapter, products);
@@ -126,6 +137,8 @@ public class HomeFragment extends Fragment {
                 .observe(this, new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
+                        Log.d(TAG, "HomeF : getPopularProductsLiveData: onChanged ");
+
                         setupRecyclerView(mBinding.recyclerViewPopularest,
                                 mPopularCategoryProductsHorizontalAdapter, products);
 
@@ -136,6 +149,8 @@ public class HomeFragment extends Fragment {
                 .observe(this, new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
+                        Log.d(TAG, "HomeF : getAmazingOfferProductsLiveData: onChanged ");
+
                         setupRecyclerView(mBinding.recyclerViewWonderfulOffer
                                 , mAmazingOfferAdapter, products);
 
@@ -145,6 +160,8 @@ public class HomeFragment extends Fragment {
                 .observe(this, new Observer<List<Category>>() {
                     @Override
                     public void onChanged(List<Category> categories) {
+                        Log.d(TAG, "HomeF : getParentCategoriesLiveData: onChanged ");
+
                         mBinding.recyclerViewCategoriesHomeFragment.
                                 setLayoutManager(new LinearLayoutManager(getContext(),
                                         LinearLayoutManager.HORIZONTAL, false));
@@ -159,7 +176,7 @@ public class HomeFragment extends Fragment {
     private void setupRecyclerView(RecyclerView recyclerView,
                                    HomeProductsAdapter adapter,
                                    List<Product> products) {
-        Log.d(TAG, "HomeF : initRecyclerView");
+        Log.d(TAG, "HomeF : setupRecyclerView");
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
@@ -169,7 +186,7 @@ public class HomeFragment extends Fragment {
                     products,this);
             recyclerView.setAdapter(adapter);
         } else {
-            adapter.setProduct(products);
+            adapter.setProducts(products);
             adapter.notifyDataSetChanged();
 
         }

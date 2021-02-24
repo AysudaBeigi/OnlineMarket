@@ -23,6 +23,7 @@ public class CategoriesViewModel extends AndroidViewModel {
         mProductRepository = ProductRepository.getInstance(application);
     }
 
+
     public MutableLiveData<List<Category>> getParentCategoriesLiveData() {
         return mCategoryRepository.getParentCategoriesLiveData();
     }
@@ -84,13 +85,13 @@ public class CategoriesViewModel extends AndroidViewModel {
     }
 
 
-    /*public void setCategoryProductsLiveData(int categoryId) {
+    public void setCategoryProductsLiveData(int categoryId) {
         mProductRepository.setCategoryProductsLiveData(categoryId);
     }
 
     public MutableLiveData<List<Product>> getCategoryProductsLiveData() {
         return mProductRepository.getCategoryProductsLiveData();
-    }*/
+    }
 
 
     public void setUserSelectedProduct(Product product) {

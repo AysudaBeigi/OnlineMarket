@@ -1,6 +1,7 @@
 package com.example.onlinemarket.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +32,16 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
     private CategoriesViewModel mCategoriesViewModel;
 
     public void setCategories(List<Category> categoriesItems) {
+        Log.d(TAG, "HomeCategoriesAdapter : setCategories");
+
         mCategories = categoriesItems;
         notifyDataSetChanged();
     }
 
-    public HomeCategoriesAdapter(Context context, List<Category> categories, ViewModelStoreOwner owner) {
+    public HomeCategoriesAdapter(Context context, List<Category> categories,
+                                 ViewModelStoreOwner owner) {
+        Log.d(TAG, "HomeCategoriesAdapter : HomeCategoriesAdapter");
+
         mContext = context;
         mCategories = categories;
         mCategoriesViewModel =
@@ -76,7 +82,7 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mCategoriesViewModel.setCategoryProductsLiveData(mCategory.getId());
+                    mCategoriesViewModel.set(mCategory.getId());
                     mCategoriesViewModel.setUserSelectedCategory(mCategory);
 
                     NavController navController = Navigation.findNavController(itemView);
