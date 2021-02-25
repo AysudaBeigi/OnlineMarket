@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel mHomeViewModel;
     private NavController mNavController;
     private FragmentHomeBinding mBinding;
+    private RecyclerView mRecycler;
 
     public static String TAG = "OnlineMarket";
 
@@ -80,16 +81,19 @@ public class HomeFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home,
                 container, false);
 
+         mRecycler=mBinding.getRoot().findViewById(R.id.recycler_view_latest);
         initViews();
+
         setObservers(this);
         setListeners();
         return mBinding.getRoot();
     }
 
     private void initViews() {
+        initRecyclerViews(mRecycler);
         initRecyclerViews(mBinding.recyclerViewWonderfulOffer);
         initRecyclerViews(mBinding.recyclerViewPopularest);
-        initRecyclerViews(mBinding.recyclerViewLatest);
+        //initRecyclerViews(mBinding.recyclerViewLatest);
         initRecyclerViews(mBinding.recyclerViewMostViewed);
         initRecyclerViews(mBinding.recyclerViewCategoriesHomeFragment);
     }
@@ -132,7 +136,7 @@ public class HomeFragment extends Fragment {
 
                         mLastCategoryProductsHorizontalAdapter =
                                 new HomeProductsAdapter( products, owner);
-                       mBinding.recyclerViewLatest .
+                       mRecycler.
                                setAdapter(mLastCategoryProductsHorizontalAdapter);
 
                       //  mLastCategoryProductsHorizontalAdapter.notifyDataSetChanged();

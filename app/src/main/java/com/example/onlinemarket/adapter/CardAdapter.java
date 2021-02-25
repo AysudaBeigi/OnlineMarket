@@ -70,7 +70,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
         private Card mCard;
         private int mProductCount;
-        private int basePriceCard = 0;
+        private Product mProduct;
+        //private int basePriceCard = 0;
 
         public CardViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,18 +79,19 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         }
 
         private void bindProduct(Product order) {
+
+            mProduct=order;
             Log.d(TAG, "bindProduct: order name is :" + order.getName());
             mCard=mShoppingBagViewModel.getCart(order.getId());
             mProductCount = mCard.getProductCount();
-            mBinding.setProduct(order);
-            /*mBinding.textViewNameCardItem.setText(order.getName());
-            mBinding.textViewPriceCardItem.setText(basePriceCard
-                    + mContext.getResources().getString(R.string.toman));*/
-            basePriceCard = Integer.parseInt(order.getPrice());
-            mBinding.setCount(mProductCount);
+            mBinding.textViewNameCardItem.setText(order.getName());
+            //basePriceCard = Integer.parseInt(order.getPrice());
+            mBinding.textViewPriceCardItem.setText(order.getPrice()+
+                    mContext.getResources().getString(R.string.toman));
 
-           /* mBinding.coutCardItem.setText(mProductCount + "");
-*/
+            mBinding.coutCardItem.setText(mProductCount + "");
+            checkVisibility();
+
             List<Image> imagesItems = order.getImages();
             if (imagesItems.get(0).getSrc().length() != 0)
                 UIUtils.setImageUsingPicasso(imagesItems.get(0).getSrc(),
@@ -101,9 +103,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             mBinding.cardPlusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     updateCountAndPrice(++mProductCount);
-                    //checkVisibility();
+                    Log.d(TAG,"count is "+mProductCount);
+                    Log.d(TAG,"product name  is "+ mProduct.getName());
+
+                    checkVisibility();
                 }
             });
 
@@ -111,13 +115,17 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                 @Override
                 public void onClick(View v) {
                     updateCountAndPrice(--mProductCount);
-                    //checkVisibility();
+                    Log.d(TAG,"count is "+mProductCount);
+                    Log.d(TAG,"product name  is "+ mProduct.getName());
+
+                    checkVisibility();
                 }
             });
 
             mBinding.imageViewTrashCardItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     mShoppingBagViewModel.deleteCart(mCard);
                     NavController navController = Navigation.findNavController(view);
                     navController.navigate(
@@ -128,7 +136,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
         }
 
-       /* private void checkVisibility() {
+        private void checkVisibility() {
             if (mProductCount > 1) {
                 mBinding.textViewMinusCardItem.setVisibility(View.VISIBLE);
                 mBinding.imageViewTrashCardItem.setVisibility(View.GONE);
@@ -139,12 +147,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
             }
         }
-*/
         private void updateCountAndPrice(int productCount) {
             mCard.setProductCount(productCount);
             mShoppingBagViewModel.updateCart(mCard);
-            //mBinding.setCount(productCount);
-
             mBinding.coutCardItem.setText(productCount + "");
             setSumCardsPriceMutableLiveData();
         }

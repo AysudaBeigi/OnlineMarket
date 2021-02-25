@@ -37,11 +37,11 @@ public class HomeProductsAdapter extends RecyclerView.
         notifyDataSetChanged();
     }
 
-    public HomeProductsAdapter( List<Product> products,
+    public HomeProductsAdapter(List<Product> products,
                                ViewModelStoreOwner owner) {
         Log.d(TAG, "HomeProductsAdapter : HomeProductsAdapter");
         mProducts = products;
-        mOwner=owner;
+        mOwner = owner;
     }
 
     @NonNull
@@ -61,17 +61,18 @@ public class HomeProductsAdapter extends RecyclerView.
     public void onBindViewHolder(@NonNull HomeProductsHorizantalViewHolder holder,
                                  int position) {
         Log.d(TAG, "HomeProductsAdapter : onBindViewHolder");
-        Log.d(TAG, "HomeProductsAdapter : position is "+position);
+        Log.d(TAG, "HomeProductsAdapter : position is " + position);
 
         Product product = mProducts.get(position);
-        Log.d(TAG, "HomeProductsAdapter : product name  is "+product.getName());
+        Log.d(TAG, "HomeProductsAdapter : product name  is " + product.getName());
         holder.bindProduct(product);
+
     }
 
     @Override
     public int getItemCount() {
         Log.d(TAG, "HomeProductsAdapter : getItemCount");
-        Log.d(TAG, "HomeProductsAdapter : item siz is "+mProducts.size());
+        Log.d(TAG, "HomeProductsAdapter : item siz is " + mProducts.size());
         return mProducts.size();
     }
 
@@ -79,6 +80,7 @@ public class HomeProductsAdapter extends RecyclerView.
     public class HomeProductsHorizantalViewHolder extends RecyclerView.ViewHolder {
 
         private Product mProduct;
+
         public HomeProductsHorizantalViewHolder(@NonNull View itemView) {
             super(itemView);
             Log.d(TAG, "HomeProductsAdapter : HomeProductsHorizantalViewHolder");
@@ -90,9 +92,9 @@ public class HomeProductsAdapter extends RecyclerView.
 
                     Log.d(TAG, "HomeProductsAdapter : setOnClickListener");
                     Log.d(TAG, "HomeProductsAdapter : product name is "
-                            +mProduct.getName());
+                            + mProduct.getName());
                     Log.d(TAG, "HomeProductsAdapter : product price is "
-                            +mProduct.getPrice());
+                            + mProduct.getPrice());
 
                     HomeViewModel viewModel
                             = new ViewModelProvider(mOwner).get(HomeViewModel.class);
@@ -103,15 +105,14 @@ public class HomeProductsAdapter extends RecyclerView.
                             R.id.action_HomeFragment_to_productDetailFragment);
                 }
             });
-
         }
 
 
         private void bindProduct(Product product) {
             mProduct = product;
             Log.d(TAG, "HomeProductsAdapter : bindProduct");
-            Log.d(TAG, "HomeProductsAdapter :name is "+mProduct.getName());
-            Log.d(TAG, "HomeProductsAdapter : price is "+mProduct.getPrice());
+            Log.d(TAG, "HomeProductsAdapter :name is " + mProduct.getName());
+            Log.d(TAG, "HomeProductsAdapter : price is " + mProduct.getPrice());
 
             mBinding.setProduct(product);
 
@@ -123,7 +124,8 @@ public class HomeProductsAdapter extends RecyclerView.
             Log.d(TAG, "HomeProductsAdapter : product price  in text view is "
                     +mBinding.textViewPriceProductHorizantalItem.getText());
             mBinding.executePendingBindings();
-          */  List<Image> imagesList = product.getImages();
+          */
+            List<Image> imagesList = product.getImages();
             List<String> imagesSrcList = new ArrayList<>();
             for (int i = 0; i < imagesList.size(); i++) {
                 imagesSrcList.add(imagesList.get(i).getSrc());

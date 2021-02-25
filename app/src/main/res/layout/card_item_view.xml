@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+       <!-- <import type="android.view.View"/>
         <variable
             name="count"
             type="int" />
         <variable
             name="product"
-            type="com.example.onlinemarket.data.model.product.Product" />
+            type="com.example.
+            onlinemarket.data.model.product.Product" />
+        -->
     </data>
 
     <ScrollView
@@ -38,7 +40,6 @@
                 style="@style/GeneralTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:text="@{product.name}"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@id/image_view_card_item"
                 android:gravity="right"
@@ -55,7 +56,6 @@
                 android:layout_marginLeft="5dp"
                 android:layout_toLeftOf="@+id/image_view_card_item"
                 android:gravity="left"
-                android:text="@{product.price+@string/toman}"
                 style="@style/GeneralTextStyle" />
 
             <RelativeLayout
@@ -73,7 +73,6 @@
                     android:layout_centerInParent="true"
                     android:layout_marginTop="1dp"
                     android:gravity="center"
-                    android:text="@{String.valueOf(count)}"
                     android:textColor="@color/red_22"
                     tools:text="5" />
 
@@ -84,9 +83,9 @@
                     android:layout_alignParentLeft="true"
                     android:gravity="center"
                     android:text="@string/text_view_minus"
+                    android:visibility="gone"
                     style="@style/PartialTextStyle"
                     android:textSize="24sp"
-                    android:visibility="@{count>1?View.VISIBLE : View.GONE}"
                     android:textColor="@color/red_22" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -104,7 +103,6 @@
                     android:id="@+id/image_view_trash_card_item"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:visibility="@{count>1?View.GONE:View.VISIBLE}"
                     android:layout_alignParentLeft="true"
                     app:srcCompat="@drawable/trash" />
             </RelativeLayout>
