@@ -91,6 +91,7 @@
                 android:layout_alignParentLeft="true"
                 android:gravity="left"
                 android:layoutDirection="rtl"
+                android:textColor="@color/colorPrimary"
                 android:visibility="@{isAnyProductInCard?View.VISIBLE:View.GONE}"
                 tools:text="مجموع" />
 

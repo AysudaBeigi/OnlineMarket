@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.data.model.product.Product;
-import com.example.onlinemarket.databinding.ProductVerticalItemViewBinding;
+import com.example.onlinemarket.databinding.ProductHItemViewBinding;
 import com.example.onlinemarket.utils.UIUtils;
 import com.example.onlinemarket.viewModel.HomeViewModel;
 
@@ -27,7 +27,7 @@ public class HomeProductsAdapter extends RecyclerView.
         Adapter<HomeProductsAdapter.HomeProductsHorizantalViewHolder> {
 
     private List<Product> mProducts;
-    private ProductVerticalItemViewBinding mBinding;
+    private ProductHItemViewBinding mBinding;
     private ViewModelStoreOwner mOwner;
     public static String TAG = "OnlineMarket";
 
@@ -51,7 +51,7 @@ public class HomeProductsAdapter extends RecyclerView.
         Log.d(TAG, "HomeProductsAdapter : onCreateViewHolder");
         mBinding = DataBindingUtil
                 .inflate(LayoutInflater.from(parent.getContext()),
-                        R.layout.product_vertical_item_view, parent,
+                        R.layout.product_h_item_view, parent,
                         false);
         return new HomeProductsHorizantalViewHolder(mBinding.getRoot());
     }
@@ -132,7 +132,7 @@ public class HomeProductsAdapter extends RecyclerView.
             for (int i = 0; i < imagesSrcList.size(); i++) {
                 if (imagesSrcList.get(i) != null) {
                     UIUtils.setImageUsingPicasso(imagesSrcList.get(i),
-                            mBinding.imageViewProductVerticalItem);
+                            mBinding.imageViewProdcutHItem);
                     break;
 
                 }
