@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.example.onlinemarket.data.model.product.Category"/>
+        <import type="java.util.List"/>
+        <variable
+            name="categories"
+            type="List&lt;Category>" />
 
     </data>
 
@@ -46,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="right"
-                    android:text="@string/category_name"
+                    android:text="@{categories.get(0).name}"
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -101,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="right"
-                    android:text="@string/category_name"
+                    android:text="@{categories.get(1).name}"
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -156,7 +161,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="right"
-                    android:text="@string/category_name"
+                    android:text="@{categories.get(2).name}"
+
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -211,7 +217,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="right"
-                    android:text="@string/category_name"
+                    android:text="@{categories.get(3).name}"
+
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -266,7 +273,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="right"
-                    android:text="@string/category_name"
+                    android:text="@{categories.get(4).name}"
+
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -321,7 +329,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:gravity="right"
-                    android:text="@string/category_name"
+                    android:text="@{categories.get(5).name}"
+
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold"

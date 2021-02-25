@@ -96,7 +96,10 @@ public class CategoriesFragmentAdapter extends
 
         private void bindCategory(Category category) {
             mCategory = category;
-            mBinding.textViewNameCategoriesItem.setText(category.getName() + "");
+            mBinding.setCategory(category);
+
+            /*mBinding.textViewNameCategoriesItem.setText(category.getName() + "");
+            */
             Image imageItem = category.getImages();
             List<String> imagesItemList = new ArrayList<>();
 

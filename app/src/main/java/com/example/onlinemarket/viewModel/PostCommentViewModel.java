@@ -1,6 +1,8 @@
 package com.example.onlinemarket.viewModel;
 
 import android.app.Application;
+import android.os.Build;
+import android.text.Html;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -37,6 +39,16 @@ public class PostCommentViewModel extends AndroidViewModel {
         return new Comment(mProductRepository.getUserSelectedProductId(), review,
                 mCustomerDBRepository.getCustomer().getEmail(), rate);
     }
+    public String getReview(Comment comment) {
+        if (comment.getReview()== null)
+            return null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(comment.getReview(),
+                    Html.FROM_HTML_MODE_COMPACT).toString();
+        } else {
+            return Html.fromHtml(comment.getReview()).toString();
+        }
 
+    }
 
 }

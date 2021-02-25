@@ -232,13 +232,14 @@ public class CategoriesFragment extends Fragment {
     private void setTextName(List<Category> categories) {
         Log.d(TAG, "setTextName ");
 
-        mBinding.textViewCategoryNameOneCategoriesFragment.setText(categories.get(0).getName());
+        mBinding.setCategories(categories);
+       /* mBinding.textViewCategoryNameOneCategoriesFragment.setText(categories.get(0).getName());
         mBinding.textViewCategoryNameTwoCategoriesFragment.setText(categories.get(1).getName());
         mBinding.textViewCategoryNameThreeCategoriesFragment.setText(categories.get(2).getName());
         mBinding.textViewCategoryNameFourCategoriesFragment.setText(categories.get(3).getName());
         mBinding.textViewCategoryNameFiveCategoriesFragment.setText(categories.get(4).getName());
         mBinding.textViewCategoryNameSixCategoriesFragment.setText(categories.get(5).getName());
-
+*/
     }
 
 

@@ -3,7 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
 
+        <variable
+            name="haveAnyComment"
+            type="boolean" />
+        <variable
+            name="productDetailViewModel"
+            type="com.example.onlinemarket.viewModel.ProductDetailViewModel" />
     </data>
 
     <RelativeLayout
@@ -50,7 +57,7 @@
                     android:fontFamily="@font/iran_yekan"
                     android:layoutDirection="rtl"
                     android:lines="2"
-                    android:text="@string/product_name"
+                    android:text="@{productDetailViewModel.name}"
                     android:textColor="@color/black"
                     android:textSize="18sp">
 
@@ -78,7 +85,7 @@
                         android:fontFamily="@font/iran_yekan"
                         android:layoutDirection="rtl"
                         android:lines="10"
-                        android:text="@string/product_description"
+                        android:text="@{productDetailViewModel.information}"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
                 </ScrollView>
@@ -126,7 +133,7 @@
                             android:orientation="horizontal"
                             android:paddingTop="8dp"
                             android:paddingBottom="8dp"
-                            android:visibility="gone"
+                            android:visibility="@{haveAnyComment?View.VISIBLE:View.GONE}"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
                             />
@@ -143,7 +150,7 @@
                         android:layout_centerHorizontal="true"
                         android:text="هنوز نظری ثبت نشده است"
                         android:textColor="@color/digikala_blue_gray"
-                        android:visibility="visible" />
+                        android:visibility="@{haveAnyComment?View.GONE:View.VISIBLE}" />
 
                 </RelativeLayout>
 
@@ -185,7 +192,7 @@
                         android:layout_alignParentLeft="true"
                         android:gravity="left"
                         android:layoutDirection="rtl"
-                        android:text="@string/product_price"
+                        android:text="@{productDetailViewModel.regularPrice}"
                         android:textColor="@color/digikala_gray" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -195,9 +202,10 @@
                         android:layout_below="@+id/text_view_old_price_product_detail"
                         android:layout_alignParentLeft="true"
                         android:gravity="left"
+
                         style="@style/PartialTextStyle"
                         android:layoutDirection="rtl"
-                        android:text="@string/product_price" />
+                        android:text="@{productDetailViewModel.price}" />
 
 
                     <com.google.android.material.button.MaterialButton

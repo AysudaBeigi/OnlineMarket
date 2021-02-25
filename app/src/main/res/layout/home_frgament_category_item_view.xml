@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="category"
+            type="com.example.onlinemarket.data.model.product.Category" />
+        <variable
+            name="color"
+            type="int" />
 
     </data>
 
@@ -18,7 +24,7 @@
             android:layout_margin="3dp"
             android:padding="4dp"
             android:id="@+id/card_view_home_categories_item"
-            app:cardBackgroundColor="@color/digikala_red"
+            app:cardBackgroundColor="@{color}"
             app:cardCornerRadius="15dp">
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -39,6 +45,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/iran_yekan"
             android:textColor="@color/black"
+            android:text="@{category.name}"
             android:textSize="8sp"
             tools:text="@string/category_name" />
 

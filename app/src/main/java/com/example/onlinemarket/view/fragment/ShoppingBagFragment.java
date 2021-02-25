@@ -99,8 +99,10 @@ public class ShoppingBagFragment extends Fragment {
 
 
     private void initViews() {
+
+        mBinding.setIsAnyProductInCard(mShoppingBagViewModel.isAnyProductInCard());
         if (mShoppingBagViewModel.isAnyProductInCard()) {
-            setViewsVisibility();
+            //setViewsVisibility();
             setObservers();
             mBinding.recyclerViewCards.setLayoutManager(new LinearLayoutManager(getContext(),
                     LinearLayoutManager.VERTICAL, false));
@@ -123,12 +125,12 @@ public class ShoppingBagFragment extends Fragment {
                 .observe(this, new Observer<Integer>() {
                     @Override
                     public void onChanged(Integer integer) {
-                        mBinding.textViewSumPrices.setText(integer);
+                        mBinding.textViewSumPrices.setText(String.valueOf(integer));
                     }
                 });
     }
 
-    private void setViewsVisibility() {
+   /* private void setViewsVisibility() {
         mBinding.recyclerViewCards.setVisibility(View.VISIBLE);
         mBinding.buttonFinalizeShopping.setVisibility(View.VISIBLE);
         mBinding.textViewSumPrices.setVisibility(View.VISIBLE);
@@ -137,7 +139,7 @@ public class ShoppingBagFragment extends Fragment {
         mBinding.textViewEmptyShoppingBag.setVisibility(View.GONE);
 
     }
-
+*/
 
     private void setupAdapters(RecyclerView recyclerView, List<Product> orderList) {
 

@@ -1,19 +1,20 @@
 package com.example.onlinemarket.adapter;
 
 import android.content.Context;
-import android.os.Build;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.Comment;
 import com.example.onlinemarket.databinding.CommentItemViewBinding;
+import com.example.onlinemarket.viewModel.PostCommentViewModel;
 
 import java.util.List;
 
@@ -22,15 +23,18 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     private Context mContext;
     private List<Comment> mComments;
     private CommentItemViewBinding mBinding;
+    private PostCommentViewModel mPostCommentViewModel;
 
     public void setComments(List<Comment> comments) {
         mComments = comments;
         notifyDataSetChanged();
     }
 
-    public CommentAdapter(Context context, List<Comment> comments) {
+    public CommentAdapter(Context context, List<Comment> comments, ViewModelStoreOwner owner) {
         mContext = context;
         mComments = comments;
+        mPostCommentViewModel=new ViewModelProvider(owner)
+                .get(PostCommentViewModel.class);
     }
 
     @NonNull
@@ -64,22 +68,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         }
 
-        private String getReview(Comment comment) {
-            if (comment.getReview()== null)
-                return null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                return Html.fromHtml(comment.getReview(),
-                        Html.FROM_HTML_MODE_COMPACT).toString();
-            } else {
-                return Html.fromHtml(comment.getReview()).toString();
-            }
-
-        }
 
         private void bindItem(Comment comment) {
 
-            mBinding.textViewCommentItem.setText(getReview(comment));
-            int rate = comment.getRating();
+            mBinding.setComment(comment);
+            mBinding.setPostCommentViewModel(mPostCommentViewModel);
+           /* mBinding.textViewCommentItem.setText(getReview(comment));
+           */
+           /* int rate = comment.getRating();
             switch (rate) {
                 case 1:
                     mBinding.radioButton1CommentItem.setChecked(true);
@@ -97,7 +93,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                     mBinding.radioButton5CommentItem.setChecked(true);
                     break;
 
-            }
+            }*/
         }
 
     }

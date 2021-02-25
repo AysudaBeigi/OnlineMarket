@@ -53,7 +53,9 @@ public class UserProfileFragment extends Fragment {
 
         if (mUserProfileViewModel.isCustomerExist()) {
             Log.d(TAG, "UserProfileFragment + mCustomer!=null ");
-            mBinding.textViewUserEmail.setText(mUserProfileViewModel.getCustomerEmail());
+
+            mBinding.setCustomerEmail(mUserProfileViewModel.getCustomerEmail());
+           // mBinding.textViewUserEmail.setText(mUserProfileViewModel.getCustomerEmail());
         }
     }
 

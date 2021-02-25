@@ -25,6 +25,8 @@ public class ImageSliderAdapter extends
     private ImageSliderItemViewBinding mBinding;
 
     public void setImagesItems(List<Image> imagesItems) {
+        Log.d(TAG, "ImageSliderAdapter : setImagesItems");
+
         mImagesItems = imagesItems;
         notifyDataSetChanged();
     }
@@ -48,6 +50,7 @@ public class ImageSliderAdapter extends
     @Override
     public void onBindViewHolder(ImageSliderViewHolder viewHolder, final int position) {
         Log.d(TAG, "ImageSliderAdapter +onBindViewHolder");
+        Log.d(TAG, "ImageSliderAdapter : position is "+position);
 
         Image imageItem = mImagesItems.get(position);
         viewHolder.bindImageItem(imageItem);
@@ -68,7 +71,8 @@ public class ImageSliderAdapter extends
             Log.d(TAG, "ImageSliderAdapter +bindImageItem");
 
             if (image.getSrc().length() != 0)
-                UIUtils.setImageUsingPicasso(image.getSrc(), mBinding.imageViewAutoImageSlider);
+                UIUtils.setImageUsingPicasso(image.getSrc(),
+                        mBinding.imageViewAutoImageSlider);
 
         }
 

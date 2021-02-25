@@ -24,7 +24,8 @@ import com.example.onlinemarket.viewModel.CategoriesViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAdapter.CategoryViewHolder> {
+public class HomeCategoriesAdapter extends
+        RecyclerView.Adapter<HomeCategoriesAdapter.CategoryViewHolder> {
     private static final String TAG = "CategoryAdapter";
     private Context mContext;
     private List<Category> mCategories;
@@ -33,7 +34,6 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
 
     public void setCategories(List<Category> categoriesItems) {
         Log.d(TAG, "HomeCategoriesAdapter : setCategories");
-
         mCategories = categoriesItems;
         notifyDataSetChanged();
     }
@@ -53,7 +53,7 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mBinding =
-                DataBindingUtil.inflate(LayoutInflater.from(mContext),
+                DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                         R.layout.home_frgament_category_item_view, parent, false);
 
         return new CategoryViewHolder(mBinding.getRoot());
@@ -61,6 +61,7 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+
         Category category = mCategories.get(position);
         holder.bindCategory(category, position);
     }
@@ -105,8 +106,15 @@ public class HomeCategoriesAdapter extends RecyclerView.Adapter<HomeCategoriesAd
 
         private void bindCategory(Category category, int position) {
             mCategory = category;
-            mBinding.cardViewHomeCategoriesItem.setCardBackgroundColor(mColors.get(position));
+            mBinding.setCategory(category);
+
+/*
             mBinding.textViewCategoryNameHomeFragment.setText(category.getName() + "");
+*/
+            mBinding.setColor(mColors.get(position));
+
+            /*mBinding.cardViewHomeCategoriesItem.setCardBackgroundColor(mColors.get(position));
+            */
             Image imageItem = category.getImages();
             List<String> imagesItemList = new ArrayList<>();
 

@@ -3,6 +3,12 @@
 
     <data>
 
+        <variable
+            name="comment"
+            type="com.example.onlinemarket.data.model.Comment" />
+        <variable
+            name="postCommentViewModel"
+            type="com.example.onlinemarket.viewModel.PostCommentViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -38,7 +44,7 @@
                 android:maxEms="24"
                 android:maxLines="2"
                 android:paddingBottom="4dp"
-                android:text="@string/product_name"
+                android:text="@{postCommentViewModel.getReview(comment)}"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="normal" />
@@ -56,6 +62,7 @@
                     android:id="@+id/radio_button_1_comment_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="@{comment.rating==1?true:false}"
                     android:buttonTint="@color/digikala_red"
                     android:text="@string/text_view_radio_button_one" />
 
@@ -63,6 +70,8 @@
                     android:id="@+id/radio_button_2_comment_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="@{comment.rating==2?true:false}"
+
                     android:buttonTint="@color/orange_40"
                     android:text="@string/text_view_radio_button_two" />
 
@@ -70,6 +79,8 @@
                     android:id="@+id/radio_button_3_comment_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="@{comment.rating==3?true:false}"
+
                     android:buttonTint="@color/yellow_35"
                     android:text="@string/text_view_radio_button_three" />
 
@@ -77,6 +88,7 @@
                     android:id="@+id/radio_button_4_comment_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="@{comment.rating==4?true:false}"
                     android:buttonTint="@color/digikala_green"
                     android:text="@string/text_view_radio_button_four" />
 
@@ -84,6 +96,7 @@
                     android:id="@+id/radio_button_5_comment_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="@{comment.rating==5?true:false}"
                     android:buttonTint="@color/digikala_blue"
                     android:text="@string/text_view_radio_button_five" />
 

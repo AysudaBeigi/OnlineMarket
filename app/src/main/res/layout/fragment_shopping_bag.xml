@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="isAnyProductInCard"
+            type="boolean" />
     </data>
 
     <RelativeLayout
@@ -18,7 +23,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            app:srcCompat="@drawable/empty_bag" />
+            app:srcCompat="@drawable/empty_bag"
+            android:visibility="@{isAnyProductInCard?View.GONE:View.VISIBLE}"/>
+
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_empty_shopping_bag"
@@ -33,7 +40,10 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/text_view_empty_shopping_bag" />
+            android:text="@string/text_view_empty_shopping_bag"
+            android:visibility="@{isAnyProductInCard?View.GONE:View.VISIBLE}"/>
+
+
         <LinearLayout
             android:id="@+id/layout_cards"
             android:layout_width="match_parent"
@@ -45,7 +55,7 @@
                 android:id="@+id/recycler_view_cards"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:visibility="@{isAnyProductInCard?View.VISIBLE:View.GONE}">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -59,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:backgroundTint="@color/white_ff"
-            android:visibility="gone">
+            >
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_view_sum"
@@ -67,7 +77,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:gravity="left"
+                android:visibility="@{isAnyProductInCard?View.VISIBLE:View.GONE}"
+
+            android:gravity="left"
                 android:text="@string/text_view_sum_price_shopping_bag" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -79,6 +91,7 @@
                 android:layout_alignParentLeft="true"
                 android:gravity="left"
                 android:layoutDirection="rtl"
+                android:visibility="@{isAnyProductInCard?View.VISIBLE:View.GONE}"
                 tools:text="مجموع" />
 
 
@@ -95,6 +108,7 @@
                 android:drawableLeft="@drawable/ic_final_shop"
                 android:text="@string/final_shop"
                 android:textColor="@color/white_ff"
+                android:visibility="@{isAnyProductInCard?View.VISIBLE:View.GONE}"
                 app:backgroundTint="@color/colorPrimary" />
         </RelativeLayout>
 

@@ -86,9 +86,13 @@ public class SearchResultProductsAdapter extends
 
         private void bindProduct(Product product) {
             mProduct=product;
-            mBinding.textViewNameProductVerticalItem.setText(product.getName() + "");
+
+            mBinding.setProduct(product);
+
+           /* mBinding.textViewNameProductVerticalItem.setText(product.getName() + "");
             mBinding.textViewPriceProductVerticalItem.setText(product.getPrice() + " " +
                     mContext.getResources().getString(R.string.toman));
+            */
             List<Image> productImagesList = product.getImages();
             List<String> productImagesSrcList = new ArrayList<>();
             for (int i = 0; i < productImagesList.size(); i++) {

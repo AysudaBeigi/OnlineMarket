@@ -162,6 +162,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onChanged(List<Product> products) {
                         Log.d(TAG, "HomeF : getPopularProductsLiveData: onChanged ");
+
                         mPopularCategoryProductsHorizontalAdapter =
                                 new HomeProductsAdapter( products, owner);
                         mBinding.recyclerViewPopularest.

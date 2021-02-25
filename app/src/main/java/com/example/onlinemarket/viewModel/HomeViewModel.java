@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+import androidx.navigation.NavController;
 
 import com.example.onlinemarket.data.model.product.Category;
 import com.example.onlinemarket.data.model.product.Product;
@@ -18,11 +19,13 @@ public class HomeViewModel extends AndroidViewModel {
 
     private ProductRepository mProductRepository;
     private CategoryRepository mCategoryRepository;
+    private NavController mNavController;
 
     public HomeViewModel(@NonNull Application application) {
         super(application);
         mProductRepository =ProductRepository.getInstance(application);
         mCategoryRepository =CategoryRepository.getInstance(application);
+
     }
 
 
@@ -84,5 +87,6 @@ public class HomeViewModel extends AndroidViewModel {
     public void setSearchResultProductsLiveData(Map<String, String> query) {
         mProductRepository.setSearchResultProductsLiveData(query);
     }
+
 
 }

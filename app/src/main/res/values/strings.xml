@@ -30,6 +30,7 @@
     <string name="item_sale">جمع خرید محصول</string>
     <string name="final_shop">ادامه فرآیند خرید</string>
     <string name="offer_product">پیشنهاد شگفت انگیز</string>
+    <string name="not_exist_user">شما هنوز حساب کاربری ندارید</string>
 
 
     <string name="visit_all">مشاهده همه</string>

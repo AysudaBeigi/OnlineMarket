@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.data.model.product.Product;
-import com.example.onlinemarket.databinding.ProductHorizantalItemViewBinding;
+import com.example.onlinemarket.databinding.ProductVerticalItemViewBinding;
 import com.example.onlinemarket.utils.UIUtils;
 import com.example.onlinemarket.viewModel.HomeViewModel;
 
@@ -26,22 +26,21 @@ import java.util.List;
 public class HomeProductsAdapter extends RecyclerView.
         Adapter<HomeProductsAdapter.HomeProductsHorizantalViewHolder> {
 
-    private List<Product> mProduct;
-    private ProductHorizantalItemViewBinding mBinding;
+    private List<Product> mProducts;
+    private ProductVerticalItemViewBinding mBinding;
     private ViewModelStoreOwner mOwner;
     public static String TAG = "OnlineMarket";
 
-    public void setProducts(List<Product> product) {
+    public void setProducts(List<Product> products) {
         Log.d(TAG, "HomeProductsAdapter : setProduct");
-
-        mProduct = product;
+        mProducts = products;
+        notifyDataSetChanged();
     }
 
-    public HomeProductsAdapter( List<Product> product,
+    public HomeProductsAdapter( List<Product> products,
                                ViewModelStoreOwner owner) {
         Log.d(TAG, "HomeProductsAdapter : HomeProductsAdapter");
-
-        mProduct = product;
+        mProducts = products;
         mOwner=owner;
     }
 
@@ -50,15 +49,11 @@ public class HomeProductsAdapter extends RecyclerView.
     public HomeProductsHorizantalViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
                                                                int viewType) {
         Log.d(TAG, "HomeProductsAdapter : onCreateViewHolder");
-
         mBinding = DataBindingUtil
                 .inflate(LayoutInflater.from(parent.getContext()),
-                        R.layout.product_horizantal__item_view, parent,
+                        R.layout.product_vertical_item_view, parent,
                         false);
-
-
         return new HomeProductsHorizantalViewHolder(mBinding.getRoot());
-
     }
 
 
@@ -66,27 +61,27 @@ public class HomeProductsAdapter extends RecyclerView.
     public void onBindViewHolder(@NonNull HomeProductsHorizantalViewHolder holder,
                                  int position) {
         Log.d(TAG, "HomeProductsAdapter : onBindViewHolder");
+        Log.d(TAG, "HomeProductsAdapter : position is "+position);
 
-        Product product = mProduct.get(position);
+        Product product = mProducts.get(position);
+        Log.d(TAG, "HomeProductsAdapter : product name  is "+product.getName());
         holder.bindProduct(product);
     }
 
     @Override
     public int getItemCount() {
         Log.d(TAG, "HomeProductsAdapter : getItemCount");
-
-        return mProduct.size();
+        Log.d(TAG, "HomeProductsAdapter : item siz is "+mProducts.size());
+        return mProducts.size();
     }
 
 
     public class HomeProductsHorizantalViewHolder extends RecyclerView.ViewHolder {
 
         private Product mProduct;
-
         public HomeProductsHorizantalViewHolder(@NonNull View itemView) {
             super(itemView);
             Log.d(TAG, "HomeProductsAdapter : HomeProductsHorizantalViewHolder");
-
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,26 +113,26 @@ public class HomeProductsAdapter extends RecyclerView.
             Log.d(TAG, "HomeProductsAdapter :name is "+mProduct.getName());
             Log.d(TAG, "HomeProductsAdapter : price is "+mProduct.getPrice());
 
-           // mBinding.setProduct(product);
-            //mBinding.executePendingBindings();
+            mBinding.setProduct(product);
 
-            mBinding.textViewNameProdcutHorizantalItem.setText(product.getName() + "");
+           /* mBinding.textViewNameProdcutHorizantalItem.setText(product.getName() + "");
             mBinding.textViewPriceProductHorizantalItem.setText(product.getPrice() + "");
-            Log.d(TAG, "HomeProductsAdapter : product name in text view is "
+            */
+           /* Log.d(TAG, "HomeProductsAdapter : product name in text view is "
                     + mBinding.textViewNameProdcutHorizantalItem.getText());
             Log.d(TAG, "HomeProductsAdapter : product price  in text view is "
                     +mBinding.textViewPriceProductHorizantalItem.getText());
             mBinding.executePendingBindings();
-            List<Image> imagesList = product.getImages();
-            List<String> imagesSrclList = new ArrayList<>();
+          */  List<Image> imagesList = product.getImages();
+            List<String> imagesSrcList = new ArrayList<>();
             for (int i = 0; i < imagesList.size(); i++) {
-                imagesSrclList.add(imagesList.get(i).getSrc());
+                imagesSrcList.add(imagesList.get(i).getSrc());
             }
 
-            for (int i = 0; i < imagesSrclList.size(); i++) {
-                if (imagesSrclList.get(i) != null) {
-                    UIUtils.setImageUsingPicasso(imagesSrclList.get(i),
-                            mBinding.imageViewProdcutHorizantalItem);
+            for (int i = 0; i < imagesSrcList.size(); i++) {
+                if (imagesSrcList.get(i) != null) {
+                    UIUtils.setImageUsingPicasso(imagesSrcList.get(i),
+                            mBinding.imageViewProductVerticalItem);
                     break;
 
                 }

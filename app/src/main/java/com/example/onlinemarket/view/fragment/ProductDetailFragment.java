@@ -74,13 +74,17 @@ public class ProductDetailFragment extends Fragment {
     private void initViews() {
         Log.d(TAG, "ProductDetailFragment +initViews ");
 
-        mBinding.textViewLatestPriceProductDetail.setText(mProductDetailViewModel.getPrice());
-        mBinding.textViewOldPriceProductDetail.setText(mProductDetailViewModel.getRegularPrice());
         mBinding.textViewOldPriceProductDetail.
                 setPaintFlags(mBinding.textViewOldPriceProductDetail.getPaintFlags() |
                         Paint.STRIKE_THRU_TEXT_FLAG);
+
+        mBinding.setProductDetailViewModel(mProductDetailViewModel);
+
+       /* mBinding.textViewLatestPriceProductDetail.setText(mProductDetailViewModel.getPrice());
+        mBinding.textViewOldPriceProductDetail.setText(mProductDetailViewModel.getRegularPrice());
         mBinding.textViewInformationProductDetail.setText(mProductDetailViewModel.getInformation());
         mBinding.textViewNameProdcutDetail.setText(mProductDetailViewModel.getName());
+      */
         setupImageSliderAdapter(mProductDetailViewModel.getImages());
 
     }
@@ -101,16 +105,17 @@ public class ProductDetailFragment extends Fragment {
     private void setupCommentAdapter(List<Comment> comments) {
         Log.d(TAG, "ProductDetailFragment +initCommentAdapter ");
 
-        if (comments != null) {
-            if (comments.size() > 0) {
+       // if (comments != null) {
+           // if (comments.size() > 0) {
 
-                mBinding.textViewHaveNotComment.setVisibility(View.GONE);
+                mBinding.setHaveAnyComment(comments.size() > 0);
+               /* mBinding.textViewHaveNotComment.setVisibility(View.GONE);
                 mBinding.recyclerViewComments.setVisibility(View.VISIBLE);
-            }
+           */ //}
 
-        }
+      //  }
         if (mCommentAdapter == null) {
-            mCommentAdapter = new CommentAdapter(getContext(), comments);
+            mCommentAdapter = new CommentAdapter(getContext(), comments,this);
             mBinding.recyclerViewComments.setAdapter(mCommentAdapter);
         } else {
             mCommentAdapter.setComments(comments);
@@ -141,6 +146,7 @@ public class ProductDetailFragment extends Fragment {
                     snackbar.show();
                     mProductDetailViewModel.addTooCard();
                     mBinding.buttonAddToShoppingBag.setEnabled(false);
+
                 }
             }
         });

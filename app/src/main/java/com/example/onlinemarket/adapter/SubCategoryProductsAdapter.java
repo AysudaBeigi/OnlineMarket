@@ -87,9 +87,11 @@ public class SubCategoryProductsAdapter extends
 
             private void bindProduct(Product product) {
                 mProduct=product;
-                mBinding.textViewNameProductVerticalItem.setText(product.getName() + "");
+                mBinding.setProduct(product);
+
+                /*Binding.textViewNameProductVerticalItem.setText(product.getName() + "");
                 mBinding.textViewPriceProductVerticalItem.setText(product.getPrice() + " " +
-                        mContext.getResources().getString(R.string.toman));
+                        mContext.getResources().getString(R.string.toman));*/
                 List<Image> productImagesList = product.getImages();
                 List<String> productImagesSrcList = new ArrayList<>();
                 for (int i = 0; i < productImagesList.size(); i++) {

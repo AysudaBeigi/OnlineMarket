@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.product.Image;
 import com.example.onlinemarket.data.model.product.Product;
-import com.example.onlinemarket.databinding.ProductHorizantalItemViewBinding;
+import com.example.onlinemarket.databinding.ProductVerticalItemViewBinding;
 import com.example.onlinemarket.utils.UIUtils;
 import com.example.onlinemarket.viewModel.CategoriesViewModel;
 
@@ -30,7 +30,7 @@ public class CategoryProductsHorizontalAdapter extends RecyclerView.
 
     private Context mContext;
     private List<Product> mProducts;
-    private ProductHorizantalItemViewBinding mBinding;
+    private ProductVerticalItemViewBinding mBinding;
     private CategoriesViewModel mCategoriesViewModel;
 
     public void setProducts(List<Product> products) {
@@ -51,7 +51,7 @@ public class CategoryProductsHorizontalAdapter extends RecyclerView.
     public ProductHorizantalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mBinding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
-                        R.layout.product_horizantal__item_view, parent, false);
+                        R.layout.product_vertical_item_view, parent, false);
 
         return new ProductHorizantalViewHolder(mBinding.getRoot());
     }
@@ -100,23 +100,26 @@ public class CategoryProductsHorizontalAdapter extends RecyclerView.
             Log.d(TAG, "CategoryProductsHorizontalAdapter : product price is "+product.getPrice());
 
             mProduct = product;
-            mBinding.textViewNameProdcutHorizantalItem.setText(product.getName() + "");
+            mBinding.setProduct(product);
+
+           /* mBinding.textViewNameProdcutHorizantalItem.setText(product.getName() + "");
             mBinding.textViewPriceProductHorizantalItem.setText(product.getPrice() + "");
+
             Log.d(TAG, "CategoryProductsHorizontalAdapter : product name in text view is  "
                     +mBinding.textViewNameProdcutHorizantalItem.getText());
             Log.d(TAG, "CategoryProductsHorizontalAdapter : product price in text view is  "
                     +mBinding.textViewPriceProductHorizantalItem.getText());
-
+*/
             List<Image> imagesList = product.getImages();
-            List<String> imagesSrclList = new ArrayList<>();
+            List<String> imagesSrcList = new ArrayList<>();
             for (int i = 0; i < imagesList.size(); i++) {
-                imagesSrclList.add(imagesList.get(i).getSrc());
+                imagesSrcList.add(imagesList.get(i).getSrc());
             }
 
-            for (int i = 0; i < imagesSrclList.size(); i++) {
-                if (imagesSrclList.get(i) != null) {
-                    UIUtils.setImageUsingPicasso(imagesSrclList.get(i),
-                            mBinding.imageViewProdcutHorizantalItem);
+            for (int i = 0; i < imagesSrcList.size(); i++) {
+                if (imagesSrcList.get(i) != null) {
+                    UIUtils.setImageUsingPicasso(imagesSrcList.get(i),
+                            mBinding.imageViewProductVerticalItem);
                     break;
 
                 }

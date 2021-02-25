@@ -2,6 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="product"
+            type="com.example.onlinemarket.data.model.product.Product" />
 
     </data>
 
@@ -20,7 +23,7 @@
             android:layout_toLeftOf="@+id/image_view_product_vertical_item"
             android:gravity="right"
             android:lines="3"
-            android:text="@string/product_name" />
+            android:text="@{product.name}" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -32,7 +35,7 @@
             android:layout_marginBottom="16dp"
             android:layout_toLeftOf="@+id/image_view_product_vertical_item"
             android:gravity="left"
-            android:text="@string/product_price"
+            android:text="@{product.price+@string/toman}"
             android:textColor="@color/red_22" />
 
 

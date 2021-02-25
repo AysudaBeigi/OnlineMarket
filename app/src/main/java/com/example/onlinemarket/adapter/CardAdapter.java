@@ -81,12 +81,15 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             Log.d(TAG, "bindProduct: order name is :" + order.getName());
             mCard=mShoppingBagViewModel.getCart(order.getId());
             mProductCount = mCard.getProductCount();
-            mBinding.textViewNameCardItem.setText(order.getName());
-            basePriceCard = Integer.parseInt(order.getPrice());
+            mBinding.setProduct(order);
+            /*mBinding.textViewNameCardItem.setText(order.getName());
             mBinding.textViewPriceCardItem.setText(basePriceCard
-                    + mContext.getResources().getString(R.string.toman));
-            mBinding.coutCardItem.setText(mProductCount + "");
+                    + mContext.getResources().getString(R.string.toman));*/
+            basePriceCard = Integer.parseInt(order.getPrice());
+            mBinding.setCount(mProductCount);
 
+           /* mBinding.coutCardItem.setText(mProductCount + "");
+*/
             List<Image> imagesItems = order.getImages();
             if (imagesItems.get(0).getSrc().length() != 0)
                 UIUtils.setImageUsingPicasso(imagesItems.get(0).getSrc(),
@@ -100,7 +103,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                 public void onClick(View v) {
 
                     updateCountAndPrice(++mProductCount);
-                    checkVisibility();
+                    //checkVisibility();
                 }
             });
 
@@ -108,7 +111,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                 @Override
                 public void onClick(View v) {
                     updateCountAndPrice(--mProductCount);
-                    checkVisibility();
+                    //checkVisibility();
                 }
             });
 
@@ -125,7 +128,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
         }
 
-        private void checkVisibility() {
+       /* private void checkVisibility() {
             if (mProductCount > 1) {
                 mBinding.textViewMinusCardItem.setVisibility(View.VISIBLE);
                 mBinding.imageViewTrashCardItem.setVisibility(View.GONE);
@@ -136,10 +139,12 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
             }
         }
-
+*/
         private void updateCountAndPrice(int productCount) {
             mCard.setProductCount(productCount);
             mShoppingBagViewModel.updateCart(mCard);
+            //mBinding.setCount(productCount);
+
             mBinding.coutCardItem.setText(productCount + "");
             setSumCardsPriceMutableLiveData();
         }

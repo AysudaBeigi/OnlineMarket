@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="customerEmail"
+            type="String" />
     </data>
 
     <RelativeLayout
@@ -216,7 +219,8 @@
                 android:layout_below="@+id/layout_user_complete_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:inputType="textEmailAddress"
+                android:text="@{customerEmail}"
+                  android:inputType="textEmailAddress"
                 tools:text="emial" />
 
         </RelativeLayout>
