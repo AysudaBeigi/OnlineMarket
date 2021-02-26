@@ -100,7 +100,12 @@
         app:exitAnim="@anim/slide_out_right"
         app:popEnterAnim="@anim/slide_in_right"
         app:popExitAnim="@anim/slide_out_left"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_user_profile" >
+    <action
+        android:id="@+id/action_UserProfileFragment_to_NotificationFragment"
+        app:destination="@id/NotificationFragment" />
+
+    </fragment>
 
 
     <fragment
@@ -183,6 +188,15 @@
         app:popEnterAnim="@anim/slide_in_right"
         app:popExitAnim="@anim/slide_out_left"
         tools:layout="@layout/fragment_filttering" />
+    <fragment
+        android:id="@+id/NotificationFragment"
+        android:name="com.example.onlinemarket.view.fragment.NotificationFragment"
+        android:label="NotificationFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        tools:layout="@layout/fragment_notification" />
 
 
 </navigation>

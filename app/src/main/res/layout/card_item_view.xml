@@ -33,7 +33,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_placeholder_recycler" />
+                android:src="@drawable/online_market_icon" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_View_name_card_item"

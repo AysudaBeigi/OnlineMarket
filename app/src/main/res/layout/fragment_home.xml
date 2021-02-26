@@ -189,7 +189,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
-                app:cardBackgroundColor="@color/yellow_35"
+                app:cardBackgroundColor="@color/orange_40"
                 app:cardCornerRadius="8dp">
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -233,7 +233,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
-                app:cardBackgroundColor="@color/purple_47"
+                app:cardBackgroundColor="@color/digikala_blue"
                 app:cardCornerRadius="8dp">
 
                 <androidx.recyclerview.widget.RecyclerView

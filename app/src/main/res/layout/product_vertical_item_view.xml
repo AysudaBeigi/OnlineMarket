@@ -46,8 +46,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="4dp"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_placeholder_recycler"
-            tools:src="@drawable/ic_placeholder_recycler" />
+            android:src="@drawable/online_market_icon"
+            tools:src="@drawable/online_market_icon" />
 
 
         <View

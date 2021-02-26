@@ -27,8 +27,8 @@
                 android:id="@+id/image_view_prodcut_h_item"
                 android:layout_width="match_parent"
                 android:layout_height="161dp"
-                android:src="@drawable/ic_placeholder_recycler"
-                tools:src="@drawable/ic_placeholder_recycler" />
+                android:src="@drawable/online_market_icon"
+                tools:src="@drawable/online_market_icon" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_view_name_prodcut_h_item"

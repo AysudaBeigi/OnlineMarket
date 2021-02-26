@@ -6,9 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentUserProfileBinding;
@@ -46,6 +49,11 @@ public class UserProfileFragment extends VisibleFragment {
 
         return mBinding.getRoot();
     }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mNavController = Navigation.findNavController(view);
+    }
 
     private void initViews() {
         Log.d(TAG, "UserProfileFragment + initViews ");
@@ -54,6 +62,12 @@ public class UserProfileFragment extends VisibleFragment {
             Log.d(TAG, "UserProfileFragment + mCustomer!=null ");
 
             mBinding.setCustomerEmail(mUserProfileViewModel.getCustomerEmail());
+            mBinding.imageViewNotification.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mNavController.navigate(R.id.action_UserProfileFragment_to_NotificationFragment);
+                }
+            });
            // mBinding.textViewUserEmail.setText(mUserProfileViewModel.getCustomerEmail());
         }
     }

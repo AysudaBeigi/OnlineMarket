@@ -29,8 +29,8 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_view_categories_item"
                 android:layout_width="match_parent"
-                tools:src="@drawable/ic_placeholder_recycler"
-                android:src="@drawable/ic_placeholder_recycler"
+                tools:src="@drawable/online_market_icon"
+                android:src="@drawable/online_market_icon"
                 android:layout_height="160dp" />
 
             <com.google.android.material.textview.MaterialTextView
