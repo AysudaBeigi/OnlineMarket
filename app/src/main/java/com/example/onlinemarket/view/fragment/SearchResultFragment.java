@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,7 +19,7 @@ import com.example.onlinemarket.viewModel.SearchResultViewModel;
 
 import java.util.List;
 
-public class SearchResultFragment extends Fragment {
+public class SearchResultFragment extends VisibleFragment {
 
     public static final int REQUEST_CODE_ORDER = 10;
     public static final String TAG_CHOOSE_ORDER = "TAG_CHOOSE_ORDER";

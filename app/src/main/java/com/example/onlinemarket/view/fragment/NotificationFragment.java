@@ -6,15 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
 
-import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onlinemarket.R;
+import com.example.onlinemarket.viewModel.NotificationViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class NotificationFragment extends Fragment {
+public class NotificationFragment extends VisibleFragment {
 
 
     private RadioGroup mRadioGroupScheduleNotif;
@@ -26,7 +27,8 @@ public class NotificationFragment extends Fragment {
     private TextInputEditText mEditTextUserSchedule;
     private MaterialButton mButtonDoSchedule;
     private SwitchMaterial mSwitchMaterialOnOffNotif;
-    private boolean isOn;
+    private NotificationViewModel mNotificationViewModel;
+
     public NotificationFragment() {
         // Required empty public constructor
     }
@@ -34,44 +36,48 @@ public class NotificationFragment extends Fragment {
     public static NotificationFragment newInstance() {
         NotificationFragment fragment = new NotificationFragment();
         Bundle args = new Bundle();
-       fragment.setArguments(args);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mNotificationViewModel = new ViewModelProvider(this)
+                .get(NotificationViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_notification,
+        View view = inflater.inflate(R.layout.fragment_notification,
                 container, false);
 
         findViews(view);
         initViews();
 
-        return  view;
+        return view;
     }
 
     private void initViews() {
-        mRadioGroupScheduleNotif.setVisibility(View.GONE);
-        mEditTextUserSchedule.setVisibility(View.GONE);
-        isOn=mSwitchMaterialOnOffNotif.isChecked();
+        if (mNotificationViewModel.isTaskScheduled()) {
+            mSwitchMaterialOnOffNotif.setChecked(true);
+            mRadioGroupScheduleNotif.setVisibility(View.VISIBLE);
+            mEditTextUserSchedule.setVisibility(View.VISIBLE);
+
+        }
 
     }
 
     private void findViews(View view) {
-        mRadioGroupScheduleNotif=view.findViewById(R.id.radio_group_schedule_notif);
-        mRadioButton3Hours=view.findViewById(R.id.radio_button_3_hours);
-        mRadioButton5Hours=view.findViewById(R.id.radio_button_5_hours);
-        mRadioButton8Hours=view.findViewById(R.id.radio_button_8_hours);
-        mRadioButton12Hours=view.findViewById(R.id.radio_button_12_hours);
-        mRadioButtonNonOfThem=view.findViewById(R.id.radio_button_non_of_them);
-        mEditTextUserSchedule=view.findViewById(R.id.edit_text_enter_your_schedule);
-        mButtonDoSchedule=view.findViewById(R.id.button_do_schedule);
-        mSwitchMaterialOnOffNotif=view.findViewById(R.id.switch_on_off_notif);
+        mRadioGroupScheduleNotif = view.findViewById(R.id.radio_group_schedule_notif);
+        mRadioButton3Hours = view.findViewById(R.id.radio_button_3_hours);
+        mRadioButton5Hours = view.findViewById(R.id.radio_button_5_hours);
+        mRadioButton8Hours = view.findViewById(R.id.radio_button_8_hours);
+        mRadioButton12Hours = view.findViewById(R.id.radio_button_12_hours);
+        mRadioButtonNonOfThem = view.findViewById(R.id.radio_button_non_of_them);
+        mEditTextUserSchedule = view.findViewById(R.id.edit_text_enter_your_schedule);
+        mButtonDoSchedule = view.findViewById(R.id.button_do_schedule);
+        mSwitchMaterialOnOffNotif = view.findViewById(R.id.switch_on_off_notif);
     }
 }

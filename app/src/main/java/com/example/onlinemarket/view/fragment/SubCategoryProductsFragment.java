@@ -9,7 +9,6 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -27,7 +26,7 @@ import com.example.onlinemarket.viewModel.SubCategoryProductsViewModel;
 import java.util.List;
 
 
-public class SubCategoryProductsFragment extends Fragment {
+public class SubCategoryProductsFragment extends VisibleFragment {
     public static final String ARGS_SUBCATEGORY_ID = "argsSubcategoryId";
     private NavController mNavController;
     private FragmentSubCategoryProductsBinding mBinding;

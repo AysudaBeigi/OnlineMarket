@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,7 +27,7 @@ import com.example.onlinemarket.viewModel.ShoppingBagViewModel;
 import java.util.List;
 
 
-public class ShoppingBagFragment extends Fragment {
+public class ShoppingBagFragment extends VisibleFragment {
 
     public static String TAG = "OnlineMarket";
     private CardAdapter mCardAdapter;

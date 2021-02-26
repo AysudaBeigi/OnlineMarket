@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 
@@ -15,7 +14,7 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.databinding.FragmentUserProfileBinding;
 import com.example.onlinemarket.viewModel.UserProfileViewModel;
 
-public class UserProfileFragment extends Fragment {
+public class UserProfileFragment extends VisibleFragment {
     public static String TAG = "OnlineMarket";
     private FragmentUserProfileBinding mBinding;
     private UserProfileViewModel mUserProfileViewModel;

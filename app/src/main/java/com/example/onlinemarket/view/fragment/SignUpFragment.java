@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,7 +19,7 @@ import com.example.onlinemarket.utils.UIUtils;
 import com.example.onlinemarket.viewModel.SignUpViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
-public class SignUpFragment extends Fragment {
+public class SignUpFragment extends VisibleFragment {
     public static String TAG = "OnlineMarket";
     private String mCustomerEmail;
     private NavController mNavController;

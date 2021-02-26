@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.data.model.Attribute;
@@ -14,7 +13,7 @@ import com.example.onlinemarket.databinding.FragmentFiltteringBinding;
 
 import java.util.List;
 
-public class FilteringFragment extends Fragment {
+public class FilteringFragment extends VisibleFragment {
     public static final String ARGS_CATEGORY_ID = "argsCategoryId";
    // private int mCategoryId;
    // private ProductRepository mProductRepository;

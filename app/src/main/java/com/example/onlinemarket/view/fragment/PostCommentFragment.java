@@ -11,7 +11,6 @@ import android.widget.RadioGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,7 +24,7 @@ import com.example.onlinemarket.utils.UIUtils;
 import com.example.onlinemarket.viewModel.PostCommentViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
-public class PostCommentFragment extends Fragment {
+public class PostCommentFragment extends VisibleFragment {
     public static String TAG = "OnlineMarket";
     private boolean mIsRated = false;
     private int mRate;

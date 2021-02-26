@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -30,7 +29,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 
-public class ProductDetailFragment extends Fragment {
+public class ProductDetailFragment extends VisibleFragment {
 
     public static final String ARGS_PRODUCT = "argsProduct";
     private ImageSliderAdapter mImageSliderAdapter;

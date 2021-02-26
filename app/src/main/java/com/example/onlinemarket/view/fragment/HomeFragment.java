@@ -10,7 +10,6 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
@@ -36,7 +35,7 @@ import com.smarteist.autoimageslider.SliderAnimations;
 import java.util.List;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends VisibleFragment {
 
     private ImageSliderAdapter mImageSliderAdapter;
     private HomeProductsAdapter mLastCategoryProductsHorizontalAdapter;
