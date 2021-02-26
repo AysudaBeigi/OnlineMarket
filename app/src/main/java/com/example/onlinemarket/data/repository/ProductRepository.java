@@ -293,7 +293,6 @@ public class ProductRepository {
                 mContext.getResources().getString(R.string.toman);
     }
 
-
    /* public void fetchSearchFilteredProducts(String query, productsCallback callBacks) {
 
         HashMap<String, String> insideMap = new HashMap<>();

@@ -12,6 +12,7 @@ import java.util.Map;
 public class OnlineMarketPreferences {
 
     public static final String PREF_QUERY_MAP = "prefQueryMap";
+    public static final String PREF_LATEST_PRODUCT_ID = "prefLatestProductId";
     private Context mContext;
     private static OnlineMarketPreferences sInstance;
 
@@ -49,11 +50,22 @@ public class OnlineMarketPreferences {
         return gson.fromJson(json, type);
 
     }
+    public  int getLatestProductId() {
+        return getSharedPreferences().
+                getInt(PREF_LATEST_PRODUCT_ID,-1);
+    }
 
+    public  void setLatestProductId( int latestProductId) {
+        getSharedPreferences()
+                .edit()
+                .putInt(PREF_LATEST_PRODUCT_ID, latestProductId)
+                .apply();
+    }
     private SharedPreferences getSharedPreferences() {
         return mContext.getSharedPreferences(mContext.getPackageName(),
                 Context.MODE_PRIVATE);
     }
+
 
 
 }
