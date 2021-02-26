@@ -38,13 +38,13 @@ public class ServicesUtils {
                 , new Observer<List<Product>>() {
                     @Override
                     public void onChanged(List<Product> products) {
-                        check(products, context);
+                        checkUpdateProductsState(products, context);
                     }
                 });
 
     }
 
-    public static void check(List<Product> products, Context context) {
+    public static void checkUpdateProductsState(List<Product> products, Context context) {
 
         if (products.get(0) == null)
             return;
