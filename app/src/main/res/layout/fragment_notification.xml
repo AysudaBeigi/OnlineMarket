@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="8dp"
+    android:padding="8dp"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/layout_on_off_notif"
+        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            style="@style/PartialTextStyle"
+            android:text="نمایش اعلان" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"/>
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/radio_group_schedule_notif"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/layout_on_off_notif"
+        android:layout_marginTop="32dp">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_button_3_hours"
+            style="@style/PartialTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:outlineSpotShadowColor="@color/red_22"
+            android:text="هر ۳ ساعت یکبار"
+            android:textSize="16sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_button_5_hours"
+            style="@style/PartialTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="هر ۵ ساعت یکبار"
+            android:textSize="16sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_button_8_hours"
+            style="@style/PartialTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="هر۸ ساعت یکبار"
+            android:textSize="16sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_button_12_hours"
+            style="@style/PartialTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="هر۱۲ ساعت یکبار"
+            android:textSize="16sp" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/radio_button_non_of_them"
+            style="@style/PartialTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="هیچ کدام"
+            android:textSize="16sp" />
+
+    </RadioGroup>
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edit_text_enter_your_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/radio_group_schedule_notif"
+        android:hint="زمان موزد نظر خود را وارد کنید"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="اعمال تنظیمات" />
+</RelativeLayout>
