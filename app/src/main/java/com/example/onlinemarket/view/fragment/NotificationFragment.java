@@ -55,6 +55,12 @@ public class NotificationFragment extends VisibleFragment {
 
         findViews(view);
         initViews();
+        mSwitchMaterialOnOffNotif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         return view;
     }
@@ -64,7 +70,10 @@ public class NotificationFragment extends VisibleFragment {
             mSwitchMaterialOnOffNotif.setChecked(true);
             mRadioGroupScheduleNotif.setVisibility(View.VISIBLE);
             mEditTextUserSchedule.setVisibility(View.VISIBLE);
-
+        } else {
+            mSwitchMaterialOnOffNotif.setChecked(false);
+            mRadioGroupScheduleNotif.setVisibility(View.GONE);
+            mEditTextUserSchedule.setVisibility(View.GONE);
         }
 
     }
