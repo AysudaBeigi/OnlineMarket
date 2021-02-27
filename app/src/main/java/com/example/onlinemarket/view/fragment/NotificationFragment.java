@@ -150,6 +150,7 @@ public class NotificationFragment extends VisibleFragment {
             default:
                 mRadioButtonNonOfThem.setChecked(true);
                 mEditTextUserSchedule.setText(String.valueOf(time));
+                mEditTextUserSchedule.setVisibility(View.VISIBLE);
         }
 
 
