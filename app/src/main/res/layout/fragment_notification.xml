@@ -34,6 +34,7 @@
         android:id="@+id/radio_group_schedule_notif"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:visibility="gone"
         android:layout_below="@+id/layout_on_off_notif"
         android:layout_marginTop="32dp">
 
@@ -42,6 +43,7 @@
             style="@style/PartialTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:outlineSpotShadowColor="@color/red_22"
             android:text="هر ۳ ساعت یکبار"
             android:textSize="16sp" />
@@ -85,6 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
+        android:visibility="gone"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/radio_group_schedule_notif"
         android:hint="زمان موزد نظر خود را وارد کنید"
@@ -94,6 +97,14 @@
         android:id="@+id/button_do_schedule"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_marginBottom="32dp"
         android:layout_alignParentBottom="true"
         android:text="اعمال تنظیمات" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/button_do_schedule"
+        android:id="@+id/layout_show_snack_bar_user_time_cant_empty"/>
 </RelativeLayout>

@@ -100,10 +100,10 @@
         app:exitAnim="@anim/slide_out_right"
         app:popEnterAnim="@anim/slide_in_right"
         app:popExitAnim="@anim/slide_out_left"
-        tools:layout="@layout/fragment_user_profile" >
-    <action
-        android:id="@+id/action_UserProfileFragment_to_NotificationFragment"
-        app:destination="@id/NotificationFragment" />
+        tools:layout="@layout/fragment_user_profile">
+        <action
+            android:id="@+id/action_UserProfileFragment_to_NotificationFragment"
+            app:destination="@id/NotificationFragment" />
 
     </fragment>
 
@@ -196,7 +196,11 @@
         app:exitAnim="@anim/slide_out_right"
         app:popEnterAnim="@anim/slide_in_right"
         app:popExitAnim="@anim/slide_out_left"
-        tools:layout="@layout/fragment_notification" />
+        tools:layout="@layout/fragment_notification">
+        <action
+            android:id="@+id/action_NotificationFragment_to_UserProfileFragment"
+            app:destination="@id/UserProfileFragment" />
+    </fragment>
 
 
 </navigation>

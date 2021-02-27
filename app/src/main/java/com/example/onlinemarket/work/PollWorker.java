@@ -1,4 +1,4 @@
-package com.example.onlinemarket.worker;
+package com.example.onlinemarket.work;
 
 import android.content.Context;
 import android.util.Log;
@@ -28,6 +28,7 @@ public class PollWorker extends Worker {
     public PollWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
+
 
     @NonNull
     @Override

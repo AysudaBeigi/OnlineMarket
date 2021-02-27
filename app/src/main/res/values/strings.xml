@@ -31,6 +31,7 @@
     <string name="final_shop">ادامه فرآیند خرید</string>
     <string name="offer_product">پیشنهاد شگفت انگیز</string>
     <string name="not_exist_user">شما هنوز حساب کاربری ندارید</string>
+    <string name="first_enter_your_notif_time">ابتدا زمان مورد نظر خود را وارد کنید</string>
 
 
     <string name="visit_all">مشاهده همه</string>
@@ -69,6 +70,6 @@
     <string name="channel_description">This is notification channel for online market</string>
     <string name="start_polling">Start polling</string>
     <string name="stop_polling">Stop polling</string>
-    <string name="new_product_title">The OnlineStore has a new product: \n</string>
+    <string name="new_product_title">The OnlineMarket has a new product: \n</string>
 
 </resources>

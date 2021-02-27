@@ -31,6 +31,7 @@ public class ServicesUtils {
 
 
     public static void pollAndShowNotification(Context context, LifecycleOwner owner) {
+
         mOnlineMarketPreferences = OnlineMarketPreferences.getInstance(context);
         mProductRepository = ProductRepository.getInstance(context);
         mProductRepository.setLatestProductsLiveData();
@@ -54,7 +55,6 @@ public class ServicesUtils {
             Log.d(TAG, "there is no new product");
         }
         mOnlineMarketPreferences.setLatestProductId(products.get(0).getId());
-
 
     }
 

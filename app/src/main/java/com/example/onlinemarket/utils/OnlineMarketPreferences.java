@@ -13,6 +13,7 @@ public class OnlineMarketPreferences {
 
     public static final String PREF_QUERY_MAP = "prefQueryMap";
     public static final String PREF_LATEST_PRODUCT_ID = "prefLatestProductId";
+    public static final String PREF_NOTIFICATION_TIME = "prefNotificationTime";
     private Context mContext;
     private static OnlineMarketPreferences sInstance;
 
@@ -61,6 +62,17 @@ public class OnlineMarketPreferences {
                 .putInt(PREF_LATEST_PRODUCT_ID, latestProductId)
                 .apply();
     }
+    public  int getNotificationTime() {
+        return getSharedPreferences().getInt(PREF_NOTIFICATION_TIME,3);
+    }
+
+    public  void setNotificationTime( int notificationTime) {
+        getSharedPreferences()
+                .edit()
+                .putInt(PREF_NOTIFICATION_TIME, notificationTime)
+                .apply();
+    }
+
     private SharedPreferences getSharedPreferences() {
         return mContext.getSharedPreferences(mContext.getPackageName(),
                 Context.MODE_PRIVATE);

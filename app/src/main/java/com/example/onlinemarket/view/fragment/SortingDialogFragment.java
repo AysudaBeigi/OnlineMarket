@@ -72,6 +72,7 @@ public class SortingDialogFragment extends DialogFragment   {
 
 
     private void setListener() {
+
         mBinding.radioButtonPopularest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
