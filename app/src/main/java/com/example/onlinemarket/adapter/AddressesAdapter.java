@@ -1,66 +1,71 @@
 package com.example.onlinemarket.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.onlinemarket.R;
+import com.example.onlinemarket.data.model.customer.Address;
+import com.example.onlinemarket.viewModel.AddressesViewModel;
+import com.google.android.material.radiobutton.MaterialRadioButton;
+import com.google.android.material.textview.MaterialTextView;
 
-public class AddressesAdapter extends RecyclerView.Adapter<AddressAdapter.AddressViewHolder> {
-    private List<MyAddress> mItems;
-    private FinishShoppingViewModel mAddressViewModel;
+public class AddressesAdapter extends RecyclerView.Adapter<AddressesAdapter.AddressViewHolder> {
+    private AddressesViewModel mAddressViewModel;
 
-    public List<MyAddress> getItems() {
-        return mItems;
-    }
-
-    public void setItems(List<MyAddress> items) {
-        mItems = items;
-    }
-
-    public AddressAdapter(FinishShoppingViewModel addressViewModel) {
+    public AddressesAdapter(AddressesViewModel addressViewModel) {
         mAddressViewModel = addressViewModel;
-        mItems = new ArrayList<>();
     }
 
     @NonNull
     @Override
     public AddressViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ListItemAddressBinding listItemAddressBinding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.getContext()),
-                R.layout.list_item_address,
-                parent,
-                false
-        );
-        return new AddressViewHolder(listItemAddressBinding);
+        View view = LayoutInflater.from(parent.getContext()).
+                inflate(R.layout.address_item_view, parent, false);
+        return new AddressViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AddressViewHolder holder, int position) {
-        holder.bindAddress(mItems.get(position));
+        holder.bindAddress(mAddressViewModel.getAddresses().get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mItems.size();
+        return mAddressViewModel.getAddresses().size();
     }
 
     public class AddressViewHolder extends RecyclerView.ViewHolder {
-        ListItemAddressBinding mBinding;
 
-        public AddressViewHolder(@NonNull ListItemAddressBinding itemAddressBinding) {
-            super(itemAddressBinding.getRoot());
-            mBinding = itemAddressBinding;
-            mBinding.setViewmodel(mAddressViewModel);
+        private MaterialTextView mTextViewAddressName;
+        private MaterialTextView mTextViewAddressInformation;
+        private MaterialRadioButton mRadioButtonSelectAddress;
+        private Address mAddress;
+
+        public AddressViewHolder(@NonNull View itemView) {
+            super(itemView);
+            setItemListener();
 
         }
 
-        public void bindAddress(MyAddress myAddress) {
-            mBinding.setAddress(myAddress);
+        private void setItemListener() {
+            mRadioButtonSelectAddress.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    mAddress.setSelected(true);
+                }
+            });
+        }
+
+        public void bindAddress(Address address) {
+            mAddress=address;
+            mTextViewAddressName.setText(address.getName());
+            mTextViewAddressInformation.setText(address.getInformation());
+
         }
     }
 }

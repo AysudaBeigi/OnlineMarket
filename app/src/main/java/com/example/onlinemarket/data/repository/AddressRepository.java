@@ -2,7 +2,6 @@ package com.example.onlinemarket.data.repository;
 
 import android.content.Context;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
 import com.example.onlinemarket.data.model.customer.Address;
@@ -40,31 +39,34 @@ public class AddressRepository implements IAddressRepository {
     @Override
     public void insertAddress(Address address) {
 
+        mAddressDAO.insertAddress(address);
     }
 
     @Override
     public void updateAddress(Address address) {
 
+        mAddressDAO.updateAddress(address);
     }
 
     @Override
     public void deleteAddress(Address address) {
 
+        mAddressDAO.deleteAddress(address);
     }
 
     @Override
-    public LiveData<List<Address>> getAddresses() {
-        return null;
+    public List<Address> getAddresses() {
+        return mAddressDAO.getAddresses();
     }
 
     @Override
-    public Address getAddress(Integer addressId) {
-        return null;
+    public Address getAddress(int addressId) {
+        return mAddressDAO.getAddress(addressId);
     }
 
     @Override
     public void deleteAllAddresses() {
-
+        mAddressDAO.deleteAllAddresses();
     }
 }
 

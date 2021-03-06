@@ -73,6 +73,9 @@
         <action
             android:id="@+id/action_ShoppingBagFragment_to_ShoppingBagFragment"
             app:destination="@id/ShoppingBagFragment" />
+        <action
+            android:id="@+id/action_ShoppingBagFragment_to_AddressesFragment"
+            app:destination="@id/AddressesFragment" />
 
 
     </fragment>
@@ -104,6 +107,11 @@
         <action
             android:id="@+id/action_UserProfileFragment_to_NotificationFragment"
             app:destination="@id/NotificationFragment" />
+
+        <action
+            android:id="@+id/action_UserProfileFragment_to_AddressesFragment"
+            app:destination="@id/AddressesFragment" />
+
 
     </fragment>
 
@@ -200,6 +208,46 @@
         <action
             android:id="@+id/action_NotificationFragment_to_UserProfileFragment"
             app:destination="@id/UserProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AddressesFragment"
+        android:name="com.example.onlinemarket.view.fragment.AddressesFragment"
+        android:label="AddressesFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        tools:layout="@layout/fragment_addresses">
+        <action
+            android:id="@+id/action_AddressesFragment_to_AddAddressFragment"
+            app:destination="@id/AddAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AddAddressFragment"
+        android:name="com.example.onlinemarket.view.fragment.AddAddressFragment"
+        android:label="AddAddressFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        tools:layout="@layout/fragment_add_address">
+        <action
+            android:id="@+id/action_AddAddressFragment_to_AddressDetailFragment"
+            app:destination="@id/AddressDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AddressDetailFragment"
+        android:name="com.example.onlinemarket.view.fragment.AddressDetailFragment"
+        android:label="AddressDetailFragment"
+        app:enterAnim="@anim/slide_in_left"
+        app:exitAnim="@anim/slide_out_right"
+        app:popEnterAnim="@anim/slide_in_right"
+        app:popExitAnim="@anim/slide_out_left"
+        tools:layout="@layout/fragment_address_detail">
+        <action
+            android:id="@+id/action_AddressDetailFragment_to_AddressesFragment"
+            app:destination="@id/AddressesFragment" />
     </fragment>
 
 

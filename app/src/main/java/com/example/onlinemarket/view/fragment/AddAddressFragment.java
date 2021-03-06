@@ -11,10 +11,11 @@ import com.example.onlinemarket.R;
 
 public class AddAddressFragment extends Fragment {
 
+
+
     public AddAddressFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
@@ -26,7 +27,11 @@ public class AddAddressFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_address, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_address,
+                container, false);
+
+        return view;
     }
+
+
 }

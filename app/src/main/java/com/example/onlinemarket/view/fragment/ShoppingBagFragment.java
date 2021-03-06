@@ -72,10 +72,11 @@ public class ShoppingBagFragment extends VisibleFragment {
                             .observe(owner, new Observer<Order>() {
                                 @Override
                                 public void onChanged(Order order) {
-                                    //todo : going to pay the order
+
                                     Log.d(TAG, "postOrder+ onItemResponse + order is " +
                                             order.toString());
-
+                                    mNavController.
+                                            navigate(R.id.action_ShoppingBagFragment_to_AddressesFragment);
                                 }
                             });
 
@@ -101,21 +102,12 @@ public class ShoppingBagFragment extends VisibleFragment {
 
         mBinding.setIsAnyProductInCard(mShoppingBagViewModel.isAnyProductInCard());
         if (mShoppingBagViewModel.isAnyProductInCard()) {
-            //setViewsVisibility();
             setObservers();
             mBinding.recyclerViewCards.setLayoutManager(new LinearLayoutManager(getContext(),
                     LinearLayoutManager.VERTICAL, false));
 
         }
-        /*else {
-            mBinding.recyclerViewCards.setVisibility(View.GONE);
-            mBinding.buttonFinalizeShopping.setVisibility(View.GONE);
-            mBinding.textViewSumPrices.setVisibility(View.VISIBLE);
-            mBinding.textViewSum.setVisibility(View.VISIBLE);
-            mBinding.imageViewEmptyShoppingBag.setVisibility(View.GONE);
-            mBinding.textViewEmptyShoppingBag.setVisibility(View.GONE);
 
-        }*/
 
     }
 
@@ -129,16 +121,7 @@ public class ShoppingBagFragment extends VisibleFragment {
                 });
     }
 
-   /* private void setViewsVisibility() {
-        mBinding.recyclerViewCards.setVisibility(View.VISIBLE);
-        mBinding.buttonFinalizeShopping.setVisibility(View.VISIBLE);
-        mBinding.textViewSumPrices.setVisibility(View.VISIBLE);
-        mBinding.textViewSum.setVisibility(View.VISIBLE);
-        mBinding.imageViewEmptyShoppingBag.setVisibility(View.GONE);
-        mBinding.textViewEmptyShoppingBag.setVisibility(View.GONE);
 
-    }
-*/
 
     private void setupAdapters(RecyclerView recyclerView, List<Product> orderList) {
 

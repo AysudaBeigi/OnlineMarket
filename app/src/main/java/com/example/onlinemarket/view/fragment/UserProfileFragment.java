@@ -46,9 +46,19 @@ public class UserProfileFragment extends VisibleFragment {
                 container, false);
 
         initViews();
-
+        setListeners();
         return mBinding.getRoot();
     }
+
+    private void setListeners() {
+        mBinding.textViewAddressesUserProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mNavController.navigate(R.id.action_UserProfileFragment_to_AddressesFragment);
+            }
+        });
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

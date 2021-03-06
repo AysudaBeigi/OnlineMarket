@@ -36,14 +36,17 @@
             <RelativeLayout
                 android:id="@+id/layout_favorite"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+
+                >
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/text_view_user_favorit_list"
                     style="@style/PartialTextStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                   android:drawableLeft="@drawable/ic_continue"
                     android:layout_toLeftOf="@+id/image_view_favorite"
                     android:text="@string/text_view_favorite" />
 
@@ -54,6 +57,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="16dp"
                     app:srcCompat="@drawable/heart" />
+
 
             </RelativeLayout>
 
@@ -74,9 +78,11 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/text_view_user_comments_user_profile"
                     style="@style/PartialTextStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:drawableLeft="@drawable/ic_continue"
+
                     android:layout_toLeftOf="@+id/image_view_comment"
                     android:text="@string/text_view_comment" />
 
@@ -107,9 +113,11 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/text_view_addresses_user_profile"
                     style="@style/PartialTextStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:drawableLeft="@drawable/ic_continue"
+
                     android:layout_toLeftOf="@+id/image_view_addresses"
                     android:text="@string/text_view_addresses" />
 
@@ -141,9 +149,11 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/text_view_user_account_info_user_profile"
                     style="@style/PartialTextStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:drawableLeft="@drawable/ic_continue"
+
                     android:layout_toLeftOf="@+id/image_view_user_account_info"
                     android:text="@string/text_view_user_account_info" />
 

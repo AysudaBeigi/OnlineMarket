@@ -1,21 +1,26 @@
 package com.example.onlinemarket.data.model.customer;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity(tableName = "Address")
 public class Address {
 
-    @PrimaryKey
-    @NonNull
-    @ColumnInfo(name = "addressId")
-    private Integer id;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "primaryId")
+    private int primaryId;
+
+    @SerializedName("id")
+    @ColumnInfo(name = "id")
+    private int id;
+
     @ColumnInfo(name = "name")
     private String name;
-    @ColumnInfo(name = "billingAddress")
-    private String billingAddress;
+    @ColumnInfo(name = "information")
+    private String information;
     @ColumnInfo(name = "latitude")
     private double latitude;
     @ColumnInfo(name = "longitude")
@@ -27,24 +32,30 @@ public class Address {
     }
 
 
-    public Address(String name, String billingAddress,
+    public Address(String name, String information,
                    double latitude, double longitude,
                    boolean selected) {
         this.name = name;
-        this.billingAddress = billingAddress;
+        this.information = information;
         this.latitude = latitude;
         this.longitude = longitude;
         this.selected = selected;
     }
 
-
-    @NonNull
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull Integer id) {
+    public void setId( int id) {
         this.id = id;
+    }
+
+    public void setPrimaryId(int primaryId) {
+        this.primaryId = primaryId;
+    }
+
+    public int getPrimaryId() {
+        return primaryId;
     }
 
     public String getName() {
@@ -55,12 +66,12 @@ public class Address {
         this.name = name;
     }
 
-    public String getBillingAddress() {
-        return billingAddress;
+    public String getInformation() {
+        return information;
     }
 
-    public void setBillingAddress(String billingAddress) {
-        this.billingAddress = billingAddress;
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public double getLatitude() {
@@ -96,6 +107,6 @@ public class Address {
     }*/
 
     public String showAddress() {
-        return name + " : " + billingAddress;
+        return name + " : " + information;
     }
 }
