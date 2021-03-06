@@ -32,29 +32,4 @@ public interface ICartDatabaseDAO {
     @Query("SELECT * FROM Card WHERE product_id=:productId")
     Card getCart(int productId);
 
-
-/*
-
-    @Update
-    void updateAddress(MapAddress mapAddress);
-
-    @Insert
-    void insertAddress(MapAddress mapAddress);
-
-    @Insert
-    void insertAddresses(List<MapAddress> mapAddresses);
-
-    @Delete
-    void deleteAddress(MapAddress mapAddress);
-
-    @Query("SELECT * FROM address")
-    List<MapAddress> getAddresses();
-
-    @Query("SELECT * FROM address WHERE selected_address=1")
-    MapAddress getAddress();
-
-    @Query("SELECT * FROM address WHERE primary_id=:addressId")
-    MapAddress getAddressWithId(long addressId);
-*/
-
 }
