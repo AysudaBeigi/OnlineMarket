@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 
 import com.example.onlinemarket.data.model.Comment;
 import com.example.onlinemarket.data.model.customer.Customer;
@@ -96,7 +96,7 @@ public class ProductDetailViewModel extends AndroidViewModel {
         return mCustomerDBRepository.getCustomer();
     }
 
-    public MutableLiveData<List<Comment>> getProductCommentsLiveData() {
+    public LiveData<List<Comment>> getProductCommentsLiveData() {
         return mCommentRepository.getProductCommentsLiveData();
     }
 

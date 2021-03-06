@@ -15,13 +15,13 @@ import java.util.List;
 public interface IAddressDataBaseDAO {
 
         @Insert
-        void insertAddress(Address... addresses);
+        void insertAddress(Address address);
 
         @Update
-        void updateAddress(Address... addresses);
+        void updateAddress(Address address);
 
         @Delete
-        void deleteAddress(Address... addresses);
+        void deleteAddress(Address address);
 
         @Query("select * from Address")
         LiveData<List<Address>> getAddresses();

@@ -72,5 +72,6 @@
     <string name="stop_polling">Stop polling</string>
     <string name="new_product_title">The OnlineMarket has a new product: \n</string>
     <string name="title_activity_maps">Map</string>
+    <string name="text_view_add_address">اضافه کردن آدرس جدید</string>
 
 </resources>

@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 
 import com.example.onlinemarket.data.model.product.Product;
 import com.example.onlinemarket.data.remote.NetworkParams;
@@ -32,7 +32,7 @@ public class SearchResultViewModel extends AndroidViewModel {
         mProductRepository.setSearchResultProductsLiveData(query);
     }
 
-    public MutableLiveData<List<Product>> getSearchResultProductsLiveData() {
+    public LiveData<List<Product>> getSearchResultProductsLiveData() {
         return mProductRepository.getSearchResultProductsLiveData();
     }
 

@@ -93,14 +93,20 @@
         android:hint="زمان موزد نظر خود را وارد کنید"
         />
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_marginBottom="32dp"
+        android:layout_alignParentBottom="true"
+
+        android:layout_height="wrap_content">
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_do_schedule"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        android:layout_marginBottom="32dp"
-        android:layout_alignParentBottom="true"
         android:text="اعمال تنظیمات" />
+    </com.google.android.material.card.MaterialCardView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

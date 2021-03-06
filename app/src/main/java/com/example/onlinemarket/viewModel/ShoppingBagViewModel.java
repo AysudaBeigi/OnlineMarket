@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 
 import com.example.onlinemarket.data.model.Card;
 import com.example.onlinemarket.data.model.customer.Customer;
@@ -51,7 +51,7 @@ public class ShoppingBagViewModel extends AndroidViewModel {
 
     }
 
-    public MutableLiveData<Order> getPostOrderMutableLiveData() {
+    public LiveData<Order> getPostOrderMutableLiveData() {
         return mOrderRepository.getPostOrderMutableLiveData();
     }
 
@@ -82,7 +82,7 @@ public class ShoppingBagViewModel extends AndroidViewModel {
         return lineItemsItemList;
     }
 
-    public MutableLiveData<Integer> getSumCardPrices() {
+    public LiveData<Integer> getSumCardPrices() {
         return mCardDBRepository.getSumCardPrices();
 
     }

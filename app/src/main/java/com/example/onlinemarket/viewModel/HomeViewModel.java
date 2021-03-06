@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 import androidx.navigation.NavController;
 
 import com.example.onlinemarket.data.model.product.Category;
@@ -29,28 +29,28 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
 
-    public MutableLiveData<List<Product>> getLatestProductsLiveData() {
+    public LiveData<List<Product>> getLatestProductsLiveData() {
         return mProductRepository.getLatestProductsLiveData();
     }
 
-    public MutableLiveData<List<Product>> getPopularProductsLiveData() {
+    public LiveData<List<Product>> getPopularProductsLiveData() {
         return mProductRepository.getPopularProductsLiveData();
     }
 
-    public MutableLiveData<List<Product>> getAmazingOfferProductsLiveData() {
+    public LiveData<List<Product>> getAmazingOfferProductsLiveData() {
         return mProductRepository.getAmazingOfferProductsLiveData();
     }
 
-    public MutableLiveData<List<Product>> getMostVisitedProductsLiveData() {
+    public LiveData<List<Product>> getMostVisitedProductsLiveData() {
         return mProductRepository.getMostVisitedProductsLiveData();
     }
 
 
-    public MutableLiveData<Product> getSpecialProductLiveData() {
+    public LiveData<Product> getSpecialProductLiveData() {
         return mProductRepository.getSpecialProductLiveData();
     }
 
-    public MutableLiveData<List<Category>> getParentCategoriesLiveData() {
+    public LiveData<List<Category>> getParentCategoriesLiveData() {
         return mCategoryRepository.getParentCategoriesLiveData();
     }
 
