@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -19,7 +18,7 @@ import com.example.onlinemarket.adapter.AddressesAdapter;
 import com.example.onlinemarket.viewModel.AddressesViewModel;
 import com.google.android.material.button.MaterialButton;
 
-public class AddressesFragment extends Fragment {
+public class AddressesFragment extends VisibleFragment {
     private MaterialButton mButtonAddAddress;
     private RecyclerView mRecyclerViewAddresses;
     private AddressesViewModel mAddressesViewModel;

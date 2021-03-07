@@ -39,7 +39,6 @@ public class SplashActivity extends AppCompatActivity {
             Log.d(TAG, "isNetworkConnected");
 
             setRequiredLiveDatas();
-
             startMainActivityAfterDelay();
         } else {
             Log.d(TAG, "is not NetworkConnected");

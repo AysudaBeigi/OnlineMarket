@@ -73,5 +73,11 @@
     <string name="new_product_title">The OnlineMarket has a new product: \n</string>
     <string name="title_activity_maps">Map</string>
     <string name="text_view_add_address">اضافه کردن آدرس جدید</string>
+    <string name="location_not_found_message">موقعیت مکانی شما غیر فعال است . آیا مایلید آن را فعال کنید ؟</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
+    <string name="why_need_location_permission">دسترسی به موقعیت مکانی به یافتن آدرس  شما برای ارسال محصول کمک میکند </string>
+    <string name="ok">متوجه شدم</string>
+
 
 </resources>
