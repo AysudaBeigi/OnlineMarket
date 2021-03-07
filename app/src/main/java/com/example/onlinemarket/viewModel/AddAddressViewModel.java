@@ -12,6 +12,8 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -21,13 +23,20 @@ import com.google.android.gms.location.LocationServices;
 
 public class AddAddressViewModel extends AndroidViewModel {
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    private MutableLiveData<Location> mUserLocation;
 
     public AddAddressViewModel(@NonNull Application application) {
         super(application);
         mFusedLocationProviderClient= LocationServices.
                 getFusedLocationProviderClient(getApplication());
+        mUserLocation=new MutableLiveData<>();
 
     }
+
+    public LiveData<Location> getUserLocation() {
+        return mUserLocation;
+    }
+
     public boolean isPermissionDenied(){
         return ContextCompat.checkSelfPermission(getApplication(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -52,7 +61,7 @@ public class AddAddressViewModel extends AndroidViewModel {
         LocationCallback locationCallback=new LocationCallback(){
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                Location location=locationResult.getLocations().get(0);
+                mUserLocation.setValue(locationResult.getLocations().get(0));
             }
         };
 

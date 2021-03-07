@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +14,25 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.viewModel.AddAddressViewModel;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class AddAddressFragment extends Fragment {
+public class AddAddressFragment extends SupportMapFragment {
 
 
     public static final int REQUEST_CODE_PERMISSION_LOCATION = 0;
     private AddAddressViewModel mAddAddressViewModel;
+    private GoogleMap mGoogleMap;
 
 
     public AddAddressFragment() {
@@ -37,7 +46,20 @@ public class AddAddressFragment extends Fragment {
         mAddAddressViewModel = new ViewModelProvider(this).
                 get(AddAddressViewModel.class);
 
-
+        mAddAddressViewModel.getUserLocation()
+                .observe(this, new Observer<Location>() {
+                    @Override
+                    public void onChanged(Location location) {
+                        updateUI();
+                    }
+                });
+        getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                mGoogleMap = googleMap;
+                updateUI();
+            }
+        });
     }
 
     @Override
@@ -130,5 +152,18 @@ public class AddAddressFragment extends Fragment {
 
         mAddAddressViewModel.requestLocation();
 
+    }
+    private void updateUI(){
+        if(mAddAddressViewModel.getUserLocation()==null||mGoogleMap==null)
+            return;
+        Location userLocation=mAddAddressViewModel.getUserLocation().getValue();
+        LatLng userLatLng=new LatLng(userLocation.getLatitude(),
+                userLocation.getLongitude());
+        MarkerOptions userMarker=new MarkerOptions().
+                position(userLatLng)
+                .title("شما اینجا هستید");
+        mGoogleMap.addMarker(userMarker);
+        CameraUpdate cameraUpdate= CameraUpdateFactory.newLatLng(userLatLng);
+        mGoogleMap.animateCamera(cameraUpdate);
     }
 }
