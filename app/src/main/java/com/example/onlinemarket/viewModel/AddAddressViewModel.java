@@ -15,6 +15,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.onlinemarket.data.model.customer.Address;
+import com.example.onlinemarket.data.repository.AddressRepository;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -24,12 +26,14 @@ import com.google.android.gms.location.LocationServices;
 public class AddAddressViewModel extends AndroidViewModel {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private MutableLiveData<Location> mUserLocation;
+    private AddressRepository mAddressRepository;
 
     public AddAddressViewModel(@NonNull Application application) {
         super(application);
         mFusedLocationProviderClient= LocationServices.
                 getFusedLocationProviderClient(getApplication());
         mUserLocation=new MutableLiveData<>();
+        mAddressRepository=AddressRepository.getInstance(getApplication());
 
     }
 
@@ -72,5 +76,10 @@ public class AddAddressViewModel extends AndroidViewModel {
 
     }
 
+    public void setUnRegisteredAddress(String information){
+        Address userAddress=new Address();
+        userAddress.setInformation(information);
+        mAddressRepository.setUnRegisteredAddress(userAddress);
+    }
 
 }

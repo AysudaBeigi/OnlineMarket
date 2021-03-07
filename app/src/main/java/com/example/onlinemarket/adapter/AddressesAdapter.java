@@ -47,8 +47,16 @@ public class AddressesAdapter extends RecyclerView.Adapter<AddressesAdapter.Addr
 
         public AddressViewHolder(@NonNull View itemView) {
             super(itemView);
+            findItemViews(itemView);
+
             setItemListener();
 
+        }
+
+        private void findItemViews(@NonNull View itemView) {
+            mTextViewAddressName=itemView.findViewById(R.id.text_view_address_name_item_view);
+            mTextViewAddressInformation=itemView.findViewById(R.id.text_view_address_information_item_view);
+            mRadioButtonSelectAddress=itemView.findViewById(R.id.radio_button_select_address_item_view);
         }
 
         private void setItemListener() {

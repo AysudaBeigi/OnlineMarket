@@ -13,8 +13,8 @@
         android:layout_alignParentRight="true"
         android:id="@+id/card_view_address_name_address_detail">
 
-       <com.google.android.material.textview.MaterialTextView
-           android:id="@+id/text_view_address_name_address_detail"
+       <com.google.android.material.textfield.TextInputEditText
+           android:id="@+id/edit_text_address_name_address_detail"
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:layout_marginTop="100dp"
@@ -30,8 +30,8 @@
         android:layout_marginTop="200dp"
         android:layout_below="@+id/card_view_address_name_address_detail">
 
-       <com.google.android.material.textview.MaterialTextView
-           android:id="@+id/text_view_complete_address_detail"
+       <com.google.android.material.textfield.TextInputEditText
+           android:id="@+id/edit_text_complete_address_detail"
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            style="@style/PartialTextStyle"

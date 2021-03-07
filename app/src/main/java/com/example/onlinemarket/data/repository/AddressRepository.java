@@ -15,9 +15,10 @@ public class AddressRepository implements IAddressRepository {
     private static AddressRepository sInstance;
     private IAddressDataBaseDAO mAddressDAO;
     private Context mContext;
+    private Address mUnRegisteredAddress;
 
 
-    public static  AddressRepository getInstance(Context context) {
+    public static AddressRepository getInstance(Context context) {
         if (sInstance == null)
             sInstance = new AddressRepository(context);
         return sInstance;
@@ -67,6 +68,14 @@ public class AddressRepository implements IAddressRepository {
     @Override
     public void deleteAllAddresses() {
         mAddressDAO.deleteAllAddresses();
+    }
+
+    public Address getUnRegisteredAddress() {
+        return mUnRegisteredAddress;
+    }
+
+    public void setUnRegisteredAddress(Address unRegisteredAddress) {
+        mUnRegisteredAddress = unRegisteredAddress;
     }
 }
 
