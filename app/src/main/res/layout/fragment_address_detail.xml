@@ -43,17 +43,24 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_alignParentBottom="true">
-   <com.google.android.material.button.MaterialButton
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:text="ثبت آدرس"
-       android:textColor="@color/white_ff"
-       style="@style/PartialTextStyle"
-       android:backgroundTint="@color/digikala_blue_gray"
-       android:layout_marginBottom="32dp"
-      />
+
+       <com.google.android.material.button.MaterialButton
+           android:id="@+id/button_register_address"
+           style="@style/PartialTextStyle"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_marginBottom="32dp"
+           android:backgroundTint="@color/digikala_blue_gray"
+           android:text="ثبت آدرس"
+           android:textColor="@color/white_ff" />
    </com.google.android.material.card.MaterialCardView>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_complete_address_detail_show_snack_bar"
+        />
 
 </RelativeLayout>

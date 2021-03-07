@@ -78,6 +78,7 @@
     <string name="no">خیر</string>
     <string name="why_need_location_permission">دسترسی به موقعیت مکانی به یافتن آدرس  شما برای ارسال محصول کمک میکند </string>
     <string name="ok">متوجه شدم</string>
+    <string name="complete_address_detail">لطفا ابتدا جزییات آدرس را کامل  کنید</string>
 
 
 </resources>
