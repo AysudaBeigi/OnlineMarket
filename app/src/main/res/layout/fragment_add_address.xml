@@ -8,11 +8,20 @@
     tools:context=".view.fragment.AddAddressFragment">
 
 
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        tools:context="com.example.OnlineMarket.view.fragment.AddAddressFragment" />
+
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="تایید"
         app:cornerRadius="32dp"
+        android:id="@+id/button_ok_location"
         style="@style/PartialTextStyle"
         android:textColor="@color/white_ff"
         android:layout_alignParentBottom="true"

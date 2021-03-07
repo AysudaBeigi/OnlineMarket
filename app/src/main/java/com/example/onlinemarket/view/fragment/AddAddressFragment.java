@@ -6,15 +6,16 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -33,12 +34,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.button.MaterialButton;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-public class AddAddressFragment extends SupportMapFragment {
+public class AddAddressFragment extends Fragment {
 
 
     public static final int REQUEST_CODE_PERMISSION_LOCATION = 0;
@@ -46,7 +42,7 @@ public class AddAddressFragment extends SupportMapFragment {
     private GoogleMap mGoogleMap;
     private Marker mMarker;
     private NavController mNavController;
-    private MaterialButton mButtonRegister;
+    private MaterialButton mButtonOkLocation;
 
 
     public AddAddressFragment() {
@@ -67,7 +63,10 @@ public class AddAddressFragment extends SupportMapFragment {
                         updateUI();
                     }
                 });
-        getMapAsync(new OnMapReadyCallback() {
+        SupportMapFragment supportMapFragment =
+                (SupportMapFragment) getActivity().getSupportFragmentManager()
+                        .findFragmentById(R.id.map);
+        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mGoogleMap = googleMap;
@@ -84,10 +83,36 @@ public class AddAddressFragment extends SupportMapFragment {
             requestLocationAccessPermission();
         }
 
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_add_address, container,
+                false);
+
+        findViews(view);
+        setListeners();
+        return view;
 
     }
 
+    private void setListeners() {
+        mButtonOkLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Location userLocation = mAddAddressViewModel.getUserLocation().getValue();
+                if (userLocation == null || mGoogleMap == null)
+                    return;
+                mNavController.navigate(R.id.action_AddAddressFragment_to_AddressDetailFragment);
+            }
+        });
+    }
+
+    private void findViews(View view) {
+        mButtonOkLocation = view.findViewById(R.id.button_ok_location);
+    }
 
     private void createAndShowChangeLocationSettingDialog() {
         new AlertDialog.Builder(getActivity())
@@ -172,16 +197,12 @@ public class AddAddressFragment extends SupportMapFragment {
                 userLocation.getLongitude());
 
         createAndAddMarker(userLatLng);
-        animateCamera(getLatLngBounds(userLatLng));
-
+        animateCamera(mAddAddressViewModel.getLatLngBounds(userLatLng));
+        mAddAddressViewModel.setUnregisteredAddress(userLatLng);
         setMapListener();
     }
 
-    private LatLngBounds getLatLngBounds(LatLng userLatLng) {
-        return new LatLngBounds.Builder()
-                .include(userLatLng)
-                .build();
-    }
+
 
     private void setMapListener() {
         mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -189,34 +210,17 @@ public class AddAddressFragment extends SupportMapFragment {
             @Override
             public void onMapClick(LatLng point) {
 
-                List<Address> locationAddresses = new ArrayList<>();
-                try {
-                    Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-                    locationAddresses = geocoder.getFromLocation(
-                            point.latitude,
-                            point.longitude, 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if (locationAddresses.size() > 0)
-                    if (locationAddresses.get(0) != null) {
-                        StringBuilder addressStringBuilder = new StringBuilder();
-                        for (int i = 0; i < locationAddresses.get(0).getMaxAddressLineIndex(); i++) {
-                            addressStringBuilder.append(locationAddresses.get(0).getAddressLine(i) + "\n");
-                        }
-                        mAddAddressViewModel.
-                                setUnRegisteredAddress(addressStringBuilder.toString());
-                    }
+                mAddAddressViewModel.setUnregisteredAddress(point);
 
                 if (mMarker != null) {
                     mMarker.remove();
                 }
                 createAndAddMarker(point);
-                animateCamera(getLatLngBounds(point));
+                animateCamera(mAddAddressViewModel.getLatLngBounds(point));
             }
         });
     }
+
 
     private void animateCamera(LatLngBounds latLngBounds) {
 
@@ -235,6 +239,7 @@ public class AddAddressFragment extends SupportMapFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mNavController= Navigation.findNavController(view);
+        mNavController = Navigation.findNavController(view);
     }
+
 }
