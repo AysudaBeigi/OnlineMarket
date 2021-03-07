@@ -22,6 +22,9 @@ public class AddressesViewModel extends AndroidViewModel {
     public List<Address> getAddresses() {
         return mAddressRepository.getAddresses();
     }
+    public void updateAddress(Address address){
+        mAddressRepository.updateAddress(address);
+    }
 
 
 }

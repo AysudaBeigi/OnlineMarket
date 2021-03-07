@@ -103,13 +103,17 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_margin="2dp"
-                android:background="@drawable/btn_rounded"
-                android:backgroundTint="@color/white_ff"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginBottom="2dp"
                 android:text="@string/final_shop"
                 android:textColor="@color/white_ff"
                 android:visibility="@{isAnyProductInCard?View.VISIBLE:View.GONE}"
-                app:backgroundTint="@color/colorPrimary" />
+                app:backgroundTint="@color/colorPrimary"
+                app:cornerRadius="32dp" />
         </RelativeLayout>
 
     </RelativeLayout>

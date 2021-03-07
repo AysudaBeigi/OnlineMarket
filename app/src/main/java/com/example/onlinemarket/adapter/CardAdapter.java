@@ -114,6 +114,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             mTextViewPrice.setText(order.getPrice()+
                     mContext.getResources().getString(R.string.toman));
             mTextViewCount.setText(mProductCount + "");
+            setSumCardsPriceMutableLiveData();
            /* mBinding.textViewNameCardItem.setText(order.getName());
             mBinding.textViewPriceCardItem.setText(order.getPrice()+
                     mContext.getResources().getString(R.string.toman));

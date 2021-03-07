@@ -32,9 +32,9 @@
                 android:layout_width="43dp"
                 android:layout_height="43dp"
                 android:layout_gravity="center"
-                tools:src="@drawable/ic_placeholder_recycler"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_placeholder_recycler"
-                android:scaleType="fitCenter" />
+                tools:src="@drawable/online_market_icon" />
 
         </com.google.android.material.card.MaterialCardView>
 

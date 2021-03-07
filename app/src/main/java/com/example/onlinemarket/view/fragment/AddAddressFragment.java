@@ -10,14 +10,15 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.onlinemarket.R;
 import com.example.onlinemarket.viewModel.AddAddressViewModel;
@@ -27,8 +28,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.button.MaterialButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +45,8 @@ public class AddAddressFragment extends SupportMapFragment {
     private AddAddressViewModel mAddAddressViewModel;
     private GoogleMap mGoogleMap;
     private Marker mMarker;
+    private NavController mNavController;
+    private MaterialButton mButtonRegister;
 
 
     public AddAddressFragment() {
@@ -69,24 +74,18 @@ public class AddAddressFragment extends SupportMapFragment {
                 updateUI();
             }
         });
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_address,
-                container, false);
         if (hasLocationAccess()) {
             if (!mAddAddressViewModel.isLocationEnable()) {
                 createAndShowChangeLocationSettingDialog();
             } else {
                 requestLocation();
-                //todo: get the map
             }
         } else {
             requestLocationAccessPermission();
         }
-        return view;
+
+
+
     }
 
 
@@ -162,16 +161,26 @@ public class AddAddressFragment extends SupportMapFragment {
         mAddAddressViewModel.requestLocation();
 
     }
-    private void updateUI(){
-        if(mAddAddressViewModel.getUserLocation()==null||mGoogleMap==null)
+
+    private void updateUI() {
+
+        Location userLocation = mAddAddressViewModel.getUserLocation().getValue();
+        if (userLocation == null || mGoogleMap == null)
             return;
-        Location userLocation=mAddAddressViewModel.getUserLocation().getValue();
-        LatLng userLatLng=new LatLng(userLocation.getLatitude(),
+
+        LatLng userLatLng = new LatLng(userLocation.getLatitude(),
                 userLocation.getLongitude());
+
         createAndAddMarker(userLatLng);
-        animateCamera(userLatLng);
+        animateCamera(getLatLngBounds(userLatLng));
 
         setMapListener();
+    }
+
+    private LatLngBounds getLatLngBounds(LatLng userLatLng) {
+        return new LatLngBounds.Builder()
+                .include(userLatLng)
+                .build();
     }
 
     private void setMapListener() {
@@ -182,42 +191,50 @@ public class AddAddressFragment extends SupportMapFragment {
 
                 List<Address> locationAddresses = new ArrayList<>();
                 try {
-                    Geocoder geocoder=new Geocoder(getContext(), Locale.getDefault());
+                    Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
                     locationAddresses = geocoder.getFromLocation(
                             point.latitude,
-                            point.longitude,1);
+                            point.longitude, 1);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                Address address = locationAddresses.get(0);
-
-                if (address != null) {
-                    StringBuilder addressStringBuilder = new StringBuilder();
-                    for (int i = 0; i < address.getMaxAddressLineIndex(); i++){
-                        addressStringBuilder.append(address.getAddressLine(i) + "\n");
+                if (locationAddresses.size() > 0)
+                    if (locationAddresses.get(0) != null) {
+                        StringBuilder addressStringBuilder = new StringBuilder();
+                        for (int i = 0; i < locationAddresses.get(0).getMaxAddressLineIndex(); i++) {
+                            addressStringBuilder.append(locationAddresses.get(0).getAddressLine(i) + "\n");
+                        }
+                        mAddAddressViewModel.
+                                setUnRegisteredAddress(addressStringBuilder.toString());
                     }
-                    mAddAddressViewModel.setUnRegisteredAddress(addressStringBuilder.toString());
-                }
 
                 if (mMarker != null) {
                     mMarker.remove();
                 }
-               createAndAddMarker(point);
-               animateCamera(point);
+                createAndAddMarker(point);
+                animateCamera(getLatLngBounds(point));
             }
         });
     }
 
-    private void animateCamera(LatLng latLng) {
-        CameraUpdate cameraUpdate= CameraUpdateFactory.newLatLng(latLng);
+    private void animateCamera(LatLngBounds latLngBounds) {
+
+        int margin = getResources().getDimensionPixelSize(R.dimen.map_inset_margin);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLngBounds, margin);
         mGoogleMap.animateCamera(cameraUpdate);
     }
 
     private void createAndAddMarker(LatLng latLng) {
-        MarkerOptions userMarkerOptions=new MarkerOptions().
+        MarkerOptions userMarkerOptions = new MarkerOptions().
                 position(latLng)
                 .title("شما اینجا هستید");
-        mMarker=mGoogleMap.addMarker(userMarkerOptions);
+        mMarker = mGoogleMap.addMarker(userMarkerOptions);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mNavController= Navigation.findNavController(view);
     }
 }

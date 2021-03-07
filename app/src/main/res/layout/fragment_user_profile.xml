@@ -13,7 +13,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_bd"
+        android:layout_margin="8dp"
         android:scrollbars="horizontal">
 
         <View
@@ -274,54 +274,55 @@
                 android:outlineAmbientShadowColor="#DDDDDD"
                 android:outlineSpotShadowColor="#DDDDDD" />
 
-            <ScrollView
-                android:id="@+id/scroll_view_user_orders"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginTop="8dp"
-                android:layoutDirection="rtl"
-                android:scrollbars="horizontal">
+                android:layout_below="@+id/text_view_user_orders"
+                android:layout_marginTop="10dp"
+                android:background="@color/white_ff"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_below="@+id/text_view_user_orders"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/white_ff"
-                    android:orientation="horizontal">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_waiting_for_pay"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/cart_pay" />
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/image_view_waiting_for_pay"
-                        android:layout_width="0dp"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/cart_pay" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_is_processing"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/process" />
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/image_view_is_processing"
-                        android:layout_width="0dp"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/process" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_done_shopping"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/done" />
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/image_view_done_shopping"
-                        android:layout_width="0dp"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/done" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/image_view_canceled_shopping"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/cancel" />
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/image_view_canceled_shopping"
-                        android:layout_width="0dp"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/cancel" />
-
-                </LinearLayout>
-            </ScrollView>
+            </LinearLayout>
 
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/layput_user_orders"
+            android:layout_marginTop="2dp"
+            android:background="?android:attr/listDivider"
+            android:outlineAmbientShadowColor="#DDDDDD"
+            android:outlineSpotShadowColor="#DDDDDD" />
+
 
     </RelativeLayout>
 </layout>

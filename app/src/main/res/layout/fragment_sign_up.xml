@@ -73,14 +73,15 @@
                     app:boxCornerRadiusBottomEnd="4dp" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_enter_online_market"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/button_enter_online_market"
                     android:layout_below="@id/text_input_edit_text_user_email"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="40dp"
                     android:layout_alignParentBottom="true"
-                    android:text="ورود به فروشگاه انلاین" />
+                    android:layout_marginTop="40dp"
+                    android:text="ورود به فروشگاه انلاین"
+                    app:cornerRadius="32dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

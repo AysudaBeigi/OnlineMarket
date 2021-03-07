@@ -65,6 +65,7 @@ public class AddressesAdapter extends RecyclerView.Adapter<AddressesAdapter.Addr
                 public void onClick(View v) {
 
                     mAddress.setSelected(true);
+                    mAddressViewModel.updateAddress(mAddress);
                 }
             });
         }

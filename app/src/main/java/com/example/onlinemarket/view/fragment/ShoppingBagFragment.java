@@ -1,7 +1,6 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,8 +72,6 @@ public class ShoppingBagFragment extends VisibleFragment {
                                 @Override
                                 public void onChanged(Order order) {
 
-                                    Log.d(TAG, "postOrder+ onItemResponse + order is " +
-                                            order.toString());
                                     mNavController.
                                             navigate(R.id.action_ShoppingBagFragment_to_AddressesFragment);
                                 }
