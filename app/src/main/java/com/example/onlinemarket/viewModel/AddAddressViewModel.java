@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -35,6 +36,7 @@ public class AddAddressViewModel extends AndroidViewModel {
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private MutableLiveData<Location> mUserLocation;
     private AddressRepository mAddressRepository;
+    private static String TAG = "OnlineMarket";
 
     public AddAddressViewModel(@NonNull Application application) {
         super(application);
@@ -49,16 +51,20 @@ public class AddAddressViewModel extends AndroidViewModel {
         return mUserLocation;
     }
 
-    public boolean isPermissionDenied() {
+    public boolean hasLocationAccess() {
+        Log.d(TAG,"AddAddressViewModel + hasLocationAccess");
+
         return ContextCompat.checkSelfPermission(getApplication(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED ||
+                == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(getApplication(),
                         Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED;
+                        == PackageManager.PERMISSION_GRANTED;
     }
 
     public boolean isLocationEnable() {
+        Log.d(TAG,"AddAddressViewModel + isLocationEnable");
+
         LocationManager locationManager = (LocationManager)
                 getApplication().getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -66,6 +72,8 @@ public class AddAddressViewModel extends AndroidViewModel {
 
     @SuppressLint("MissingPermission")
     public void requestLocation() {
+        Log.d(TAG,"AddAddressViewModel + requestLocation");
+
         LocationRequest locationRequest = LocationRequest.create();
         locationRequest.setNumUpdates(1);
         locationRequest.setInterval(0);
@@ -86,12 +94,18 @@ public class AddAddressViewModel extends AndroidViewModel {
     }
 
     public void setUnRegisteredAddress(String information) {
+        Log.d(TAG,"AddAddressViewModel + setUnRegisteredAddress");
+
         Address userAddress = new Address();
         userAddress.setInformation(information);
         mAddressRepository.setUnRegisteredAddress(userAddress);
     }
 
     public void setUnregisteredAddress(LatLng point) {
+        Log.d(TAG,"AddAddressViewModel + setUnregisteredAddress + latLng");
+        Log.d(TAG,"AddAddressViewModel + lat is  "+point.latitude);
+        Log.d(TAG,"AddAddressViewModel + lng is  "+point.longitude);
+
         List<android.location.Address> locationAddresses = new ArrayList<>();
         try {
             Geocoder geocoder = new Geocoder(getApplication(), Locale.getDefault());
@@ -102,6 +116,8 @@ public class AddAddressViewModel extends AndroidViewModel {
             e.printStackTrace();
         }
 
+
+        Log.d(TAG,"locationAddresses.size() is "+locationAddresses.size());
         if (locationAddresses.size() > 0)
             if (locationAddresses.get(0) != null) {
                 StringBuilder addressStringBuilder = new StringBuilder();
@@ -112,6 +128,8 @@ public class AddAddressViewModel extends AndroidViewModel {
             }
     }
     public LatLngBounds getLatLngBounds(LatLng latLng) {
+        Log.d(TAG,"AddAddressViewModel + getLatLngBounds");
+
         return new LatLngBounds.Builder()
                 .include(latLng)
                 .build();

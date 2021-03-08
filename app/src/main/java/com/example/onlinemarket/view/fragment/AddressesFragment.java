@@ -1,6 +1,7 @@
 package com.example.onlinemarket.view.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,14 @@ import com.example.onlinemarket.R;
 import com.example.onlinemarket.adapter.AddressesAdapter;
 import com.example.onlinemarket.viewModel.AddressesViewModel;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textview.MaterialTextView;
 
 public class AddressesFragment extends VisibleFragment {
     private MaterialButton mButtonAddAddress;
     private RecyclerView mRecyclerViewAddresses;
     private AddressesViewModel mAddressesViewModel;
     private NavController mNavController;
+    private MaterialTextView mTextViewHaveNotAnyAddress;
 
 
     public AddressesFragment() {
@@ -68,6 +71,16 @@ public class AddressesFragment extends VisibleFragment {
     }
 
     private void initViews() {
+        if(mAddressesViewModel.getAddresses().size()==0){
+            Log.d(TAG,"mAddressesViewModel.getAddresses()==null");
+            mTextViewHaveNotAnyAddress.setVisibility(View.VISIBLE);
+            mRecyclerViewAddresses.setVisibility(View.GONE);
+        }else {
+            Log.d(TAG,"mAddressesViewModel.getAddresses()!=null");
+
+            mTextViewHaveNotAnyAddress.setVisibility(View.GONE);
+            mRecyclerViewAddresses.setVisibility(View.VISIBLE);
+        }
         mRecyclerViewAddresses.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
@@ -79,5 +92,6 @@ public class AddressesFragment extends VisibleFragment {
     private void findViews(View view) {
         mRecyclerViewAddresses = view.findViewById(R.id.recycler_view_addresses);
         mButtonAddAddress = view.findViewById(R.id.button_add_address);
+        mTextViewHaveNotAnyAddress =view.findViewById(R.id.text_view_have_not_any_address);
     }
 }

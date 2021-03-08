@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.fragment.AddressesFragment"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    tools:context=".view.fragment.AddressesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_addresses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginTop="32dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_view_have_not_any_address"
+        style="@style/PartialTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerInParent="true"
+        android:text="هنوز آدرسی را ثبت نکرده اید" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_view_add_address"
@@ -20,12 +30,14 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="8dp">
 
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_add_address"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cornerRadius="32dp"
-            android:text="@string/text_view_add_address" />
+            android:layout_marginBottom="32dp"
+            android:text="@string/text_view_add_address"
+            app:cornerRadius="32dp" />
     </com.google.android.material.card.MaterialCardView>
 
 </RelativeLayout>

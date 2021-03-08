@@ -21,6 +21,7 @@
 
 
         <ScrollView
+            android:id="@+id/scroll_view_product_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -147,8 +148,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/text_view_users_comment"
-                        android:layoutDirection="rtl"
                         android:layout_centerHorizontal="true"
+                        android:layoutDirection="rtl"
                         android:text="هنوز نظری ثبت نشده است"
                         android:textColor="@color/digikala_blue_gray"
                         android:visibility="@{haveAnyComment?View.GONE:View.VISIBLE}" />
@@ -159,9 +160,9 @@
                     android:id="@+id/button_post_comment_product_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="left"
                     android:backgroundTint="@color/digikala_blue_gray"
                     android:layoutDirection="rtl"
-                    android:layout_gravity="left"
                     android:text="ثبت دیدگاه"
                     app:cornerRadius="32dp"
                     app:icon="@drawable/ic_comment" />
@@ -175,64 +176,63 @@
                     android:outlineSpotShadowColor="#DDDDDD" />
 
                 <LinearLayout
+                    android:id="@+id/layout_show_snack_bar_product_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/layout_show_snack_bar_product_detail" />
+                    android:orientation="vertical" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_add_to_shopping_bag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/digikala_dark_white"
+                    android:backgroundTint="@color/white_ff">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/text_view_old_price_product_detail"
+                        style="@style/NonSignificantTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="left"
+                        android:layoutDirection="rtl"
+                        android:text="@{productDetailViewModel.regularPrice}"
+                        android:textColor="@color/digikala_gray"
+                        tools:text="قیمت قدیم" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/text_view_latest_price_product_detail"
+                        style="@style/PartialTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/text_view_old_price_product_detail"
+                        android:layout_alignParentLeft="true"
+
+                        android:gravity="left"
+                        android:layoutDirection="rtl"
+                        android:text="@{productDetailViewModel.price}"
+                        tools:text="قیمت جدید" />
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_add_to_shopping_bag"
+                        style="@style/PartialTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/add_bag"
+                        android:textColor="@color/white_ff"
+                        app:backgroundTint="@color/colorPrimary"
+                        app:cornerRadius="32dp" />
+                </RelativeLayout>
 
 
             </LinearLayout>
 
 
         </ScrollView>
-
-        <RelativeLayout
-            android:id="@+id/layout_add_to_shopping_bag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="20dp"
-            android:background="@color/digikala_dark_white"
-            android:backgroundTint="@color/white_ff">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_view_old_price_product_detail"
-                style="@style/NonSignificantTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:gravity="left"
-                android:layoutDirection="rtl"
-                android:text="@{productDetailViewModel.regularPrice}"
-                android:textColor="@color/digikala_gray"
-                tools:text="قیمت قدیم" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text_view_latest_price_product_detail"
-                style="@style/PartialTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_view_old_price_product_detail"
-                android:layout_alignParentLeft="true"
-
-                android:gravity="left"
-                android:layoutDirection="rtl"
-                android:text="@{productDetailViewModel.price}"
-                tools:text="قیمت جدید" />
-
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_add_to_shopping_bag"
-                style="@style/PartialTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                app:cornerRadius="32dp"
-                android:text="@string/add_bag"
-                android:textColor="@color/white_ff"
-                app:backgroundTint="@color/colorPrimary" />
-        </RelativeLayout>
 
 
     </RelativeLayout>

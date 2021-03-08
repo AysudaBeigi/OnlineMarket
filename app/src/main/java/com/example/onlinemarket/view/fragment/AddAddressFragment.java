@@ -8,14 +8,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -32,9 +30,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.button.MaterialButton;
 
-public class AddAddressFragment extends Fragment {
+public class AddAddressFragment extends SupportMapFragment {
 
 
     public static final int REQUEST_CODE_PERMISSION_LOCATION = 0;
@@ -42,17 +39,18 @@ public class AddAddressFragment extends Fragment {
     private GoogleMap mGoogleMap;
     private Marker mMarker;
     private NavController mNavController;
-    private MaterialButton mButtonOkLocation;
+    private static String TAG = "OnlineMarket";
 
 
     public AddAddressFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG,"AddAddressFragment + onCreate");
+
         mAddAddressViewModel = new ViewModelProvider(this).
                 get(AddAddressViewModel.class);
 
@@ -63,58 +61,31 @@ public class AddAddressFragment extends Fragment {
                         updateUI();
                     }
                 });
-        SupportMapFragment supportMapFragment =
-                (SupportMapFragment) getActivity().getSupportFragmentManager()
-                        .findFragmentById(R.id.map);
-        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                mGoogleMap = googleMap;
-                updateUI();
-            }
-        });
+            getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    Log.d(TAG,"onMapReady  ");
+
+                    mGoogleMap = googleMap;
+                    updateUI();
+                }
+            });
         if (hasLocationAccess()) {
-            if (!mAddAddressViewModel.isLocationEnable()) {
-                createAndShowChangeLocationSettingDialog();
-            } else {
-                requestLocation();
-            }
+            Log.d(TAG,"hasLocationAccess is true ");
+
+            getLocation();
         } else {
+            Log.d(TAG,"hasLocationAccess is flase ");
+
             requestLocationAccessPermission();
         }
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_address, container,
-                false);
-
-        findViews(view);
-        setListeners();
-        return view;
-
-    }
-
-    private void setListeners() {
-        mButtonOkLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Location userLocation = mAddAddressViewModel.getUserLocation().getValue();
-                if (userLocation == null || mGoogleMap == null)
-                    return;
-                mNavController.navigate(R.id.action_AddAddressFragment_to_AddressDetailFragment);
-            }
-        });
-    }
-
-    private void findViews(View view) {
-        mButtonOkLocation = view.findViewById(R.id.button_ok_location);
-    }
 
     private void createAndShowChangeLocationSettingDialog() {
+        Log.d(TAG,"createAndShowChangeLocationSettingDialog  ");
+
         new AlertDialog.Builder(getActivity())
                 .setMessage(R.string.location_not_found_message)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -130,20 +101,13 @@ public class AddAddressFragment extends Fragment {
 
 
     private boolean hasLocationAccess() {
-
-        if (mAddAddressViewModel.isPermissionDenied()) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-                createAndShowRequestPermissionRationalDialog();
-            }
-            return false;
-        } else {
-            return true;
-        }
+        Log.d(TAG,"hasLocationAccess ");
+        return mAddAddressViewModel.hasLocationAccess();
     }
 
     private void createAndShowRequestPermissionRationalDialog() {
+        Log.d(TAG,"createAndShowRequestPermissionRationalDialog ");
+
         new AlertDialog.Builder(getActivity())
                 .setMessage(R.string.why_need_location_permission)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -157,6 +121,7 @@ public class AddAddressFragment extends Fragment {
     }
 
     private void requestLocationAccessPermission() {
+
         String[] permissions = new String[]{
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION
@@ -172,14 +137,35 @@ public class AddAddressFragment extends Fragment {
                 if (grantResults == null || grantResults.length == 0)
                     return;
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    requestLocation();
+                    getLocation();
+                }else {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                            Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        Log.d(TAG,"shouldShowRequestPermissionRationale ");
+
+                        createAndShowRequestPermissionRationalDialog();
+                    }
                 }
                 return;
         }
     }
 
+    private void getLocation() {
+        if (!mAddAddressViewModel.isLocationEnable()) {
+            Log.d(TAG, "isLocationEnable is false ");
+
+            createAndShowChangeLocationSettingDialog();
+        } else {
+            requestLocation();
+        }
+    }
+
     @SuppressLint("MissingPermission")
     private void requestLocation() {
+
+        Log.d(TAG,"AddADressFragment + requestLocation  ");
+        Log.d(TAG,"hasLocationAccess is   "+hasLocationAccess());
+
         if (!hasLocationAccess())
             return;
 
@@ -188,8 +174,13 @@ public class AddAddressFragment extends Fragment {
     }
 
     private void updateUI() {
+        Log.d(TAG,"AddAddressFragment + updateUI ");
+
 
         Location userLocation = mAddAddressViewModel.getUserLocation().getValue();
+        Log.d(TAG,"AddAddressFragment + userLocation is  null is  "+ (userLocation==null));
+        Log.d(TAG,"AddAddressFragment + mGoogleMap is null is "+ (mGoogleMap==null));
+
         if (userLocation == null || mGoogleMap == null)
             return;
 
@@ -199,30 +190,41 @@ public class AddAddressFragment extends Fragment {
         createAndAddMarker(userLatLng);
         animateCamera(mAddAddressViewModel.getLatLngBounds(userLatLng));
         mAddAddressViewModel.setUnregisteredAddress(userLatLng);
+
         setMapListener();
     }
 
 
-
     private void setMapListener() {
+        Log.d(TAG,"AddAddressFragment + setMapListener ");
+
         mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
             @Override
             public void onMapClick(LatLng point) {
-
-                mAddAddressViewModel.setUnregisteredAddress(point);
 
                 if (mMarker != null) {
                     mMarker.remove();
                 }
                 createAndAddMarker(point);
                 animateCamera(mAddAddressViewModel.getLatLngBounds(point));
+               }
+        });
+        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                mAddAddressViewModel.setUnregisteredAddress(marker.getPosition());
+                mNavController.navigate(R.id.action_AddAddressFragment_to_AddressDetailFragment);
+
+                return false;
             }
         });
+
     }
 
 
     private void animateCamera(LatLngBounds latLngBounds) {
+        Log.d(TAG,"AddAddressFragment + animateCamera ");
 
         int margin = getResources().getDimensionPixelSize(R.dimen.map_inset_margin);
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLngBounds, margin);
@@ -230,9 +232,12 @@ public class AddAddressFragment extends Fragment {
     }
 
     private void createAndAddMarker(LatLng latLng) {
+        Log.d(TAG,"AddAddressFragment + createAndAddMarker ");
+
         MarkerOptions userMarkerOptions = new MarkerOptions().
                 position(latLng)
                 .title("شما اینجا هستید");
+
         mMarker = mGoogleMap.addMarker(userMarkerOptions);
     }
 
