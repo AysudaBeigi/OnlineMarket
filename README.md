@@ -9,9 +9,9 @@ This is a online market application.
 
 <br>
 
-|User profile Page | Category products Page | Customer Information |
-|--|--|--|
-| <img src="https://user-images.githubusercontent.com/74787164/110628387-30f10700-81b8-11eb-9d6b-df7c3113402f.jpg" width=300px> | <img src="https://user-images.githubusercontent.com/74787164/110628409-38b0ab80-81b8-11eb-98f4-62c136c97428.jpg" width=300px> | <img src="https://user-images.githubusercontent.com/73055859/105646855-0ab91700-5e57-11eb-837f-32c30e692f5d.jpg" width=300px> |
+Product detail page |Product detail page |  Category products Page |Shopping bag page | User profile Page |
+|--|--|--|--|--|
+| <img src="https://user-images.githubusercontent.com/74787164/110628970-e7ed8280-81b8-11eb-898c-56d2337421f5.jpg" width=300px> | <img src="https://user-images.githubusercontent.com/74787164/110628988-ecb23680-81b8-11eb-9ffc-74f3e5a4fdb7.jpg" width=300px> | <img src="https://user-images.githubusercontent.com/74787164/110629174-22571f80-81b9-11eb-9597-6b519d851907.jpg" width=300px> | <img src="https://user-images.githubusercontent.com/74787164/110629362-53375480-81b9-11eb-9981-86984dc3a1f6.jpg" width=300px> |<img src="https://user-images.githubusercontent.com/74787164/110629666-aad5c000-81b9-11eb-8e9c-bb0497424028.jpg" width=300px> |
 
 <br>
 
