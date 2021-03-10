@@ -3,9 +3,9 @@ This is a online market application.
 
 <br>
 
-| Loading Page | Main Page | Navigation View |
-|--|--|--|
-| <img src="https://user-images.githubusercontent.com/74787164/110626690-49f8b880-81b6-11eb-88a9-96e08fbb4996.jpg" width=300px> |<img src="https://user-images.githubusercontent.com/74787164/110626093-8bd52f00-81b5-11eb-8fd3-03f36424062f.jpg" width=300px> | <img src="https://user-images.githubusercontent.com/74787164/110626526-1322a280-81b6-11eb-982d-3e5a8923e9f7.jpg" width=300px> |
+| Loading Page | Home Page | Categories page |ShoppingBag page|SignUp page
+|--|--|--|--|--|
+| <img src="https://user-images.githubusercontent.com/74787164/110626867-80cece80-81b6-11eb-8c40-826266ded038.jpg" width=300px> |<img src="https://user-images.githubusercontent.com/74787164/110626093-8bd52f00-81b5-11eb-8fd3-03f36424062f.jpg" width=300px> | <img src="https://user-images.githubusercontent.com/74787164/110626690-49f8b880-81b6-11eb-88a9-96e08fbb4996.jpg" width=300px> |<img src="https://user-images.githubusercontent.com/74787164/110627771-9bee0e00-81b7-11eb-954f-a24436c01d02.jpg" width=300px> |<img src="https://user-images.githubusercontent.com/74787164/110627771-9bee0e00-81b7-11eb-954f-a24436c01d02.jpg" width=300px> |
 
 <br>
 
