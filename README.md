@@ -28,7 +28,7 @@ This is a online market application.
  - [x] Post customer to server and save customer information in room database
  - [x] Post comment for a product 
  - [x] Post order and apply a discount on total price
- - [x] Search and Filter products
+ - [x] Search and sort products
  - [x] Send notification when create a new product in server
  - [x] Select user address in google map
  
