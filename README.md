@@ -24,10 +24,9 @@ This is a online market application.
 
 
  ## Features
- - [x] Request to Woocamerce Rest api and receive products with product detail such as : name, description, price, regular price, rate, reviews, images
- - [x] Post customer to server and save customer information in share prefrences file
+ - [x] Request to Woocamerce Rest api and receive products and categories with product detail such as : name, description, price, regular price, reviews, images
+ - [x] Post customer to server and save customer information in room database
  - [x] Post comment for a product 
- - [x] Delete , Edit a review
  - [x] Post order and apply a discount on total price
  - [x] Search and Filter products
  - [x] Send notification when create a new product in server
@@ -38,4 +37,4 @@ This is a online market application.
 - [x] MVVM
  
  ## External Libraries
- - Retrofit, Gson, Work Manager, Room, Glide, Google services, Lottie, Safe Args
+ - Retrofit, EventBus, WorkManager, Room, Picasso, GoogleServices, Lottie, NanigationComponetn , MaterilaDesign
